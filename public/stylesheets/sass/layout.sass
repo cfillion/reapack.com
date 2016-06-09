@@ -1,29 +1,50 @@
-@import "meyer-reset"
-@import url(https://fonts.googleapis.com/css?family=Roboto+Slab:400,700)
-
 $background: #332A25
 $foreground: #D7FACB
+$padding: 10px
+$width: 870px
+
+@import "meyer-reset"
+@import url(https://fonts.googleapis.com/css?family=Roboto+Slab:400,700)
+@import url(https://fonts.googleapis.com/css?family=Open+Sans)
 
 body
   background-color: $background
   color: $foreground
-  font-family: 'Roboto Slab', serif
+  font-family: 'Open Sans', sans-serif
   font-size: 12pt
   margin: auto
-  max-width: 880px
-  padding: 20px
+  max-width: $width
+  padding-left: $padding
+  padding-right: $padding
   text-shadow: 1px 1px black
+
+p
+  margin-bottom: 1rem
+  margin-top: 1rem
+
+h1, h2
+  @extend p
+  font-family: 'Roboto Slab', serif
+  font-weight: 700
+  margin-bottom: 1.2rem
+  margin-top: 1.5rem
 
 h1
   border-bottom: 1px solid $foreground
   font-size: 2.3rem
   font-weight: 700
-  margin-bottom: 1.5rem
-  margin-top: 1.5rem
   padding-bottom: 7px
+
+h2
+  font-size: 1.5rem
 
 img
   max-width: 100%
+
+a
+  color: $foreground
+  font-weight: bold
+  text-decoration: underline
 
 #screenshot
   text-align: center
@@ -35,3 +56,66 @@ img
 
     &:hover
       opacity: 1
+
+#requirements, #version
+  font-size: 0.8rem
+  margin: 0
+
+#downloads
+  color: $background
+  text-shadow: 1px 1px white
+
+  h6
+    font-size: 1.3em
+    font-weight: bold
+    margin-bottom: 5px
+
+  a
+    color: inherit
+
+  #darwin
+    background-image: url('/images/apple.png')
+
+  #windows
+    background-image: url('/images/windows.png')
+
+  #manual
+    background-image: url('/images/manual.png')
+
+  ul li
+    margin-bottom: 3px
+    list-style-type: disc
+    margin-left: 17px
+    color: blue
+
+  > li
+    background: $foreground
+    border-radius: 7px
+    margin-bottom: 10px
+    overflow: hidden
+    padding: 14px
+    padding-left: 84px
+    display: block
+    background-repeat: no-repeat
+    background-position: 10px center
+
+@media screen and (min-width: $width)
+  #downloads > li
+    float: left
+    -moz-box-sizing: margin-box
+    -webkit-box-sizing: margin-box
+    box-sizing: border-box
+    width: ($width / 3) - 8
+    height: 88px
+    &:not(:last-child)
+      margin-right: 10px
+
+  #requirements
+    float: left
+
+  #version
+    float: right
+    text-align: right
+
+.clearfix
+  clear: both
