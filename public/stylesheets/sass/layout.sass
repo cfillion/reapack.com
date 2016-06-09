@@ -5,7 +5,7 @@ $width: 870px
 
 @import "meyer-reset"
 @import url(https://fonts.googleapis.com/css?family=Roboto+Slab:400,700)
-@import url(https://fonts.googleapis.com/css?family=Roboto)
+@import url(https://fonts.googleapis.com/css?family=Roboto:400,500)
 @import url(https://maxcdn.bootstrapcdn.com/font-awesome/4.6.3/css/font-awesome.min.css)
 
 html
@@ -68,35 +68,37 @@ a
   color: $background
   text-shadow: 1px 1px white
 
+  .fa
+    float: left
+    font-size: 3.3rem
+    padding-right: 12px
+    padding-top: 5px
+
   h6
     font-size: 1.3rem
     font-weight: bold
     margin-bottom: 5px
 
+  ul li
+    color: #004ACB
+    list-style-position: inside
+    list-style-type: disc
+    margin-bottom: 3px
+
   a
     color: inherit
-
-  .fa
-    font-size: 3.2rem
-    float: left
-    padding-top: 6px
-    padding-right: 10px
-
-  ul li
-    margin-bottom: 3px
-    list-style-type: disc
-    list-style-position: inside
-    color: blue
+    display: inline-block
+    font-weight: 500
 
   > li
-    background: $foreground
+    background-color: $foreground
+    background-image: linear-gradient(darken($foreground, 5%), darken($foreground, 14%))
     border-radius: 7px
+    border: 1px solid white
+    display: block
     margin-bottom: 10px
     overflow: hidden
     padding: 14px
-    display: block
-    background-repeat: no-repeat
-    background-position: 10px center
 
 @media screen and (min-width: $width)
   #downloads > li
@@ -105,7 +107,7 @@ a
     -webkit-box-sizing: margin-box
     box-sizing: border-box
     width: ($width / 3) - 8
-    height: 88px
+    height: 92px
     &:not(:last-child)
       margin-right: 10px
 
