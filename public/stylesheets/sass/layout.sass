@@ -6,17 +6,20 @@ $width: 870px
 @import "meyer-reset"
 @import url(https://fonts.googleapis.com/css?family=Roboto+Slab:400,700)
 @import url(https://fonts.googleapis.com/css?family=Open+Sans)
+@import url(https://maxcdn.bootstrapcdn.com/font-awesome/4.6.3/css/font-awesome.min.css)
 
-body
+html
   background-color: $background
   color: $foreground
   font-family: 'Open Sans', sans-serif
-  font-size: 12pt
+  font-size: 11pt
+  text-shadow: 1px 1px black
+
+body
   margin: auto
   max-width: $width
   padding-left: $padding
   padding-right: $padding
-  text-shadow: 1px 1px black
 
 p
   margin-bottom: 1rem
@@ -66,26 +69,23 @@ a
   text-shadow: 1px 1px white
 
   h6
-    font-size: 1.3em
+    font-size: 1.3rem
     font-weight: bold
     margin-bottom: 5px
 
   a
     color: inherit
 
-  #darwin
-    background-image: url('/images/apple.png')
-
-  #windows
-    background-image: url('/images/windows.png')
-
-  #manual
-    background-image: url('/images/manual.png')
+  .fa
+    font-size: 3.2rem
+    float: left
+    padding-top: 6px
+    padding-right: 10px
 
   ul li
     margin-bottom: 3px
     list-style-type: disc
-    margin-left: 17px
+    list-style-position: inside
     color: blue
 
   > li
@@ -94,7 +94,6 @@ a
     margin-bottom: 10px
     overflow: hidden
     padding: 14px
-    padding-left: 84px
     display: block
     background-repeat: no-repeat
     background-position: 10px center
