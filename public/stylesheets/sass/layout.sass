@@ -1,0 +1,37 @@
+@import "meyer-reset"
+@import url(https://fonts.googleapis.com/css?family=Roboto+Slab:400,700)
+
+$background: #332A25
+$foreground: #D7FACB
+
+body
+  background-color: $background
+  color: $foreground
+  font-family: 'Roboto Slab', serif
+  font-size: 12pt
+  margin: auto
+  max-width: 880px
+  padding: 20px
+  text-shadow: 1px 1px black
+
+h1
+  border-bottom: 1px solid $foreground
+  font-size: 2.3rem
+  font-weight: 700
+  margin-bottom: 1.5rem
+  margin-top: 1.5rem
+  padding-bottom: 7px
+
+img
+  max-width: 100%
+
+#screenshot
+  text-align: center
+
+  img
+    box-shadow: 0px 0px 10px #777
+    opacity: 0.9
+    transition: opacity 0.5s
+
+    &:hover
+      opacity: 1

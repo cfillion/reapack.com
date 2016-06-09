@@ -1,0 +1,6 @@
+# compiled css
+.sass-cache/
+*.css
+
+# bundler files
+Gemfile.lock
