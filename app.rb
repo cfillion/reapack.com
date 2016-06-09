@@ -82,6 +82,7 @@ class ReaPack::WebApp < Sinatra::Base
 
   get '/' do
     @latest = @@latest or update
+    last_modified @@lastUpdate if @latest
     slim :index
   end
 
