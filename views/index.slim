@@ -9,39 +9,56 @@ p#screenshot
 
 h2 Downloads &amp; User Guide
 
-ul#downloads
-  li
-    i.fa.fa-fw.fa-apple
-    h6 OS X
-    ul
-      li
-        a href="#" 32-bit
-      li
-        a href="#" 64-bit
-  li
-    i.fa.fa-fw.fa-windows
-    h6 Windows
-    ul
-      li
-        a href="#" 32-bit
-      li
-        a href="#" 64-bit
-  li
-    i.fa.fa-fw.fa-book
-    h6 User Guide
-    ul
-      li
-        a href="https://github.com/cfillion/reapack/wiki" Read online
+- if $latest
+  ul#downloads
+    li
+      i.fa.fa-fw.fa-apple
+      h6 OS X
+      ul
+        li
+          a href=$latest.darwin32 32-bit
+          '
+          span.size = $latest.darwin32.size.pretty
+        li
+          a href=$latest.darwin64 64-bit
+          '
+          span.size = $latest.darwin64.size.pretty
+    li
+      i.fa.fa-fw.fa-windows
+      h6 Windows
+      ul
+        li
+          a href=$latest.win32 32-bit
+          '
+          span.size = $latest.win32.size.pretty
+        li
+          a href=$latest.win64 64-bit
+          '
+          span.size = $latest.win64.size.pretty
+    li
+      i.fa.fa-fw.fa-book
+      h6 User Guide
+      ul
+        li
+          a href="https://github.com/cfillion/reapack/wiki" Read online
 
-p#requirements
-  | Requires REAPER v4.7+ (v5.12 or later recommended)
+  p#requirements
+    ' Requires
+    a href="http://reaper.fm" REAPER
+    |  v4.7+ (v5.12 or later recommended)
 
-p#version
-  ' Latest stable release:
-  a href="https://github.com/cfillion/reapack/releases/latest"
-    | ReaPack v1.0
-  | &nbsp;released on 2016-01-01 by cfillion
-  br
-  a href="https://github.com/cfillion/reapack/releases"
-    'Other releases
-    i.fa.fa-angle-right
+  p#version
+    ' Latest stable release:
+    a href=$latest.url
+      ' ReaPack
+      = $latest.name
+    ' &nbsp;released on
+    => $latest.time.strftime '%Y-%m-%d'
+    ' by
+    = $latest.author
+    br
+    a href="https://github.com/cfillion/reapack/releases"
+      | Other releases
+- else
+  ' Oops! We could not load the release feed.
+    We're retrying right now, refresh this page in a few seconds.

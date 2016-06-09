@@ -3,11 +3,12 @@ $foreground: #D7FACB
 $padding: 10px
 $width: 870px
 
-@import "meyer-reset"
+@import 'bourbon/bourbon'
+@import 'meyer-reset'
+
 @import url(https://fonts.googleapis.com/css?family=Roboto+Slab:400,700)
 @import url(https://fonts.googleapis.com/css?family=Roboto:400,500)
 @import url(https://maxcdn.bootstrapcdn.com/font-awesome/4.6.3/css/font-awesome.min.css)
-@import "bourbon/bourbon"
 
 html
   background-color: $background
@@ -81,15 +82,22 @@ a
     margin-bottom: 5px
 
   ul li
-    color: #003CCB
     list-style-position: inside
     list-style-type: disc
     margin-bottom: 3px
 
   a
-    color: inherit
+    color: #003CCB
     display: inline-block
     font-weight: 500
+
+  .size
+    font-size: 0.7rem
+
+    &:before
+      content: '('
+    &:after
+      content: ')'
 
   > li
     @include linear-gradient(darken($foreground, 5%), darken($foreground, 14%), $fallback: $foreground)
