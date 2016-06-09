@@ -28,11 +28,13 @@ p
   margin-top: 1rem
 
 h1, h2
-  @extend p
   font-family: 'Roboto Slab', serif
   font-weight: 700
   margin-bottom: 1.2rem
   margin-top: 1.5rem
+
+p, li
+  line-height: 1.15
 
 h1
   border-bottom: 1px solid $foreground
@@ -51,11 +53,11 @@ a
   font-weight: bold
   text-decoration: underline
 
-#screenshot
+.screenshot
   text-align: center
 
   img
-    box-shadow: 0px 0px 10px #777
+    box-shadow: 0px 0px 10px #777777
     opacity: 0.9
     transition: opacity 0.5s
 
@@ -66,14 +68,12 @@ a
 ul.list li
   list-style-position: inside
   list-style-type: disc
-  &:not(:last-child)
-    margin-bottom: 3px
 
-#requirements, #version
+.requirements, .version
   font-size: 0.8rem
   margin: 0
 
-#downloads
+.downloads
   color: $background
   text-shadow: 1px 1px white
 
@@ -83,7 +83,7 @@ ul.list li
     padding-right: 5px
     padding-top: 5px
 
-  h6
+  h3
     font-size: 1.3rem
     font-weight: bold
     margin-bottom: 5px
@@ -112,11 +112,11 @@ ul.list li
     padding-left: 5px
 
 @media screen and (min-width: $width)
-  #donate
+  .donate
     float: right
     margin-top: -3.5rem
 
-  #downloads
+  .downloads
     @include align-items(stretch)
     @include display(flex)
     @include flex-direction(row)
@@ -127,9 +127,6 @@ ul.list li
       &:not(:last-child)
         margin-right: 10px
 
-  #requirements
-    float: left
-
-  #version
+  .version
     float: right
     text-align: right
