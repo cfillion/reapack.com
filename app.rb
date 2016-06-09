@@ -4,6 +4,7 @@ require 'filesize'
 require 'ostruct'
 require 'sass/plugin/rack'
 require 'sinatra/base'
+require 'time'
 
 Sass::Plugin.options.merge! \
   sourcemap: :none,
@@ -17,8 +18,8 @@ class ReaPack::WebApp < Sinatra::Base
   URL = 'https://api.github.com/repos/cfillion/reapack/releases/latest'
 
   def initialize
-    interval = UPDATE_INTERVAL * 60 * 60
-    EM::next_tick { EM.add_periodic_timer interval, method(:update) }
+    @@lastUpdate = Time.new 0
+    @@latest = nil
     super
   end
 
@@ -29,19 +30,18 @@ class ReaPack::WebApp < Sinatra::Base
   end
 
   def update
-    return if $updating
+    now = Time.now
+    return if @@lastUpdate > now - 3600
 
-    $updating = true
+    @@lastUpdate = now
 
     req = make_request
     req.errback {
-      $updating = false
     }
 
     req.callback {
       next unless req.response_header.status == 200
-      $latest = make_release req.response
-      $updating = false
+      @@latest = make_release req.response
     }
 
     nil
@@ -81,7 +81,17 @@ class ReaPack::WebApp < Sinatra::Base
   use Sass::Plugin::Rack
 
   get '/' do
-    update unless $latest
+    @latest = @@latest or update
     slim :index
+  end
+
+  get '/sync', user_agent: /\AGitHub-Hookshot\// do
+    update
+    content_type 'text/plain'
+    'Hello GitHub, refreshing the release feed now...'
+  end
+
+  not_found do
+    slim :not_found
   end
 end

@@ -9,32 +9,32 @@ p#screenshot
 
 h2 Downloads &amp; User Guide
 
-- if $latest
+- if @latest
   ul#downloads
     li
       i.fa.fa-fw.fa-apple
       h6 OS X
-      ul
+      ul.list
         li
-          a href=$latest.darwin32 32-bit
+          a href=@latest.darwin32 32-bit
           '
-          span.size = $latest.darwin32.size.pretty
+          span.size = @latest.darwin32.size.pretty
         li
-          a href=$latest.darwin64 64-bit
+          a href=@latest.darwin64 64-bit
           '
-          span.size = $latest.darwin64.size.pretty
+          span.size = @latest.darwin64.size.pretty
     li
       i.fa.fa-fw.fa-windows
       h6 Windows
       ul
         li
-          a href=$latest.win32 32-bit
+          a href=@latest.win32 32-bit
           '
-          span.size = $latest.win32.size.pretty
+          span.size = @latest.win32.size.pretty
         li
-          a href=$latest.win64 64-bit
+          a href=@latest.win64 64-bit
           '
-          span.size = $latest.win64.size.pretty
+          span.size = @latest.win64.size.pretty
     li
       i.fa.fa-fw.fa-book
       h6 User Guide
@@ -49,16 +49,16 @@ h2 Downloads &amp; User Guide
 
   p#version
     ' Latest stable release:
-    a href=$latest.url
+    a href=@latest.url
       ' ReaPack
-      = $latest.name
+      = @latest.name
     ' &nbsp;released on
-    => $latest.time.strftime '%Y-%m-%d'
+    => @latest.time.strftime '%Y-%m-%d'
     ' by
-    = $latest.author
+    = @latest.author
     br
     a href="https://github.com/cfillion/reapack/releases"
       | Other releases
 - else
   ' Oops! We could not load the release feed.
-    We're retrying right now, refresh this page in a few seconds.
+    We're retrying right now, come back in a few seconds.
