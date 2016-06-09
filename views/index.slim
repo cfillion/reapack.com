@@ -9,7 +9,16 @@ p.screenshot
 
 h2#downloads Downloads &amp; User Guide
 
-- if @latest
+- unless @latest
+  p
+    ' Oops! We could not load the release feed.
+      We're retrying right now, come back in a few seconds.
+    br
+    ' ReaPack can also be downloaded from
+    a href="https://github.com/cfillion/reapack/releases"
+      | https://github.com/cfillion/reapack/releases
+    | .
+- else
   ul.downloads
     li
       i.fa.fa-fw.fa-apple
@@ -59,15 +68,6 @@ h2#downloads Downloads &amp; User Guide
     ' Requires
     a href="http://reaper.fm" REAPER
     |  v4.7+ (v5.12 or later recommended)
-- else
-  p
-    ' Oops! We could not load the release feed.
-      We're retrying right now, come back in a few seconds.
-    br
-    ' ReaPack can also be downloaded from
-    a href="https://github.com/cfillion/reapack/releases"
-      | https://github.com/cfillion/reapack/releases
-    | .
 
 h2#features Feature List
 

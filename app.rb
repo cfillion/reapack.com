@@ -15,7 +15,7 @@ ReaPack = Class.new
 class ReaPack::WebApp < Sinatra::Base
   UPDATE_INTERVAL = 24
 
-  URL = 'https://api.github.com/repos/cfillion/reapack/releases/latest'
+  URL = 'https://api.github.com/repos/cfillion/reapack/releases'
 
   def initialize
     @@lastUpdate = Time.new 0
@@ -41,7 +41,13 @@ class ReaPack::WebApp < Sinatra::Base
 
     req.callback {
       next unless req.response_header.status == 200
-      @@latest = make_release req.response
+      releases = []
+      req.response.each {|json_release|
+        release = make_release json_release
+        releases << release
+      }
+
+      harvest_data releases
     }
 
     nil
@@ -76,6 +82,17 @@ class ReaPack::WebApp < Sinatra::Base
     asset.size = Filesize.from('%d B' % json['size'].to_i)
 
     asset
+  end
+
+  def harvest_data(releases)
+    return if releases.empty?
+    @@latest = releases.first
+
+    [:darwin32, :darwin64, :win32, :win64].each {|var|
+      next if @@latest[var]
+      match = releases.find {|r| r[var] }
+      @@latest[var] = match[var]
+    }
   end
 
   use Sass::Plugin::Rack
