@@ -7,6 +7,7 @@ $width: 870px
 @import url(https://fonts.googleapis.com/css?family=Roboto+Slab:400,700)
 @import url(https://fonts.googleapis.com/css?family=Roboto:400,500)
 @import url(https://maxcdn.bootstrapcdn.com/font-awesome/4.6.3/css/font-awesome.min.css)
+@import "bourbon/bourbon"
 
 html
   background-color: $background
@@ -80,7 +81,7 @@ a
     margin-bottom: 5px
 
   ul li
-    color: #004ACB
+    color: #003CCB
     list-style-position: inside
     list-style-type: disc
     margin-bottom: 3px
@@ -91,8 +92,7 @@ a
     font-weight: 500
 
   > li
-    background-color: $foreground
-    background-image: linear-gradient(darken($foreground, 5%), darken($foreground, 14%))
+    @include linear-gradient(darken($foreground, 5%), darken($foreground, 14%), $fallback: $foreground)
     border-radius: 7px
     border: 1px solid white
     display: block
@@ -101,15 +101,16 @@ a
     padding: 14px
 
 @media screen and (min-width: $width)
-  #downloads > li
-    float: left
-    -moz-box-sizing: margin-box
-    -webkit-box-sizing: margin-box
-    box-sizing: border-box
-    width: ($width / 3) - 8
-    height: 92px
-    &:not(:last-child)
-      margin-right: 10px
+  #downloads
+    @include align-items(stretch)
+    @include display(flex)
+    @include flex-direction(row)
+    @include justify-content(space-between)
+
+    > li
+      @include flex(1)
+      &:not(:last-child)
+        margin-right: 10px
 
   #requirements
     float: left
@@ -117,6 +118,3 @@ a
   #version
     float: right
     text-align: right
-
-.clearfix
-  clear: both
