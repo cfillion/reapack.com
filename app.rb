@@ -1,5 +1,4 @@
 require 'action_view'
-require 'action_view/helpers'
 require 'em-http'
 require 'em-http/middleware/json_response'
 require 'ostruct'
@@ -15,7 +14,6 @@ ReaPack = Class.new
 
 class ReaPack::WebApp < Sinatra::Base
   UPDATE_INTERVAL = 24
-
   URL = 'https://api.github.com/repos/cfillion/reapack/releases'
 
   def initialize
@@ -23,6 +21,10 @@ class ReaPack::WebApp < Sinatra::Base
     @@last_update = Time.new 0
     @@last_response = nil
     @@latest = nil
+
+    interval = UPDATE_INTERVAL * 60 * 60
+    EM::next_tick { EM.add_periodic_timer interval, method(:update) }
+
     super
   end
 
