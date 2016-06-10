@@ -55,10 +55,10 @@ h2#downloads Downloads &amp; User Guide
     ' Latest
     = @latest.stable ? 'stable release' : 'pre-release'
     ' :
-    a href=@latest.url
+    a> href=@latest.url
       ' ReaPack
       = @latest.name
-    ' &nbsp;released on
+    ' released on
     => @latest.time.strftime '%Y-%m-%d'
     ' by
     = @latest.author
@@ -70,6 +70,22 @@ h2#downloads Downloads &amp; User Guide
     ' Requires
     a href="http://reaper.fm" REAPER
     |  v4.7+ (v5.12 or later recommended)
+
+h2#instructions Installation Instructions
+
+ul.list
+  li
+    ' From REAPER:
+    u
+      | Options &gt; Show resource path in explorer/finder
+  li
+    ' Put the download file in the
+    u> UserPlugins
+    | subdirectory
+  li
+    ' Restart REAPER.
+    a> href="https://github.com/cfillion/reapack/wiki#setting-up" Enable
+    | some repositories and you're done!
 
 h2#features Feature List
 
@@ -88,6 +104,3 @@ ul.list
   p.stats
     ' Recent downloads:
     = number_with_delimiter @downloads
-
-p.footer
-  | Copyright &copy; 2015-2016 Christian Fillion

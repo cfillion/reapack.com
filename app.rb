@@ -14,8 +14,14 @@ ReaPack = Class.new
 
 class ReaPack::WebApp < Sinatra::Base
   UPDATE_INTERVAL = 24
-  URL = 'https://api.github.com/repos/cfillion/reapack/releases'
-  DOWNLOADS = true
+  URL = 'https://api.github.com/repos/cfillion/reapack/releases'.freeze
+  COUNT_DOWNLOADS = true
+  FILES = {
+    'reaper_reapack32.dylib' => :darwin32,
+    'reaper_reapack64.dylib' => :darwin64,
+    'reaper_reapack32.dll'   => :win32,
+    'reaper_reapack64.dll'   => :win64,
+  }.freeze
 
   def initialize
     @@boot_time = Time.now
@@ -23,7 +29,7 @@ class ReaPack::WebApp < Sinatra::Base
     @@last_response = nil
     @@latest = @@downloads = nil
 
-    if DOWNLOADS
+    if COUNT_DOWNLOADS
       interval = UPDATE_INTERVAL * 60 * 60
       EM::next_tick { EM.add_periodic_timer interval, method(:update) }
     end
@@ -75,17 +81,10 @@ class ReaPack::WebApp < Sinatra::Base
 
     json['assets'].to_a.each {|json_asset|
       asset = make_asset json_asset
-      release.downloads += asset.downloads if DOWNLOADS
+      release.downloads += asset.downloads if COUNT_DOWNLOADS
 
-      case asset.name
-      when 'reaper_reapack32.dylib'
-        release.darwin32 = asset
-      when 'reaper_reapack64.dylib'
-        release.darwin64 = asset
-      when 'reaper_reapack32.dll'
-        release.win32 = asset
-      when 'reaper_reapack64.dll'
-        release.win64 = asset
+      if file = FILES[asset.name]
+        release[file] = asset
       end
     }
 
@@ -108,9 +107,9 @@ class ReaPack::WebApp < Sinatra::Base
     @@latest = releases.find {|r| r.stable }
     @@latest ||= releases.first
 
-    @@downloads = releases.map {|r| r.downloads }.inject(&:+) if DOWNLOADS
+    @@downloads = releases.map {|r| r.downloads }.inject(&:+) if COUNT_DOWNLOADS
 
-    [:darwin32, :darwin64, :win32, :win64].each {|var|
+    FILES.values.each {|var|
       next if @@latest[var]
       match = releases.find {|r| r[var] && (r.stable || !@@latest.stable) }
       @@latest[var] = match[var] if match
@@ -118,7 +117,6 @@ class ReaPack::WebApp < Sinatra::Base
   end
 
   use Sass::Plugin::Rack
-
   include ActionView::Helpers::NumberHelper
 
   get '/' do

@@ -2,3 +2,6 @@
 .sass-cache/
 *.css
 bourbon/
+
+# OS X files
+.DS_Store
