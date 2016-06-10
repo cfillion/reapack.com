@@ -2,6 +2,3 @@
 .sass-cache/
 *.css
 bourbon/
-
-# bundler files
-Gemfile.lock
