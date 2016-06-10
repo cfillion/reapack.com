@@ -5,3 +5,7 @@ bourbon/
 
 # OS X files
 .DS_Store
+
+# thin files
+log/
+tmp/
