@@ -27,11 +27,11 @@ h2#downloads Downloads &amp; User Guide
         li
           a href=@latest.darwin32.url 32-bit
           '
-          span.size = @latest.darwin32.size.pretty
+          span.size = number_to_human_size @latest.darwin32.size
         li
           a href=@latest.darwin64.url 64-bit
           '
-          span.size = @latest.darwin64.size.pretty
+          span.size = number_to_human_size @latest.darwin64.size
     li
       i.fa.fa-fw.fa-windows
       h3 Windows
@@ -39,11 +39,11 @@ h2#downloads Downloads &amp; User Guide
         li
           a href=@latest.win32.url 32-bit
           '
-          span.size = @latest.win32.size.pretty
+          span.size = number_to_human_size @latest.win32.size
         li
           a href=@latest.win64.url 64-bit
           '
-          span.size = @latest.win64.size.pretty
+          span.size = number_to_human_size @latest.win64.size
     li
       i.fa.fa-fw.fa-book
       h3 User Guide
@@ -81,3 +81,11 @@ ul.list
   li Consistent installation on all platforms (same Command ID for toolbars)
   li Opt-in setting to test pre-release packages
   li And more...
+
+- if @downloads
+  p.stats
+    ' Recent downloads:
+    = number_with_delimiter @downloads
+
+p.footer
+  | Copyright &copy; 2016 Christian Fillion

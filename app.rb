@@ -1,6 +1,7 @@
+require 'action_view'
+require 'action_view/helpers'
 require 'em-http'
 require 'em-http/middleware/json_response'
-require 'filesize'
 require 'ostruct'
 require 'sass/plugin/rack'
 require 'sinatra/base'
@@ -89,7 +90,7 @@ class ReaPack::WebApp < Sinatra::Base
     asset = OpenStruct.new
     asset.name = json['name']
     asset.url = json['browser_download_url']
-    asset.size = Filesize.from('%d B' % json['size'].to_i)
+    asset.size = json['size'].to_i
     asset.downloads = json['download_count'].to_i
 
     asset
@@ -109,6 +110,8 @@ class ReaPack::WebApp < Sinatra::Base
   end
 
   use Sass::Plugin::Rack
+
+  include ActionView::Helpers::NumberHelper
 
   get '/' do
     if @@latest
