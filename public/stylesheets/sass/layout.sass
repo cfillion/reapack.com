@@ -23,7 +23,7 @@ body
   padding-left: $padding
   padding-right: $padding
 
-p
+p, ul.list
   margin-bottom: 1rem
   margin-top: 1rem
 
@@ -103,6 +103,9 @@ ul.list li
       content: '('
     &:after
       content: ')'
+
+  ul
+    margin: 0
 
   > li
     @include linear-gradient(darken($foreground, 5%), darken($foreground, 14%), $fallback: $foreground)
