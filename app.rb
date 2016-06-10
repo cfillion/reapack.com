@@ -15,15 +15,18 @@ ReaPack = Class.new
 class ReaPack::WebApp < Sinatra::Base
   UPDATE_INTERVAL = 24
   URL = 'https://api.github.com/repos/cfillion/reapack/releases'
+  DOWNLOADS = true
 
   def initialize
     @@boot_time = Time.now
     @@last_update = Time.new 0
     @@last_response = nil
-    @@latest = nil
+    @@latest = @@downloads = nil
 
-    interval = UPDATE_INTERVAL * 60 * 60
-    EM::next_tick { EM.add_periodic_timer interval, method(:update) }
+    if DOWNLOADS
+      interval = UPDATE_INTERVAL * 60 * 60
+      EM::next_tick { EM.add_periodic_timer interval, method(:update) }
+    end
 
     super
   end
@@ -64,7 +67,7 @@ class ReaPack::WebApp < Sinatra::Base
   def make_release(json)
     release = OpenStruct.new
     release.name = json['tag_name'].to_s
-    release.stable = (release.name =~ /[a-z]/i).nil?
+    release.stable = !json['prerelease']
     release.url = json['html_url'].to_s
     release.author = json['author'].to_h['login'].to_s
     release.time = DateTime.rfc3339 json['published_at']
@@ -72,7 +75,7 @@ class ReaPack::WebApp < Sinatra::Base
 
     json['assets'].to_a.each {|json_asset|
       asset = make_asset json_asset
-      release.downloads += asset.downloads
+      release.downloads += asset.downloads if DOWNLOADS
 
       case asset.name
       when 'reaper_reapack32.dylib'
@@ -105,7 +108,7 @@ class ReaPack::WebApp < Sinatra::Base
     @@latest = releases.find {|r| r.stable }
     @@latest ||= releases.first
 
-    @@downloads = releases.map {|r| r.downloads }.inject(&:+)
+    @@downloads = releases.map {|r| r.downloads }.inject(&:+) if DOWNLOADS
 
     [:darwin32, :darwin64, :win32, :win64].each {|var|
       next if @@latest[var]
@@ -122,7 +125,6 @@ class ReaPack::WebApp < Sinatra::Base
     if @@latest
       last_modified @@last_update
       @latest = @@latest
-      p @latest
       @downloads = @@downloads
     else
       update
