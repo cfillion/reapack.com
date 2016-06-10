@@ -37,9 +37,9 @@ class ReaPack::WebApp < Sinatra::Base
     client.get
   end
 
-  def update
+  def update(force = false)
     now = Time.now
-    return if @@last_update > now - 3600
+    return false if !force && @@last_update > now - 3600
 
     @@last_update = now
 
@@ -61,7 +61,7 @@ class ReaPack::WebApp < Sinatra::Base
       harvest_data releases
     }
 
-    nil
+    true
   end
 
   def make_release(json)
@@ -133,10 +133,13 @@ class ReaPack::WebApp < Sinatra::Base
     slim :index
   end
 
-  get '/sync', user_agent: /\AGitHub-Hookshot\// do
-    update
+  post '/sync' do
     content_type 'text/plain'
-    'Hello GitHub, refreshing the release feed now...'
+    if update request.user_agent =~ /\AGitHub-Hookshot\//
+      'Refreshing the release feed now!'
+    else
+      'No.'
+    end
   end
 
   get '/debug' do
