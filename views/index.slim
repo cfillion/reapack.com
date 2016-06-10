@@ -52,7 +52,9 @@ h2#downloads Downloads &amp; User Guide
           a href="https://github.com/cfillion/reapack/wiki" Read online
 
   p.version
-    ' Latest stable release:
+    ' Latest
+    = @latest.stable ? 'stable release' : 'pre-release'
+    ' :
     a href=@latest.url
       ' ReaPack
       = @latest.name

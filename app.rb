@@ -63,8 +63,9 @@ class ReaPack::WebApp < Sinatra::Base
 
   def make_release(json)
     release = OpenStruct.new
-    release.url = json['html_url'].to_s
     release.name = json['tag_name'].to_s
+    release.stable = (release.name =~ /[a-z]/i).nil?
+    release.url = json['html_url'].to_s
     release.author = json['author'].to_h['login'].to_s
     release.time = DateTime.rfc3339 json['published_at']
     release.downloads = 0
@@ -101,12 +102,14 @@ class ReaPack::WebApp < Sinatra::Base
   def harvest_data(releases)
     return if releases.empty?
 
-    @@latest = releases.first
+    @@latest = releases.find {|r| r.stable }
+    @@latest ||= releases.first
+
     @@downloads = releases.map {|r| r.downloads }.inject(&:+)
 
     [:darwin32, :darwin64, :win32, :win64].each {|var|
       next if @@latest[var]
-      match = releases.find {|r| r[var] }
+      match = releases.find {|r| r[var] && (r.stable || !@@latest.stable) }
       @@latest[var] = match[var] if match
     }
   end
