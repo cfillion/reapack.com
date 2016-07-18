@@ -119,6 +119,12 @@ class ReaPack::WebApp < Sinatra::Base
   use Sass::Plugin::Rack
   include ActionView::Helpers::NumberHelper
 
+  helpers do
+    def repo(**locals)
+      slim :repo, locals: locals
+    end
+  end
+
   get '/' do
     if @@latest
       last_modified @@last_update
