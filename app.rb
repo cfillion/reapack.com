@@ -1,6 +1,7 @@
 require 'action_view'
 require 'em-http'
 require 'em-http/middleware/json_response'
+require 'fileutils'
 require 'ostruct'
 require 'sass/plugin/rack'
 require 'sinatra/base'
@@ -26,8 +27,11 @@ class ReaPack::WebApp < Sinatra::Base
   def initialize
     @@boot_time = Time.now
     @@last_update = Time.new 0
-    @@last_response = nil
     @@latest = @@downloads = nil
+
+    file = File.join settings.root, 'log', 'app.log'
+    FileUtils.mkdir_p File.dirname(file)
+    @log = Logger.new file
 
     if COUNT_DOWNLOADS
       interval = UPDATE_INTERVAL * 60 * 60
@@ -51,12 +55,16 @@ class ReaPack::WebApp < Sinatra::Base
 
     req = make_request
     req.errback {
-      @@last_response = req.error
+      @log.error("releases") { "download failed: %s" % req.error }
     }
 
     req.callback {
-      next unless req.response_header.status == 200
-      @@last_response = req.response_header
+      status = req.response_header.status
+
+      unless status == 200
+        @log.error("releases") { "download failed (%d): %s" % [status, req.response] }
+        next
+      end
 
       releases = []
       req.response.each {|json_release|
@@ -65,6 +73,8 @@ class ReaPack::WebApp < Sinatra::Base
       }
 
       harvest_data releases
+
+      @log.info("releases") { "received %d releases" % releases.size }
     }
 
     true
@@ -143,24 +153,6 @@ class ReaPack::WebApp < Sinatra::Base
       'Refreshing the release feed now!'
     else
       'No.'
-    end
-  end
-
-  get '/debug' do
-    content_type 'text/plain'
-    headers['X-Last-Update'] = @@last_update.to_s
-    headers['X-Server-Started'] = @@boot_time.to_s
-
-    case @@last_response
-    when NilClass
-      [200, 'No request made yet.']
-    when String
-      [500, @@last_response]
-    else
-      [
-        @@last_response.status,
-        @@last_response.map {|k, v| "%s: %s\n" % [k, v] }
-      ]
     end
   end
 
