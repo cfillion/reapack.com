@@ -72,9 +72,11 @@ class ReaPack::WebApp < Sinatra::Base
         releases << release
       }
 
+      old_dl_count = @@downloads
       harvest_data releases
 
       @log.info("releases") { "received %d releases" % releases.size }
+      @log.info("releases") { "downloads since last sync: %d" % old_dl_count.to_i - @@downloads.to_i }
     }
 
     true
