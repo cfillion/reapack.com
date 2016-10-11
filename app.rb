@@ -78,7 +78,7 @@ class ReaPack::WebApp < Sinatra::Base
       @log.info("releases") { "received %d releases" % releases.size }
 
       if COUNT_DOWNLOADS && old_dl_count
-        @log.info("releases") { "downloads since last sync: %d" % [@downloads - old_dl_count] }
+        @log.info("releases") { "downloads since last sync: %d" % [@@downloads - old_dl_count] }
       end
     }
 
