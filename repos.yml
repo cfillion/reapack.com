@@ -49,3 +49,6 @@
 -
   link: 'https://github.com/X-Raym/MIDI-Makey-Makey#readme'
   index: 'https://github.com/X-Raym/MIDI-Makey-Makey/raw/master/index.xml'
+-
+  link: 'https://geraintluff.github.io/jsfx/'
+  index: 'https://geraintluff.github.io/jsfx/index.xml'
