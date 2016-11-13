@@ -32,22 +32,22 @@
 
 # third-party repos
 -
-  link: 'https://github.com/chtammik/chtammik_Reaper_Scripts#readme'
+  link: 'https://github.com/chtammik/chtammik_Reaper_Scripts'
   index: 'https://github.com/chtammik/chtammik_Reaper_Scripts/raw/master/index.xml'
 -
-  link: 'https://github.com/EUGEN27771/ReaScripts#readme'
+  link: 'https://github.com/EUGEN27771/ReaScripts'
   index: 'https://github.com/EUGEN27771/ReaScripts/raw/master/index.xml'
 -
-  link: 'https://github.com/fernsehmuell/reaper_scripts#readme'
+  link: 'https://github.com/fernsehmuell/reaper_scripts'
   index: 'https://github.com/fernsehmuell/reaper_scripts/raw/master/index.xml'
 -
-  link: 'https://github.com/mrlimbic/reascripts#readme'
+  link: 'https://github.com/mrlimbic/reascripts'
   index: 'https://github.com/mrlimbic/reascripts/raw/master/index.xml'
 -
-  link: 'https://github.com/przemoc/REAPER-ReaScripts#readme'
+  link: 'https://github.com/przemoc/REAPER-ReaScripts'
   index: 'https://github.com/przemoc/REAPER-ReaScripts/raw/master/index.xml'
 -
-  link: 'https://github.com/X-Raym/MIDI-Makey-Makey#readme'
+  link: 'https://github.com/X-Raym/MIDI-Makey-Makey'
   index: 'https://github.com/X-Raym/MIDI-Makey-Makey/raw/master/index.xml'
 -
   link: 'https://geraintluff.github.io/jsfx/'
