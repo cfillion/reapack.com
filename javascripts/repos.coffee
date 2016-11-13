@@ -1,8 +1,8 @@
 nodes = document.getElementsByClassName 'index'
 
-for i in [0..nodes.length]
-  do ->
-    node = nodes[i]
+for i in [0...nodes.length]
+  node = nodes[i]
+  do (node) ->
     node.addEventListener 'click', (event) ->
       if document.body.createTextRange
         range = document.body.createTextRange()
