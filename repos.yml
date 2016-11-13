@@ -18,7 +18,7 @@
   link: 'https://github.com/ReaTeam/LangPacks'
   index: 'https://github.com/ReaTeam/LangPacks/raw/master/index.xml'
   featured: true
-  disporder: 4
+  disporder: 22
 -
   link: 'https://github.com/MichaelPilyavskiy/ReaScripts'
   index: 'https://github.com/MichaelPilyavskiy/ReaScripts/raw/master/index.xml'
