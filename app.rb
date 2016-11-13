@@ -150,8 +150,6 @@ class ReaPack::WebApp < Sinatra::Base
 
     return if repo['name'].empty?
 
-    @log.info("repos") { "received repo '%s'" % repo['name'] }
-
     doc.css('reapack').each do |pkg|
       type = PKG_TYPES[pkg['type'].to_sym] || PKG_TYPES[:other]
       repo['packages'][type] ||= 0
