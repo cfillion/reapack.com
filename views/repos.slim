@@ -35,7 +35,7 @@ p
           br
           .desc
             - if repo['packages'].empty?
-              | This repository is empty.
+              | This repository is empty
             - else
               = repo['packages'].sort_by {|t, c| [-c, t] }.map { |type, count| \
                 label = count != 1 ? type.last : type.first; \
