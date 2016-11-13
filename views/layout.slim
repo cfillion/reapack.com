@@ -32,4 +32,11 @@ body
       | Recent downloads: #{number_with_delimiter @downloads}
 
   p.footer
-    | Copyright &copy; 2015-#{Time.now.year} Christian Fillion
+    ' Copyright &copy; 2015-#{Time.now.year} Christian Fillion
+    a> href="mailto:reapack@cfillion.tk" email
+    ' /
+    a> href="//cfillion.tk" web
+    ' /
+    a> href="https://twitter.com/cfillion30" twitter
+    ' /
+    a> href="https://github.com/cfillion" github
