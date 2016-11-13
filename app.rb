@@ -19,12 +19,14 @@ class ReaPack::WebApp < Sinatra::Base
   UPDATE_INTERVAL = 24
   URL = 'https://api.github.com/repos/cfillion/reapack/releases?per_page=100'.freeze
   COUNT_DOWNLOADS = true
+
   FILES = {
     'reaper_reapack32.dylib' => :darwin32,
     'reaper_reapack64.dylib' => :darwin64,
     'reaper_reapack32.dll'   => :win32,
     'reaper_reapack64.dll'   => :win64,
   }.freeze
+
   PKG_TYPES = {
     :script => ['script', 'scripts'],
     :effect => ['effect', 'effects'],
@@ -53,6 +55,8 @@ class ReaPack::WebApp < Sinatra::Base
   end
 
   def make_request(url, context, &callback)
+    return if ENV['OFFLINE']
+
     client = EventMachine::HttpRequest.new url
     client.use EM::Middleware::JSONResponse
     req = client.get :redirects => 2
