@@ -73,14 +73,14 @@ ol li
 
 @mixin tab($color)
   border-color: lighten($color, 5%)
-  @include linear-gradient(lighten($color, 5%), darken($color, 9%), $fallback: $color)
+  +linear-gradient(lighten($color, 5%), darken($color, 9%), $fallback: $color)
   text-shadow: 1px 1px darken($color, 25%)
 
   &:hover
-    @include linear-gradient(lighten($color, 10%), darken($color, 4%), $fallback: lighten($color, 5%))
+    +linear-gradient(lighten($color, 10%), darken($color, 4%), $fallback: lighten($color, 5%))
 
   &:active
-    @include linear-gradient($color, darken($color, 14%), $fallback: darken($color, 5%))
+    +linear-gradient($color, darken($color, 14%), $fallback: darken($color, 5%))
 
 .tabbar
   @extend .clearfix

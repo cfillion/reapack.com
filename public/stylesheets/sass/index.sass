@@ -45,7 +45,7 @@
     margin: 0
 
   > li
-    @include linear-gradient(darken($foreground, 5%), darken($foreground, 14%), $fallback: $foreground)
+    +linear-gradient(darken($foreground, 5%), darken($foreground, 14%), $fallback: $foreground)
     border-radius: 7px
     border: 1px solid white
     display: block
@@ -56,13 +56,13 @@
 
 @media screen and (min-width: $width)
   .downloads
-    @include align-items(stretch)
-    @include display(flex)
-    @include flex-direction(row)
-    @include justify-content(space-between)
+    +align-items(stretch)
+    +display(flex)
+    +flex-direction(row)
+    +justify-content(space-between)
 
     > li
-      @include flex(1)
+      +flex(1)
       &:not(:last-child)
         margin-right: $padding
 
