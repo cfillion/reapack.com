@@ -1,0 +1,46 @@
+- @title = 'Repository List'
+
+p
+  ' This page lists known third-party free repositories available for ReaPack.
+  a> href="https://github.com/cfillion/reapack/wiki#import"
+    | How to import a repository?
+
+- if @repos.nil?
+  p.error
+    ' Oops! We could not load the repository list.
+      We're retrying right now, come back in a few seconds.
+- elsif @repos.empty?
+  p.error
+    ' Oops! We could not fetch the contents of any repositories. Please
+    a> href="https://github.com/cfillion/reapack.com/issues/new" report this
+    | if the issue persists.
+- else
+  p.help
+    a href="https://github.com/cfillion/reapack.com/issues/new"
+      | Add a repository to this list
+
+  ul.table
+    - @repos.each do |repo|
+      li
+        .left.icon
+          - if repo['default']
+            i.fa.fa-asterisk title="Included by default"
+          - elsif repo['featured']
+            i.fa.fa-star title="Featured"
+          - else
+            .hidden &nbsp;
+
+        .left
+          a href=repo['link'] = repo['name']
+          br
+          .desc
+            - if repo['packages'].empty?
+              | This repository is empty.
+            - else
+              = repo['packages'].sort_by {|t, c| [-c, t] }.map { |type, count| \
+                label = count != 1 ? type.last : type.first; \
+                "%s %s" % [number_with_delimiter(count), label] \
+              }.join ', '
+
+        a.index href=repo['index'] download=''
+          code #{repo['index']}

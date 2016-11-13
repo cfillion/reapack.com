@@ -56,17 +56,6 @@ a
 u
   text-decoration: underline
 
-.screenshot
-  text-align: center
-
-  img
-    box-shadow: 0px 0px 10px #777777
-    opacity: 0.9
-    transition: opacity 0.5s
-
-    &:hover
-      opacity: 1
-
 ul li
   list-style-position: inside
   list-style-type: disc
@@ -75,67 +64,75 @@ ol li
   list-style-position: inside
   list-style-type: decimal
 
-.index
-  background-color: black
-  border-radius: 5px
-  font-family: monospace
-  font-size: 0.75rem
-  font-weight: normal
-  padding: 1px
-  padding-left: 7px
-  padding-right: 7px
-  text-decoration: none
+.clearfix
+  &:after
+    visibility: hidden
+    display: block
+    content: " "
+    clear: both
 
-.help
-  vertical-align: super
-  font-size: 0.8rem
+@mixin tab($color)
+  border-color: lighten($color, 5%)
+  @include linear-gradient(lighten($color, 5%), darken($color, 9%), $fallback: $color)
+  text-shadow: 1px 1px darken($color, 25%)
 
-.requirements, .version
-  font-size: 0.8rem
+  &:hover
+    @include linear-gradient(lighten($color, 10%), darken($color, 4%), $fallback: lighten($color, 5%))
 
-.downloads
-  color: $background
-  text-shadow: 1px 1px white
-  margin: 0
+  &:active
+    @include linear-gradient($color, darken($color, 14%), $fallback: darken($color, 5%))
 
-  .fa
+.tabbar
+  @extend .clearfix
+
+  li
+    border: 1px solid transparent
+    border-top-style: none
+    +border-bottom-radius(5px)
     float: left
-    font-size: 3.3rem
-    padding-right: 5px
-    padding-top: 5px
+    list-style-type: none
 
-  h3
-    font-size: 1.3rem
-    font-weight: bold
-    margin-bottom: 5px
+    &:not(:last-child)
+      margin-right: 4px
 
   a
-    color: #003CCB
-    display: inline-block
-    font-weight: 500
-
-  .size
-    font-size: 0.7rem
-
-    &:before
-      content: '('
-    &:after
-      content: ')'
-
-  ul
-    margin: 0
-
-  > li
-    @include linear-gradient(darken($foreground, 5%), darken($foreground, 14%), $fallback: $foreground)
-    border-radius: 7px
-    border: 1px solid white
+    color: white
     display: block
-    margin-bottom: 10px
-    overflow: hidden
-    padding: 14px
+    font-size: 0.9rem
+    font-weight: normal
+    min-width: 100px
+    padding-bottom: 3px
     padding-left: 5px
+    padding-right: 5px
+    padding-top: 3px
+    text-align: center
+    text-decoration: none
 
-.stats, .footer
+  .active a
+    font-weight: bold
+    padding-bottom: 4px
+    padding-top: 4px
+
+  .reapack
+    +tab(orange)
+
+  .repos
+    +tab(steelblue)
+
+  .devel
+    +tab(crimson)
+
+.error
+  border: 1px solid $foreground
+  border-radius: 5px
+  background-color: darken(red, 5%)
+  padding: 10px
+  text-shadow: none
+
+.hidden
+  visibility: hidden
+
+.footer, .stats
   font-size: 0.7rem
   opacity: 0.7
 
@@ -144,20 +141,10 @@ ol li
     float: right
     margin-top: -3rem
 
-  .downloads
-    @include align-items(stretch)
-    @include display(flex)
-    @include flex-direction(row)
-    @include justify-content(space-between)
-
-    > li
-      @include flex(1)
-      &:not(:last-child)
-        margin-right: 10px
-
-  .version, .stats
+  .stats
     float: right
+    margin-top: 0
     text-align: right
 
-  .stats
-    margin-top: 0
+@import 'index'
+@import 'repos'

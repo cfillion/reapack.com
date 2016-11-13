@@ -76,6 +76,7 @@ DEPENDENCIES
   bourbon
   em-http-request
   multi_json
+  nokogiri
   sass
   sinatra
   slim

@@ -1,8 +1,4 @@
-h1
-  | ReaPack: Package Manager for REAPER
-
-a.donate href="https://www.paypal.com/cgi-bin/webscr?cmd=_donations&business=T3DEWBQJAV7WL&lc=CA&item_name=ReaPack%3a%20Package%20Manager%20for%20REAPER&no_note=0&cn=Custom%20message&no_shipping=1&currency_code=CAD&bn=PP%2dDonationsBF%3abtn_donateCC_LG%2egif%3aNonHosted"
-  img alt="Donate" src=url('/images/donate.png')
+- @title = 'ReaPack: Package manager for REAPER'
 
 p
   | ReaPack is a package manager for REAPER, the Digital Audio Workstation.
@@ -16,7 +12,7 @@ p.screenshot
 h2#downloads Downloads &amp; User Guide
 
 - unless @latest
-  p
+  p.error
     ' Oops! We could not load the release feed.
       We're retrying right now, come back in a few seconds.
     br
@@ -123,57 +119,3 @@ ul
   li
     a> href="https://github.com/cfillion/reapack-index/wiki" Indexer
     | for git-based repositories
-
-p Default repositories included in ReaPack:
-
-ul
-  li
-    a> href="https://github.com/ReaTeam/ReaScripts" ReaTeam/ReaScripts:
-    | Community-maintained collection of scripts
-  li
-    a> href="https://github.com/ReaTeam/JSFX" ReaTeam/JSFX:
-    | Community-maintained collection of JS effects
-  li
-    a> href="https://github.com/ReaTeam/Themes" ReaTeam/Themes:
-    | Community-maintained collection of themes
-  li
-    a> href="https://github.com/MichaelPilyavskiy/ReaScripts" mpl
-    | script collection
-  li
-    a> href="https://github.com/X-Raym/REAPER-ReaScripts" X-Raym
-    | script collection
-
-p
-  | Other free ReaPack-compatible repositories (
-  a href="https://github.com/cfillion/reapack/wiki#import" How to import?
-  | ):
-
-ul
-  == repo \
-    name: "chtammik's scripts",
-    url: 'https://github.com/chtammik/chtammik_Reaper_Scripts#readme',
-    index: 'https://github.com/chtammik/chtammik_Reaper_Scripts/raw/master/index.xml'
-  == repo \
-    name: "eugen2777's scripts",
-    url: 'https://github.com/EUGEN27771/ReaScripts#readme',
-    index: 'https://github.com/EUGEN27771/ReaScripts/raw/master/index.xml'
-  == repo \
-    name: "fernsehmuell's scripts",
-    url: 'https://github.com/fernsehmuell/reaper_scripts#readme',
-    index: 'https://github.com/fernsehmuell/reaper_scripts/raw/master/index.xml'
-  == repo \
-    name: "mrlimbic's scripts and JSFX",
-    url: 'https://github.com/mrlimbic/reascripts#readme',
-    index: 'https://github.com/mrlimbic/reascripts/raw/master/index.xml'
-  == repo \
-    name: "przemoc's scripts",
-    url: 'https://github.com/przemoc/REAPER-ReaScripts#readme',
-    index: 'https://github.com/przemoc/REAPER-ReaScripts/raw/master/index.xml'
-  == repo \
-    name: "X-Raym MIDI Makey Makey",
-    url: 'https://github.com/X-Raym/MIDI-Makey-Makey#readme',
-    index: 'https://github.com/X-Raym/MIDI-Makey-Makey/raw/master/index.xml'  
-
-- if @downloads
-  p.stats
-    ' Recent downloads: #{number_with_delimiter @downloads}

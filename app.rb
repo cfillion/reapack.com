@@ -2,10 +2,12 @@ require 'action_view'
 require 'em-http'
 require 'em-http/middleware/json_response'
 require 'fileutils'
+require 'nokogiri'
 require 'ostruct'
 require 'sass/plugin/rack'
 require 'sinatra/base'
 require 'time'
+require 'yaml'
 
 Sass::Plugin.options.merge! \
   sourcemap: :none,
@@ -23,11 +25,20 @@ class ReaPack::WebApp < Sinatra::Base
     'reaper_reapack32.dll'   => :win32,
     'reaper_reapack64.dll'   => :win64,
   }.freeze
+  PKG_TYPES = {
+    :script => ['script', 'scripts'],
+    :effect => ['effect', 'effects'],
+    :theme => ['theme', 'themes'],
+    :extension => ['extension', 'extensions'],
+    :langpack => ['language pack', 'language packs'],
+    :other => ['other', 'others'],
+  }.freeze
 
   def initialize
     @@boot_time = Time.now
     @@last_update = Time.new 0
     @@latest = @@downloads = nil
+    @@repos = []
 
     file = File.join settings.root, 'log', 'app.log'
     FileUtils.mkdir_p File.dirname(file)
@@ -41,10 +52,25 @@ class ReaPack::WebApp < Sinatra::Base
     super
   end
 
-  def make_request
-    client = EventMachine::HttpRequest.new URL
+  def make_request(url, context, &callback)
+    client = EventMachine::HttpRequest.new url
     client.use EM::Middleware::JSONResponse
-    client.get
+    req = client.get :redirects => 2
+
+    req.errback {
+      @log.error(context) { "download failed: %s" % req.error }
+    }
+
+    req.callback {
+      status = req.response_header.status
+
+      unless status == 200
+        @log.error(context) { "download failed (%d): %s" % [status, req.response.lines.first] }
+        next
+      end
+
+      callback[req]
+    }
   end
 
   def update(force = false)
@@ -53,19 +79,7 @@ class ReaPack::WebApp < Sinatra::Base
 
     @@last_update = now
 
-    req = make_request
-    req.errback {
-      @log.error("releases") { "download failed: %s" % req.error }
-    }
-
-    req.callback {
-      status = req.response_header.status
-
-      unless status == 200
-        @log.error("releases") { "download failed (%d): %s" % [status, req.response] }
-        next
-      end
-
+    make_request URL, 'releases' do |req|
       releases = []
       req.response.each {|json_release|
         release = make_release json_release
@@ -79,6 +93,15 @@ class ReaPack::WebApp < Sinatra::Base
 
       if COUNT_DOWNLOADS && old_dl_count
         @log.info("releases") { "downloads since last sync: %d" % [@@downloads - old_dl_count] }
+      end
+    end
+
+    @@repos.clear
+
+    repos = YAML.load_file File.join(settings.root, 'repos.yml')
+    repos.each_with_index {|repo, index|
+      make_request repo['index'], "repo ##{index}" do |req|
+        add_repo repo if read_repo req.response, repo
       end
     }
 
@@ -116,6 +139,38 @@ class ReaPack::WebApp < Sinatra::Base
     asset
   end
 
+  def read_repo(index, repo)
+    doc = Nokogiri::XML index
+    repo['name'] = doc.root['name'].to_s
+    repo['packages'] = {}
+
+    return if repo['name'].empty?
+
+    @log.info("repos") { "received repo '%s'" % repo['name'] }
+
+    doc.css('reapack').each do |pkg|
+      type = PKG_TYPES[pkg['type'].to_sym] || PKG_TYPES[:other]
+      repo['packages'][type] ||= 0
+      repo['packages'][type] += 1
+    end
+  rescue Nokogiri::XML::SyntaxError
+  end
+
+  def add_repo(repo)
+    @@repos << repo
+    @@repos.sort! {|a, b|
+      if a['disporder'] && b['disporder'].nil?
+        -1
+      elsif a['disporder'].nil? && b['disporder']
+        1
+      elsif a['disporder'] && b['disporder']
+        a['disporder'] <=> b['disporder']
+      else
+        a['name'].downcase <=> b['name'].downcase
+      end
+    }
+  end
+
   def harvest_data(releases)
     return if releases.empty?
 
@@ -131,25 +186,27 @@ class ReaPack::WebApp < Sinatra::Base
     }
   end
 
-  use Sass::Plugin::Rack
-  include ActionView::Helpers::NumberHelper
+  def bind_data
+    return update unless @@latest
 
-  helpers do
-    def repo(**locals)
-      slim :repo, locals: locals
-    end
+    last_modified @@last_update
+    @latest = @@latest
+    @downloads = @@downloads
+    @repos = @@repos
   end
 
-  get '/' do
-    if @@latest
-      last_modified @@last_update
-      @latest = @@latest
-      @downloads = @@downloads
-    else
-      update
-    end
+  use Sass::Plugin::Rack
+  include ActionView::Helpers::NumberHelper
+  include ActionView::Helpers::TextHelper
 
+  get '/' do
+    bind_data
     slim :index
+  end
+
+  get '/repos' do
+    bind_data
+    slim :repos
   end
 
   post '/sync' do

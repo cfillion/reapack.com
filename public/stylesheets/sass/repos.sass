@@ -1,0 +1,64 @@
+.table
+  border: 1px solid $foreground
+  border-radius: 5px
+
+  li
+    @extend .clearfix
+
+    background-color: lighten($background, 7%)
+    list-style-type: none
+    padding: 5px
+
+    &:nth-child(2n)
+      background-color: lighten($background, 10%)
+
+    &:first-child
+      +border-top-radius(inherit)
+
+    &:last-child
+      +border-bottom-radius(inherit)
+
+    &:not(:last-child)
+      border-bottom: 1px solid $foreground
+
+  .left
+    float: left
+
+  .icon
+    cursor: default
+    font-size: 1.1rem
+    text-align: center
+    text-shadow: none
+    width: 28px
+
+  .desc
+    font-size: 0.8rem
+
+  .fa-asterisk
+    color: yellowgreen
+
+  .fa-star
+    color: gold
+
+.help
+  font-size: 0.75rem
+  margin-bottom: 5px
+  text-align: right
+
+.index
+  background-color: black
+  border-radius: 5px
+  clear: both
+  display: block
+  font-family: monospace
+  font-size: 0.8rem
+  font-weight: normal
+  padding: 1px
+  padding-left: 7px
+  padding-right: 7px
+  text-decoration: none
+
+@media screen and (min-width: $width)
+  .index
+    clear: none
+    float: right

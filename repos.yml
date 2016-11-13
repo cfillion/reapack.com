@@ -1,0 +1,51 @@
+# featured and default repos
+-
+  link: 'https://github.com/ReaTeam/ReaScripts'
+  index: 'https://github.com/ReaTeam/ReaScripts/raw/master/index.xml'
+  default: true
+  disporder: 1
+-
+  link: 'https://github.com/ReaTeam/JSFX'
+  index: 'https://github.com/ReaTeam/JSFX/raw/master/index.xml'
+  default: true
+  disporder: 2
+-
+  link: 'https://github.com/ReaTeam/Themes'
+  index: 'https://github.com/ReaTeam/Themes/raw/master/index.xml'
+  default: true
+  disporder: 3
+-
+  link: 'https://github.com/ReaTeam/LangPacks'
+  index: 'https://github.com/ReaTeam/LangPacks/raw/master/index.xml'
+  featured: true
+  disporder: 4
+-
+  link: 'https://github.com/MichaelPilyavskiy/ReaScripts'
+  index: 'https://github.com/MichaelPilyavskiy/ReaScripts/raw/master/index.xml'
+  default: true
+  disporder: 11
+-
+  link: 'https://github.com/X-Raym/REAPER-ReaScripts'
+  index: 'https://github.com/X-Raym/REAPER-ReaScripts/raw/master/index.xml'
+  default: true
+  disporder: 12
+
+# third-party repos
+-
+  link: 'https://github.com/chtammik/chtammik_Reaper_Scripts#readme'
+  index: 'https://github.com/chtammik/chtammik_Reaper_Scripts/raw/master/index.xml'
+-
+  link: 'https://github.com/EUGEN27771/ReaScripts#readme'
+  index: 'https://github.com/EUGEN27771/ReaScripts/raw/master/index.xml'
+-
+  link: 'https://github.com/fernsehmuell/reaper_scripts#readme'
+  index: 'https://github.com/fernsehmuell/reaper_scripts/raw/master/index.xml'
+-
+  link: 'https://github.com/mrlimbic/reascripts#readme'
+  index: 'https://github.com/mrlimbic/reascripts/raw/master/index.xml'
+-
+  link: 'https://github.com/przemoc/REAPER-ReaScripts#readme'
+  index: 'https://github.com/przemoc/REAPER-ReaScripts/raw/master/index.xml'
+-
+  link: 'https://github.com/X-Raym/MIDI-Makey-Makey#readme'
+  index: 'https://github.com/X-Raym/MIDI-Makey-Makey/raw/master/index.xml'
