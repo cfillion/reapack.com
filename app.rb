@@ -4,6 +4,7 @@ require 'em-http/middleware/json_response'
 require 'fileutils'
 require 'nokogiri'
 require 'ostruct'
+require 'rack/coffee'
 require 'sass/plugin/rack'
 require 'sinatra/base'
 require 'time'
@@ -199,6 +200,7 @@ class ReaPack::WebApp < Sinatra::Base
   end
 
   use Sass::Plugin::Rack
+  use Rack::Coffee, cache_compile: true
   include ActionView::Helpers::NumberHelper
   include ActionView::Helpers::TextHelper
 
