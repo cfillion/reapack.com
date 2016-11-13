@@ -2,6 +2,6 @@
 
 ```sh
 bundle
-(cd public/stylesheets/sass && bourbon install)
+(cd stylesheets && bourbon install)
 bundle exec rackup
 ```

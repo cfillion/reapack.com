@@ -11,7 +11,8 @@ require 'yaml'
 
 Sass::Plugin.options.merge! \
   sourcemap: :none,
-  style: :compressed
+  style: :compressed,
+  template_location: 'stylesheets'
 
 ReaPack = Class.new
 
