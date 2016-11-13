@@ -203,13 +203,15 @@ class ReaPack::WebApp < Sinatra::Base
   include ActionView::Helpers::NumberHelper
   include ActionView::Helpers::TextHelper
 
+  before do
+    bind_data if request.request_method == 'GET'
+  end
+
   get '/' do
-    bind_data
     slim :index
   end
 
   get '/repos' do
-    bind_data
     slim :repos
   end
 
