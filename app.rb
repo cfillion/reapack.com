@@ -71,7 +71,7 @@ class ReaPack::WebApp < Sinatra::Base
       status = req.response_header.status
 
       unless status == 200
-        @log.error(context) { "download failed (%d): %s" % [status, req.response.lines.first] }
+        @log.error(context) { "download failed (%d): %s" % [status, req.response.to_s.lines.first] }
         next
       end
 
