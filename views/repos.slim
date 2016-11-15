@@ -41,10 +41,10 @@ p
             - else
               = repo['packages'].sort_by {|t, c| [-c, t] }.map { |type, count| \
                 label = count != 1 ? type.last : type.first; \
-                "%s %s" % [number_with_delimiter(count), label] \
+                '%s %s' % [number_with_delimiter(count), label] \
               }.join ', '
 
         a.index href=repo['index']
           code #{repo['index']}
 
-script type="text/javascript" src=url('/javascripts/repos.js')
+script type='text/javascript' src=url('/javascripts/repos.js') async=''
