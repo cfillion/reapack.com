@@ -2,44 +2,45 @@
 
 doctype html
 
-head
-  meta charset="utf-8"
-  meta name="author" content="Christian Fillion"
-  - if @description
-    meta name="description" contents=@description
-  meta name="keywords" content="reapack reaper extension plugin package manager script effect theme language pack resource stash"
-  meta name="viewport" content="width=device-width, initial-scale=1"
-  meta name="canonical" content="http://reapack.com#{request.path_info}"
+html lang="en"
+  head
+    meta charset="utf-8"
+    meta name="author" content="Christian Fillion"
+    - if @description
+      meta name="description" contents=@description
+    meta name="keywords" content="reapack reaper extension plugin package manager script effect theme language pack resource stash"
+    meta name="viewport" content="width=device-width, initial-scale=1"
+    meta name="canonical" content="http://reapack.com#{request.path_info}"
 
-  title = @title
+    title = @title
 
-  link rel="stylesheet" media="all" href=url('/stylesheets/layout.css')
+    link rel="stylesheet" media="all" href=url('/stylesheets/layout.css')
 
-body
-  ul.tabbar
-    li.reapack class="#{'active' if request.path_info == '/'}"
-      a href=url('/') Main page
-    li.repos class="#{'active' if request.path_info == '/repos'}"
-      a href=url('/repos') Repositories
-    li.devel: a href="https://github.com/cfillion/reapack-index/wiki" Developer
+  body
+    ul.tabbar
+      li.reapack class="#{'active' if request.path_info == '/'}"
+        a href=url('/') Main page
+      li.repos class="#{'active' if request.path_info == '/repos'}"
+        a href=url('/repos') Repositories
+      li.devel: a href="https://github.com/cfillion/reapack-index/wiki" Developer
 
-  h1 = @title
+    h1 = @title
 
-  a.donate href="https://www.paypal.com/cgi-bin/webscr?cmd=_donations&business=T3DEWBQJAV7WL&lc=CA&item_name=ReaPack%3a%20Package%20Manager%20for%20REAPER&no_note=0&cn=Custom%20message&no_shipping=1&currency_code=CAD&bn=PP%2dDonationsBF%3abtn_donateCC_LG%2egif%3aNonHosted"
-    img alt="Donate" src=url('/images/donate.png')
+    a.donate href="https://www.paypal.com/cgi-bin/webscr?cmd=_donations&business=T3DEWBQJAV7WL&lc=CA&item_name=ReaPack%3a%20Package%20Manager%20for%20REAPER&no_note=0&cn=Custom%20message&no_shipping=1&currency_code=CAD&bn=PP%2dDonationsBF%3abtn_donateCC_LG%2egif%3aNonHosted"
+      img alt="Donate" src=url('/images/donate.png')
 
-  == page
+    == page
 
-  - if @downloads
-    p.stats
-      | Recent downloads: #{number_with_delimiter @downloads}
+    - if @downloads
+      p.stats
+        | Recent downloads: #{number_with_delimiter @downloads}
 
-  p.footer
-    ' Copyright &copy; 2015-#{Time.now.year} Christian Fillion
-    a> href="mailto:reapack@cfillion.tk" email
-    ' /
-    a> href="//cfillion.tk" web
-    ' /
-    a> href="https://twitter.com/cfillion30" twitter
-    ' /
-    a> href="https://github.com/cfillion" github
+    p.footer
+      ' Copyright &copy; 2015-#{Time.now.year} Christian Fillion
+      a> href="mailto:reapack@cfillion.tk" email
+      ' /
+      a> href="//cfillion.tk" web
+      ' /
+      a> href="https://twitter.com/cfillion30" twitter
+      ' /
+      a> href="https://github.com/cfillion" github
