@@ -145,6 +145,21 @@ class ReaPack::WebApp < Sinatra::Base
     asset
   end
 
+  def harvest_data(releases)
+    return if releases.empty?
+
+    @@latest = releases.find {|r| r.stable }
+    @@latest ||= releases.first
+
+    @@downloads = releases.map {|r| r.downloads }.inject(&:+) if COUNT_DOWNLOADS
+
+    FILES.values.each {|var|
+      next if @@latest[var]
+      match = releases.find {|r| r[var] && (r.stable || !@@latest.stable) }
+      @@latest[var] = match[var] if match
+    }
+  end
+
   def read_repo(index, repo)
     doc = Nokogiri::XML index
     repo['name'] = doc.root['name'].to_s
@@ -172,21 +187,6 @@ class ReaPack::WebApp < Sinatra::Base
       else
         a['name'].downcase <=> b['name'].downcase
       end
-    }
-  end
-
-  def harvest_data(releases)
-    return if releases.empty?
-
-    @@latest = releases.find {|r| r.stable }
-    @@latest ||= releases.first
-
-    @@downloads = releases.map {|r| r.downloads }.inject(&:+) if COUNT_DOWNLOADS
-
-    FILES.values.each {|var|
-      next if @@latest[var]
-      match = releases.find {|r| r[var] && (r.stable || !@@latest.stable) }
-      @@latest[var] = match[var] if match
     }
   end
 
