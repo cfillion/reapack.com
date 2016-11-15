@@ -4,8 +4,10 @@ doctype html
 
 head
   meta charset="utf-8"
-  meta name="author" content="cfillion"
-  meta name="keywords" content="reapack reaper extension plugin package manager script effect resource stash"
+  meta name="author" content="Christian Fillion"
+  - if @description
+    meta name="description" contents=@description
+  meta name="keywords" content="reapack reaper extension plugin package manager script effect theme language pack resource stash"
   meta name="viewport" content="width=device-width, initial-scale=1"
   meta name="canonical" content="http://reapack.com#{request.path_info}"
 
