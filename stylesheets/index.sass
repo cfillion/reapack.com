@@ -44,6 +44,7 @@
     border-radius: 7px
     border: 1px solid white
     display: block
+    list-style-type: none
     margin-bottom: $padding
     overflow: hidden
     padding: 14px
@@ -51,10 +52,7 @@
 
 @media screen and (min-width: $width)
   .downloads
-    +align-items(stretch)
     +display(flex)
-    +flex-direction(row)
-    +justify-content(space-between)
 
     > li
       +flex(1)
