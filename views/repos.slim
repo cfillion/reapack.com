@@ -17,10 +17,6 @@ p
     a> href="https://github.com/cfillion/reapack.com/issues/new" report this
     | if the issue persists.
 - else
-  p.help
-    a href="https://github.com/cfillion/reapack.com/issues/new"
-      | Add a repository to this page
-
   ul.table
     - @repos.each do |repo|
       li
@@ -46,6 +42,23 @@ p
 
         a.index href=repo['index']
           code #{repo['index']}
+
+h2#upload Add your content
+
+p ReaPack is a powerful tool for distributing REAPER resources.
+  The <a href="https://github.com/ReaTeam">ReaTeam</a> repositories are the
+  preferred distribution method for free community resources.
+  They reach a wide audience by being pre-configured in ReaPack and contributing
+  is easy.
+
+p Creating your own repository is also an option for more complex cases.
+  The documentation of the repository format is available on ReaPack's
+  <a href="https://github.com/cfillion/reapack/wiki/Index-Format">wiki</a>.
+  Checkout the <a href="https://github.com/cfillion/reapack-index/wiki">reapack-index</a>
+  project if you use git as your version control system.
+
+p Come discuss in the <a href="http://forum.cockos.com/showthread.php?t=169127">development thread</a>
+  on the REAPER forum!
 
 script type='text/javascript' src="https://cdnjs.cloudflare.com/ajax/libs/clipboard.js/1.5.13/clipboard.min.js" defer=''
 script type='text/javascript' src=url('/javascripts/repos.js') defer=''
