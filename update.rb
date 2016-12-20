@@ -120,7 +120,7 @@ class Releases
     @downloads = releases.map {|release|
       release[:assets].map {|file| file[:download_count] }.inject(&:+).to_i
     }.inject(&:+).to_i
-  rescue Octokit::Error => e
+  rescue Faraday::ConnectionFailed, Octokit::Error => e
     raise TaskFailure, e.message
   end
 
@@ -162,7 +162,7 @@ class Repo
         @packages[type] += 1
       end
     }
-  rescue OpenURI::HTTPError, Nokogiri::XML::SyntaxError => e
+  rescue SocketError, OpenURI::HTTPError, Nokogiri::XML::SyntaxError => e
     raise TaskFailure, e.message
   end
 
