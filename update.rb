@@ -14,8 +14,6 @@ require 'yaml'
 Oj.default_options = { time_format: :ruby }
 String.disable_colorization = !STDOUT.tty? || !STDERR.tty?
 
-GITHUB_PROJECT = 'cfillion/reapack'
-
 FILES = {
   'reaper_reapack32.dylib' => :darwin32,
   'reaper_reapack64.dylib' => :darwin64,
@@ -23,6 +21,7 @@ FILES = {
   'reaper_reapack64.dll'   => :win64,
 }.freeze
 
+# package types not in this list are counted as :other
 PKG_TYPES = [
   :script,
   :effect,
@@ -39,10 +38,9 @@ class Runner
     @data_file = File.join @root_dir, 'tmp', 'data.json'
     FileUtils.mkdir_p File.dirname(@data_file)
 
-    @data = File.exist?(@data_file) ? Oj.load(File.read(@data_file)) : {
-      downloads: 0,
-      repos: [],
-    }
+    @data = File.exist?(@data_file) ? Oj.load(File.read @data_file) : {}
+    @data[:downloads] ||= 0
+    @data[:repos] ||= []
     @old_dl_count = @data[:downloads]
 
     @failure_count = 0
@@ -83,6 +81,10 @@ class Runner
 end
 
 class Releases
+  def initialize(repo)
+    @repo = repo
+  end
+
   def inspect
     "GitHub Releases"
   end
@@ -92,7 +94,7 @@ class Releases
   end
 
   def fetch
-    releases = Octokit.releases GITHUB_PROJECT
+    releases = Octokit.releases @repo
 
     latest = releases.find {|r| !r[:prerelease] }
     latest ||= releases.first
@@ -193,7 +195,7 @@ end
 runner = Runner.new
 
 tasks = {
-  'releases' => [ Releases.new ],
+  'releases' => [ Releases.new('cfillion/reapack') ],
   'repos' => runner.repos.map {|repo| Repo.new(repo) },
 }
 
