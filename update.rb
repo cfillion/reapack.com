@@ -38,7 +38,8 @@ class Runner
     @data_file = File.join @root_dir, 'tmp', 'data.json'
     FileUtils.mkdir_p File.dirname(@data_file)
 
-    @data = File.exist?(@data_file) ? Oj.load(File.read @data_file) : {}
+    @old_contents = File.read @data_file
+    @data = File.exist?(@data_file) ? Oj.load(@old_contents) : {}
     @data[:downloads] ||= 0
     @data[:repos] ||= []
     @old_dl_count = @data[:downloads]
@@ -75,8 +76,13 @@ class Runner
   end
 
   def save
-    warn "Done. %+d downloads!".bold.yellow % [@data[:downloads] - @old_dl_count]
-    File.write @data_file, Oj.dump(@data)
+    new_contents = Oj.dump @data
+    save = new_contents != @old_contents
+
+    warn "Done. %+d downloads! (%s)".bold.yellow %
+      [@data[:downloads] - @old_dl_count, save ? 'saved' : 'not saved']
+
+    File.write @data_file, new_contents if save
   end
 end
 
