@@ -15,10 +15,9 @@ h2#downloads Downloads &amp; User Guide
 
 - unless @latest
   p.error
-    ' Oops! We could not load the release feed.
-      We're retrying right now, come back in a few seconds.
+    ' Oops! We could not load the release feed. Please report this issue!
     br
-    ' ReaPack can also be downloaded from
+    ' In the meantime ReaPack can still be downloaded from
     a href="https://github.com/cfillion/reapack/releases"
       | https://github.com/cfillion/reapack/releases
     | .
@@ -29,21 +28,21 @@ h2#downloads Downloads &amp; User Guide
       h3 macOS
       ul
         li
-          a> href=@latest.darwin32.url 32-bit
-          span.size = number_to_human_size @latest.darwin32.size
+          a> href=@latest[:darwin32][:url] 32-bit
+          span.size = number_to_human_size @latest[:darwin32][:size]
         li
-          a> href=@latest.darwin64.url 64-bit
-          span.size = number_to_human_size @latest.darwin64.size
+          a> href=@latest[:darwin64][:url] 64-bit
+          span.size = number_to_human_size @latest[:darwin64][:size]
     li
       i.fa.fa-fw.fa-windows
       h3 Windows
       ul
         li
-          a> href=@latest.win32.url 32-bit
-          span.size = number_to_human_size @latest.win32.size
+          a> href=@latest[:win32][:url] 32-bit
+          span.size = number_to_human_size @latest[:win32][:size]
         li
-          a> href=@latest.win64.url 64-bit
-          span.size = number_to_human_size @latest.win64.size
+          a> href=@latest[:win64][:url] 64-bit
+          span.size = number_to_human_size @latest[:win64][:size]
     li
       i.fa.fa-fw.fa-book
       h3 User Guide
@@ -52,9 +51,9 @@ h2#downloads Downloads &amp; User Guide
           a href="https://github.com/cfillion/reapack/wiki" Read online
 
   p.version
-    ' Latest #{@latest.stable ? 'stable release' : 'pre-release'}:
-    a> href=@latest.url ReaPack #{@latest.name}
-    ' released on #{@latest.time.strftime '%Y-%m-%d'} by #{@latest.author}
+    ' Latest #{@latest[:stable] ? 'stable release' : 'pre-release'}:
+    a> href=@latest[:link] ReaPack #{@latest[:name]}
+    ' released on #{@latest[:time].strftime '%Y-%m-%d'} by #{@latest[:author]}
     br
     a href="https://github.com/cfillion/reapack/releases" Other releases
 
