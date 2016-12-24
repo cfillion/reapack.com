@@ -5,8 +5,6 @@ li
     ul
       - links.each do |name, link|
         li
-          - if link.is_a? Hash
-            a> href=link[:link] = name
-            span.size = number_to_human_size link[:size]
-          - else
-            a href=link = name
+          a href=link[:link] = name
+          - if link[:size]
+            span.size< = number_to_human_size link[:size]
