@@ -52,3 +52,6 @@
 -
   link: 'https://geraintluff.github.io/jsfx/'
   index: 'https://geraintluff.github.io/jsfx/index.xml'
+-
+  link: 'https://github.com/nofishonfriday/ReaScripts'
+  index: 'https://github.com/nofishonfriday/ReaScripts/raw/master/index.xml'
