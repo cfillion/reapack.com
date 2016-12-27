@@ -23,7 +23,7 @@ GEM
       execjs
     coffee-script-source (1.12.2)
     colorize (0.8.1)
-    concurrent-ruby (1.0.3)
+    concurrent-ruby (1.0.4)
     daemons (1.2.4)
     erubis (2.7.0)
     eventmachine (1.2.1)
@@ -92,7 +92,7 @@ DEPENDENCIES
   thin
 
 RUBY VERSION
-   ruby 2.3.1p112
+   ruby 2.4.0p0
 
 BUNDLED WITH
-   1.13.6
+   1.13.7
