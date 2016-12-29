@@ -15,12 +15,12 @@
 p
   ' This page lists known free third-party ReaPack repositories.
 
-  a> href="https://github.com/cfillion/reapack/wiki#import"
+  a> href="https://github.com/cfillion/reapack/wiki#import-a-repository"
     | How to import a repository?
 
 - if @repos.empty?
   p.error
-    ' Oops! We could not fetch the contents of any repositories. Please
+    ' Oops! We could not fetch the repository list. Please
     a> href="https://github.com/cfillion/reapack.com/issues/new" report this
     | if the issue persists.
 - else
