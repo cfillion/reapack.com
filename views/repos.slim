@@ -36,7 +36,7 @@ p
             .hidden &nbsp;
 
         .left
-          a href=repo[:link] = repo[:name]
+          a href=repo[:link] = repo[:name][0...24]
           br
           .desc
             - if repo[:packages].empty?
