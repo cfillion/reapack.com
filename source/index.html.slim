@@ -1,6 +1,9 @@
-- @title = 'ReaPack: Package manager for REAPER'
-- @description = 'ReaPack is a package manager for quickly installing and ' \
-  'updating ReaScripts, Effects, Themes, Extensions, Language Packs and more.'
+---
+title: 'ReaPack: Package manager for REAPER'
+description: >
+  ReaPack is a package manager for quickly installing and
+  updating ReaScripts, Effects, Themes, Extensions, Language Packs and more.
+---
 
 p
   | ReaPack is a package manager for REAPER, the Digital Audio Workstation.
@@ -12,55 +15,47 @@ p
     and web browser interfaces).
 
 p.screenshot
-  img src=url('/images/package_browser.png') alt="Screenshot of ReaPack's Package Browser"
+  img src=url_for('/images/package_browser.png') alt="Screenshot of ReaPack's Package Browser"
 
 h2#downloads Downloads &amp; User Guide
 
-- unless @latest
-  p.error
-    ' Oops! We could not load the release feed. Please report this issue!
-    br
-    ' In the meantime ReaPack can still be downloaded from
-    a href="https://github.com/cfillion/reapack/releases"
-      | https://github.com/cfillion/reapack/releases
-    | .
-- else
-  ul.downloads
-    == slim :_downloads, locals: { \
-      header: 'macOS',
-      icon: 'apple',
-      links: { \
-        '32-bit' => @latest[:darwin32],
-        '64-bit' => @latest[:darwin64],
-      }}
+ul.downloads
+  == partial :_downloads, locals: { \
+    header: 'macOS',
+    icon: 'apple',
+    links: { \
+      '32-bit': data.releases.latest.darwin32,
+      '64-bit': data.releases.latest.darwin64,
+    }}
 
-    == slim :_downloads, locals: { \
-      header: 'Windows',
-      icon: 'windows',
-      links: { \
-        '32-bit' => @latest[:win32],
-        '64-bit' => @latest[:win64],
-      }}
+  == partial :_downloads, locals: { \
+    header: 'Windows',
+    icon: 'windows',
+    links: { \
+      '32-bit': data.releases.latest.win32,
+      '64-bit': data.releases.latest.win64,
+    }}
 
-    == slim :_downloads, locals: { \
-      header: 'User Guide',
-      icon: 'book',
-      links: { \
-        'Read online' => {link: 'https://github.com/cfillion/reapack/wiki'},
-      }}
+  == partial :_downloads, locals: { \
+    header: 'User Guide',
+    icon: 'book',
+    links: { \
+      'Read online': {link: 'https://github.com/cfillion/reapack/wiki'},
+    }}
 
-  p.version
-    ' Latest #{@latest[:stable] ? 'stable release' : 'pre-release'}:
-    a> href=@latest[:link] ReaPack #{@latest[:name]}
-    ' released on #{@latest[:time].strftime '%Y-%m-%d'} by #{@latest[:author]}
-    br
-    a href="https://github.com/cfillion/reapack/releases" Other releases
+p.version
+  ' Latest #{data.releases.latest.stable ? 'stable release' : 'pre-release'}:
+  a> href=data.releases.latest.link ReaPack #{data.releases.latest.name}
+  ' released on #{DateTime.parse(data.releases.latest.time).strftime '%Y-%m-%d'}
+  ' by #{data.releases.latest.author}
+  br
+  a href="https://github.com/cfillion/reapack/releases" Other releases
 
-  p.requirements
-    | Requires <a href="http://reaper.fm">REAPER</a> v4.7+
-      (v5.12 or later recommended)
-    br
-    | At least macOS 10.7, Windows Vista or Wine 1.8
+p.requirements
+  | Requires <a href="http://reaper.fm">REAPER</a> v4.7+
+    (v5.12 or later recommended)
+  br
+  | At least macOS 10.7, Windows Vista or Wine 1.8
 
 h2#instructions Installation Instructions
 

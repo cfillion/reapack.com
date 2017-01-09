@@ -1,11 +1,6 @@
-# compiled css
 .sass-cache/
-*.css
 bourbon/
+build/
+data/
 
-# OS X files
 .DS_Store
-
-# thin files
-log/
-tmp/

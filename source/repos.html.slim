@@ -1,0 +1,65 @@
+---
+title: 'Repository List'
+description: >
+  This page lists known third-party repositories available
+  for ReaPack, the package manager for REAPER.
+types:
+  script:       'script'
+  effect:       'effect'
+  theme:        'theme'
+  extension:    'extension'
+  webinterface: 'web interface'
+  other:        'misc package'
+---
+
+p
+  ' This page lists known free third-party ReaPack repositories.
+
+  a> href="https://github.com/cfillion/reapack/wiki#import-a-repository"
+    | How to import a repository?
+
+ul.table
+  - data.repos.each do |repo|
+    li
+      .left.icon
+        - if repo[:default]
+          i.fa.fa-asterisk title="Included in the default configuration"
+        - elsif repo[:featured]
+          i.fa.fa-star title="Featured"
+        - else
+          .hidden &nbsp;
+
+      .left
+        a href=repo[:link] = repo[:name][0...24]
+        br
+        .desc
+          - if repo[:packages].empty?
+            | This repository is empty
+          - else
+            = repo[:packages].sort_by {|t, c| [-c, t] }.map {|type, count| \
+              pluralize number_with_delimiter(count),
+                current_page.data.types[type.to_sym] \
+            }.join ', '
+
+      a.index href=repo[:index]
+        code #{repo[:index]}
+
+h2#upload Share your content
+
+div.contribute
+  p#pr: img src="/images/pull_request.png" alt="Creating a Pull Request on GitHub"
+  p ReaPack is a powerful tool for distributing REAPER resources.
+    The <a href="https://github.com/ReaTeam">ReaTeam</a> repositories hosted
+    on GitHub are the preferred method for sharing community resources.
+
+  p Documentation for building your own repository is available on the
+    <a href="https://github.com/cfillion/reapack/wiki/Index-Format">wiki</a>.
+    Check out the <a href="https://github.com/cfillion/reapack-index/wiki">reapack-index</a>
+    project if you use git as your version control system.
+
+  p Come discuss in the <a href="http://forum.cockos.com/showthread.php?t=169127">development thread</a>
+    on the REAPER forum!
+
+- content_for :javascripts do
+  == javascript_include_tag 'https://cdnjs.cloudflare.com/ajax/libs/clipboard.js/1.5.13/clipboard.min.js', defer: true
+  == javascript_include_tag 'repos', defer: true

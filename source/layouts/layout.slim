@@ -1,42 +1,40 @@
-- page = yield
-
 doctype html
 
 html lang="en"
   head
     meta charset="utf-8"
     meta name="author" content="Christian Fillion"
-    - if @description
-      meta name="description" contents=@description
+    - if desc = current_page.data.description
+      meta name="description" contents=desc
     meta name="viewport" content="width=device-width, initial-scale=1"
-    meta name="canonical" content="http://reapack.com#{request.path_info}"
+    - if current_page.path != 'not_found.html'
+      meta name="canonical" content="http://reapack.com#{current_page.url}"
 
-    title = @title
+    title = current_page.data.title
 
     link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto+Slab:400,700)"
     link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto:400,500"
     link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css"
 
-    link rel="stylesheet" href=url('/stylesheets/layout.css')
+    == stylesheet_link_tag :site
 
-  body
+  body class=page_classes
     ul.tabbar
-      li.reapack class="#{'active' if request.path_info == '/'}"
-        a href=url('/') Main page
-      li.repos class="#{'active' if request.path_info == '/repos'}"
-        a href=url('/repos') Repositories
+      li.reapack class="#{'active' if current_page.path == 'index.html'}"
+        a href=url_for('index.html') Main page
+      li.repos class="#{'active' if current_page.path == 'repos.html'}"
+        a href=url_for('repos.html') Repositories
       li.devel: a href="https://github.com/cfillion/reapack" Developer
 
-    h1 = @title
+    h1 = current_page.data.title
 
     a.donate href="https://www.paypal.com/cgi-bin/webscr?cmd=_donations&business=T3DEWBQJAV7WL&lc=CA&item_name=ReaPack%3a%20Package%20Manager%20for%20REAPER&no_note=0&cn=Custom%20message&no_shipping=1&currency_code=CAD&bn=PP%2dDonationsBF%3abtn_donateCC_LG%2egif%3aNonHosted"
-      img alt="Donate" src=url('/images/donate.png')
+      img alt="Donate" src=url_for('/images/donate.png')
 
-    == page
+    == yield
 
-    - if @downloads
-      p.stats
-        | Recent downloads: #{number_with_delimiter @downloads}
+    p.stats
+      | Recent downloads: #{number_with_delimiter data.releases.recent_downloads}
 
     p.footer
       ' Copyright &copy; 2015-#{Time.now.year} Christian Fillion
@@ -47,3 +45,5 @@ html lang="en"
       a> href="https://twitter.com/cfillion30" twitter
       ' /
       a> href="https://github.com/cfillion" github
+
+    == yield_content :javascripts
