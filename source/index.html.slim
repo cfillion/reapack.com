@@ -46,7 +46,7 @@ ul.downloads
 p.version
   ' Latest #{data.releases.latest.stable ? 'stable release' : 'pre-release'}:
   a> href=data.releases.latest.link ReaPack #{data.releases.latest.name}
-  ' released on #{DateTime.parse(data.releases.latest.time).strftime '%Y-%m-%d'}
+  ' released on #{data.releases.latest.time.strftime '%Y-%m-%d'}
   ' by #{data.releases.latest.author}
   br
   a href="https://github.com/cfillion/reapack/releases" Other releases
