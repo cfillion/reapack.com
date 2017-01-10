@@ -1,6 +1,6 @@
-.sass-cache/
-bourbon/
-build/
-data/
+/.sass-cache/
+/build/
+/data/
+/source/stylesheets/bourbon
 
 .DS_Store
