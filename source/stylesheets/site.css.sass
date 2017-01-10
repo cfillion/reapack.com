@@ -156,5 +156,8 @@ b
     margin-top: 0
     text-align: right
 
-@import 'index'
-@import 'repos'
+body
+  &.index
+    @import '_index'
+  &.repos
+    @import '_repos'

@@ -18,15 +18,8 @@ puts "master at '$to' copied to '$DEPLOY_DIR'"
 
 cd "$DEPLOY_DIR"
 bundle
-./update.rb
-(cd public/stylesheets/sass; bourbon install)
-
-thin stop 2> /dev/null
-
-mv log/thin.log log/thin.log.old
-RACK_ENV=production bundle exec thin start -d
-
-sleep 2
-cat log/thin.log
+(cd source/stylesheets && bundle exec bourbon install)
+bundle exec ./update.rb
+bundle exec middleman build
 
 puts "Done!"

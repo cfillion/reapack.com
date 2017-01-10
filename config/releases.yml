@@ -1,0 +1,6 @@
+github: 'cfillion/reapack'
+files:
+  'reaper_reapack32.dylib': darwin32
+  'reaper_reapack64.dylib': darwin64
+  'reaper_reapack32.dll': win32
+  'reaper_reapack64.dll': win64

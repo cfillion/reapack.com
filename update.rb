@@ -6,106 +6,102 @@ require 'colorize'
 require 'fileutils'
 require 'nokogiri'
 require 'octokit'
-require 'oj'
 require 'open-uri'
-require 'time'
 require 'yaml'
 
-Oj.default_options = { time_format: :ruby }
 String.disable_colorization = !STDOUT.tty? || !STDERR.tty?
-
-FILES = {
-  'reaper_reapack32.dylib' => :darwin32,
-  'reaper_reapack64.dylib' => :darwin64,
-  'reaper_reapack32.dll'   => :win32,
-  'reaper_reapack64.dll'   => :win64,
-}.freeze
-
-# package types not in this list are counted as :other
-PKG_TYPES = [
-  :script,
-  :effect,
-  :theme,
-  :extension,
-  :langpack,
-].freeze
 
 TaskFailure = Class.new RuntimeError
 
 class Runner
   def initialize
     @root_dir = File.dirname __FILE__
-    @data_file = File.join @root_dir, 'tmp', 'data.json'
-    FileUtils.mkdir_p File.dirname(@data_file)
+    @config_dir = File.join @root_dir, 'config'
+    @data_dir = File.join @root_dir, 'data'
 
-    @old_contents = File.read @data_file
-    @data = File.exist?(@data_file) ? Oj.load(@old_contents) : {}
-    @data[:downloads] ||= 0
-    @data[:repos] ||= []
-    @old_dl_count = @data[:downloads]
+    FileUtils.mkdir_p @data_dir
 
-    @failure_count = 0
+    @groups = {}
+    @failures = 0
   end
 
-  attr_reader :failure_count
+  def add(id, klass = nil)
+    config = YAML.load_file File.join(@config_dir, "#{id}.yml")
 
-  def repos
-    @repos ||= YAML.load_file File.join(@root_dir, 'repos.yml')
+    if klass
+      @groups[id] = [klass.new(config)]
+    else
+      @groups[id] = yield config
+    end
   end
 
-  def run(task)
+  def run(tasks)
+    if tasks.empty?
+      tasks.concat @groups.keys
+    else
+      if wrong = tasks.find {|arg| !@groups.has_key? arg }
+        warn "invalid task '#{wrong}'".red
+        warn "correct tasks are: #{@groups.keys.join("\x20").bold}"
+        return -1
+      end
+    end
+
+    warn "executing tasks #{tasks.join("\x20").bold}\n\n"
+    tasks.each {|grp|
+      data_file = File.join @data_dir, "#{grp}.yml"
+      data = File.exist?(data_file) ? YAML.load_file(data_file) : nil
+      @groups[grp].each {|task| data = run_task task, data }
+      File.write data_file, data.to_yaml
+    }
+
+    warn "%s (%d failures)" %
+      [@failures > 0 ? 'Done!' : 'Done!'.bold.green, @failures]
+
+    @failures
+  end
+
+private
+  def run_task(task, data)
     warn DateTime.now
-    warn "#{'->'.blue.bold} Fetching #{task.inspect}"
+    warn "#{'->'.blue.bold} Running #{task.inspect}"
 
     begin
-      task.fetch
-      task.save @data
-      warn "   #{'OK!'.green.bold} #{task}"
+      summary, data = task.run data
+      warn "   #{'OK!'.green.bold} #{summary}"
     rescue TaskFailure => e
-      @failure_count += 1
+      @failures += 1
       warn "   #{'ERR'.red.bold} #{e}"
     end
 
     warn "\n"
-  end
-
-  def cleanup_repos
-    @data[:repos].keep_if {|data|
-      repos.any? {|repo| repo['index'] == data[:index] }
-    }
-  end
-
-  def save
-    new_contents = Oj.dump @data
-    save = new_contents != @old_contents
-
-    warn "Done. %+d downloads! (%s)".bold.yellow %
-      [@data[:downloads] - @old_dl_count, save ? 'saved' : 'not saved']
-
-    File.write @data_file, new_contents if save
+    data
   end
 end
 
 class Releases
-  def initialize(repo)
-    @repo = repo
+  def initialize(config)
+    @config = config
   end
 
   def inspect
     "GitHub Releases"
   end
 
-  def to_s
-    "latest = #{@latest[:name]}, downloads = #{@downloads} (all versions)"
-  end
+  def run(data)
+    data ||= {}
+    old_dl_count = data[:recent_downloads] || 0
 
-  def fetch
-    releases = Octokit.releases @repo
+    releases = Octokit.releases @config['github']
+    raise TaskFailure, 'no releases' if releases.empty?
 
     latest = releases.find {|r| !r[:prerelease] }
     latest ||= releases.first
 
-    @latest = {
+    data[:recent_downloads] = releases.map {|release|
+      release[:assets].map {|file| file[:download_count] }.inject(&:+).to_i
+    }.inject(&:+).to_i
+
+    data[:latest] = {
       name: latest[:tag_name],
       author: latest[:author][:login],
       stable: !latest[:prerelease],
@@ -114,8 +110,8 @@ class Releases
     }
 
     latest[:assets].each {|file|
-      if key = FILES[file[:name]]
-        @latest[key] = {
+      if key = @config['files'][file[:name]]
+        data[:latest][key] = {
           name: file[:name],
           link: file[:browser_download_url],
           size: file[:size],
@@ -123,68 +119,85 @@ class Releases
       end
     }
 
-    @downloads = releases.map {|release|
-      release[:assets].map {|file| file[:download_count] }.inject(&:+).to_i
-    }.inject(&:+).to_i
+    dl_count_diff = '%+d' % [data[:recent_downloads] - old_dl_count]
+    summary = "latest = %s, downloads = %s (all versions, total = %d)" %
+      [data[:latest][:name], dl_count_diff.bold.yellow, data[:recent_downloads]]
+
+    [summary, data]
   rescue Faraday::ConnectionFailed, Octokit::Error => e
     raise TaskFailure, e.message
-  end
-
-  def save(data)
-    data[:latest] = @latest
-    data[:downloads] = @downloads
   end
 end
 
 class Repo
-  def initialize(params)
-    @params = params
-  end
-
-  def link
-    @params['link']
+  def initialize(repo, config)
+    @repo = repo
+    @config = config
   end
 
   def inspect
+    link = @repo['link']
     Octokit::Repository.from_url(link).slug rescue link
   end
 
-  def to_s
-    "name = #{@name}, packages = #{@packages.map {|k,v| v}.inject(&:+) || 0} "
-  end
+  def run(data)
+    name, packages = nil
 
-  def fetch
-    open(URI @params['index']) {|f|
+    open(URI @repo['index']) {|f|
       doc = Nokogiri::XML f.read
-      @name = doc.root['name'].to_s
-      @packages = {}
+      name = doc.root['name'].to_s
+      packages = {}
 
-      return if @name.empty?
+      raise TaskFailed, 'repository is unnamed' if name.empty?
 
       doc.css('reapack').each do |pkg|
-        type = pkg['type'].to_sym
-        type = :other unless PKG_TYPES.include? type
-        @packages[type] ||= 0
-        @packages[type] += 1
+        type = pkg['type']
+        type = 'other' unless @config['count_types'].include? type
+        packages[type] ||= 0
+        packages[type] += 1
       end
+
+      if data.is_a? Array
+        data.delete_if {|repo| repo[:index] == @repo['index'] }
+      else
+        data = []
+      end
+
+      data << {
+        name: name,
+        link: @repo['link'],
+        index: @repo['index'],
+        disporder: @repo['disporder'],
+        default: @repo['default'] || false,
+        featured: @repo['featured'] || false,
+        packages: packages,
+      }
     }
+
+    summary = "name = %s, packages = %d" %
+      [name, packages.map {|k,v| v}.inject(&:+) || 0]
+
+    [summary, data]
   rescue SocketError, OpenURI::HTTPError, Nokogiri::XML::SyntaxError => e
     raise TaskFailure, e.message
   end
+end
 
-  def save(data)
-    data[:repos].delete_if {|repo| repo[:index] == @params['index'] }
+class CleanupRepos
+  def initialize(config)
+    @config = config
+  end
 
-    data[:repos] << {
-      name: @name,
-      link: @params['link'],
-      index: @params['index'],
-      disporder: @params['disporder'],
-      default: @params['default'] || false,
-      featured: @params['featured'] || false,
-      packages: @packages,
+  def inspect
+    'Cleanup repository list'
+  end
+
+  def run(data)
+    data.keep_if {|data|
+      @config['repos'].any? {|repo| repo['index'] == data[:index] }
     }
-    data[:repos].sort! {|a, b|
+
+    data.sort! {|a, b|
       if a[:disporder] && b[:disporder].nil?
         -1
       elsif a[:disporder].nil? && b[:disporder]
@@ -195,28 +208,18 @@ class Repo
         a[:name].downcase <=> b[:name].downcase
       end
     }
+
+    ['Repository list cleaned up.', data]
   end
 end
 
 runner = Runner.new
 
-tasks = {
-  'releases' => [ Releases.new('cfillion/reapack') ],
-  'repos' => runner.repos.map {|repo| Repo.new(repo) },
-}
-
-ARGV.concat tasks.keys if ARGV.empty?
-
-if wrong = ARGV.find {|arg| !tasks.has_key? arg }
-  warn "invalid task '#{wrong}'".red
-  warn "correct tasks are: #{tasks.keys.join("\x20").bold}"
-  exit -1
+runner.add 'releases', Releases
+runner.add 'repos' do |config|
+  tasks = config['repos'].map {|repo| Repo.new repo, config }
+  tasks << CleanupRepos.new(config)
+  tasks
 end
 
-warn "executing tasks #{ARGV.join("\x20").bold}\n\n"
-ARGV.each {|arg| tasks[arg].each {|task| runner.run task } }
-
-runner.cleanup_repos
-runner.save
-
-exit runner.failure_count
+exit runner.run ARGV
