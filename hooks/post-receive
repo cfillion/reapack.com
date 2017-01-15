@@ -16,6 +16,9 @@ fi
 GIT_WORK_TREE="$DEPLOY_DIR" git checkout -f master
 puts "master at '$to' copied to '$DEPLOY_DIR'"
 
+# avoid "ArgumentError: invalid byte sequence in US-ASCII"
+export RUBYOPT=-EUTF-8
+
 cd "$DEPLOY_DIR"
 bundle
 (cd source/stylesheets && bundle exec bourbon install)
