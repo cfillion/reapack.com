@@ -2,6 +2,7 @@
 
 ```sh
 bundle
-(cd public/stylesheets/sass && bourbon install)
-bundle exec rackup
+(cd source/stylesheets && bourbon install)
+./update.rb
+middleman build
 ```

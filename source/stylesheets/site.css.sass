@@ -1,0 +1,163 @@
+$background: #3B302B
+$foreground: #D8FFCF
+$padding: 10px
+$width: 870px
+
+@import 'bourbon/bourbon'
+@import 'meyer-reset'
+
+html
+  background-color: $background
+  color: $foreground
+  font-family: 'Roboto', sans-serif
+  font-size: 16px
+  text-shadow: 1px 1px black
+
+body
+  margin: auto
+  max-width: $width
+  padding-left: $padding
+  padding-right: $padding
+
+p, ul, h1, h2
+  margin-bottom: 0.8rem
+
+h1, h2
+  font-family: 'Roboto Slab', serif
+  font-weight: 700
+  margin-top: 1rem
+
+p, li
+  line-height: 1.15
+
+h1
+  border-bottom: 1px solid $foreground
+  font-size: 2.3rem
+  font-weight: 700
+  padding-bottom: 7px
+
+h2
+  font-size: 1.5rem
+
+img
+  max-width: 100%
+
+a
+  color: $foreground
+  font-weight: bold
+  text-decoration: underline
+
+  &.egg
+    font-weight: inherit
+    text-decoration: inherit
+
+u
+  text-decoration: underline
+
+small
+  font-size: 0.7em
+
+ul li
+  list-style-type: disc
+
+ol li
+  list-style-type: decimal
+
+ul, ol
+  margin-left: 1em
+
+b
+  font-weight: bold
+
+.clearfix
+  &:after
+    visibility: hidden
+    display: block
+    content: " "
+    clear: both
+
+@mixin tab($color)
+  border-color: lighten($color, 5%)
+  +linear-gradient(lighten($color, 5%), darken($color, 9%), $fallback: $color)
+  text-shadow: 1px 1px darken($color, 25%)
+
+  &:hover
+    +linear-gradient(lighten($color, 10%), darken($color, 4%), $fallback: lighten($color, 5%))
+
+  &:active
+    +linear-gradient($color, darken($color, 14%), $fallback: darken($color, 5%))
+
+.tabbar
+  @extend .clearfix
+
+  margin-left: 0
+
+  li
+    float: left
+    list-style-type: none
+
+    &:not(:last-child)
+      margin-right: 4px
+
+  a
+    color: white
+    border: 1px solid transparent
+    border-top-style: none
+    +border-bottom-radius(6px)
+    display: block
+    font-size: 0.9rem
+    font-weight: normal
+    min-width: 100px
+    padding-bottom: 3px
+    padding-left: 5px
+    padding-right: 5px
+    padding-top: 3px
+    text-align: center
+    text-decoration: none
+
+  .active a
+    font-weight: bold
+    padding-bottom: 4px
+    padding-top: 4px
+
+  .reapack a
+    +tab(orange)
+
+  .repos a
+    +tab(steelblue)
+
+  .devel a
+    +tab(crimson)
+
+.error
+  border: 1px solid $foreground
+  border-radius: 5px
+  background-color: darken(red, 5%)
+  padding: 10px
+  text-shadow: none
+
+.hidden
+  visibility: hidden
+
+.footer, .stats
+  font-size: 0.7rem
+  opacity: 0.7
+
+@media screen and (min-width: $width)
+  h1
+    padding-right: 74px // width of the donate button
+
+  .donate
+    float: right
+    margin-top: -3rem
+
+  .stats
+    float: right
+    margin-top: 0
+    text-align: right
+
+body
+  &.index
+    @import '_index'
+  &.repos
+    @import '_repos'

@@ -1,0 +1,73 @@
+.screenshot
+  text-align: center
+
+  img
+    box-shadow: 0px 0px 10px #777777
+    opacity: 0.9
+    transition: opacity 0.5s
+
+    &:hover
+      opacity: 1
+
+.requirements, .version
+  font-size: 0.8rem
+
+.downloads
+  color: $background
+  text-shadow: 1px 1px white
+  margin: 0
+
+  .fa
+    cursor: default
+    float: left
+    font-size: 3.3rem
+    padding-right: 5px
+    padding-top: 5px
+
+    + div
+      float: left
+
+  h3
+    font-size: 1.3rem
+    font-weight: bold
+    margin-bottom: 5px
+
+  a
+    color: #003CCB
+    display: inline-block
+    font-weight: 500
+
+  .size
+    font-size: 0.7rem
+
+    &:before
+      content: '('
+    &:after
+      content: ')'
+
+  ul
+    margin-bottom: 0
+
+  > li
+    +linear-gradient(darken($foreground, 5%), darken($foreground, 14%), $fallback: $foreground)
+    border-radius: 7px
+    border: 1px solid white
+    display: block
+    list-style-type: none
+    margin-bottom: $padding
+    overflow: hidden
+    padding: 14px
+    padding-left: 5px
+
+@media screen and (min-width: $width)
+  .downloads
+    +display(flex)
+
+    > li
+      +flex(1)
+      &:not(:last-child)
+        margin-right: $padding
+
+  .version
+    float: right
+    text-align: right
