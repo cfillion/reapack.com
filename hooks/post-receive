@@ -1,7 +1,7 @@
 #!/bin/sh
 DEPLOY_DIR="/CHANGE/ME/"
 
-function puts { echo "post-receive: $*" }
+function puts { echo "post-receive: $*"; }
 
 export GEM_HOME=$(ruby -e 'puts Gem.user_dir')
 PATH="$GEM_HOME/bin:$PATH"
