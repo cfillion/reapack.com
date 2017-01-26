@@ -62,3 +62,6 @@ repos:
   -
     link: 'https://bitbucket.org/kawaCat/reascript-m2bpack/wiki/Home'
     index: 'https://bitbucket.org/kawaCat/reascript-m2bpack/raw/master/index.xml'
+  -
+    link: 'https://github.com/me2beats/reapack'
+    index: 'https://github.com/me2beats/reapack/raw/master/index.xml'
