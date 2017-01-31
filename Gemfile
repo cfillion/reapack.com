@@ -1,9 +1,9 @@
 source 'https://rubygems.org'
 ruby '>= 2.3'
 
-gem 'bourbon'
 gem 'colorize'
 gem 'middleman'
+gem 'middleman-autoprefixer'
 gem 'nokogiri'
 gem 'octokit'
 gem 'sass'

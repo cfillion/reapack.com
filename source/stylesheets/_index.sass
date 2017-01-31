@@ -49,7 +49,8 @@
     margin-bottom: 0
 
   > li
-    +linear-gradient(darken($foreground, 5%), darken($foreground, 14%), $fallback: $foreground)
+    background-color: $foreground
+    background-image: linear-gradient(darken($foreground, 5%), darken($foreground, 14%))
     border-radius: 7px
     border: 1px solid white
     display: block
@@ -61,10 +62,11 @@
 
 @media screen and (min-width: $width)
   .downloads
-    +display(flex)
+    display: flex
 
     > li
-      +flex(1)
+      flex: 1
+
       &:not(:last-child)
         margin-right: $padding
 

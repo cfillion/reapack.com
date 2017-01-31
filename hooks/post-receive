@@ -21,7 +21,6 @@ export RUBYOPT=-EUTF-8
 
 cd "$DEPLOY_DIR"
 bundle
-(cd source/stylesheets && bundle exec bourbon install)
 bundle exec ./update.rb
 bundle exec middleman build
 

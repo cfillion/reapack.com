@@ -14,10 +14,12 @@
       background-color: lighten($background, 10%)
 
     &:first-child
-      +border-top-radius(inherit)
+      border-top-left-radius: inherit
+      border-top-right-radius: inherit
 
     &:last-child
-      +border-bottom-radius(inherit)
+      border-bottom-left-radius: inherit
+      border-bottom-right-radius: inherit
 
     &:not(:last-child)
       border-bottom: 1px solid transparentize($foreground, 0.3)

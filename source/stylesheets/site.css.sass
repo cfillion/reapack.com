@@ -3,7 +3,6 @@ $foreground: #D8FFCF
 $padding: 10px
 $width: 870px
 
-@import 'bourbon/bourbon'
 @import 'meyer-reset'
 
 html
@@ -78,14 +77,17 @@ b
 
 @mixin tab($color)
   border-color: lighten($color, 5%)
-  +linear-gradient(lighten($color, 5%), darken($color, 9%), $fallback: $color)
+  background-color: $color
+  background-image: linear-gradient(lighten($color, 5%), darken($color, 9%))
   text-shadow: 1px 1px darken($color, 25%)
 
   &:hover
-    +linear-gradient(lighten($color, 10%), darken($color, 4%), $fallback: lighten($color, 5%))
+    background-color: lighten($color, 5%)
+    background-image: linear-gradient(lighten($color, 10%), darken($color, 4%))
 
   &:active
-    +linear-gradient($color, darken($color, 14%), $fallback: darken($color, 5%))
+    background-color: darken($color, 5%)
+    background-image: linear-gradient($color, darken($color, 14%))
 
 .tabbar
   @extend .clearfix
@@ -103,7 +105,8 @@ b
     color: white
     border: 1px solid transparent
     border-top-style: none
-    +border-bottom-radius(6px)
+    border-bottom-left-radius: 6px
+    border-bottom-right-radius: 6px
     display: block
     font-size: 0.9rem
     font-weight: normal
