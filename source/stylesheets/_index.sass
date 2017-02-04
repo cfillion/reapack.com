@@ -60,7 +60,7 @@
     padding: 14px
     padding-left: 5px
 
-@media screen and (min-width: $width)
+@media #{$breakpoint}
   .downloads
     display: flex
 
@@ -69,7 +69,6 @@
 
       &:not(:last-child)
         margin-right: $padding
-
   .version
     float: right
     text-align: right

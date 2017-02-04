@@ -2,6 +2,7 @@ $background: #3B302B
 $foreground: #D8FFCF
 $padding: 10px
 $width: 870px
+$breakpoint: "screen and (min-width: #{$width})"
 
 @import 'meyer-reset'
 
@@ -146,7 +147,7 @@ b
   font-size: 0.7rem
   opacity: 0.7
 
-@media screen and (min-width: $width)
+@media #{$breakpoint}
   h1
     padding-right: 74px // width of the donate button
 
