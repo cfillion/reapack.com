@@ -9,8 +9,6 @@ require 'octokit'
 require 'open-uri'
 require 'yaml'
 
-String.disable_colorization = !STDOUT.tty? || !STDERR.tty?
-
 TaskFailure = Class.new RuntimeError
 
 class Runner
