@@ -65,3 +65,6 @@ repos:
   -
     link: 'https://github.com/me2beats/reapack'
     index: 'https://github.com/me2beats/reapack/raw/master/index.xml'
+  -
+    link: 'https://github.com/Claudiohbsantos/Claudiohbsantos-Scripts'
+    index: 'https://github.com/Claudiohbsantos/Claudiohbsantos-Scripts/raw/master/index.xml'
