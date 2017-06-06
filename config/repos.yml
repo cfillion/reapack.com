@@ -68,3 +68,15 @@ repos:
   -
     link: 'https://github.com/Claudiohbsantos/Claudiohbsantos-Scripts'
     index: 'https://github.com/Claudiohbsantos/Claudiohbsantos-Scripts/raw/master/index.xml'
+  -
+    link: 'https://github.com/RobU23/ReaScripts/'
+    index: 'https://github.com/RobU23/ReaScripts/raw/master/index.xml'
+  -
+    link: 'https://github.com/jtackaberry/reascripts'
+    index: 'https://raw.githubusercontent.com/jtackaberry/reascripts/master/index.xml'
+  -
+    link: 'https://github.com/RCJacH/ReaScripts/'
+    index: 'https://github.com/RCJacH/ReaScripts/raw/master/index.xml'
+  -
+    link: 'https://github.com/luckyxxl/reaper-scripts'
+    index: 'https://github.com/luckyxxl/reaper-scripts/raw/master/index.xml'
