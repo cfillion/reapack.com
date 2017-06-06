@@ -10,15 +10,21 @@ cbs = [
 
   new Clipboard(copyAll, text: ->
     urls = []
-
     for i in [0...nodes.length]
       urls.push nodes[i].firstChild.innerText
-
     urls.join "\n"
-  )
+  ),
 ]
 
-for cb in cbs
-  cb.on 'success', ->
-    copied.classList.remove 'hidden'
-    window.setTimeout (-> copied.classList.add 'hidden'), 2000
+flashTimeout = null
+flashCopy = ->
+  window.clearTimeout flashTimeout if flashTimeout
+
+  copied.classList.remove 'hidden'
+
+  flashTimeout = window.setTimeout (->
+    copied.classList.add 'hidden'
+    flashTimeout = null
+  ), 2000
+
+cb.on 'success', flashCopy for cb in cbs
