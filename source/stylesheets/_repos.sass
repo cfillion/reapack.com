@@ -3,7 +3,7 @@
   border-radius: 5px
   margin-left: 0
 
-  li
+  & > li
     @extend .clearfix
 
     background-color: lighten($background, 7%)
@@ -42,6 +42,22 @@
 
   .fa-star
     color: gold
+
+.help
+  font-size: 0.8rem
+  margin: 0
+
+  li
+    list-style-type: none
+    display: inline-block
+
+    &:not(:last-child)::after
+      margin: 5px
+      content: '|'
+
+  .fa
+    text-decoration: none
+    padding-right: 3px
 
 .index
   background-color: black

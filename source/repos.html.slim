@@ -16,10 +16,22 @@ types:
 p
   ' This page lists known free third-party ReaPack repositories.
 
-  a> href="https://github.com/cfillion/reapack/wiki#import-a-repository"
-    | How to import a repository?
 
 ul.table
+  li: ul.help
+    li: a href="https://github.com/cfillion/reapack/wiki#import-a-repository"
+      i.fa.fa-info-circle
+      | How to import a repository?
+    li: a href="https://github.com/cfillion/reapack.com/edit/master/config/repos.yml"
+      i.fa.fa-pencil
+      | Edit this list
+    li
+      a.copyAll> href="javascript:;"
+        i.fa.fa-copy
+        | Copy all
+      span.copied.hidden
+        | (Copied!)
+
   - data.repos.each do |repo|
     li
       .left.icon
