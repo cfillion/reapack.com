@@ -80,3 +80,6 @@ repos:
   -
     link: 'https://github.com/luckyxxl/reaper-scripts'
     index: 'https://github.com/luckyxxl/reaper-scripts/raw/master/index.xml'
+  -
+    link: 'http://sonic.supermaailma.net/plugins'
+    index: 'https://github.com/Sonic-Anomaly/Sonic-Anomaly-JSFX/raw/master/index.xml'
