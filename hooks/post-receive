@@ -9,7 +9,7 @@ PATH="$GEM_HOME/bin:$PATH"
 read from to branch
 
 if [ "$branch" != "refs/heads/master" ]; then
-  puts "post-receive: received branch '$branch', not deploying."
+  puts "received branch '$branch', not deploying."
   exit 1
 fi
 
