@@ -83,3 +83,6 @@ repos:
   -
     link: 'http://sonic.supermaailma.net/plugins'
     index: 'https://github.com/Sonic-Anomaly/Sonic-Anomaly-JSFX/raw/master/index.xml'
+  -
+    link: 'https://github.com/GoranKovac/ReaScripts'
+    index: 'https://github.com/GoranKovac/ReaScripts/raw/master/index.xml'
