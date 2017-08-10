@@ -3,9 +3,8 @@ doctype html
 html lang="en"
   head
     meta charset="utf-8"
-    meta name="author" content="Christian Fillion"
     - if desc = current_page.data.description
-      meta name="description" contents=desc
+      meta name="description" content=desc
     meta name="viewport" content="width=device-width, initial-scale=1"
     - if current_page.path != 'not_found.html'
       meta name="canonical" content="https://reapack.com#{current_page.url}"
