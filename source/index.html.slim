@@ -4,7 +4,33 @@ description: >
   ReaPack is a package manager for REAPER, the Digital Audio Workstation.
   Install and update ReaScripts, JS effects, themes, extensions,
   language packs and more.
+requirements: At least macOS 10.7, Windows Vista or Wine 1.8
 ---
+
+script type="application/ld+json"
+  |
+    {
+      "@context": "http://schema.org",
+      "@type": "SoftwareApplication",
+      "name": "ReaPack",
+      "about": "#{current_page.data.description}",
+      "version": "#{data.releases.latest.name.gsub(/^v/, '')}",
+      "releaseNotes": "#{data.releases.latest.link}",
+      "operatingSystem": "#{current_page.data.requirements}",
+      "applicationCategory": "DesignApplication",
+      "screenshot": "https://reapack.com#{url_for('/images/package_browser.png')}",
+      "license": "https://www.gnu.org/licenses/lgpl-3.0.en.html",
+      "softwareHelp": {"url": "https://github.com/cfillion/reapack/wiki"},
+      "offers": {
+        "@type": "Offer",
+        "price": "0",
+        "priceCurrency": "CAD"
+      },
+      "discussionUrl": "https://forum.cockos.com/showthread.php?t=177978",
+      "sameAs": [
+        "https://github.com/cfillion/reapack"
+      ]
+    }
 
 p
   | ReaPack is a package manager for REAPER, the Digital Audio Workstation.
@@ -56,7 +82,7 @@ p.requirements
   | Requires <a href="https://www.reaper.fm">REAPER</a> v4.7+
     (v5.12 or later recommended)
   br
-  | At least macOS 10.7, Windows Vista or Wine 1.8
+  = current_page.data.requirements
 
 h2#instructions Installation Instructions
 
