@@ -6,7 +6,7 @@ for node in nodes
 
     ga 'send', {
       hitType: 'event',
-      eventCategory: 'Download',
+      eventCategory: 'Downloads',
       eventAction: 'start',
       eventLabel: file,
     }

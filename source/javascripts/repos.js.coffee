@@ -8,7 +8,7 @@ for node in nodes
 
     ga 'send', {
       hitType: 'event',
-      eventCategory: 'Repository',
+      eventCategory: 'Repositories',
       eventAction: 'copy',
       eventLabel: this.href,
     }
@@ -16,7 +16,7 @@ for node in nodes
 copyAll.addEventListener 'click', ->
   ga 'send', {
     hitType: 'event',
-    eventCategory: 'Repository',
+    eventCategory: 'Repositories',
     eventAction: 'copy',
     eventLabel: 'all',
   }
