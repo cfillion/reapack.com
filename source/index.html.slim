@@ -132,3 +132,6 @@ ul
   li
     a> href="https://github.com/cfillion/reapack/issues" Issue Tracker:
     | Report bugs and feature ideas here
+
+- content_for :javascripts do
+  == javascript_include_tag 'index', defer: true
