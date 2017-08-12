@@ -15,7 +15,11 @@ script type="application/ld+json"
       '@context': 'http://schema.org',
       '@type': 'SoftwareApplication',
       'name': 'ReaPack',
-      'author': 'Christian Fillion',
+      'author': { \
+        '@type': 'Person',
+        'name': 'Christian Fillion',
+        'sameAs': 'https://cfillion.ca',
+      },
       'about': current_page.data.description,
       'softwareVersion': data.releases.latest.name.gsub(/^v/, ''),
       'datePublished': data.releases.latest.time.iso8601,
