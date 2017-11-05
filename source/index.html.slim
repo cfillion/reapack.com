@@ -5,9 +5,8 @@ description: >
   Install and update ReaScripts, JS effects, themes, extensions,
   language packs and more.
 softwareRequirements: >-
-  Requires <a href="https://www.reaper.fm">REAPER</a> v4.7+
-  (v5.12 or later recommended)
-systemRequirements: At least macOS 10.7, Windows Vista or Wine 1.8
+  REAPER v4.7+ (v5.12 or later recommended).
+systemRequirements: At least macOS 10.7, Windows Vista or Wine 1.8.
 ---
 
 script type="application/ld+json"
@@ -41,101 +40,117 @@ script type="application/ld+json"
       ],
     }.to_json
 
-p
-  | ReaPack is a package manager for REAPER, the Digital Audio Workstation.
-  br
-  | It eases the <a class="egg" rel="nofollow"
-    href="//reacomics.tumblr.com/post/153946589700/033-reapack-feedback">
-    download</a>/installation and update of REAPER resources
-    (ReaScripts, JS effects, themes, native extensions, language packs
-    and web browser interfaces).
+.container
+  .main
+    p
+      | ReaPack is a package manager for REAPER, the Digital Audio Workstation.
+      br
+      |
+        Discover, <a class="egg" rel="nofollow" href="//reacomics.tumblr.com/post/153946589700/033-reapack-feedback">
+        install</a> and keep up to date your REAPER resources including ReaScripts,
+        JS effects, extensions, themes, language packs, templates, web
+        interfaces and more.
 
-p.screenshot
-  img src=url_for('/images/package_browser.png') alt="Screenshot of ReaPack's Package Browser"
+    p.screenshot
+      img src=url_for('/images/package_browser.png') alt="Screenshot of ReaPack's Package Browser"
 
-h2#downloads Downloads &amp; User Guide
+    h2#instructions Installation Instructions
 
-ul.downloads
-  == partial :_downloads, locals: { \
-    header: 'macOS',
-    icon: 'apple',
-    links: { \
-      '32-bit': data.releases.latest.darwin32,
-      '64-bit': data.releases.latest.darwin64,
-    }}
+    ol
+      li From REAPER: <u>Options &gt; Show resource path in explorer/finder</u>
+      li Put the downloaded file in the <u>UserPlugins</u> subdirectory
+      li Restart REAPER. Done!
 
-  == partial :_downloads, locals: { \
-    header: 'Windows',
-    icon: 'windows',
-    links: { \
-      '32-bit': data.releases.latest.win32,
-      '64-bit': data.releases.latest.win64,
-    }}
+    h2#features Main Features
 
-  == partial :_downloads, locals: { \
-    header: 'User Guide',
-    icon: 'book',
-    links: { \
-      'Read online': {link: 'https://github.com/cfillion/reapack/wiki'},
-    }}
+    ul
+      li Easy access to 900+ packages from the default repositories
+      li Import third-party repositories to get more content
+      li Install/update in batch or pick only what you need
+      li Decentralized by design, free to use and open-source
+      li Per-package documentation display
+      li Opt-in setting to test pre-release packages
+      li <b>NEW!</b> Import/export set of installed packages offline
+      li <b>NEW!</b> Support automation items, project templates, track templates and MIDI note names
+      li And a lot more...
 
-p.version
-  ' Latest #{data.releases.latest.stable ? 'stable release' : 'pre-release'}:
-  a> href=data.releases.latest.link ReaPack #{data.releases.latest.name}
-  ' released on #{data.releases.latest.time.strftime '%Y-%m-%d'}
-  ' by #{data.releases.latest.author}
-  br
-  a href="https://github.com/cfillion/reapack/releases" Other releases
+    h2#links External Links
 
-p.requirements
-  == current_page.data.softwareRequirements
-  br
-  == current_page.data.systemRequirements
+    ul
+      li
+        a href="https://forum.cockos.com/showthread.php?t=177978" Announcement thread
+      li
+        a href="https://www.youtube.com/watch?v=XjoDu_32ljI" Video introduction
+        ' ,
+        a> href="https://www.youtube.com/watch?v=9aQNCNGBF-c" ReaScript &amp; ReaPack Tips
+        | by The REAPER Blog
+      li
+        a> href="https://www.learndigitalaudio.com/reaper-gets-a-package-manager-called-reapack" Article
+        | on learndigitalaudio.com
+      li
+        a> href="https://www.extremraym.com/en/reapack" Article
+        | by X-Raym
+      li
+        a> href="https://github.com/cfillion/reapack/issues" Issue Tracker:
+        | Report bugs and feature ideas here
 
-h2#instructions Installation Instructions
+    h2#changelog Changelog
 
-ol
-  li
-    | From REAPER: <u>Options &gt; Show resource path in explorer/finder</u>
-  li
-    | Put the downloaded file in the <u>UserPlugins</u> subdirectory
-  li
-    | Restart REAPER. Done!
+    == markdown data.releases.latest.changelog
 
-h2#features Main Features
+  .aside
+    p
+      a.donate target="_blank" href="https://www.paypal.com/cgi-bin/webscr?cmd=_donations&business=T3DEWBQJAV7WL&item_name=#{current_page.data.title}&currency_code=CAD&amount=7.00"
+        i.fa.fa-paypal>
+        | Donate with PayPal
 
-ul
-  li Easy access to 800+ packages from the default repositories
-  li Import third-party repositories to get more content
-  li Install/update in batch or pick only what you need
-  li ReaScripts are automatically added to the Action List <small>(REAPER v5.12+)</small>
-  li Opt-in setting to test pre-release packages
-  li Decentralized by design, free to use and open-source
-  li <b>NEW!</b> Added support for themes, language packs and web browser interfaces
-  li <b>NEW!</b> Per-package documentation display
-  li <b>NEW!</b> Improved filtering options
-  li <b>NEW!</b> Prompt to uninstall obsolete packages
-  li And a lot more...
+      | All donations directly support ReaPack's continued development.
 
-h2#links External Links
+    h2#downloads Downloads &amp; User Guide
 
-ul
-  li
-    a href="https://forum.cockos.com/showthread.php?t=177978" Announcement thread
-  li
-    a> href="https://www.youtube.com/watch?v=XjoDu_32ljI" Video introduction
-    | by The REAPER Blog
-  li
-    a> href="https://www.youtube.com/watch?v=9aQNCNGBF-c" ReaScript &amp; ReaPack Tips
-  li
-    a> href="https://www.learndigitalaudio.com/reaper-gets-a-package-manager-called-reapack" Article
-    | on learndigitalaudio.com
-  li
-    a> href="https://www.extremraym.com/en/reapack" Article
-    | by X-Raym
-  li
-    a> href="https://github.com/cfillion/reapack/issues" Issue Tracker:
-    | Report bugs and feature ideas here
+    ul.downloads
+      == partial :_downloads, locals: { \
+        header: 'macOS',
+        icon: 'apple',
+        links: { \
+          '32-bit': data.releases.latest.darwin32,
+          '64-bit': data.releases.latest.darwin64,
+        }}
+
+      == partial :_downloads, locals: { \
+        header: 'Windows',
+        icon: 'windows',
+        links: { \
+          '32-bit': data.releases.latest.win32,
+          '64-bit': data.releases.latest.win64,
+        }}
+
+      == partial :_downloads, locals: { \
+        header: 'Linux <small>(beta)</small>',
+        icon: 'linux',
+        links: { \
+          'Source code': {link: "https://github.com/cfillion/reapack/archive/#{data.releases.latest.name}.tar.gz"},
+        }}
+
+      == partial :_downloads, locals: { \
+        header: 'User Guide',
+        icon: 'book',
+        links: { \
+          'Read online': {link: 'https://github.com/cfillion/reapack/wiki'},
+        }}
+
+    p
+      b> Latest #{data.releases.latest.stable ? 'stable release' : 'pre-release'}:
+      a> href=data.releases.latest.link ReaPack #{data.releases.latest.name}
+      ' released on #{data.releases.latest.time.strftime '%Y-%m-%d'}
+      | by #{data.releases.latest.author} (
+      a href="https://github.com/cfillion/reapack/releases" all releases
+      | )
+
+    p
+      b> System requirements:
+      => current_page.data.softwareRequirements
+      = current_page.data.systemRequirements
 
 - content_for :javascripts do
   == javascript_include_tag 'index', defer: true

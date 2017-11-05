@@ -2,8 +2,9 @@ $background: #3b302b
 $foreground: #e1ffda
 $link: #d8ffcf
 $padding: 10px
-$width: 870px
+$width: 850px
 $breakpoint: "screen and (min-width: #{$width})"
+$margin: 0.8rem
 
 @import 'meyer-reset'
 
@@ -17,16 +18,20 @@ html
 body
   margin: auto
   max-width: $width
+  padding-bottom: 1rem - $margin
   padding-left: $padding
   padding-right: $padding
 
-p, ul, h1, h2
-  margin-bottom: 0.8rem
+h1, h2
+  margin-bottom: $margin
+
+p, ul, ol, form
+  &:not(:last-child)
+    margin-bottom: $margin
 
 h1, h2
   font-family: 'Roboto Slab', serif
   font-weight: 700
-  margin-top: 1rem
 
 p, li
   line-height: 1.15
@@ -56,7 +61,7 @@ u
   text-decoration: underline
 
 small
-  font-size: 0.7em
+  font-size: 0.6em
 
 ul li
   list-style-type: disc
@@ -97,7 +102,7 @@ noscript
 .tabbar
   @extend .clearfix
 
-  margin-left: 0
+  margin: 0
 
   li
     float: left
@@ -137,17 +142,6 @@ noscript
   .devel a
     +tab(crimson)
 
-.screenshot
-  text-align: center
-
-  img
-    box-shadow: 0px 0px 10px #777777
-    opacity: 0.9
-    transition: opacity 0.5s
-
-    &:hover
-      opacity: 1
-
 .error
   border: 1px solid $foreground
   border-radius: 5px
@@ -165,11 +159,10 @@ noscript
 @media #{$breakpoint}
   .stats
     float: right
-    margin-top: 0
     text-align: right
 
 body
   &.index
-    @import '_index'
+    @import 'index'
   &.repos
-    @import '_repos'
+    @import 'repos'
