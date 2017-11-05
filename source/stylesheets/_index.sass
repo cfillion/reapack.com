@@ -1,7 +1,6 @@
 $aside-width: 300px
-$aside-spacing: 15px
 $aside-border: 1px
-$aside-outer-width: $aside-width + ($aside-spacing * 2) + $aside-border
+$aside-outer-width: $aside-width + ($padding * 2) + $aside-border
 
 &
   max-width: $width + $aside-outer-width
@@ -19,8 +18,8 @@ $aside-outer-width: $aside-width + ($aside-spacing * 2) + $aside-border
   .aside
     flex: 0 0 $aside-width
     border-left: $aside-border solid $foreground
-    margin-left: $aside-spacing
-    padding-left: $aside-spacing
+    margin-left: $padding
+    padding-left: $padding
 
 .screenshot
   text-align: center
