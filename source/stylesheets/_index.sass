@@ -69,8 +69,6 @@ $aside-outer-width: $aside-width + ($padding * 2) + $aside-border
     font-weight: 500
 
   .size
-    font-size: 0.7rem
-
     &:before
       content: '('
     &:after
@@ -78,6 +76,9 @@ $aside-outer-width: $aside-width + ($padding * 2) + $aside-border
 
   ul
     margin-bottom: 0
+
+    & + p
+      margin-top: 5px
 
   > li
     background-color: $foreground
