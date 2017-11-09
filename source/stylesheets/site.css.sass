@@ -1,6 +1,7 @@
 $background: #3b302b
 $foreground: #e1ffda
 $link: #d8ffcf
+$font-size: 16px
 $padding: 10px
 $width: 850px
 $breakpoint: "screen and (min-width: #{$width * 0.9})"
@@ -12,29 +13,19 @@ html
   background-color: $background
   color: $foreground
   font-family: 'Roboto', sans-serif
-  font-size: 16px
+  font-size: $font-size
   text-shadow: 1px 1px black
 
-body
+.wrapper
   margin: auto
   max-width: $width
-  padding-bottom: 1rem - $margin
   padding-left: $padding
   padding-right: $padding
 
 h1, h2, h3
   margin-bottom: $margin
-
-p, ul, ol, form
-  &:not(:last-child)
-    margin-bottom: $margin
-
-h1, h2, h3
   font-family: 'Roboto Slab', serif
   font-weight: 700
-
-p, li
-  line-height: 1.15
 
 h1
   border-bottom: 1px solid $foreground
@@ -44,6 +35,13 @@ h1
 
 h2
   font-size: 1.5rem
+
+p, ul, ol, form
+  &:not(:last-child)
+    margin-bottom: $margin
+
+p, li
+  line-height: 1.15
 
 img
   max-width: 100%
@@ -56,6 +54,9 @@ a
   &.egg
     font-weight: inherit
     text-decoration: inherit
+
+  &:focus
+    outline: thin dotted
 
 u
   text-decoration: underline
@@ -72,7 +73,7 @@ ol li
   list-style-type: decimal
 
 ul, ol
-  margin-left: 1em
+  margin-left: 1.5em
 
 strong
   font-weight: bold
@@ -86,60 +87,6 @@ noscript
     display: block
     content: " "
     clear: both
-
-@mixin tab($color)
-  border-color: lighten($color, 5%)
-  background-color: $color
-  background-image: linear-gradient(lighten($color, 5%), darken($color, 9%))
-  text-shadow: 1px 1px darken($color, 25%)
-
-  &:hover
-    background-color: lighten($color, 5%)
-    background-image: linear-gradient(lighten($color, 10%), darken($color, 4%))
-
-  &:active
-    background-color: darken($color, 5%)
-    background-image: linear-gradient($color, darken($color, 14%))
-
-.tabbar
-  @extend .clearfix
-
-  margin: 0
-
-  li
-    float: left
-    list-style-type: none
-
-    &:not(:last-child)
-      margin-right: 4px
-
-  a
-    color: white
-    border: 1px solid transparent
-    border-top-style: none
-    border-bottom-left-radius: 6px
-    border-bottom-right-radius: 6px
-    display: block
-    font-size: 0.9rem
-    font-weight: normal
-    min-width: 100px
-    padding-bottom: 3px
-    padding-left: 5px
-    padding-right: 5px
-    padding-top: 3px
-    text-align: center
-    text-decoration: none
-
-  .active a
-    font-weight: bold
-    padding-bottom: 4px
-    padding-top: 4px
-
-  .reapack a
-    +tab(orange)
-
-  .repos a
-    +tab(steelblue)
 
 .error
   border: 1px solid $foreground
@@ -160,6 +107,9 @@ noscript
   .stats
     float: right
     text-align: right
+
+.header
+  @import 'header'
 
 body
   &.index
