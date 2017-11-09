@@ -22,14 +22,14 @@ body
   padding-left: $padding
   padding-right: $padding
 
-h1, h2
+h1, h2, h3
   margin-bottom: $margin
 
 p, ul, ol, form
   &:not(:last-child)
     margin-bottom: $margin
 
-h1, h2
+h1, h2, h3
   font-family: 'Roboto Slab', serif
   font-weight: 700
 
@@ -74,7 +74,7 @@ ol li
 ul, ol
   margin-left: 1em
 
-b
+strong
   font-weight: bold
 
 noscript
@@ -152,6 +152,7 @@ noscript
   visibility: hidden
 
 .footer, .stats
+  margin-top: $margin
   font-size: 0.7rem
   opacity: 0.7
 
@@ -165,3 +166,5 @@ body
     @import 'index'
   &.repos
     @import 'repos'
+  &.sidebar
+    @import 'sidebar'

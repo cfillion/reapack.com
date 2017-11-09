@@ -105,7 +105,6 @@ class Releases
       stable: !latest[:prerelease],
       link: latest[:html_url],
       time: latest[:published_at],
-      changelog: latest[:body],
     }
 
     latest[:assets].each {|file|
