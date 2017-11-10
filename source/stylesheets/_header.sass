@@ -9,10 +9,11 @@ $logo-size: 32px
   margin-bottom: 1rem
   text-shadow: 1px 1px white
 
-.wrapper
-  display: flex
-  align-items: center
-  justify-content: space-between
+@media screen and (min-width: 471px)
+  .wrapper
+    display: flex
+    align-items: center
+    justify-content: space-between
 
 a
   color: $background
@@ -27,17 +28,14 @@ a
 
 .logo
   background-image: url('/images/reapack.png')
-  background-position: 50%
+  background-position: 0% 50%
   background-repeat: no-repeat
   background-size: contain
   padding: 0
   height: $logo-size
-  width: $logo-size
+  min-width: $logo-size
 
   > span
-    @media screen and (max-width: 370px)
-      display: none
-
     display: inline-block
     font-size: 1.1rem
     font-weight: bold
@@ -57,3 +55,18 @@ a
 
     &:hover, &.active
       background-color: #cdd7ca
+
+@media screen and (max-width: 470px)
+  .wrapper
+    display: block
+
+  .logo
+    margin: $padding 0 $padding 0
+
+@media screen and (max-width: 370px)
+  .menu
+    padding-bottom: $padding
+
+  .menu li, .menu a
+    border-radius: 2px
+    display: block
