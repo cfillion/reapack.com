@@ -1,22 +1,32 @@
-$aside-width: 300px
-$aside-border: 1px
-$aside-outer-width: $aside-width + ($padding * 2) + $aside-border
+$sidebar-width: 300px
+$sidebar-border: 1px
+$sidebar-outer-width: $sidebar-width + ($padding * 2) + $sidebar-border
 
 .wrapper
-  max-width: $width + $aside-outer-width
+  max-width: $content-width + $sidebar-outer-width
 
-.aside > p
+.aside p
   font-size: 0.8rem
 
-@media #{$breakpoint}
+@media #{$breakpoint-large}
   .container
     display: flex
 
   .aside
-    flex: 0 0 $aside-width
-    border-left: $aside-border solid $foreground
+    flex: 0 0 $sidebar-width
+
+    border-left: $sidebar-border solid $foreground
     margin-left: $padding
     padding-left: $padding
+
+@media #{$breakpoint-small}
+  .aside
+    margin-top: $padding
+    padding-top: $padding
+    border-top: $sidebar-border solid $foreground
+
+  body:not(.index) #downloads
+    display: none
 
 .donate
   background-color: #009cde
@@ -59,6 +69,9 @@ $aside-outer-width: $aside-width + ($padding * 2) + $aside-border
     color: #003CCB
     display: inline-block
     font-weight: 500
+
+  p
+    font-size: 1rem
 
   .size
     &:before
