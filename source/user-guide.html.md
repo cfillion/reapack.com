@@ -73,13 +73,13 @@ This section covers how to install and manage packages using the package browser
 
 The first column at the left displays the package status:
 
-Row 1   | Meaning                | Row 2+  | Meaning
----     | ---                    | ---     | ---
-*Empty* | Package is uninstalled | *Empty* | No queued actions
-i       | Package is installed   | I       | Queued for installation
-u       | An update is available | R       | Queued for uninstallation
-o       | Package is obsolete    | P       | Pin status modified
-        |                        | p       | Package is pinned
+| Row 1   | Meaning                | Row 2+  | Meaning                   |
+| ---     | ---                    | ---     | ---                       |
+| *Empty* | Package is uninstalled | *Empty* | No queued actions         |
+| i       | Package is installed   | I       | Queued for installation   |
+| u       | An update is available | R       | Queued for uninstallation |
+| o       | Package is obsolete    | P       | Pin status modified       |
+|         |                        | p       | Package is pinned         |
 
 The version column shows both the currently installed version and the latest
 version available in the repository between parenthesis.
