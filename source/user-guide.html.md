@@ -32,11 +32,11 @@ provided in the included README.md file.
 ## Getting started
 
 Upon first launch you are presented with the configuration dialog (*Extensions >
-ReaPack > Manage repositories*). Each repository in the list contain a different
-set of packages. More can be added using the *Import* button (see [Import a
-repository](#import-repositories)).
+ReaPack > Manage repositories*). Each repository in the list contains a
+different set of packages. More can be added using the *Import* button (see
+[Import a repository](#import-repositories)).
 
-There are two primary way to install the resources included in the enabled
+There are two primary ways to install the resources included in the enabled
 repositories:
 
 - Click on  *Browse packages* and pick packages to install. See the [Browse packages](#browse-packages) section of this guide.
@@ -54,12 +54,12 @@ repositories:
 ## Synchronize packages
 
 Run *Extensions > ReaPack > Synchronize packages* regularly to refresh the
-enabled repositories and automatically update every installed packages
-(including ReaPack itself) to the latest stable version. This feature can be
-configured to install new packages and pre-releases as well (see
+enabled repositories and automatically update every installed package (including
+ReaPack itself) to the latest stable version. This feature can be configured to
+install new packages and pre-releases as well (see
 [Configuration](#configuration)).
 
-Alternatively you can manually select which packages to update (or downgrade)
+Alternatively, you can manually select which packages to update (or downgrade)
 using the package browser. See [Browse packages](#browse-packages).
 
 ![Update changelog](/images/user-guide/update-changelog.png)
@@ -81,11 +81,11 @@ The first column at the left displays the package status:
 | o       | Package is obsolete    | P       | Pin status modified       |
 |         |                        | p       | Package is pinned         |
 
-The version column shows both the currently installed version and the latest
+The version column shows both the current installed version and the latest
 version available in the repository between parenthesis.
 
 The columns can be customized. Right click on the column header to select which
-column to shown. Left drag with the mouse to move or resize the columns.
+columns are shown. Left drag with the mouse to move or resize the columns.
 
 ### Actions
 
@@ -110,24 +110,27 @@ Uninstall                            | Remove the package from your computer (se
 
 The selection-wide actions are shown only when more than one package are
 selected. Unlike per-package actions these don't act as toggles. Use *Clear
-queued actions* to cancel all unapplied changes on every selected packages.
+queued actions* to cancel all unapplied changes on every selected package.
 
 ### Filtering
 
 ![Filtering Options](/images/user-guide/filtering.png)
 
 Search in the list by typing words in the filter box. ReaPack's filtering
-algorithm behaves similarely to the Action List. Put quotes around words to get
+algorithm behaves similarly to the Action List. Put quotes around words to get
 exact matches: **"midi editor" "note"**.  Use **^** and **$** to match the
 start and end of a column's text. Words can be grouped with parenthesis: **(
 midi note ) OR utility**. Add **NOT** before a word or a group to invert the
 search. Use **OR** between words/groups to match one or the other.
 
-The big button at the top right shows how many packages are currently displayed and how many are available in total. Click on it to select which type of packages to show in the browser.
+The big button at the top right shows how many packages are currently displayed
+and how many are available in total. Click on it to select which type of
+packages to show in the browser.
 
 ## Configuration
 
-This section covers ReaPack's configuration dialog (*Extensions > ReaPack > Manage repositories*).
+This section covers ReaPack's configuration dialog (*Extensions > ReaPack >
+Manage repositories*).
 
 ### Manage repositories
 
@@ -152,16 +155,18 @@ popular repositories in the [Repository list](/repos.html).
 
 ![Import repositories](/images/user-guide/import-repositories.png)
 
-The URL to put in this dialog should have been given to you by the owner of the repository you whish to import. The golden rule of computer security applies to ReaPack repositories as well: don't install packages from untrusted sources.
+The URL to put in this dialog should have been given to you by the owner of the
+repository you wish to import. The golden rule of computer security applies to
+ReaPack repositories as well: don't install packages from untrusted sources.
 
 ### Offline use
 
-ReaPack requires an internet connection by design. However it's possible to
+ReaPack requires an internet connection by design. However, it's possible to
 transfer data and installed packages to an offline computer using *Export
 offline archive* and *Import offline archive* in *Extensions > ReaPack > Manage
 repositories > Import/export*.
 
-For optimal results both computer should run the same operating system and
+For optimal results both computers should run the same operating system and
 software architecture. Some packages may provide different files
 depending on the system and architecture. Also note that obsolete packages
 cannot be imported.
@@ -169,7 +174,7 @@ cannot be imported.
 Offline users should disable the setting *Refresh index cache when older than a
 week* in *Manage repositories > Options > Network settings* to avoid getting
 download failures when using the package browser and other features which would
-otherwise attempt to connect to internet.
+otherwise attempt to connect to the internet.
 
 ### Options
 
@@ -179,11 +184,16 @@ Click on *Options* to get this menu:
 
 #### Install new packages when synchronizing
 
-Enabling this makes *Synchronize packages* install every new packages in the enabled repositories in addition to fetching updates. This setting can also be tweaked on a per-repository basis (see [Manage repositories](#manage-repositories)).
+Enabling this makes *Synchronize packages* install every new package in the
+enabled repositories in addition to fetching updates. This setting can also be
+tweaked on a per-repository basis (see [Manage
+repositories](#manage-repositories)).
 
 #### Enable pre-releases globally (bleeding edge)
 
-Use this mode to enable updates from a stable version to a pre-release. You can always manually select and install pre-releases from the *Package Browser* without having to enable this.
+Use this mode to enable updates from a stable version to a pre-release. You can
+always manually select and install pre-releases from the *Package Browser*
+without having to enable this.
 
 #### Prompt to uninstall obsolete packages
 
@@ -194,20 +204,21 @@ displayed with the option to keep or uninstall them.
 
 #### Network settings
 
-Use this configure how ReaPack connects to Internet (eg. to set a proxy server).
-Disable *Refresh index cache when older than a week* when using ReaPack offline
-exclusively.
+Use this configure how ReaPack connects to the internet (eg. to set a proxy
+server).  Disable *Refresh index cache when older than a week* when using
+ReaPack offline exclusively.
 
 #### Restore default settings
 
-Reset options to the factory defaults and restore altered or removed default repositories.
+Reset options to the factory defaults and restore altered or removed default
+repositories.
 
 ## Support
 
 You are welcome to ask any ReaPack-related questions in the [ReaPack
-thread](https://forum.cockos.com/showthread.php?t=177978) on the Cockos
-REAPER forum. Development or technical questions can be asked in the [development
+thread](https://forum.cockos.com/showthread.php?t=177978) on the Cockos REAPER
+forum. Development or technical questions can be asked in the [development
 thread](https://forum.cockos.com/showthread.php?t=169127).
 
-Bug reports and feature requests can be filled in the [issue tracker](https://github.com/cfillion/reapack/issues) on
-GitHub.
+Bug reports and feature requests can be filled in the [issue
+tracker](https://github.com/cfillion/reapack/issues) on GitHub.
