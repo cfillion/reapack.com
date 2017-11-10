@@ -81,6 +81,9 @@ strong
 noscript
   color: #fb4d23
 
+.header
+  @import 'header'
+
 .clearfix
   &:after
     visibility: hidden
@@ -108,13 +111,10 @@ noscript
     float: right
     text-align: right
 
-.header
-  @import 'header'
+@import 'sidebar'
 
 body
   &.index
     @import 'index'
   &.repos
     @import 'repos'
-  &.sidebar
-    @import 'sidebar'
