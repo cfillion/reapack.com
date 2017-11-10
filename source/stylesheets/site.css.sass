@@ -7,6 +7,9 @@ $content-width: 850px
 $margin: 0.8rem
 $medium-weight: 500
 
+$table-row-odd: lighten($background, 7%)
+$table-row-even: lighten($background, 10%)
+
 $breakpoint: 976px
 $breakpoint-large: "screen and (min-width: #{$breakpoint})"
 $breakpoint-small: "screen and (max-width: #{$breakpoint - 1})"
@@ -27,7 +30,7 @@ html
   padding-left: $padding
   padding-right: $padding
 
-h1, h2, h3
+h1, h2, h3, h4, h5
   margin-bottom: $margin
   font-family: 'Roboto Slab', serif
   font-weight: 700
@@ -39,9 +42,12 @@ h1
   padding-bottom: 7px
 
 h2
-  font-size: 1.5rem
+  font-size: 1.6rem
 
-p, ul, ol, form
+h3
+  font-size: 1.3rem
+
+p, ul, ol, form, blockquote, table, pre
   &:not(:last-child)
     margin-bottom: $margin
 
@@ -63,19 +69,30 @@ a
   &:focus
     outline: thin dotted
 
-u
-  text-decoration: underline
-
 small
   display: inline-block // for line-height
   font-size: 0.7em
   line-height: 1em
 
-ul li
+code
+  font-family: monospace
+
+blockquote
+  border: 2px dashed $foreground
+
+blockquote, pre
+  background-color: $table-row-odd
+  border-radius: 7px
+  padding: $padding
+
+ul
   list-style-type: disc
 
-ol li
+ol
   list-style-type: decimal
+
+  ol
+    list-style-type: lower-roman
 
 ul, ol
   margin-left: 1.5em
@@ -83,8 +100,27 @@ ul, ol
 strong
   font-weight: bold
 
+em
+  font-style: italic
+
 noscript
   color: #fb4d23
+
+table
+  border-collapse: collapse
+
+th
+  font-weight: bold
+
+td, th
+  border-bottom: 1px solid #cdd7ca
+  padding: 6px 12px
+
+tbody tr
+  background-color: $table-row-odd
+
+  &:nth-child(2n)
+    background-color: $table-row-even
 
 .header
   @import 'header'
