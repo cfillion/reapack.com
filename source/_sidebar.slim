@@ -8,7 +8,7 @@ p
 h2#downloads Downloads &amp; User Guide
 
 ul.downloads
-  == partial :_downloads, locals: { \
+  == partial :downloads, locals: { \
     header: 'macOS',
     icon: 'apple',
     links: { \
@@ -16,7 +16,7 @@ ul.downloads
       '64-bit': data.releases.latest.darwin64,
     }}
 
-  == partial :_downloads, locals: { \
+  == partial :downloads, locals: { \
     header: 'Windows',
     icon: 'windows',
     links: { \
@@ -24,7 +24,7 @@ ul.downloads
       '64-bit': data.releases.latest.win64,
     }}
 
-  == partial :_downloads, locals: { \
+  == partial :downloads, locals: { \
     header: 'Linux <small>(beta)</small>',
     icon: 'linux',
     note: 'See included README.md for build instructions.',
@@ -32,7 +32,7 @@ ul.downloads
       'Source code': {link: "https://github.com/cfillion/reapack/archive/#{data.releases.latest.name}.tar.gz"},
     }}
 
-  == partial :_downloads, locals: { \
+  == partial :downloads, locals: { \
     header: 'User Guide',
     icon: 'book',
     links: { \
@@ -49,5 +49,5 @@ p
 
 p
   strong> System requirements:
-  => current_page.data.softwareRequirements
-  = current_page.data.systemRequirements
+  => config.software_requirements
+  = config.system_requirements

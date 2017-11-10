@@ -4,10 +4,6 @@ description: >
   ReaPack is a package manager for REAPER, the Digital Audio Workstation.
   Install and update ReaScripts, JS effects, themes, extensions,
   language packs and more.
-softwareRequirements: >-
-  REAPER v4.7+ (v5.12 or later recommended).
-systemRequirements: At least macOS 10.7, Windows Vista or Wine 1.8.
-sidebar: true
 ---
 
 - content_for :javascripts do
@@ -27,8 +23,8 @@ script type="application/ld+json"
       'softwareVersion': data.releases.latest.name.gsub(/^v/, ''),
       'datePublished': data.releases.latest.time.iso8601,
       'releaseNotes': data.releases.latest.link,
-      'softwareRequirements': current_page.data.softwareRequirements,
-      'operatingSystem': current_page.data.systemRequirements,
+      'operatingSystem': config.system_requirements,
+      'softwareRequirements': config.software_requirements,
       'applicationCategory': 'Pro Audio',
       'screenshot': "https://reapack.com#{url_for('/images/package_browser.png')}",
       'softwareHelp': {'url' => 'https://github.com/cfillion/reapack/wiki'},
