@@ -30,11 +30,13 @@ html lang="en"
       == partial :header
 
     .wrapper
+      a.edit href="https://github.com/cfillion/reapack.com/edit/master/#{current_source_file}" [edit this page]
       h1 = current_page.data.title
 
       .container
         .content
           == yield
+
         .aside
           == partial :sidebar
 
