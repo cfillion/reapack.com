@@ -56,16 +56,21 @@ a
     &:hover, &.active
       background-color: #cdd7ca
 
-@media screen and (max-width: 470px)
+// menu on it's own line
+@media screen and (max-width: 570px)
   .wrapper
     display: block
 
   .logo
     margin: $padding 0 $padding 0
 
-@media screen and (max-width: 370px)
+// one line per menu item
+@media screen and (max-width: 470px)
   .menu
     padding-bottom: $padding
+
+  .menu a
+    padding: $padding
 
   .menu li, .menu a
     border-radius: 2px

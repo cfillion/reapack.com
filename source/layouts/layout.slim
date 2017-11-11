@@ -8,6 +8,8 @@ html lang="en"
     meta name="viewport" content="width=device-width, initial-scale=1"
     - if current_page.path != 'not_found.html'
       meta name="canonical" content="https://reapack.com#{current_page.url}"
+    - if current_page.data.noindex
+      meta name="robots" content="noindex"
 
     title = current_page.data.title
 
