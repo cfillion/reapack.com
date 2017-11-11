@@ -1,5 +1,10 @@
+- index = sitemap.find_resource_by_path '/index.html'
+
 p
-  a.donate> target="_blank" href="https://www.paypal.com/cgi-bin/webscr?cmd=_donations&business=T3DEWBQJAV7WL&item_name=#{current_page.data.title}&currency_code=CAD"
+  ==> link_to 'https://www.paypal.com/cgi-bin/webscr', class: 'donate',
+    target: '_blank', query: \
+      { cmd: '_donations', business: 'T3DEWBQJAV7WL',
+      currency_code: 'CAD', item_name: index.data.title } do
     i.fa.fa-paypal>
     | Donate with PayPal
 
