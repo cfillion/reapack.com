@@ -36,9 +36,8 @@ p
     strong> Latest stable release:
     ==> link_to "ReaPack #{data.releases.latest.name}", "/release-notes/#{data.releases.latest.name}"
     ' released on #{data.releases.latest.time.strftime '%Y-%m-%d'}
-    | by #{data.releases.latest.author} (
-    == link_to 'all releases', '/release-notes.html'
-    | )
+    ' by #{data.releases.latest.author}
+    a href="https://github.com/cfillion/reapack/releases": i class="fa fa-github"
 
   p
     strong> System requirements:

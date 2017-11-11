@@ -1,0 +1,13 @@
+- current_page.data.title = "Release notes - v#{current_page.data.version}"
+- current_page.data.description = "Release notes for ReaPack v#{current_page.data.version} (released on #{current_page.data.date})."
+
+== wrap_layout :layout do
+  p: small
+    | All versions:
+    - release_notes.reverse_each do |p|
+      - if p == current_page
+        em =< "v#{p.data.version}"
+      - else
+        ==< link_to "v#{p.data.version}", p
+
+  == yield
