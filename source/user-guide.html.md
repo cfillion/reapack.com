@@ -59,8 +59,8 @@ ReaPack itself) to the latest stable version. This feature can be configured to
 install new packages and pre-releases as well (see
 [Configuration](#configuration)).
 
-Alternatively, you can manually select which packages to update (or downgrade)
-using the package browser. See [Browse packages](#browse-packages).
+Alternatively, you can manually select which packages to update (or select a
+specific version) using the package browser. See [Browse packages](#browse-packages).
 
 ![Update changelog](/images/user-guide/update-changelog.png)
 
@@ -199,13 +199,12 @@ without having to enable this.
 
 Enable the detection of obsolete packages when synchronizing. A package is
 obsolete when it was removed from its parent repository and is no longer
-available for download. A [prompt](/images/user-guide/obsolete-prompt.png) is
-displayed with the option to keep or uninstall them.
+available for download. A prompt is displayed with the option to keep or uninstall them.
 
 #### Network settings
 
-Use this configure how ReaPack connects to the internet (eg. to set a proxy
-server).  Disable *Refresh index cache when older than a week* when using
+Use this to configure how ReaPack connects to the internet (eg. to set a proxy
+server). Disable *Refresh index cache when older than a week* when using
 ReaPack offline exclusively.
 
 #### Restore default settings
