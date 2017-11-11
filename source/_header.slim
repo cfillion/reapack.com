@@ -7,7 +7,7 @@
       {name: 'User guide', url: '/user-guide.html'},
       {name: 'Repository list', url: '/repos.html'},
       {name: 'Release notes', match: 'release-notes', url: "/release-notes/#{data.releases.latest.name}.html"},
-      {name: 'Upload files', url: '/upload.html'},
+      {name: 'Upload tools', url: '/upload.html'},
     ].each do |link|
       - klass = 'active' if current_page.path.start_with? link[:match] || link[:url][1..-1]
       li: a class=klass href=url_for(link[:url]) = link[:name]
