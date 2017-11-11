@@ -13,6 +13,9 @@ types:
   other:        'misc package'
 ---
 
+- content_for :javascripts do
+  == javascript_include_tag 'https://cdnjs.cloudflare.com/ajax/libs/clipboard.js/1.5.13/clipboard.min.js'
+
 p
   ' This page lists known free third-party ReaPack repositories.
 
@@ -73,7 +76,3 @@ ul.table
 
       a.index href=repo[:index]
         code #{repo[:index]}
-
-- content_for :javascripts do
-  == javascript_include_tag 'https://cdnjs.cloudflare.com/ajax/libs/clipboard.js/1.5.13/clipboard.min.js', defer: true
-  == javascript_include_tag 'repos', defer: true
