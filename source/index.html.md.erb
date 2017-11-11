@@ -12,7 +12,7 @@ system_requirements: 'At least macOS 10.7, Windows Vista or Wine 1.8.'
   '@context': 'http://schema.org',
   '@type': 'SoftwareApplication',
   'name': 'ReaPack',
-  'author': { \
+  'author': {
     '@type': 'Person',
     'name': 'Christian Fillion',
     'sameAs': 'https://cfillion.ca',
@@ -24,16 +24,16 @@ system_requirements: 'At least macOS 10.7, Windows Vista or Wine 1.8.'
   'operatingSystem': current_page.data.system_requirements,
   'softwareRequirements': current_page.data.software_requirements,
   'applicationCategory': 'Pro Audio',
-  'screenshot': "https://reapack.com#{url_for('/images/package-browser.png')}",
-  'softwareHelp': {'url' => 'https://github.com/cfillion/reapack/wiki'},
+  'screenshot': config.host + url_for('/images/package-browser.png'),
+  'softwareHelp': {'url' => config.host + url_for('/user-guide.html')},
   'license': 'https://www.gnu.org/licenses/lgpl-3.0.en.html',
   'discussionUrl': 'https://forum.cockos.com/showthread.php?t=177978',
-  'offers': { \
+  'offers': {
     '@type': 'Offer',
     'price': '0',
     'priceCurrency': 'CAD',
   },
-  'sameAs': [ \
+  'sameAs': [
     'https://github.com/cfillion/reapack',
   ],
 }.to_json %></script>
@@ -45,8 +45,8 @@ Discover,
 .egg} and keep up to date your REAPER resources including ReaScripts, JS
 effects, extensions, themes, language packs, templates, web interfaces and more.
 
+{:.screenshot}
 ![Screenshot of ReaPack](/images/screenshot.png)
-{: .screenshot}
 
 ## Main features
 
