@@ -4,10 +4,11 @@
 == wrap_layout :layout do
   p: small
     | All versions:
-    - release_notes.reverse_each do |p|
+    - all_release_notes.reverse_each do |p|
       - if p == current_page
         em =< "v#{p.data.version}"
       - else
         ==< link_to "v#{p.data.version}", p
 
-  == yield
+  == format_release_notes yield do |title, href|
+    a title=title href=href target="_blank": i.fa.fa-external-link
