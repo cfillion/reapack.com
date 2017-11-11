@@ -5,8 +5,8 @@
   ul.menu
     - [ \
       {name: 'User guide', url: '/user-guide.html'},
-      {name: 'Release notes', url: "/release-notes/#{data.releases.latest.name}.html"},
       {name: 'Repository list', url: '/repos.html'},
+      {name: 'Release notes', url: "/release-notes/#{data.releases.latest.name}.html"},
     ].each do |link|
       - klass = 'active' if current_page.path == link[:url][1..-1]
       li: a class=klass href=url_for(link[:url]) = link[:name]
