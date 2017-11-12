@@ -20,14 +20,12 @@ title: User guide
 Download the corresponding file for your platform matching REAPER's architecture
 (not to be confused with the architecture of your operating system).
 
-Follow these steps to install ReaPack on macOS and Windows:
+Follow these steps to install ReaPack:
 
 1. From REAPER: *Options > Show REAPER resource path in explorer/finder*
 2. Put the downloaded file in the *UserPlugins* subdirectory
 3. Restart REAPER. Done!
 
-There are no pre-built binaries available for Linux yet. Build instructions are
-provided in the included README.md file.
 
 ## Getting started
 
