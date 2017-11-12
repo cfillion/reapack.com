@@ -1,4 +1,8 @@
 module ReleaseNotes
+  def latest_release_notes
+    sitemap.find_resource_by_path "/release-notes/#{data.releases.latest.name}.html"
+  end
+
   def all_release_notes
     sitemap.resources
       .select {|page| page.path.start_with? 'release-notes/' }
