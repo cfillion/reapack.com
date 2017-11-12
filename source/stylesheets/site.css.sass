@@ -29,7 +29,7 @@ html
   padding-left: $padding
   padding-right: $padding
 
-h1, h2, h3, h4, h5
+h1, h2, h3, h4, h5, dt
   margin-bottom: $margin
   font-family: 'Roboto Slab', serif
   font-weight: 700
@@ -41,12 +41,15 @@ h1
   padding-bottom: 7px
 
 h2
-  font-size: 1.6rem
+  font-size: 1.7rem
 
 h3
-  font-size: 1.3rem
+  font-size: 1.4rem
 
-p, ul, ol, form, blockquote, table, pre
+h4
+  font-size: 1.2rem
+
+p, ul, ol, form, blockquote, table, pre, dl, dd
   &:not(:last-child)
     margin-bottom: $margin
 
@@ -92,6 +95,13 @@ ol
 
   ol
     list-style-type: lower-roman
+
+dt
+  margin-bottom: 3px
+
+dd
+  margin-left: 1em
+  margin-top: $margin / 1.5
 
 ul, ol
   margin-left: 1.5em

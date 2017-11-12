@@ -96,13 +96,23 @@ actions.
 
 These per-packages actions are checkboxes that can be toggled:
 
-Action                               | Description
----                                  | ---
-Install or Update to &lt;version&gt; | Download and install the latest stable* version of the package
-Reinstall &lt;version&gt;            | Reinstall the version currently installed
-Versions...                          | Select a specific version of the package to install (including pre-releases)
-Pin current version                  | Prevent this package from being automatically updated or detected as obsolete when synchronyzing
-Uninstall                            | Remove the package from your computer (settings and other files created by the package itself may be kept)
+Install &lt;version&gt;
+Update to &lt;version&gt;
+: Download and install the latest stable* version of the package
+
+Reinstall &lt;version&gt;
+: Reinstall the version currently installed
+
+Versions...
+: Select a specific version of the package to install (including pre-releases)
+
+Pin current version
+: Prevent this package from being automatically updated or detected as obsolete
+when synchronyzing
+
+Uninstall
+: Remove the package from your computer (settings and other files created by the
+package itself may be kept)
 
 #### Selection-wide
 
@@ -136,13 +146,20 @@ Right click on any repository in the list to open the following menu:
 
 ![Repository settings](/images/user-guide/repository-settings.png)
 
-Action                   | Description
----                      | ---
-Refresh                  | Update the package list and metadata from this repository
-Install new packages...  | Override **Install new packages when synchronizing** for this repository only (see [Options](#options))
-Copy URL                 | Put the index URL in the clipboard
-Uninstall                | Completely remove this repository including all installed packages it contains
-About &lt;repository&gt; | Open the repository's documentation
+Refresh
+: Update the package list and metadata from this repository
+
+Install new packages...
+: Override *Install new packages when synchronizing* for this repository only (see [Options](#options))
+
+Copy URL
+: Put the index URL in the clipboard
+
+Uninstall
+: Completely remove this repository including all installed packages it contains
+
+About &lt;repository&gt;
+: Open the repository's documentation
 
 ### Import repositories
 
@@ -180,34 +197,29 @@ Click on *Options* to get this menu:
 
 ![Options](/images/user-guide/options.png)
 
-#### Install new packages when synchronizing
-
-Enabling this makes *Synchronize packages* install every new package in the
+Install new packages when synchronizing
+: Enabling this makes *Synchronize packages* install every new package in the
 enabled repositories in addition to fetching updates. This setting can also be
 tweaked on a per-repository basis (see [Manage
 repositories](#manage-repositories)).
 
-#### Enable pre-releases globally (bleeding edge)
-
-Use this mode to enable updates from a stable version to a pre-release. You can
+Enable pre-releases globally (bleeding edge)
+: Use this mode to enable updates from a stable version to a pre-release. You can
 always manually select and install pre-releases from the *Package Browser*
 without having to enable this.
 
-#### Prompt to uninstall obsolete packages
-
-Enable the detection of obsolete packages when synchronizing. A package is
+Prompt to uninstall obsolete packages
+: Enable the detection of obsolete packages when synchronizing. A package is
 obsolete when it was removed from its parent repository and is no longer
 available for download. A prompt is displayed with the option to keep or uninstall them.
 
-#### Network settings
-
-Use this to configure how ReaPack connects to the internet (eg. to set a proxy
+Network settings
+: Use this to configure how ReaPack connects to the internet (eg. to set a proxy
 server). Disable *Refresh index cache when older than a week* when using
 ReaPack offline exclusively.
 
-#### Restore default settings
-
-Reset options to the factory defaults and restore altered or removed default
+Restore default settings
+: Reset options to the factory defaults and restore altered or removed default
 repositories.
 
 ## Support
