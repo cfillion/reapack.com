@@ -60,8 +60,8 @@ repos:
     link: 'https://github.com/nofishonfriday/ReaScripts'
     index: 'https://github.com/nofishonfriday/ReaScripts/raw/master/index.xml'
   -
-    link: 'https://bitbucket.org/kawaCat/reascript-m2bpack/wiki/Home'
-    index: 'https://bitbucket.org/kawaCat/reascript-m2bpack/raw/master/index.xml'
+    link: 'http://kawa.works/reascripts'
+    index: 'https://bitbucket.org/kawaCat/kawascript2/raw/master/index.xml'
   -
     link: 'https://github.com/me2beats/reapack'
     index: 'https://github.com/me2beats/reapack/raw/master/index.xml'
