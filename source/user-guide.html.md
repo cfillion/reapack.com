@@ -200,25 +200,23 @@ Click on *Options* to get this menu:
 ![Options](/images/user-guide/options.png)
 
 Install new packages when synchronizing
-: Enabling this makes *Synchronize packages* install every new package in the
-enabled repositories in addition to fetching updates. This setting can also be
-tweaked on a per-repository basis (see [Manage
-repositories](#manage-repositories)).
+: Enable to make *Synchronize packages* install every package in the enabled
+repositories in addition to installing updates. This setting can also be set on
+a per-repository basis (see [Manage repositories](#manage-repositories)).
 
 Enable pre-releases globally (bleeding edge)
-: Use this mode to enable updates from a stable version to a pre-release. You can
-always manually select and install pre-releases from the *Package Browser*
-without having to enable this.
+: Use this mode to enable updating from a stable version to a pre-release when
+synchronizing or when updating from the browser. Pre-releases can always be
+manually installed from the package browser even if this setting is disabled.
 
 Prompt to uninstall obsolete packages
-: Enable the detection of obsolete packages when synchronizing. A package is
-obsolete when it was removed from its parent repository and is no longer
-available for download. A prompt is displayed with the option to keep or uninstall them.
+: Enable to detect obsolete packages when synchronizing and ask whether to keep
+or remove them. A package is obsolete when it was removed from its parent
+repository and is no longer available for download.
 
 Network settings
 : Use this to configure how ReaPack connects to the internet (eg. to set a proxy
-server). Disable *Refresh index cache when older than a week* when using
-ReaPack offline exclusively.
+server).
 
 Restore default settings
 : Reset options to the factory defaults and restore altered or removed default
