@@ -98,7 +98,9 @@ These per-packages actions are checkboxes that can be toggled:
 
 Install &lt;version&gt;
 Update to &lt;version&gt;
-: Download and install the latest stable* version of the package
+: Download and install the latest version of the package. Only stable versions
+are selected unless the setting *Enable pre-releases globally* is enabled in
+[Options](#options) or the version currently installed is already a pre-release.
 
 Reinstall &lt;version&gt;
 : Reinstall the version currently installed
