@@ -29,7 +29,7 @@ $sidebar-outer-width: $sidebar-width + ($padding * 2) + $sidebar-border
     padding-top: $padding
     border-top: $sidebar-border solid $foreground
 
-  body:not(.index) #downloads
+  body:not(.index) .downloads
     display: none
 
 .donate
@@ -52,29 +52,38 @@ $sidebar-outer-width: $sidebar-width + ($padding * 2) + $sidebar-border
   &:focus
     box-shadow: -1px -1px 18px 1px rgba(0, 0, 0, 0.3) inset
 
-.downloads
+.download
+  background-color: $foreground
+  background-image: linear-gradient(darken($foreground, 3%), darken($foreground, 9%))
+  border-radius: 7px
+  border: 1px solid white
   color: $background
   margin: 0
+  margin-bottom: $padding
+  overflow: hidden
+  padding: 10px
+  padding-left: 5px
   text-shadow: 1px 1px white
+
+  display: flex
+  align-items: center
 
   .fa
     cursor: default
     flex: 0 0 auto
     font-size: 3.3rem
 
+  .links
+    flex: 1 1 auto
+
   h3
     font-family: 'Roboto', sans-serif
     font-size: 1.3rem
-    font-weight: bold
     margin-bottom: 5px
 
   a
     color: #003CCB
-    display: inline-block
     font-weight: $medium-weight
-
-  p
-    font-size: 1rem
 
   .size
     &:before
@@ -84,20 +93,3 @@ $sidebar-outer-width: $sidebar-width + ($padding * 2) + $sidebar-border
 
   ul
     margin-bottom: 0
-
-    & + p
-      margin-top: 5px
-
-  > li
-    background-color: $foreground
-    background-image: linear-gradient(darken($foreground, 3%), darken($foreground, 9%))
-    border-radius: 7px
-    border: 1px solid white
-    display: block
-    list-style-type: none
-    margin-bottom: $padding
-    overflow: hidden
-    padding: 10px
-    padding-left: 5px
-    display: flex
-    align-items: center

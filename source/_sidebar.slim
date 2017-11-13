@@ -10,33 +10,37 @@ p
 
   | All donations directly support ReaPack's continued development.
 
-#downloads
+.downloads
   h2 Downloads
 
-  ul.downloads
-    == partial :downloads, locals: { \
-      header: 'macOS',
-      icon: 'apple',
-      links: { \
-        '32-bit': data.releases.latest.darwin32,
-        '64-bit': data.releases.latest.darwin64,
-      }}
-
-    == partial :downloads, locals: { \
-      header: 'Windows',
-      icon: 'windows',
-      links: { \
-        '32-bit': data.releases.latest.win32,
-        '64-bit': data.releases.latest.win64,
-      }}
-
-    == partial :downloads, locals: { \
-      header: 'Linux <small>(beta)</small>',
-      icon: 'linux',
-      links: { \
-        '32-bit': data.releases.latest.linux32,
-        '64-bit': data.releases.latest.linux64,
-      }}
+  - [ { \
+    header: 'macOS',
+    icon: 'apple',
+    links: { \
+      '32-bit': data.releases.latest.darwin32,
+      '64-bit': data.releases.latest.darwin64,
+    }}, { \
+    header: 'Windows',
+    icon: 'windows',
+    links: { \
+      '32-bit': data.releases.latest.win32,
+      '64-bit': data.releases.latest.win64,
+    }}, { \
+    header: 'Linux <small>(beta)</small>',
+    icon: 'linux',
+    links: { \
+      '32-bit': data.releases.latest.linux32,
+      '64-bit': data.releases.latest.linux64,
+    }}].each do |box|
+      .download
+        i.fa.fa-fw class="fa-#{box[:icon]}"
+        .links
+          h3 == box[:header]
+          ul
+            - box[:links].each do |label, file|
+              li
+                a> href=file[:link] rel="nofollow" = label
+                small.size = number_to_human_size file[:size]
 
   p
     strong> Latest stable release:
