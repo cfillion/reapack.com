@@ -16,7 +16,8 @@ $sidebar-outer-width: $sidebar-width + ($padding * 2) + $sidebar-border
     flex: 1 1 auto
 
   .aside
-    flex: 0 0 $sidebar-width
+    flex: 0 0 auto
+    width: $sidebar-width
 
     border-left: $sidebar-border solid $foreground
     margin-left: $padding
@@ -60,7 +61,6 @@ $sidebar-outer-width: $sidebar-width + ($padding * 2) + $sidebar-border
     cursor: default
     flex: 0 0 auto
     font-size: 3.3rem
-    float: left // in case flexbox is not supported by the browser
 
   h3
     font-family: 'Roboto', sans-serif
