@@ -40,14 +40,13 @@ p
             - box[:links].each do |label, file|
               li
                 i.fa.fa-download
-                a> href=file[:link] rel="nofollow" = label
+                a> href=file[:browser_download_url] rel="nofollow" = label
                 small.size = number_to_human_size file[:size]
 
   p
     strong> Latest stable release:
-    ==> link_to "ReaPack #{data.releases.latest.name}", latest_release_notes
-    ' released on #{data.releases.latest.time.strftime '%Y-%m-%d'}
-    ' by #{data.releases.latest.author}
+    ==> link_to "ReaPack #{data.releases.latest.tag_name}", latest_release_notes
+    ' released on #{data.releases.latest.published_at.strftime '%Y-%m-%d'}
     a href="https://github.com/cfillion/reapack/releases": i class="fa fa-github"
 
   p
