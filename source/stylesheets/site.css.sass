@@ -23,6 +23,9 @@ html
   image-rendering: -webkit-optimize-contrast
   text-shadow: 1px 1px black
 
+body
+  line-height: 1.15
+
 .wrapper
   margin: auto
   max-width: $content-width
@@ -52,9 +55,6 @@ h4
 p, ul, ol, form, blockquote, table, pre, dl, dd
   &:not(:last-child)
     margin-bottom: $margin
-
-p, li
-  line-height: 1.15
 
 img
   max-width: 100%
@@ -97,7 +97,7 @@ ol
     list-style-type: lower-roman
 
 dt
-  margin-bottom: 3px
+  margin-bottom: 0
 
 dd
   margin-left: 1em
