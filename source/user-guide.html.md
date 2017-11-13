@@ -110,7 +110,7 @@ Versions...
 
 Pin current version
 : Prevent this package from being automatically updated or detected as obsolete
-when synchronyzing
+when synchronizing
 
 Uninstall
 : Remove the package from your computer (settings and other files created by the
