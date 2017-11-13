@@ -6,7 +6,7 @@ html lang="en"
     - if desc = current_page.data.description
       meta name="description" content=desc
     meta name="viewport" content="width=device-width, initial-scale=1"
-    - if current_page.path != 'not_found.html'
+    - unless current_page.path.start_with? 'errors/'
       meta name="canonical" content="#{config.host}#{current_page.url}"
     - if current_page.data.noindex
       meta name="robots" content="noindex"
