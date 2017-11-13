@@ -1,6 +1,12 @@
 module ReleaseNotes
-  def latest_release_notes
-    sitemap.find_resource_by_path "/release-notes/#{data.releases.latest.tag_name}.html"
+  def current_release_notes
+    tag_name = data.releases.latest.tag_name
+
+    unless tag_name =~ /\A(v\d+\.\d+)/
+      raise "Cannot extract minor version (vX.X) from tag name %s" % tag_name
+    end
+
+    sitemap.find_resource_by_path "/release-notes/#{$1}.html"
   end
 
   def all_release_notes

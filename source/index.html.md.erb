@@ -20,7 +20,7 @@ system_requirements: 'At least macOS 10.7, Windows Vista or Wine 1.8.'
   'about': current_page.data.description.chomp,
   'softwareVersion': data.releases.latest.tag_name.gsub(/^v/, ''),
   'datePublished': data.releases.latest.published_at.iso8601,
-  'releaseNotes': config.host + url_for(latest_release_notes),
+  'releaseNotes': config.host + url_for(current_release_notes),
   'operatingSystem': current_page.data.system_requirements,
   'softwareRequirements': current_page.data.software_requirements,
   'applicationCategory': 'Pro Audio',
