@@ -13,4 +13,5 @@ set :trailing_slash, false
 
 set :host, 'https://reapack.com'
 
-page "release-notes/*", layout: :release_notes_layout
+page 'errors/*', directory_index: false
+page 'release-notes/*', layout: :release_notes_layout
