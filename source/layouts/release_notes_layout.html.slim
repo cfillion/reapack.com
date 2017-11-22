@@ -1,0 +1,15 @@
+- version_title = "#{current_page.data.version}.x"
+- current_page.data.title = "Release notes - version #{version_title}"
+- current_page.data.description = "Release notes for ReaPack version #{version_title}. List of all new features, bug fixes and improvements."
+
+== wrap_layout :layout do
+  p: small
+    | All versions:
+    - all_release_notes.reverse_each do |p|
+      - if p == current_page
+        em =< "v#{p.data.version}"
+      - else
+        ==< link_to "v#{p.data.version}", p
+
+  == format_release_notes yield do |title, href|
+    a title=title href=href target="_blank": i.fa.fa-external-link

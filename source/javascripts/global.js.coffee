@@ -10,3 +10,11 @@ for node in nodes
       eventAction: 'start',
       eventLabel: file,
     }
+
+document.getElementsByClassName('donate')[0].addEventListener 'click', ->
+  ga 'send', {
+    hitType: 'event',
+    eventCategory: 'Donate',
+    eventAction: 'click',
+    eventLabel: this.textContent.trim()
+  }

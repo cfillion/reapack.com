@@ -6,13 +6,15 @@ html lang="en"
     - if desc = current_page.data.description
       meta name="description" content=desc
     meta name="viewport" content="width=device-width, initial-scale=1"
-    - if current_page.path != 'not_found.html'
-      meta name="canonical" content="https://reapack.com#{current_page.url}"
+    - unless current_page.path.start_with? 'errors/'
+      meta name="canonical" content="#{config.host}#{current_page.url}"
+    - if current_page.data.noindex
+      meta name="robots" content="noindex"
 
     title = current_page.data.title
 
-    link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto+Slab:400,700)"
-    link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto:400,500"
+    link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto+Slab:700)"
+    link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto:400,400i,500,700"
     link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css"
 
     == stylesheet_link_tag :site
@@ -26,30 +28,34 @@ html lang="en"
       ga('send', 'pageview');
 
   body class=page_classes
-    ul.tabbar
-      li.reapack class="#{'active' if current_page.path == 'index.html'}"
-        a href=url_for('index.html') Main page
-      li.repos class="#{'active' if current_page.path == 'repos.html'}"
-        a href=url_for('repos.html') Repositories
-      li.devel: a href="https://github.com/cfillion/reapack" Developer
+    .header
+      == partial :header
 
-    h1 = current_page.data.title
+    .wrapper
+      h1 = current_page.data.title
 
-    == yield
+      .container
+        .content
+          == yield
 
-    p.stats
-      | Recent downloads: #{number_with_delimiter data.releases.recent_downloads}
+        .aside
+          == partial :sidebar
 
-    p.footer
-      ' Copyright &copy; 2015-#{Time.now.year} Christian Fillion
-      /!sse
-      a> href="mailto:reapack@cfillion.ca" email
-      ' /
-      /!/sse
-      a> href="//cfillion.ca" web
-      ' /
-      a> href="https://twitter.com/cfillion30" twitter
-      ' /
-      a> href="https://github.com/cfillion" github
+      p.stats
+        | Recent downloads: #{number_with_delimiter data.releases.recent_downloads}
 
+      p.footer
+        ' Copyright &copy; 2015-#{Time.now.year} Christian Fillion
+        /!sse
+        a> href="mailto:reapack@cfillion.ca" email
+        ' /
+        /!/sse
+        a> href="//cfillion.ca" web
+        ' /
+        a> href="https://twitter.com/cfillion30" twitter
+        ' /
+        a> href="https://github.com/cfillion" github
+
+    == javascript_include_tag 'global'
     == yield_content :javascripts
+    == auto_javascript_include_tag

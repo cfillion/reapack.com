@@ -1,8 +1,8 @@
 ---
-title: 'Repository List'
+title: 'Repository list'
 description: >
   List of third-party repositories for ReaPack.
-  Get more than 1000 additional REAPER resources made by many contributors.
+  Get more than 2,000 additional REAPER resources made by many contributors.
 types:
   script:       'script'
   effect:       'effect'
@@ -13,41 +13,28 @@ types:
   other:        'misc package'
 ---
 
+- content_for :javascripts do
+  == javascript_include_tag 'https://cdnjs.cloudflare.com/ajax/libs/clipboard.js/1.5.13/clipboard.min.js'
+
 p
   ' This page lists known free third-party ReaPack repositories.
 
-h2#upload Share your content
-
-.upload
-  p#pr: img src="/images/pull_request.png" alt="Creating a Pull Request on GitHub"
-  p ReaPack is a powerful tool for distributing REAPER resources.
-    The <a href="https://github.com/ReaTeam">ReaTeam</a> repositories hosted
-    on GitHub are the preferred method for sharing free resources.
-
-  p Documentation for building your own repository is available on the
-    <a href="https://github.com/cfillion/reapack/wiki/Index-Format">wiki</a>.
-    Check out the <a href="https://github.com/cfillion/reapack-index/wiki">reapack-index</a>
-    project if you use git as your version control system.
-
-  p Come discuss in the <a href="https://forum.cockos.com/showthread.php?t=169127">development thread</a>
-    on the REAPER forum!
-
 ul.table
   li: ul.help
-    li: a href="https://github.com/cfillion/reapack/wiki#import-a-repository"
+    li: a href=url_for('/user-guide.html#import-repositories')
       i.fa.fa-info-circle
       | How to import a repository?
     li: a href="https://github.com/cfillion/reapack.com/edit/master/config/repos.yml"
       i.fa.fa-pencil
       | Edit this list
     li
-      a.copyAll> href="javascript:;"
+      a.copyAll href="javascript:;"
         i.fa.fa-copy
         | Copy all
       noscript
-        | (JavaScript required)
+        | &nbsp;(JavaScript required)
       span.copied.hidden
-        | (Copied!)
+        | &nbsp;(Copied!)
 
   - data.repos.each do |repo|
     li
@@ -73,7 +60,3 @@ ul.table
 
       a.index href=repo[:index]
         code #{repo[:index]}
-
-- content_for :javascripts do
-  == javascript_include_tag 'https://cdnjs.cloudflare.com/ajax/libs/clipboard.js/1.5.13/clipboard.min.js', defer: true
-  == javascript_include_tag 'repos', defer: true

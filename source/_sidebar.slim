@@ -1,0 +1,55 @@
+- index = sitemap.find_resource_by_path '/index.html'
+
+p
+  ==> link_to 'https://www.paypal.com/cgi-bin/webscr', class: 'donate',
+    target: '_blank', query: \
+      { cmd: '_donations', business: 'T3DEWBQJAV7WL',
+      currency_code: 'CAD', item_name: index.data.title } do
+    i.fa.fa-paypal>
+    | Donate with PayPal
+
+  | All donations directly support ReaPack's continued development.
+
+.downloads
+  h2 Downloads
+
+  - [ { \
+    header: 'macOS',
+    icon: 'apple',
+    links: { \
+      '32-bit': data.releases.latest.darwin32,
+      '64-bit': data.releases.latest.darwin64,
+    }}, { \
+    header: 'Windows',
+    icon: 'windows',
+    links: { \
+      '32-bit': data.releases.latest.win32,
+      '64-bit': data.releases.latest.win64,
+    }}, { \
+    header: 'Linux <small>(beta)</small>',
+    icon: 'linux',
+    links: { \
+      '32-bit': data.releases.latest.linux32,
+      '64-bit': data.releases.latest.linux64,
+    }}].each do |box|
+      .download
+        i.icon.fa.fa-fw class="fa-#{box[:icon]}"
+        .links
+          h3 == box[:header]
+          ul
+            - box[:links].each do |label, file|
+              li
+                i.fa.fa-download
+                a> href=file[:browser_download_url] rel="nofollow" = label
+                small.size = number_to_human_size file[:size]
+
+  p
+    strong> Latest stable release:
+    ==> link_to "ReaPack #{data.releases.latest.tag_name}", current_release_notes
+    ' released on #{data.releases.latest.published_at.strftime '%Y-%m-%d'}
+    a href="https://github.com/cfillion/reapack/releases": i class="fa fa-github"
+
+  p
+    strong> System requirements:
+    => index.data.software_requirements
+    = index.data.system_requirements

@@ -1,9 +1,17 @@
 $background: #3b302b
-$foreground: #e1ffda
-$link: #d8ffcf
+$foreground: #edffda
+$font-size: 16px
 $padding: 10px
-$width: 870px
-$breakpoint: "screen and (min-width: #{$width})"
+$content-width: 850px
+$margin: 0.8rem
+$medium-weight: 500
+
+$table-row-odd: lighten($background, 7%)
+$table-row-even: lighten($background, 10%)
+
+$breakpoint: 976px
+$breakpoint-large: "screen and (min-width: #{$breakpoint})"
+$breakpoint-small: "screen and (max-width: #{$breakpoint - 1})"
 
 @import 'meyer-reset'
 
@@ -11,25 +19,23 @@ html
   background-color: $background
   color: $foreground
   font-family: 'Roboto', sans-serif
-  font-size: 16px
+  font-size: $font-size
+  image-rendering: -webkit-optimize-contrast
   text-shadow: 1px 1px black
 
 body
+  line-height: 1.15
+
+.wrapper
   margin: auto
-  max-width: $width
+  max-width: $content-width
   padding-left: $padding
   padding-right: $padding
 
-p, ul, h1, h2
-  margin-bottom: 0.8rem
-
-h1, h2
+h1, h2, h3, h4, h5, dt
+  margin-bottom: $margin
   font-family: 'Roboto Slab', serif
   font-weight: 700
-  margin-top: 1rem
-
-p, li
-  line-height: 1.15
 
 h1
   border-bottom: 1px solid $foreground
@@ -38,13 +44,23 @@ h1
   padding-bottom: 7px
 
 h2
-  font-size: 1.5rem
+  font-size: 1.7rem
+
+h3
+  font-size: 1.35rem
+
+h4
+  font-size: 1.15rem
+
+p, ul, ol, form, blockquote, table, pre, dl, dd
+  &:not(:last-child)
+    margin-bottom: $margin
 
 img
   max-width: 100%
 
 a
-  color: $link
+  color: #d8ffcf
   font-weight: bold
   text-decoration: underline
 
@@ -52,26 +68,72 @@ a
     font-weight: inherit
     text-decoration: inherit
 
-u
-  text-decoration: underline
+  &:focus
+    outline: thin dotted
 
 small
+  display: inline-block // for line-height
   font-size: 0.7em
+  line-height: 1em
 
-ul li
+code
+  font-family: monospace
+
+blockquote
+  border: 2px dashed $foreground
+
+blockquote, pre
+  background-color: $table-row-odd
+  border-radius: 7px
+  padding: $padding
+
+ul
   list-style-type: disc
 
-ol li
+ol
   list-style-type: decimal
 
-ul, ol
-  margin-left: 1em
+  ol
+    list-style-type: lower-roman
 
-b
+dt
+  margin-bottom: 0
+  font-size: 0.95em
+
+dd
+  margin-left: 1em
+  margin-top: 0.3em
+
+ul, ol
+  margin-left: 1.5em
+
+strong
   font-weight: bold
+
+em
+  font-style: italic
 
 noscript
   color: #fb4d23
+
+table
+  border-collapse: collapse
+
+th
+  font-weight: bold
+
+td, th
+  border-bottom: 1px solid #cdd7ca
+  padding: 6px 12px
+
+tbody tr
+  background-color: $table-row-odd
+
+  &:nth-child(2n)
+    background-color: $table-row-even
+
+.header
+  @import 'header'
 
 .clearfix
   &:after
@@ -79,74 +141,6 @@ noscript
     display: block
     content: " "
     clear: both
-
-@mixin tab($color)
-  border-color: lighten($color, 5%)
-  background-color: $color
-  background-image: linear-gradient(lighten($color, 5%), darken($color, 9%))
-  text-shadow: 1px 1px darken($color, 25%)
-
-  &:hover
-    background-color: lighten($color, 5%)
-    background-image: linear-gradient(lighten($color, 10%), darken($color, 4%))
-
-  &:active
-    background-color: darken($color, 5%)
-    background-image: linear-gradient($color, darken($color, 14%))
-
-.tabbar
-  @extend .clearfix
-
-  margin-left: 0
-
-  li
-    float: left
-    list-style-type: none
-
-    &:not(:last-child)
-      margin-right: 4px
-
-  a
-    color: white
-    border: 1px solid transparent
-    border-top-style: none
-    border-bottom-left-radius: 6px
-    border-bottom-right-radius: 6px
-    display: block
-    font-size: 0.9rem
-    font-weight: normal
-    min-width: 100px
-    padding-bottom: 3px
-    padding-left: 5px
-    padding-right: 5px
-    padding-top: 3px
-    text-align: center
-    text-decoration: none
-
-  .active a
-    font-weight: bold
-    padding-bottom: 4px
-    padding-top: 4px
-
-  .reapack a
-    +tab(orange)
-
-  .repos a
-    +tab(steelblue)
-
-  .devel a
-    +tab(crimson)
-
-.screenshot
-  text-align: center
-
-  img
-    box-shadow: 0px 0px 10px #777777
-    opacity: 0.9
-    transition: opacity 0.5s
-
-    &:hover
-      opacity: 1
 
 .error
   border: 1px solid $foreground
@@ -159,17 +153,19 @@ noscript
   visibility: hidden
 
 .footer, .stats
+  color: #aba
   font-size: 0.7rem
-  opacity: 0.7
+  margin: $margin 0
 
-@media #{$breakpoint}
+@media #{$breakpoint-large}
   .stats
     float: right
-    margin-top: 0
     text-align: right
+
+@import 'sidebar'
 
 body
   &.index
-    @import '_index'
+    @import 'index'
   &.repos
-    @import '_repos'
+    @import 'repos'

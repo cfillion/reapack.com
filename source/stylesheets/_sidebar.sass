@@ -1,0 +1,98 @@
+$sidebar-width: 300px
+$sidebar-border: 1px
+$sidebar-outer-width: $sidebar-width + ($padding * 2) + $sidebar-border
+
+.wrapper
+  max-width: $content-width + $sidebar-outer-width
+
+.aside p
+  font-size: 0.8rem
+
+@media #{$breakpoint-large}
+  .container
+    display: flex
+
+  .content
+    flex: 1 1 auto
+
+  .aside
+    flex: 0 0 auto
+    width: $sidebar-width // old WebKit browsers don't support flex-basis
+
+    border-left: $sidebar-border solid $foreground
+    margin-left: $padding
+    padding-left: $padding
+
+@media #{$breakpoint-small}
+  .aside
+    margin-top: $padding
+    padding-top: $padding
+    border-top: $sidebar-border solid $foreground
+
+  body:not(.index) .downloads
+    display: none
+
+.donate
+  background-color: #009cde
+  border-radius: 5px
+  color: white
+  display: block
+  font-size: 1rem
+  margin-bottom: 5px
+  padding: 10px
+  text-align: center
+  text-decoration: none
+  text-shadow: none
+  user-select: none
+  white-space: nowrap
+
+  &:hover
+    box-shadow: inset 0 0 100px 100px rgba(255, 255, 255, 0.2)
+
+  &:focus
+    box-shadow: -1px -1px 18px 1px rgba(0, 0, 0, 0.3) inset
+
+.download
+  background-color: $foreground
+  background-image: linear-gradient(darken($foreground, 3%), darken($foreground, 9%))
+  border-radius: 7px
+  border: 1px solid white
+  color: $background
+  margin-bottom: $padding
+  overflow: hidden
+  padding: 10px
+  padding-left: 5px
+  text-shadow: 1px 1px white
+
+  display: flex
+  align-items: center
+
+  .icon
+    cursor: default
+    flex: 0 0 auto
+    font-size: 3.3rem
+
+  .links
+    flex: 1 1 auto
+
+  h3
+    font-family: 'Roboto', sans-serif
+    font-size: 1.3rem
+    margin-bottom: 5px
+
+  a
+    color: #003CCB
+    font-weight: $medium-weight
+
+  .size
+    &:before
+      content: '('
+    &:after
+      content: ')'
+
+  ul
+    list-style: none
+    margin: 0
+
+  .fa-download
+    padding-right: 5px

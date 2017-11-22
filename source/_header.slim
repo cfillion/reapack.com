@@ -1,0 +1,13 @@
+.wrapper
+  a.logo href=url_for('/index.html')
+    span ReaPack
+
+  ul.menu
+    - [ \
+      {name: 'User guide', url: '/user-guide.html'},
+      {name: 'Repository list', url: '/repos.html'},
+      {name: 'Release notes', match: 'release-notes', url: current_release_notes},
+      {name: 'Upload tools', url: '/upload.html'},
+    ].each do |link|
+      - klass = 'active' if current_page.path.start_with? link[:match] || link[:url][1..-1]
+      li: a class=klass href=url_for(link[:url]) = link[:name]

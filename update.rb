@@ -94,26 +94,17 @@ class Releases
 
     latest = releases.find {|r| !r[:prerelease] }
     latest ||= releases.first
+    latest = latest.to_h
 
     data[:recent_downloads] = releases.map {|release|
       release[:assets].map {|file| file[:download_count] }.inject(&:+).to_i
     }.inject(&:+).to_i
 
-    data[:latest] = {
-      name: latest[:tag_name],
-      author: latest[:author][:login],
-      stable: !latest[:prerelease],
-      link: latest[:html_url],
-      time: latest[:published_at],
-    }
+    data[:latest] = latest
 
     latest[:assets].each {|file|
       if key = @config['files'][file[:name]]
-        data[:latest][key] = {
-          name: file[:name],
-          link: file[:browser_download_url],
-          size: file[:size],
-        }
+        data[:latest][key] = file
       end
     }
 
