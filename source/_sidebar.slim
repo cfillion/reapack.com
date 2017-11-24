@@ -40,7 +40,7 @@ p
             - box[:links].each do |label, file|
               li
                 i.fa.fa-download
-                a> href=file[:browser_download_url] rel="nofollow" = label
+                a.dl> href=file[:browser_download_url] rel="nofollow" = label
                 small.size = number_to_human_size file[:size]
 
   p
