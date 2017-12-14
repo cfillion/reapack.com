@@ -8,7 +8,7 @@ GEM
       tzinfo (~> 1.1)
     addressable (2.5.2)
       public_suffix (>= 2.0.2, < 4.0)
-    autoprefixer-rails (7.1.6)
+    autoprefixer-rails (7.2.3)
       execjs
     backports (3.10.3)
     coffee-script (2.4.1)
@@ -35,7 +35,7 @@ GEM
       concurrent-ruby (~> 1.0)
     hashie (3.5.6)
     i18n (0.7.0)
-    kramdown (1.15.0)
+    kramdown (1.16.2)
     listen (3.0.8)
       rb-fsevent (~> 0.9, >= 0.9.4)
       rb-inotify (~> 0.9, >= 0.9.7)
@@ -132,4 +132,4 @@ RUBY VERSION
    ruby 2.4.0p0
 
 BUNDLED WITH
-   1.15.4
+   1.16.0
