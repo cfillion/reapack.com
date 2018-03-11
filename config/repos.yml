@@ -92,15 +92,15 @@ repos:
   -
     link: 'https://github.com/Outboarder/ReaScripts'
     index: 'https://github.com/Outboarder/ReaScripts/raw/master/index.xml'
-    
+  -
     link: 'https://github.com/bfut/ReaScripts'
     index: 'https://github.com/bfut/ReaScripts/raw/master/index.xml'
-    
+  -
     link: 'https://github.com/Erriez/erriez-reaper-jsfx/'
     index: 'https://github.com/Erriez/erriez-reaper-jsfx/raw/master/index.xml'
-    
+  -
     link: 'https://github.com/StephanRoemer/ReaScripts/'
     index: 'https://github.com/StephanRoemer/ReaScripts/raw/master/index.xml'
-    
+  -
     link: 'https://github.com/JoepVanlier/Hackey-Trackey/'
     index: 'https://github.com/JoepVanlier/Hackey-Trackey/raw/master/index.xml'
