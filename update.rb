@@ -137,7 +137,7 @@ class Repo
       name = doc.root['name'].to_s
       packages = {}
 
-      raise TaskFailed, 'repository is unnamed' if name.empty?
+      raise TaskFailure, 'repository is unnamed' if name.empty?
 
       doc.css('reapack').each do |pkg|
         type = pkg['type']
