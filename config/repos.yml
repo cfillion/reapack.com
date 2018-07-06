@@ -104,3 +104,7 @@ repos:
   -
     link: 'https://github.com/JoepVanlier/Hackey-Trackey/'
     index: 'https://github.com/JoepVanlier/Hackey-Trackey/raw/master/index.xml'
+  -
+    link: 'https://github.com/AmelianceSkyMusic/ASM_Reaper_scripts'
+    index: 'https://github.com/AmelianceSkyMusic/ASM_Reaper_scripts/raw/master/index.xml'
+    
