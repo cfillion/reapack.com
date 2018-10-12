@@ -28,7 +28,7 @@ repos:
   -
     link: 'https://github.com/ReaTeam/Extensions'
     index: 'https://github.com/ReaTeam/Extensions/raw/master/index.xml'
-    default: true
+    default: false
     disporder: 5
   -
     link: 'https://github.com/MichaelPilyavskiy/ReaScripts'
