@@ -41,8 +41,8 @@ repos:
     default: true
     disporder: 12
   -
-    link: 'https://github.com/ArchieScript/ReaScrits'
-    index: 'https://github.com/ArchieScript/ReaScrits/raw/master/index.xml' 
+    link: 'https://github.com/ArchieScript/Archie_ReaScripts'
+    index: 'https://raw.githubusercontent.com/ArchieScript/Archie_ReaScripts/master/index.xml' 
   -
     link: 'https://github.com/chtammik/chtammik_Reaper_Scripts'
     index: 'https://github.com/chtammik/chtammik_Reaper_Scripts/raw/master/index.xml'
