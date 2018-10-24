@@ -1,0 +1,9 @@
+image: Ubuntu1804
+stack: ruby 2.5
+install:
+  - gem install bundler
+  - bundle
+build_script:
+  - ./update.rb
+  - middleman build
+test: off
