@@ -38,8 +38,11 @@ h1, h2, h3, h4, h5, dt
   font-weight: 700
 
 h1
-  border-bottom: 1px solid $foreground
+  font-size: 1.7rem
+
+.page-title
   font-size: 2.3rem
+  border-bottom: 1px solid $foreground
   font-weight: 700
   padding-bottom: 7px
 
@@ -132,7 +135,7 @@ tbody tr
   &:nth-child(2n)
     background-color: $table-row-even
 
-.header
+header
   @import 'header'
 
 .clearfix
@@ -169,3 +172,5 @@ body
     @import 'index'
   &.repos
     @import 'repos'
+  &.upload
+    @import 'upload'

@@ -28,11 +28,11 @@ html lang="en"
       ga('send', 'pageview');
 
   body class=page_classes
-    .header
+    header
       == partial :header
 
     .wrapper
-      h1 = current_page.data.title
+      h1.page-title = current_page.data.title
 
       .container
         .content

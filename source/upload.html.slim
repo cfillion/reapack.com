@@ -1,16 +1,152 @@
 ---
 title: Upload tools
-noindex: true
 ---
 
-p Work in progress.
+- content_for :javascripts do
+  == javascript_include_tag 'https://cdnjs.cloudflare.com/ajax/libs/vue/2.5.17/vue.js'
+  == javascript_include_tag 'https://cdnjs.cloudflare.com/ajax/libs/vue-router/3.0.1/vue-router.js'
+  == javascript_include_tag 'https://cdnjs.cloudflare.com/ajax/libs/commonmark/0.28.1/commonmark.min.js'
 
-p In the meantime, you can contribute to these repositories directly on GitHub:
+script#select-type type='text/x-template'
+  .select-type
+    p Select a primary REAPER resource type to begin:
 
-ul
-  li: a target="_blank" href="https://github.com/ReaTeam/ReaScripts" ReaTeam Scripts
-  li: a target="_blank" href="https://github.com/ReaTeam/JSFX" ReaTeam JSFX
-  li: a target="_blank" href="https://github.com/ReaTeam/Themes" ReaTeam Themes
-  li: a target="_blank" href="https://github.com/ReaTeam/LangPacks" ReaTeam LangPacks
+    ul.type
+      li v-for="(type, repo) in types"
+        router-link :to="repo"
+          i.icon.fa.fa-fw :class="type.icon"
+          .body
+            .name() {{ type.name }}
+            | {{ type.desc }}
 
-p Come discuss in the <a href="https://forum.cockos.com/showthread.php?t=169127" target="_blank">development thread</a> on the REAPER forum!
+    p 
+      | ReaPack also supports automation items, MIDI note names, project &
+        track templates and web interfaces packages which don't have a dedicated
+        ReaTeam repository at this time.
+
+    p Have a question? Come discuss in the <a href="https://forum.cockos.com/showthread.php?t=169127" target="_blank">development thread</a> on the REAPER forum!
+
+script#auth type='text/x-template'
+  .auth
+    h2 GitHub Login
+    p
+      | Please wait while we wait for GitHub's reply...
+
+script#editor type='text/x-template'
+  .editor v-if="type"
+    h2() Package editor ({{ type.name }})
+
+    p
+      | Fill this form to submit a new package or update an existing package on
+        the <a :href="repoUrl" target="_blank">{{ type.repo }}</a> repository.
+
+    h3 Metadata
+    p Customize how your package will appear in ReaPack.
+
+    p
+      label for="name" Display name
+      input#name autofocus=true v-model='name' :placeholder=="'Example: ' + type.placeholders.name"
+      | Choose a brief name to describe your package.
+
+    p
+      label for="category" Category
+      select#category v-model='category'
+        option Track Properties
+      | Select the most appropriate category.
+
+    p
+      label for="author" Author name
+      input#author v-model='author' placeholder="Example: John Doe or jdoe"
+      | Type your name or username. This field will be searchable.
+
+    p
+      label> for="about" Documentation
+      small() (optional)
+      tabbar
+        tab name='Write'
+          textarea#about v-model='about' :placeholder="aboutPlaceholder" rows=12
+          | Write a longer description of your package along with usage
+            instructions. This field uses the 
+            <a href="https://commonmark.org/" target="_blank">CommonMark</a>
+            syntax.
+        tab name='Preview' @activated=="refreshPreview"
+          p v-html="aboutPreview"
+
+    div
+      label> for="link-url" External links
+      small() (optional)
+      .group
+        link-editor
+
+    h3 Contents
+    p Release a new version or edit the current version. Previous versions are preserved.
+
+    p
+      label for='version' Version number
+      input#version placeholder="Examples: 1.0, 1.2.3, 1.2alpha, 1.2.3pre4..."
+      | Increase the version number to push changes to existing users.
+        Add letters to create a pre-release (e.g. 4.2beta1).
+
+    p
+      label> for='changelog' Changelog
+      small() (optional)
+      textarea#changelog rows=5 :placeholder=="'Example:\n' + type.placeholders.changelog"
+
+    div
+      label Provided files
+      .group
+        p
+          i.fa.fa-plus>
+          | Add a file
+
+    button Create pull request
+
+  div v-else=""
+    p
+      ' This resource type does not exist.
+      router-link to="/" Select another resource type.
+
+script#tabbar type='text/x-template'
+  .tabbar
+    .tab-list
+      button.tab-btn(
+        v-for="(tab, i) in tabs" :class=="{ active: tab.isActive }"
+        @click="setCurrentTab(tab)"
+      ) {{ tab.name }}
+    slot
+
+script#tab type='text/x-template'
+  .tab v-show="isActive"
+    slot
+
+script#link-editor type='text/x-template'
+  .link-editor
+    ul v-if="links.length > 0"
+      li v-for="(link, i) in links"
+        i.fa> :class='link.icon'
+        a>(:href="link.url" target="_blank") {{ link.name || link.url }}
+        a href="javascript:;" @click="removeLink(i)": i.fa.fa-trash
+
+    form @submit="submit"
+      .type-col
+        label for="link-type" Type
+        select#link-type v-model='type'
+          option value='link' Website
+          option value='screenshot' Screenshot
+          option value='donation' Donation
+      .name-col
+        label> for="link-name" Name
+        small() (optional)
+        input#link-name v-model='name' :placeholder=="'Example: ' + namePlaceholder"
+      .url-col
+        label for="link-url" URL
+        input#link-url type='url' v-model='url' :placeholder=="'Example: ' + urlPlaceholder"
+      .btn-col
+        br
+        button Add link
+
+#upload
+  p v-if="false"
+    i.fa.fa-spin.fa-spinner>
+    | Loading (JavaScript is required)...
+  router-view
