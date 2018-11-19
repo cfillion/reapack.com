@@ -99,7 +99,7 @@ script#editor type='text/x-template'
           i.fa.fa-plus>
           | Add a file
 
-    button Create pull request
+    form: button.main disabled=true Create pull request
 
   div v-else=""
     p
@@ -124,10 +124,10 @@ script#link-editor type='text/x-template'
     ul v-if="links.length > 0"
       li v-for="(link, i) in links"
         i.fa> :class='link.icon'
-        a>(:href="link.url" target="_blank") {{ link.name || link.url }}
-        a href="javascript:;" @click="removeLink(i)": i.fa.fa-trash
+        a>(:href="link.url" target="_blank" :title='link.url') {{ link.name || link.url }}
+        a href="javascript:;" title="Remove this link" @click="removeLink(i)": i.fa.fa-trash
 
-    form @submit="submit"
+    form @submit.prevent="submit"
       .type-col
         label for="link-type" Type
         select#link-type v-model='type'

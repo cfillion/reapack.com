@@ -143,9 +143,7 @@ Vue.component 'link-editor',
   template: '#link-editor'
   methods:
     removeLink: (i) -> @links.splice(i, 1)
-    submit: (e) ->
-      e.preventDefault()
-
+    submit: ->
       name = @name.trim()
       url = @url.trim()
 
