@@ -1,0 +1,23 @@
+{
+  "name": "reapack.com",
+  "version": "1.0.0",
+  "private": true,
+  "dependencies": {
+    "commonmark": "^0.28.1",
+    "vue": "^2.5.17",
+    "vue-router": "^3.0.1"
+  },
+  "devDependencies": {
+    "@babel/core": "^7.1.6",
+    "@babel/preset-env": "^7.1.6",
+    "browserify": "^16.2.3",
+    "bundle-collapser": "^1.3.0",
+    "coffeeify": "^3.0.1",
+    "coffeescript": "^2.3.2",
+    "envify": "^4.1.0",
+    "node-sass": "^4.10.0",
+    "postcss-sass": "^0.3.5",
+    "vueify": "^9.4.1",
+    "watchify": "^3.11.0"
+  }
+}

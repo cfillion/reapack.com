@@ -1,6 +1,6 @@
 /.bundle/
 /.sass-cache/
+/.tmp/
 /build/
 /data/
-
-.DS_Store
+/node_modules/
