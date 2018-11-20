@@ -22,6 +22,7 @@
 Types = require '../types'
 
 module.exports =
+  name: 'select-type'
   data: -> { types: Types }
 </script>
 

@@ -73,6 +73,7 @@ LinkEditor     = require './link-editor.vue'
 MarkdownEditor = require './markdown-editor.vue'
 
 module.exports =
+  name: 'package-editor'
   components: { Dropdown, FieldLabel, LinkEditor, MarkdownEditor }
   data: ->
     category: ''
