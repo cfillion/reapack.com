@@ -11,10 +11,11 @@
   form @submit.prevent="submit"
     .type-col
       field-label target="link-type" Type
-      select#link-type v-model='typeName'
-        option value='link' Website
-        option value='screenshot' Screenshot
-        option value='donation' Donation
+      /select#link-type v-model='typeName'
+      /  option value='link' Website
+      /  option value='screenshot' Screenshot
+      /  option value='donation' Donation
+      dropdown#link-type v-model='typeName' :choices=="['Website', 'Screenshot', 'Donation']"
     .name-col
       field-label target="link-name" optional=true Name
       input#link-name v-model='name' :placeholder=="'Example: ' + type.namePlaceholder"
@@ -23,7 +24,7 @@
       input#link-url type='url' v-model='url' :placeholder=="'Example: ' + type.urlPlaceholder"
     .btn-col
       br
-      button Add link
+      button type='submit' Add link
 </template>
 
 <script lang="coffee">
@@ -41,7 +42,11 @@ LinkTypes =
     namePlaceholder: 'Donate via PayPal'
     urlPlaceholder: 'https://paypal.me/cfillion'
 
+Dropdown   = require './dropdown.vue'
+FieldLabel = require './field-label.vue'
+
 module.exports =
+  components: { Dropdown, FieldLabel }
   data: -> { links: [], typeName: 'screenshot', name: '', url: '' }
   computed:
     type: -> LinkTypes[@typeName]
@@ -66,19 +71,27 @@ module.exports =
 
   form
     display: flex
+    align-items: flex-end
 
   input
     margin: 0
 
-  .name-col, .url-col, .btn-col
-    margin-left: 7px
+.name-col, .url-col, .btn-col
+  margin-left: 7px
 
-  .name-col
-    flex: 1 1 35%
+.type-col
+  width: 150px
+  flex: 0 0 auto
 
-  .url-col
-    flex: 1 1 65%
+#link-type
+  width: 100%
 
-  .btn-col
-    flex: 0 0 auto
+.name-col
+  flex: 1 1 35%
+
+.url-col
+  flex: 1 1 65%
+
+.btn-col
+  flex: 0 0 auto
 </style>

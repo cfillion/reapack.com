@@ -16,8 +16,7 @@
 
   p
     field-label target='category' Category
-    select#category v-model='category'
-      option Track Properties
+    dropdown#category v-model='category' :choices='["Hello", "World", "Lorem ipsum dolor sit amet"]'
     | Select the most appropriate category.
 
   p
@@ -27,15 +26,11 @@
 
   p
     field-label target='about' optional=true Documentation
-    tabbar
-      tab name='Write'
-        textarea#about v-model='about' :placeholder="aboutPlaceholder" rows=12
-        | Write a longer description of your package along with usage
-          instructions. This field uses the 
-          <a href="https://commonmark.org/" target="_blank">CommonMark</a>
-          syntax.
-      tab name='Preview' @activated=="refreshPreview"
-        p v-html="aboutPreview"
+    markdown-editor#about(disable-images=true
+        v-model="about" :placeholder="aboutPlaceholder")
+      | Write a longer description of your package along with usage instructions.
+        This field uses the <a href="https://commonmark.org/" target="_blank">CommonMark</a>
+        syntax.
 
   div
     field-label target='link-url' optional=true External links
@@ -61,7 +56,7 @@
         i.fa.fa-plus>
         | Add a file
 
-  form: button.main disabled=true Create pull request
+  form: button.main type='submit' disabled=true Create pull request
 
 div v-else=""
   p
@@ -71,17 +66,19 @@ div v-else=""
 
 <script lang="coffee">
 Types = require '../types'
-CommonMark = require 'commonmark'
+
+Dropdown       = require './dropdown.vue'
+FieldLabel     = require './field-label.vue'
+LinkEditor     = require './link-editor.vue'
+MarkdownEditor = require './markdown-editor.vue'
 
 module.exports =
-  components:
-    'link-editor': require('./link-editor.vue')
+  components: { Dropdown, FieldLabel, LinkEditor, MarkdownEditor }
   data: ->
     category: ''
-    name: ''
-    author: ''
-    about: ''
-    aboutPreview: ''
+    name:     ''
+    author:   ''
+    about:    ''
   computed:
     type: -> Types[@$route.params.type]
     repoUrl: -> "https://github.com/#{@type.repo}"
@@ -91,21 +88,6 @@ module.exports =
       name = 'Package name' unless name
       "# #{name}\n\nLonger description of the package name here.\n\n
       Key features:\n\n- Lorem ipsum\n- Dolor sit amet\n- Consectetur adipiscing elit"
-  methods:
-    refreshPreview: ->
-      reader = new CommonMark.Parser
-      writer = new CommonMark.HtmlRenderer safe: true
-      parsed = reader.parse if @about then @about else @aboutPlaceholder
-      walker = parsed.walker()
-
-      # disable images
-      while event = walker.next()
-        node = event.node
-
-        if event.entering && node.type == 'image'
-          node._type = 'link'
-
-      @aboutPreview = writer.render parsed
   # beforeRouteLeave: (to, from, next) ->
   #   if window.confirm 'Do you really want to leave? Data you have entered will be lost.'
   #     next()

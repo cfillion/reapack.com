@@ -1,6 +1,6 @@
 <template lang="slim">
-span
-  label :for="target": slot
+label :for="target"
+  slot
   small< v-if="optional" (optional)
 </template>
 
@@ -10,3 +10,11 @@ module.exports =
     target: String
     optional: Boolean
 </script>
+
+<style lang="sass" scoped>
+label
+  font-weight: bold
+
+  small
+    font-weight: normal
+</style>

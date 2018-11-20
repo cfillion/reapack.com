@@ -16,10 +16,7 @@
   &:focus
     box-shadow: 0 0 3px darken($color, 10%)
 
-label
-  font-weight: bold
-
-input, textarea, button, select
+input, textarea, button
   background-color: darken($background, 2%)
   border-radius: 3px
   font-size: 1rem
@@ -39,21 +36,26 @@ input, textarea
   &:focus
     +input-border($foreground)
 
-  &::placeholder
-    color: mix($foreground, $background, 50%)
-    font-style: italic
-    opacity: 1
-
-  &:invalid
-    box-shadow: none
+::placeholder, .placeholder
+  color: mix($foreground, $background, 50%)
+  font-style: italic
+  opacity: 1
 
 input:invalid, textarea:invalid
   +input-border(red)
+  box-shadow: none
 
 textarea
   resize: vertical
 
-form button
+button
+  text-align: center
+
+  &:not([disabled]):active
+    $shadow: lighten($background, 5%)
+    box-shadow: inset 0 0 8px 4px $shadow
+
+button[type=submit]
   &:not([disabled])
     cursor: pointer
     background-image: linear-gradient(darken($foreground, 9%), darken($foreground, 9%))
@@ -72,9 +74,6 @@ form button
     padding-left: 1em
     padding-right: 1em
     font-weight: bold
-
-textarea#about
-  margin-top: 0
 
 .group
   background-color: $table-row-odd

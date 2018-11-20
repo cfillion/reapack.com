@@ -5,8 +5,11 @@ Middleman::Util::EnhancedHash.disable_warnings
 activate :asset_hash
 activate :autoprefixer
 activate :directory_indexes
-activate :minify_css
-activate :minify_javascript
+
+configure :build do
+  activate :minify_css
+  activate :minify_javascript
+end
 
 activate :external_pipeline,
   name: :vuejs,

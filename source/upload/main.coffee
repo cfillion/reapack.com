@@ -7,16 +7,12 @@
 # document.body.addEventListener 'drop', (e) ->
 #   e.preventDefault()
 
-Vue = require 'vue'
-VueRouter = require 'vue-router'
+Vue        = require 'vue'
+VueRouter  = require 'vue-router'
 
-Main = require './components/main.vue'
+Main       = require './components/main.vue'
 SelectType = require './components/select-type.vue'
-Editor = require './components/editor.vue'
-
-Vue.component 'tabbar', require("./components/tabbar.vue")
-Vue.component 'tab', require("./components/tab.vue")
-Vue.component 'field-label', require("./components/field-label.vue")
+Editor     = require './components/editor.vue'
 
 router = new VueRouter
   # mode: 'history'
