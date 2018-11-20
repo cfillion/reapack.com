@@ -1,8 +1,8 @@
 <template lang="slim">
-.dropdown-menu v-if="show"
+.dropdown-menu(v-if="show" @click.stop)
   slot
     ul
-      li v-for="item in items" @click=="$emit('select', item)"
+      li v-for="item in items" @click=="select(item)"
         i.fa.fa-fw> v-if="item.icon" :class="item.icon"
         | {{ item.name || item }}
       li.placeholder v-if="!items" No choices left.
@@ -13,6 +13,10 @@ module.exports =
   props:
     items: Array
     show: Boolean
+  methods:
+    select: (item) ->
+      @$emit 'input', item
+      @$emit 'change', item
 </script>
 
 <style lang="sass" scoped>
@@ -25,7 +29,7 @@ $radius: 4px
   background-color: $table-row-odd
   border-radius: $radius
   margin-top: -5px
-  max-height: 200px
+  max-height: 400px
   min-width: 200px
   overflow: hidden auto
   position: absolute

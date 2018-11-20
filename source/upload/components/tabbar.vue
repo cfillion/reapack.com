@@ -36,7 +36,6 @@ button
   border-left-style: none
   border-bottom-style: none
   border-radius: 0
-  cursor: pointer
   box-shadow: none
   margin: 0
 

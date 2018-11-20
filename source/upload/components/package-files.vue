@@ -16,7 +16,7 @@
   .file-2
     p
       field-label Resource type
-      dropdown :value=="{ icon: 'fa-file-text', name: 'ReaScript (same as package type)' }" :choices="types"
+      input-dropdown :value=="{ icon: 'fa-file-text', name: 'ReaScript (same as package type)' }" :choices="types"
 
     p
       field-label Storage directory
@@ -33,12 +33,12 @@
 
     p
       field-label Action List
-      dropdown value="Main section"
+      input-dropdown value="Main section"
 
     p
       field-label Platform matrix
-      dropdown value="All platforms"
-        platform-editor
+      input-dropdown value="All platforms"
+        platform-matrix
 
     p
       field-label target="contents" Contents
@@ -49,8 +49,8 @@
 Types = require '../types.coffee'
 
 FieldLabel = require './field-label.vue'
-Dropdown = require './dropdown.vue'
-PlatformEditor = require './platform-editor.vue'
+InputDropdown = require './input-dropdown.vue'
+PlatformMatrix = require './platform-matrix.vue'
 
 TypeOverrides = [
   '(Same as package type)'
@@ -62,7 +62,7 @@ TypeOverrides = [
 ]
 
 module.exports =
-  components: { FieldLabel, Dropdown, PlatformEditor }
+  components: { FieldLabel, InputDropdown, PlatformMatrix }
   computed:
     types: -> TypeOverrides
 </script>

@@ -12,15 +12,15 @@ VueRouter  = require 'vue-router'
 
 Main       = require './components/main.vue'
 SelectType = require './components/select-type.vue'
-Editor     = require './components/editor.vue'
+Package    = require './components/package.vue'
 
 router = new VueRouter
-  # mode: 'history'
+  mode: if process.env.NODE_ENV == 'production' then 'history' else 'hash'
   base: '/upload'
   routes: [
     { path: '*', component: SelectType }
     # { path: '/auth', component: Auth }
-    { path: '/:type', component: Editor }
+    { path: '/:type', component: Package }
   ]
 
 Vue.use VueRouter

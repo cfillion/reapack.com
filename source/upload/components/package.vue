@@ -17,7 +17,7 @@
 
   p
     field-label target="category" Category
-    dropdown#category v-model='category' :choices='["Hello", "World", "Lorem ipsum dolor sit amet"]'
+    input-dropdown#category v-model='category' :choices='["Hello", "World", "Lorem ipsum dolor sit amet"]'
     | Select the most appropriate category.
 
   p
@@ -27,7 +27,7 @@
 
   p
     field-label target="about" optional=true Documentation
-    markdown-editor#about(disable-images=true
+    input-markdown#about(disable-images=true
         v-model="about" :placeholder="aboutPlaceholder")
       | Write a longer description of your package along with usage instructions.
         This field uses the <a href="https://commonmark.org/" target="_blank">CommonMark</a>
@@ -35,7 +35,7 @@
 
   div
     field-label target="link-url" optional=true External links
-    link-editor
+    package-links
 
   h3 Contents
   p Release a new version or edit the current version. Previous versions are preserved.
@@ -48,7 +48,7 @@
 
   div
     field-label Provided files
-    file-editor
+    package-files
 
   p
     field-label target="changelog" optional=true Changelog
@@ -68,15 +68,15 @@ div v-else=""
 <script lang="coffee">
 Types = require '../types'
 
-Dropdown       = require './dropdown.vue'
-FieldLabel     = require './field-label.vue'
-FileEditor     = require './file-editor.vue'
-LinkEditor     = require './link-editor.vue'
-MarkdownEditor = require './markdown-editor.vue'
+FieldLabel    = require './field-label.vue'
+InputDropdown = require './input-dropdown.vue'
+InputMarkdown = require './input-markdown.vue'
+PackageFiles  = require './package-files.vue'
+PackageLinks  = require './package-links.vue'
 
 module.exports =
   name: 'package-editor'
-  components: { Dropdown, FieldLabel, FileEditor, LinkEditor, MarkdownEditor }
+  components: { FieldLabel, InputDropdown, InputMarkdown, PackageFiles, PackageLinks }
   data: ->
     category: ''
     name:     ''

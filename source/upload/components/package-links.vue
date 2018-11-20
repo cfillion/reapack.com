@@ -11,7 +11,7 @@
   form @submit.prevent="submit"
     .type-col
       field-label target="link-type" Type
-      dropdown#link-type v-model="type" :choices="types"
+      input-dropdown#link-type v-model="type" :choices="types"
     .name-col
       field-label target="link-name" optional=true Name
       input#link-name(type="text" v-model.trim="name"
@@ -45,11 +45,11 @@ LinkTypes = [
     urlPlaceholder: 'https://paypal.me/cfillion'
 ]
 
-Dropdown   = require './dropdown.vue'
 FieldLabel = require './field-label.vue'
+InputDropdown   = require './input-dropdown.vue'
 
 module.exports =
-  components: { Dropdown, FieldLabel }
+  components: { FieldLabel, InputDropdown }
   data: -> { links: [], type: LinkTypes[1], name: '', url: '' }
   computed:
     types: -> LinkTypes
@@ -91,4 +91,7 @@ module.exports =
 
 .btn-col
   flex: 0 1 auto
+
+img
+  max-height: 400px
 </style>

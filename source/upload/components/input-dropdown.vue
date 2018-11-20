@@ -1,13 +1,13 @@
 <template lang="slim">
 div
   button.dropdown(:id="id" type='button' :class="{ active: showMenu }"
-      @click.stop="showMenu = !showMenu" ref="button")
+      @click="showMenu = !showMenu" ref="button")
     .placeholder v-if="!value" Select a value…
     .value v-if="value"
       i.icon.fa.fa-fw> v-if="value.icon" :class="value.icon"
       | {{ value.name || value }}
     i.caret.fa.fa-caret-down
-  dropdown-menu :items="choices" :show="showMenu" @select="setValue"
+  dropdown-menu(:items="choices" :show="showMenu" @input="setValue" @change="showMenu = false")
     slot
 </template>
 
@@ -26,13 +26,13 @@ module.exports =
     setValue: (val) ->
       @$emit 'input', val
     onDocumentClick: (e) ->
-      if @showMenu && e.target != @$refs.button
+      if @showMenu && !@$refs.button.contains(e.target)
         @showMenu = false
         e.preventDefault()
   created: ->
-    document.addEventListener 'click', @onDocumentClick, true
+    document.addEventListener 'click', @onDocumentClick
   destroyed: ->
-    document.removeEventListener 'click', @onDocumentClick, true
+    document.removeEventListener 'click', @onDocumentClick
 </script>
 
 <style lang="sass" scoped>
