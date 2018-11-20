@@ -1,8 +1,8 @@
 <template lang="slim">
 .link-editor
   ul v-if="links.length > 0"
-    li v-for="(link, i) in links"
-      i.fa> :class="link.type.icon" :title="link.type.name"
+    li v-for="(link, i) in sortedLinks"
+      i.fa.fa-fw> :class="link.type.icon" :title="link.type.name"
       a> :href="link.url" target="_blank" :title="link.url"
         | {{ link.name || link.url }}
       a href="javascript:;" title="Remove this link" @click="removeLink(i)"
@@ -53,6 +53,8 @@ module.exports =
   data: -> { links: [], type: LinkTypes[1], name: '', url: '' }
   computed:
     types: -> LinkTypes
+    sortedLinks: ->
+      @links.sort (a, b) -> LinkTypes.indexOf(a.type) - LinkTypes.indexOf(b.type)
   methods:
     removeLink: (i) -> @links.splice(i, 1)
     submit: ->
