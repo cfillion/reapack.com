@@ -1,9 +1,11 @@
 <template lang="slim">
-ul v-if="show"
-  li v-for="item in items" @click=="$emit('select', item)"
-    i.fa.fa-fw> v-if="item.icon" :class="item.icon"
-    | {{ item.name || item }}
-  li.placeholder v-if="!items" No choices left.
+.dropdown-menu v-if="show"
+  slot
+    ul
+      li v-for="item in items" @click=="$emit('select', item)"
+        i.fa.fa-fw> v-if="item.icon" :class="item.icon"
+        | {{ item.name || item }}
+      li.placeholder v-if="!items" No choices left.
 </template>
 
 <script lang="coffee">
@@ -18,15 +20,18 @@ module.exports =
 
 $radius: 4px
 
-ul
+.dropdown-menu
   +input-field
+  background-color: $table-row-odd
   border-radius: $radius
-  margin-left: 0
   margin-top: -5px
-  max-height: 100px
+  max-height: 200px
   min-width: 200px
   overflow: hidden auto
   position: absolute
+
+ul
+  margin-left: 0
 
 li
   background-color: $table-row-odd

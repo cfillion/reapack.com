@@ -8,6 +8,7 @@ div
       | {{ value.name || value }}
     i.caret.fa.fa-caret-down
   dropdown-menu :items="choices" :show="showMenu" @select="setValue"
+    slot
 </template>
 
 <script lang="coffee">

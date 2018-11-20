@@ -12,7 +12,7 @@
 
 @import 'upload-mixins'
 
-input, textarea, button
+#{$input-text}, textarea, button
   +input-field
   border-radius: 3px
   color: white
@@ -22,11 +22,10 @@ input, textarea, button
   padding: 0.4em
   margin: 4px 0 4px 0
 
-input, textarea
+#{$input-text}, textarea
   +input-border($foreground)
   box-sizing: border-box
   width: 100%
-  display: block
 
 ::placeholder, .placeholder
   color: $input-disabled
@@ -41,6 +40,7 @@ input:invalid, textarea:invalid
 textarea
   resize: vertical
   min-height: 5em
+  display: block
 
 button
   text-align: center

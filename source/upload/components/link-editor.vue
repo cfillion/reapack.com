@@ -1,5 +1,5 @@
 <template lang="slim">
-.link-editor
+.link-editor.group
   ul v-if="links.length > 0"
     li v-for="(link, i) in sortedLinks"
       i.fa.fa-fw> :class="link.type.icon" :title="link.type.name"
@@ -14,7 +14,7 @@
       dropdown#link-type v-model="type" :choices="types"
     .name-col
       field-label target="link-name" optional=true Name
-      input#link-name(v-model.trim="name"
+      input#link-name(type="text" v-model.trim="name"
         :placeholder=="'Example: ' + type.namePlaceholder")
     .url-col
       field-label target="link-url" URL
@@ -78,8 +78,7 @@ module.exports =
   margin-left: 7px
 
 .type-col
-  width: 150px
-  flex: 0 0 auto
+  flex: 0 1 150px
 
 #link-type
   width: 100%

@@ -10,22 +10,23 @@
   p Customize how your package will appear in ReaPack.
 
   p
-    field-label target='name' Display name
-    input#name autofocus=true v-model='name' :placeholder=="'Example: ' + type.placeholders.name"
+    field-label target="name" Display name
+    input#name(type="text" autofocus=true v-model='name'
+      :placeholder=="'Example: ' + type.placeholders.name")
     | Choose a brief name to describe your package.
 
   p
-    field-label target='category' Category
+    field-label target="category" Category
     dropdown#category v-model='category' :choices='["Hello", "World", "Lorem ipsum dolor sit amet"]'
     | Select the most appropriate category.
 
   p
-    field-label target='author' Author name
-    input#author v-model='author' placeholder="Example: John Doe or jdoe"
+    field-label target="author" Author name
+    input#author type="text" v-model="author" placeholder="Example: John Doe or jdoe"
     | Type your name or username. This field will be searchable.
 
   p
-    field-label target='about' optional=true Documentation
+    field-label target="about" optional=true Documentation
     markdown-editor#about(disable-images=true
         v-model="about" :placeholder="aboutPlaceholder")
       | Write a longer description of your package along with usage instructions.
@@ -33,31 +34,30 @@
         syntax.
 
   div
-    field-label target='link-url' optional=true External links
-    .group: link-editor
+    field-label target="link-url" optional=true External links
+    link-editor
 
   h3 Contents
   p Release a new version or edit the current version. Previous versions are preserved.
 
   p
-    field-label target='version' Version number
-    input#version placeholder="Examples: 1.0, 1.2.3, 1.2alpha, 1.2.3pre4…"
+    field-label target="version" Version number
+    input#version type="text" placeholder="Examples: 1.0, 1.2.3, 1.2alpha, 1.2.3pre4…"
     | Increase the version number to push changes to existing users.
       Add letters to create a pre-release (e.g. 4.2beta1).
 
-  p
-    field-label target='changelog' optional=true Changelog
-    textarea#changelog rows=5 :placeholder=="'Example:\n' + type.placeholders.changelog"
-
   div
     field-label Provided files
-    .group
-      p
-        i.fa.fa-plus>
-        | Add a file
+    file-editor
 
   p
-    button.main> type='submit' disabled=true Create pull request on {{ type.repo }}
+    field-label target="changelog" optional=true Changelog
+    textarea#changelog rows=5 :placeholder=="'Example:\n' + type.placeholders.changelog"
+    | Changelog for the current version only. Displayed when installing or
+      updating the package.
+
+  p
+    button.main> type="submit" disabled=true Create pull request on {{ type.repo }}
 
 div v-else=""
   p
@@ -70,12 +70,13 @@ Types = require '../types'
 
 Dropdown       = require './dropdown.vue'
 FieldLabel     = require './field-label.vue'
+FileEditor     = require './file-editor.vue'
 LinkEditor     = require './link-editor.vue'
 MarkdownEditor = require './markdown-editor.vue'
 
 module.exports =
   name: 'package-editor'
-  components: { Dropdown, FieldLabel, LinkEditor, MarkdownEditor }
+  components: { Dropdown, FieldLabel, FileEditor, LinkEditor, MarkdownEditor }
   data: ->
     category: ''
     name:     ''
