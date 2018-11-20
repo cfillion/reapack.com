@@ -50,13 +50,14 @@
     textarea#changelog rows=5 :placeholder=="'Example:\n' + type.placeholders.changelog"
 
   div
-    label Provided files
+    field-label Provided files
     .group
       p
         i.fa.fa-plus>
         | Add a file
 
-  form: button.main type='submit' disabled=true Create pull request
+  p
+    button.main> type='submit' disabled=true Create pull request on {{ type.repo }}
 
 div v-else=""
   p
@@ -87,7 +88,7 @@ module.exports =
     aboutPlaceholder: ->
       name = @name.trim()
       name = 'Package name' unless name
-      "# #{name}\n\nLonger description of the package name here.\n\n
+      "# #{name}\n\nLonger description of the package here.\n\n
       Key features:\n\n- Lorem ipsum\n- Dolor sit amet\n- Consectetur adipiscing elit"
   # beforeRouteLeave: (to, from, next) ->
   #   if window.confirm 'Do you really want to leave? Data you have entered will be lost.'

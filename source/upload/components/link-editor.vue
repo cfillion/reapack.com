@@ -74,9 +74,6 @@ module.exports =
     display: flex
     align-items: flex-end
 
-  input
-    margin: 0
-
 .name-col, .url-col, .btn-col
   margin-left: 7px
 

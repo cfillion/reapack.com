@@ -22,7 +22,7 @@ ul
   +input-field
   border-radius: $radius
   margin-left: 0
-  margin-top: -1px
+  margin-top: -5px
   max-height: 100px
   min-width: 200px
   overflow: hidden auto
