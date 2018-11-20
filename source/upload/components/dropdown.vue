@@ -1,7 +1,7 @@
 <template lang="slim">
 div
   button :id="id" type='button' @click="showMenu = !showMenu"
-    .placeholder v-if="!value" Select a value...
+    .placeholder v-if="!value" Select a value…
     .value v-if="value"
       i.icon.fa.fa-fw> v-if="value.icon" :class="value.icon"
       | {{ value.name || value }}

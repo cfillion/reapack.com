@@ -21,7 +21,6 @@
       input#link-url(type="url" v-model.trim="url"
         :placeholder=="'Example: ' + type.urlPlaceholder")
     .btn-col
-      br
       button type="submit" Add link
 </template>
 
@@ -87,11 +86,11 @@ module.exports =
   width: 100%
 
 .name-col
-  flex: 1 1 40%
+  flex: 1 1 10%
 
 .url-col
-  flex: 1 1 60%
+  flex: 1 1 30%
 
 .btn-col
-  flex: 0 0 auto
+  flex: 0 1 auto
 </style>
