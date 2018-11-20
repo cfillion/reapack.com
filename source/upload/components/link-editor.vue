@@ -2,8 +2,8 @@
 .link-editor
   ul v-if="links.length > 0"
     li v-for="(link, i) in links"
-      i.fa> :class='link.icon'
-      a> :href="link.url" target="_blank" :title='link.url'
+      i.fa> :class="link.type.icon" :title="link.type.name"
+      a> :href="link.url" target="_blank" :title="link.url"
         | {{ link.name || link.url }}
       a href="javascript:;" title="Remove this link" @click="removeLink(i)"
         i.fa.fa-trash
@@ -11,55 +11,55 @@
   form @submit.prevent="submit"
     .type-col
       field-label target="link-type" Type
-      /select#link-type v-model='typeName'
-      /  option value='link' Website
-      /  option value='screenshot' Screenshot
-      /  option value='donation' Donation
-      dropdown#link-type v-model='typeName' :choices=="['Website', 'Screenshot', 'Donation']"
+      dropdown#link-type v-model="type" :choices="types"
     .name-col
       field-label target="link-name" optional=true Name
-      input#link-name v-model='name' :placeholder=="'Example: ' + type.namePlaceholder"
+      input#link-name(v-model.trim="name"
+        :placeholder=="'Example: ' + type.namePlaceholder")
     .url-col
       field-label target="link-url" URL
-      input#link-url type='url' v-model='url' :placeholder=="'Example: ' + type.urlPlaceholder"
+      input#link-url(type="url" v-model.trim="url"
+        :placeholder=="'Example: ' + type.urlPlaceholder")
     .btn-col
       br
-      button type='submit' Add link
+      button type="submit" Add link
 </template>
 
 <script lang="coffee">
-LinkTypes =
-  link:
+LinkTypes = [
+    tag: 'link'
     icon: 'fa-link'
+    name: 'Website'
     namePlaceholder: 'ReaPack website'
     urlPlaceholder: 'https://reapack.com'
-  screenshot:
+  ,
+    tag: 'screenshot',
     icon: 'fa-picture-o'
+    name: 'Screenshot'
     namePlaceholder: 'Docked mode'
     urlPlaceholder: 'https://i.imgur.com/4xPMV9J.gif'
-  donation:
+  ,
+    tag: 'donation'
     icon: 'fa-paypal'
+    name: 'Donation'
     namePlaceholder: 'Donate via PayPal'
     urlPlaceholder: 'https://paypal.me/cfillion'
+]
 
 Dropdown   = require './dropdown.vue'
 FieldLabel = require './field-label.vue'
 
 module.exports =
   components: { Dropdown, FieldLabel }
-  data: -> { links: [], typeName: 'screenshot', name: '', url: '' }
+  data: -> { links: [], type: LinkTypes[1], name: '', url: '' }
   computed:
-    type: -> LinkTypes[@typeName]
+    types: -> LinkTypes
   methods:
     removeLink: (i) -> @links.splice(i, 1)
     submit: ->
-      type = @type
-      name = @name.trim()
-      url = @url.trim()
+      return unless @url
 
-      return unless type && url
-
-      @links.push {type: @typeName, icon: type.icon, name: name, url: url}
+      @links.push {type: @type, name: @name, url: @url}
       @name = @url = ''
 </script>
 
@@ -87,10 +87,10 @@ module.exports =
   width: 100%
 
 .name-col
-  flex: 1 1 35%
+  flex: 1 1 40%
 
 .url-col
-  flex: 1 1 65%
+  flex: 1 1 60%
 
 .btn-col
   flex: 0 0 auto

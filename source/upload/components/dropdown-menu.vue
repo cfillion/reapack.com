@@ -1,6 +1,9 @@
 <template lang="slim">
 ul
-  li v-for="item in items" @click=="$emit('select', item)" {{ item }}
+  li v-for="item in items" @click=="$emit('select', item)"
+    i.fa.fa-fw> v-if="item.icon" :class="item.icon"
+    | {{ item.name || item }}
+  li.placeholder v-if="!items" No choices left.
 </template>
 
 <script lang="coffee">
@@ -30,8 +33,11 @@ li
   background-color: $table-row-odd
   list-style-type: none
   padding: 8px 4px 4px 8px
-  cursor: pointer
   font-size: 0.9em
+  cursor: pointer
+
+  &.placeholder
+    cursor: default
 
   &:first-child
     border-top-left-radius: $radius
@@ -44,6 +50,6 @@ li
     border-bottom-left-radius: $radius
     border-bottom-right-radius: $radius
 
-  &:hover
+  &:hover:not(.placeholder)
     background-color: $background
 </style>

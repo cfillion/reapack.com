@@ -1,9 +1,11 @@
 <template lang="slim">
 div
-  button :id="id" type='button' @click="showMenu = !showMenu" @blur="showMenu = false"
+  button :id="id" type='button' @click="showMenu = !showMenu"
     .placeholder v-if="!value" Select a value...
-    .value v-if="value" {{ value }}
-    i.fa.fa-caret-down
+    .value v-if="value"
+      i.icon.fa.fa-fw> v-if="value.icon" :class="value.icon"
+      | {{ value.name || value }}
+    i.caret.fa.fa-caret-down
   dropdown-menu v-if="showMenu" :items="choices" @select="setValue"
 </template>
 
@@ -15,14 +17,13 @@ module.exports =
   props:
     id: String
     choices: Array
+    value: ''
   data: ->
     showMenu: false
-    value: ''
   methods:
     setValue: (val) ->
-      @value = val
       @showMenu = false
-      @emit 'input', val
+      @$emit 'input', val
 </script>
 
 <style lang="sass" scoped>
@@ -40,7 +41,7 @@ button
   overflow: hidden
   text-overflow: ellipsis
 
-i
+.caret
   padding-left: 10px
   padding-right: 5px
 </style>

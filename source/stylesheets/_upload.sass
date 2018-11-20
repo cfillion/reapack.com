@@ -40,6 +40,7 @@ input, textarea
   color: mix($foreground, $background, 50%)
   font-style: italic
   opacity: 1
+  text-overflow: ellipsis
 
 input:invalid, textarea:invalid
   +input-border(red)
@@ -47,6 +48,7 @@ input:invalid, textarea:invalid
 
 textarea
   resize: vertical
+  min-height: 5em
 
 button
   text-align: center
