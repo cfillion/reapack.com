@@ -59,6 +59,7 @@ button
   align-items: baseline
   display: flex
   justify-content: space-between
+  max-width: 100%
   overflow: hidden
   text-align: left
   white-space: nowrap

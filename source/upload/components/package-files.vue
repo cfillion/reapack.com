@@ -13,7 +13,7 @@
     button
       i.fa.fa-plus>
       | Add files
-  package-file.test
+  package-file.file
 </template>
 
 <script lang="coffee">
@@ -68,6 +68,6 @@ module.exports =
 
 .file
   padding: $padding
-  overflow-y: auto
+  overflow: auto
   flex: 1 1 auto
 </style>

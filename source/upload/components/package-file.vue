@@ -1,5 +1,5 @@
 <template lang="slim">
-.file
+div
   p
     field-label Resource type
     input-dropdown :value=="{ icon: 'fa-file-text', name: 'ReaScript (same as package type)' }" :choices="availableTypes"
@@ -18,12 +18,12 @@
     | &lt;resource path&gt;/Scripts/ReaTeam Scripts/Development/cfillion_Interactive ReaScript.lua
 
   p
-    field-label optional=true Action List
-    input-dropdown value="Main section" v-model="sections" multiple=true :choices="allSections"
+    field-label target="sections" optional=true Action List
+    input-dropdown#sections value="Main section" v-model="sections" multiple=true :choices="allSections"
 
   p
-    field-label Platform matrix
-    input-dropdown value="All platforms"
+    field-label target="platforms" Platform matrix
+    input-dropdown#platforms value="All platforms"
       platform-matrix
 
   p
