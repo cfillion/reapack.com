@@ -3,20 +3,25 @@
   slot
     ul
       li v-for="item in items" @click=="select(item)"
+        input type="checkbox" v-if="multiple" :checked=="isChecked(item)"
         i.fa.fa-fw> v-if="item.icon" :class="item.icon"
         | {{ item.name || item }}
-      li.placeholder v-if="!items" No choices left.
+      li.placeholder v-if="!items" This list is empty.
 </template>
 
 <script lang="coffee">
 module.exports =
   props:
     items: Array
+    multiple: Boolean
+    checked: Array
     show: Boolean
   methods:
     select: (item) ->
       @$emit 'input', item
-      @$emit 'change', item
+      @$emit 'change', item unless @multiple
+    isChecked: (item) ->
+      @checked.indexOf(item) > -1
 </script>
 
 <style lang="sass" scoped>

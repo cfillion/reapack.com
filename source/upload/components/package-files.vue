@@ -13,58 +13,14 @@
     button
       i.fa.fa-plus>
       | Add files
-  .file-2
-    p
-      field-label Resource type
-      input-dropdown :value=="{ icon: 'fa-file-text', name: 'ReaScript (same as package type)' }" :choices="types"
-
-    p
-      field-label Storage directory
-      | /Development
-
-    p
-      field-label target="storage-name" Storage file name
-      input#storage-name type="text"
-
-    p
-      field-label target="target-name" optional=true Install location
-      input#target-name type="text"
-      | &lt;resource path&gt;/Scripts/ReaTeam Scripts/Development/cfillion_Interactive ReaScript.lua
-
-    p
-      field-label Action List
-      input-dropdown value="Main section"
-
-    p
-      field-label Platform matrix
-      input-dropdown value="All platforms"
-        platform-matrix
-
-    p
-      field-label target="contents" Contents
-      textarea#contents
+  package-file.test
 </template>
 
 <script lang="coffee">
-Types = require '../types.coffee'
-
-FieldLabel = require './field-label.vue'
-InputDropdown = require './input-dropdown.vue'
-PlatformMatrix = require './platform-matrix.vue'
-
-TypeOverrides = [
-  '(Same as package type)'
-  Types.reascript
-  Types.jsfx
-  Types.theme
-  Types.langpack
-  Types.extension
-]
+PackageFile = require './package-file.vue'
 
 module.exports =
-  components: { FieldLabel, InputDropdown, PlatformMatrix }
-  computed:
-    types: -> TypeOverrides
+  components: { PackageFile }
 </script>
 
 <style lang="sass">
@@ -74,11 +30,6 @@ module.exports =
   display: flex
   min-height: 400px
   padding: 0
-
-.file-2
-  padding: $padding
-  overflow-y: auto
-  flex: 1 1 auto
 
 .left-pane
   width: 250px
@@ -114,4 +65,9 @@ module.exports =
 
     &:hover
       background-color: $background
+
+.file
+  padding: $padding
+  overflow-y: auto
+  flex: 1 1 auto
 </style>

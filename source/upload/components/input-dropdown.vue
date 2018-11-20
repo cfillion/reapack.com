@@ -2,12 +2,13 @@
 div
   button.dropdown(:id="id" type='button' :class="{ active: showMenu }"
       @click="showMenu = !showMenu" ref="button")
-    .placeholder v-if="!value" Select a value…
+    .placeholder v-if="!displayValue" Select a value…
     .value v-if="value"
       i.icon.fa.fa-fw> v-if="value.icon" :class="value.icon"
-      | {{ value.name || value }}
+      | {{ displayValue }}
     i.caret.fa.fa-caret-down
-  dropdown-menu(:items="choices" :show="showMenu" @input="setValue" @change="showMenu = false")
+  dropdown-menu(:items="choices" :show="showMenu" :multiple="multiple"
+    :checked=="multiple ? value : []" @input="setValue" @change="showMenu = false")
     slot
 </template>
 
@@ -17,18 +18,34 @@ DropdownMenu = require './dropdown-menu.vue'
 module.exports =
   components: { DropdownMenu }
   props:
-    id: String
     choices: Array
+    id: String
+    multiple: Boolean
     value: ''
   data: ->
     showMenu: false
+  computed:
+    displayValue: ->
+      if Array.isArray @value
+        @value.map((v) => @formatValue(v)).join ', ' if @value.length > 0
+      else
+        @value.name || @value
   methods:
     setValue: (val) ->
-      @$emit 'input', val
+      if @multiple
+        index = @value.indexOf val
+        if index > -1
+          @value.splice index, 1
+        else
+          @value.push val
+          @value.sort (a, b) => @choices.indexOf(a) - @choices.indexOf(b)
+      else
+        @$emit 'input', val
     onDocumentClick: (e) ->
       if @showMenu && !@$refs.button.contains(e.target)
         @showMenu = false
         e.preventDefault()
+    formatValue: (val) -> val.name || val
   created: ->
     document.addEventListener 'click', @onDocumentClick
   destroyed: ->
