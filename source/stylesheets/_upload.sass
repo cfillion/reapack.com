@@ -10,34 +10,26 @@
   text-align: center
   vertical-align: middle
 
-@mixin input-border($color)
-  border-color: $color
-
-  &:focus
-    box-shadow: 0 0 3px darken($color, 10%)
+@import 'upload-mixins'
 
 input, textarea, button
-  background-color: darken($background, 2%)
+  +input-field
   border-radius: 3px
-  font-size: 1rem
-  border: 1px solid $foreground
   color: white
-  outline: none
-  box-shadow: 0 0 2px black
-  font: inherit
-  padding: 0.4em
   display: block
+  font-size: 1rem
+  font: inherit
+  outline: none
+  padding: 0.4em
 
 input, textarea
+  +input-border($foreground)
   box-sizing: border-box
   margin: 0.4em 0 0.4em 0
   width: 100%
 
-  &:focus
-    +input-border($foreground)
-
 ::placeholder, .placeholder
-  color: mix($foreground, $background, 50%)
+  color: $input-disabled
   font-style: italic
   opacity: 1
   text-overflow: ellipsis
@@ -54,22 +46,21 @@ button
   text-align: center
 
   &:not([disabled]):active
-    $shadow: lighten($background, 5%)
-    box-shadow: inset 0 0 8px 4px $shadow
+    box-shadow: $input-inset-shadow
 
 button[type=submit]
   &:not([disabled])
     cursor: pointer
-    background-image: linear-gradient(darken($foreground, 9%), darken($foreground, 9%))
+    background-image: linear-gradient(darken($foreground, 8%), darken($foreground, 14%))
     color: darken($background, 5%)
 
     &:active
-      $shadow: mix($foreground, $background, 60%)
-      box-shadow: inset 0 0 8px 4px $shadow, inset 0 0 8px 4px $shadow
+      $shadow: desaturate(darken($foreground, 32%), 70%)
+      box-shadow: inset 0 0 8px 4px $shadow, $input-outset-shadow
       border-color: $shadow
 
   &:disabled
-    color: mix($foreground, $background, 50%)
+    color: $input-disabled
     cursor: not-allowed
 
   &.main

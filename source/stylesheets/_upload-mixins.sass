@@ -1,0 +1,19 @@
+@import 'config'
+
+$input-outset-shadow: 0 0 2px black
+$input-inset-shadow: inset 0 0 8px 4px lighten($background, 5%)
+$input-disabled: mix($foreground, $background)
+
+@mixin input-border($color)
+  border-color: $color
+
+  &:focus
+    box-shadow: input-glow($color)
+
+@function input-glow($color)
+  @return 0 0 3px darken($color, 10%)
+
+@mixin input-field
+  background-color: darken($background, 2%)
+  border: 1px solid $foreground
+  box-shadow: $input-outset-shadow

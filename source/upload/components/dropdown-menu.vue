@@ -1,5 +1,5 @@
 <template lang="slim">
-ul
+ul v-if="show"
   li v-for="item in items" @click=="$emit('select', item)"
     i.fa.fa-fw> v-if="item.icon" :class="item.icon"
     | {{ item.name || item }}
@@ -10,31 +10,30 @@ ul
 module.exports =
   props:
     items: Array
+    show: Boolean
 </script>
 
 <style lang="sass" scoped>
-@import 'config'
+@import 'upload-mixins'
 
 $radius: 4px
 
 ul
-  position: absolute
-  min-width: 200px
+  +input-field
   border-radius: $radius
   margin-left: 0
-  // todo: reuse box-shadow  and border from upload.sass
-  box-shadow: 0 0 2px black
-  border: 1px solid $foreground
-  max-height: 100px
-  overflow: hidden auto
   margin-top: -1px
+  max-height: 100px
+  min-width: 200px
+  overflow: hidden auto
+  position: absolute
 
 li
   background-color: $table-row-odd
+  cursor: pointer
+  font-size: 0.9em
   list-style-type: none
   padding: 8px 4px 4px 8px
-  font-size: 0.9em
-  cursor: pointer
 
   &.placeholder
     cursor: default
