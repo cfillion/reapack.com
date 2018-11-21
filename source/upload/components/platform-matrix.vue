@@ -2,18 +2,21 @@
 table
   thead
     tr
-      th
-      th v-for="platform in cols" @click="toggleCol(platform)" {{ platform.name }}
+      td
+      th v-for="system in $options.systems" {{ system.name }}
   tbody
-    tr v-for="arch in rows"
-      th @click="toggleRow(arch)" {{ arch.name }}
-      td v-for="platform in cols"
-        input(type="checkbox" v-if="arch.platforms[platform.id]"
-          :checked="isChecked(platform, arch)" @input=="toggle(platform, arch)")
+    tr v-for="arch in $options.architectures"
+      th() {{ arch.name }}
+      td v-for="system in $options.systems"
+        input(type="radio" v-model="valueProxy"
+          v-if="system.id in arch.platforms" :value="arch.platforms[system.id]")
 </template>
 
 <script lang="coffee">
-Platforms = [
+OperatingSystems = [
+    id: 'all'
+    name: 'All'
+  ,
     id: 'linux'
     name: 'Linux'
   ,
@@ -25,6 +28,13 @@ Platforms = [
 ]
 
 Architectures = [
+    name: 'All'
+    platforms:
+      all: ''
+      linux: 'linux'
+      darwin: 'darwin'
+      windows: 'windows'
+  ,
     name: '32-bit'
     platforms:
       linux: 'linux32'
@@ -39,42 +49,36 @@ Architectures = [
 ]
 
 module.exports =
+  architectures: Architectures
+  systems: OperatingSystems
   props:
-    platforms: Array
+    value:
+      type: String
+      required: true
   computed:
-    rows: -> Architectures
-    cols: -> Platforms
-    isAny: -> @platforms.length == 0
+    valueProxy:
+      get: -> @value
+      set: (val) -> @$emit 'input', val
   methods:
-    has: (key) -> @isAny || @platforms.indexOf(key) > -1
-    isChecked: (platform, arch) ->
-      @has(platform.id) || @has(arch.platforms[platform.id])
-    toggle: (platform, arch) ->
     formatValue: ->
-      return 'All platforms' if @isAny
+      return "All platforms" unless @value
 
-      formats = []
+      for arch in Architectures
+        for system, value of arch.platforms
+          if value == @value
+            return "#{@systemName(system)} (#{arch.name.toLowerCase()})"
 
-      for platform in Platforms
-        if @has platform.id
-          formats.push "#{platform.name} (all)"
-          continue
-
-        archs = []
-        for arch in Architectures
-          archs.push arch.name if @has arch.platforms[platform.id]
-        formats.push "#{platform.name} (#{archs.join ','})" if archs
-
-      formats
-
-  mounted: ->
-    @$emit 'display', @formatValue()
+      @value # fallback for unknown platforms
+    systemName: (id) ->
+      for system in OperatingSystems
+        return system.name if system.id == id
+      'Unknown'
+  watch:
+    value: -> @$emit 'display', @formatValue()
+  mounted: -> @$emit 'display', @formatValue()
 </script>
 
 <style lang="sass" scoped>
-th:not(:empty)
-  cursor: pointer
-
 td
   text-align: center
 
