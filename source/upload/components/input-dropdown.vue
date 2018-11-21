@@ -1,6 +1,6 @@
 <template lang="slim">
-div
-  button.dropdown(:id="id" type='button' :class="{ active: showMenu }"
+.dropdown
+  button(:id="id" type='button' :class="{ active: showMenu }"
       @click="showMenu = !showMenu" ref="button")
     .placeholder v-if="!displayValue" Select a value…
     .value v-if="value"
@@ -46,7 +46,7 @@ module.exports =
         @showMenu = false
         e.preventDefault()
     formatValue: (val) ->
-      val.name || val
+      val?.name || val
   created: ->
     document.addEventListener 'click', @onDocumentClick
   destroyed: ->
@@ -55,6 +55,9 @@ module.exports =
 
 <style lang="sass" scoped>
 @import 'upload-mixins'
+
+.dropdown
+  position: relative // make the menu (absolute) follow us when scrolling
 
 button
   align-items: baseline

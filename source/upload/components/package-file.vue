@@ -1,16 +1,25 @@
 <template lang="slim">
 div
   p
-    field-label Resource type
-    input-dropdown :value=="{ icon: 'fa-file-text', name: 'ReaScript (same as package type)' }" :choices="availableTypes"
+    field-label File source
+    input-dropdown :value=="{ icon: 'fa-upload', name: 'Upload' }" :choices=="[{icon: 'fa-upload', name: 'Upload' }, { icon: 'fa-cloud',
+    name: 'External URL' }, 'cfillion_Song switcher.lua']"
 
   p
     field-label Storage directory
-    | /Development
+    | /{{ category || 'Category' }}/
 
   p
     field-label target="storage-name" Storage file name
-    input#storage-name type="text"
+    input#storage-name type="text" v-model="file.name"
+
+  p
+    field-label target="download-url" Download URL
+    input#download-url type="url" v-model="file.url"
+
+  p
+    field-label Install type
+    input-dropdown :value=="{ icon: 'fa-file-text', name: 'ReaScript (same as package type)' }" :choices="availableTypes"
 
   p
     field-label target="target-name" optional=true Install location
@@ -19,16 +28,16 @@ div
 
   p
     field-label target="sections" optional=true Action List
-    input-dropdown#sections v-model="sections" multiple=true :choices="allSections"
+    input-dropdown#sections v-model="file.sections" multiple=true :choices="allSections"
 
   p
     field-label target="platforms" Target platform
     input-dropdown#platforms :value="platformName"
-      platform-matrix v-model="platform" @display="platformName = $event"
+      platform-matrix v-model="file.platform" @display="platformName = $event"
 
   p
     field-label target="contents" Contents
-    textarea#contents
+    textarea#contents rows="20"
 </template>
 
 <script lang="coffee">
@@ -66,9 +75,11 @@ ScriptSections = [
 
 module.exports =
   components: { FieldLabel, InputDropdown, PlatformMatrix }
+  props:
+    file:
+      type: Object
+      required: true
   data: ->
-    sections: [ScriptSections[0]]
-    platform: ''
     platformName: ''
   computed:
     availableTypes: -> TypeOverrides

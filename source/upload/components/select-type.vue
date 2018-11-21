@@ -3,7 +3,7 @@
   p Select a primary REAPER resource type to begin:
 
   ul.type
-    li v-for="(type, repo) in types"
+    li v-for="(type, repo) in $options.types"
       router-link :to="repo"
         i.icon.fa.fa-fw :class="type.icon"
         .body
@@ -23,7 +23,7 @@ Types = require '../types'
 
 module.exports =
   name: 'select-type'
-  data: -> { types: Types }
+  types: Types
 </script>
 
 <style lang="sass">

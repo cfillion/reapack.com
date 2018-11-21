@@ -1,26 +1,43 @@
 <template lang="slim">
 .file-editor.group
   .left-pane
-    .file-list
-      .header Package file
-      ul
-        li cfillion_Hello World.lua
-
-      .header Additional files
-      ul
-        li cfillion_Hello World (background).lua
-        li mpl_Float instrument relevant to MIDI editor.lua
-    button
+    .lists
+      package-file-list :files="[packageFile]" :current="currentFile" @select="currentFile = $event" Package file
+      package-file-list :files="hostedFiles" :current="currentFile" @select="currentFile = $event" Hosted files
+      package-file-list :files="virtualFiles" :current="currentFile" Additional files
+    button @click="addFile"
       i.fa.fa-plus>
-      | Add files
-  package-file.file
+      | Add file
+  package-file.file :file="currentFile"
 </template>
 
 <script lang="coffee">
+File = require '../file.coffee'
+
 PackageFile = require './package-file.vue'
+PackageFileList = require './package-filelist.vue'
 
 module.exports =
-  components: { PackageFile }
+  components: { PackageFile, PackageFileList }
+  data: ->
+    currentFile: {},
+    packageFile: new File('cfillion_Song switcher.lua')
+    hostedFiles: [
+      new File('cfillion_Song switcher (next).lua')
+      new File('cfillion_Song switcher (previous).lua')
+      new File('cfillion_Song switcher (reset).lua')
+      new File('song_switcher.html')
+    ]
+    virtualFiles: [
+      # {name: 'cfillion_Song switcher.lua'}
+      # {name: 'cfillion_Song switcher.lua'}
+    ]
+    newFileCounter: 0
+  mounted: ->
+    @currentFile = @packageFile
+  methods:
+    addFile: ->
+      @virtualFiles.push new File("New file #{++@newFileCounter}")
 </script>
 
 <style lang="sass">
@@ -28,43 +45,24 @@ module.exports =
 
 .file-editor
   display: flex
-  min-height: 400px
+  height: 550px
   padding: 0
 
 .left-pane
+  $width: 250px
   border-right: 1px solid $foreground
-  font-size: 0.8em
   padding-top: 4px
   display: flex
   flex-direction: column
   justify-content: space-between
-  flex: 0 0 250px
+  flex: 0 0 $width
+  max-width: $width // prevent text overflows
 
   button
     margin: 8px
-    font-size: 1rem
 
-.file-list
-  ul
-    margin-left: 0
-    list-style-type: none
-
-  li, .header
-    padding: 4px 8px 4px 8px
-
-  .header
-    font-family: $font-serif
-
-  li
-    background-color: $table-row-odd
-    cursor: pointer
-    list-style-type: none
-
-    &:nth-child(2n)
-      background-color: $table-row-even
-
-    &:hover
-      background-color: $background
+.lists
+  overflow-x: auto
 
 .file
   padding: $padding

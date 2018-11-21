@@ -21,7 +21,7 @@ module.exports =
       @$emit 'input', item
       @$emit 'change', item unless @multiple
     isChecked: (item) ->
-      @checked.indexOf(item) > -1
+      @checked?.indexOf(item) > -1
 </script>
 
 <style lang="sass" scoped>
@@ -38,6 +38,7 @@ $radius: 4px
   min-width: 200px
   overflow: hidden auto
   position: absolute
+  z-index: 1
 
 ul
   margin-left: 0
