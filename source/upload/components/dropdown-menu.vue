@@ -1,5 +1,5 @@
 <template lang="slim">
-.dropdown-menu(v-if="show" @click.stop)
+.dropdown-menu(v-show="show" @click.stop)
   slot
     ul
       li v-for="item in items" @click=="select(item)"

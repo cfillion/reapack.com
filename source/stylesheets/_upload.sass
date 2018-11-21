@@ -27,11 +27,8 @@
   box-sizing: border-box
   width: 100%
 
-::placeholder, .placeholder
-  color: $input-disabled
-  font-style: italic
-  opacity: 1
-  text-overflow: ellipsis
+input[type=checkbox]
+  vertical-align: middle
 
 input:invalid, textarea:invalid
   +input-border(red)
@@ -68,6 +65,12 @@ button[type=submit]
     padding-left: 1em
     padding-right: 1em
     font-weight: bold
+
+::placeholder, .placeholder
+  color: $input-disabled
+  font-style: italic
+  opacity: 1
+  text-overflow: ellipsis
 
 .group
   background-color: $table-row-odd

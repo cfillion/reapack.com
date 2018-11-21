@@ -19,12 +19,12 @@ div
 
   p
     field-label target="sections" optional=true Action List
-    input-dropdown#sections value="Main section" v-model="sections" multiple=true :choices="allSections"
+    input-dropdown#sections v-model="sections" multiple=true :choices="allSections"
 
   p
     field-label target="platforms" Platform matrix
-    input-dropdown#platforms value="All platforms"
-      platform-matrix
+    input-dropdown#platforms :value="platformsText"
+      platform-matrix :platforms="platforms" @display="platformsText = $event"
 
   p
     field-label target="contents" Contents
@@ -67,8 +67,9 @@ ScriptSections = [
 module.exports =
   components: { FieldLabel, InputDropdown, PlatformMatrix }
   data: ->
-    sections: []
-
+    sections: [ScriptSections[0]]
+    platforms: []#'main', 'windows', 'darwin', 'linux']
+    platformsText: ''
   computed:
     availableTypes: -> TypeOverrides
     allSections: -> ScriptSections

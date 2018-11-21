@@ -21,7 +21,7 @@ module.exports =
     choices: Array
     id: String
     multiple: Boolean
-    value: ''
+    value: null
   data: ->
     showMenu: false
   computed:
@@ -29,7 +29,7 @@ module.exports =
       if Array.isArray @value
         @value.map((v) => @formatValue(v)).join ', ' if @value.length > 0
       else
-        @value.name || @value
+        @formatValue @value
   methods:
     setValue: (val) ->
       if @multiple
@@ -45,7 +45,8 @@ module.exports =
       if @showMenu && !@$refs.button.contains(e.target)
         @showMenu = false
         e.preventDefault()
-    formatValue: (val) -> val.name || val
+    formatValue: (val) ->
+      val.name || val
   created: ->
     document.addEventListener 'click', @onDocumentClick
   destroyed: ->
@@ -60,9 +61,7 @@ button
   display: flex
   justify-content: space-between
   max-width: 100%
-  overflow: hidden
   text-align: left
-  white-space: nowrap
 
   &.active
     box-shadow: $input-inset-shadow, input-glow($foreground)
@@ -70,6 +69,7 @@ button
 .value, .placeholder
   overflow: hidden
   text-overflow: ellipsis
+  white-space: nowrap
 
 .caret
   padding-left: 10px

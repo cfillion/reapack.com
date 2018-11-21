@@ -32,13 +32,13 @@ module.exports =
   padding: 0
 
 .left-pane
-  width: 250px
   border-right: 1px solid $foreground
   font-size: 0.8em
   padding-top: 4px
   display: flex
   flex-direction: column
   justify-content: space-between
+  flex: 0 0 250px
 
   button
     margin: 8px
@@ -69,5 +69,4 @@ module.exports =
 .file
   padding: $padding
   overflow: auto
-  flex: 1 1 auto
 </style>
