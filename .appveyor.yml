@@ -1,9 +1,10 @@
 image: Ubuntu1804
-stack: ruby 2.5
+stack: ruby 2.5, node 10
 install:
   - gem install bundler
   - bundle
 build_script:
   - ./update.rb
+  - npm install
   - middleman build
 test: off
