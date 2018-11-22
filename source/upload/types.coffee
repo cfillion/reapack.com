@@ -3,7 +3,9 @@ module.exports =
     name: 'ReaScript'
     repo: 'ReaTeam/ReaScripts'
     desc: 'Upload a Lua, EEL or Python script to the ReaTeam/ReaScripts repository.'
-    icon: 'fa-file-text'
+    icon: 'fa-file-code-o'
+
+    actionList: true
 
     placeholders:
       name: 'Float instrument relevant to MIDI editor',
@@ -48,3 +50,23 @@ module.exports =
     placeholders:
       name: 'OpenGL API functions for ReaScripts'
       changelog: 'Fix crash on Linux and macOS when exporting regions containing slashes\nExpose a few PCM_source capabilities to ReaScripts'
+
+  automationItem:
+    name: 'Automation item'
+    icon: 'fa-area-chart'
+
+  midiNoteNames:
+    name: 'MIDI Note Names'
+    icon: 'fa-file-text-o'
+
+  projectTemplate:
+    name: 'Project template'
+    icon: 'fa-cube'
+
+  trackTemplate:
+    name: 'Track template'
+    icon: 'fa-sliders'
+
+  webInterface:
+    name: 'Web interface'
+    icon: 'fa-mouse-pointer'

@@ -22,6 +22,11 @@
   padding: 0.4em
   margin: 4px 0 4px 0
 
+  &:disabled
+    border-color: $input-disabled
+    color: $input-disabled
+    cursor: not-allowed
+
 #{$input-text}, textarea
   +input-border($foreground)
   box-sizing: border-box
@@ -42,11 +47,6 @@ textarea
 button
   text-align: center
   cursor: pointer
-
-  &:disabled
-    border-color: $input-disabled
-    color: $input-disabled
-    cursor: not-allowed
 
   &:not([disabled]):active
     box-shadow: $input-inset-shadow

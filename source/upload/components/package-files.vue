@@ -2,7 +2,7 @@
 .file-editor.group
   .left-pane
     .lists
-      package-file-list :files="[packageFile]" :current="currentFile" @select="currentFile = $event" Package file
+      package-file-list :files="packageFiles" :current="currentFile" @select="currentFile = $event" Package file
       package-file-list :files="hostedFiles" :current="currentFile" @select="currentFile = $event" Hosted files
       package-file-list :files="virtualFiles" :current="currentFile" Additional files
     button @click="addFile"
@@ -21,20 +21,23 @@ module.exports =
   components: { PackageFile, PackageFileList }
   data: ->
     currentFile: {},
-    packageFile: new File('cfillion_Song switcher.lua')
-    hostedFiles: [
-      new File('cfillion_Song switcher (next).lua')
-      new File('cfillion_Song switcher (previous).lua')
-      new File('cfillion_Song switcher (reset).lua')
-      new File('song_switcher.html')
-    ]
-    virtualFiles: [
-      # {name: 'cfillion_Song switcher.lua'}
-      # {name: 'cfillion_Song switcher.lua'}
-    ]
+    files: []
     newFileCounter: 0
+  computed:
+    packageFiles: ->
+      @files.filter (f) -> f.isPackage
+    hostedFiles: ->
+      @files.filter (f) -> !f.isPackage && f.source == File.UPLOAD
+    virtualFiles: ->
+      @files.filter (f) -> f.source != File.UPLOAD
+  created: ->
+    @files.push new File('cfillion_Song switcher.lua', true)
+    @files.push new File('cfillion_Song switcher (next).lua')
+    @files.push new File('cfillion_Song switcher (previous).lua')
+    @files.push new File('cfillion_Song switcher (reset).lua')
+    @files.push new File('song_switcher.html')
   mounted: ->
-    @currentFile = @packageFile
+    @currentFile = @files[0]
   methods:
     addFile: ->
       @virtualFiles.push new File("New file #{++@newFileCounter}")
@@ -45,7 +48,7 @@ module.exports =
 
 .file-editor
   display: flex
-  height: 550px
+  height: 600px
   padding: 0
 
 .left-pane
@@ -67,4 +70,5 @@ module.exports =
 .file
   padding: $padding
   overflow: auto
+  flex: 1 1 auto
 </style>

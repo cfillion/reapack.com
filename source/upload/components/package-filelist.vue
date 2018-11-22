@@ -5,7 +5,7 @@
     li v-for="(file, i) in files" :class="{ active: current == file }" @click=="$emit('select', file)"
       .btns
         i.fa.fa-copy> title="Duplicate file" @click.stop=="$emit('copy', i)"
-        i.fa.fa-trash(v-if="!file.package" title="Remove file"
+        i.fa.fa-trash(v-if="!file.isPackage" title="Remove file"
           @click.stop=="$emit('remove', i)")
       .name
         input>(type="checkbox" title="Include in the package"

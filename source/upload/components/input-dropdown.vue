@@ -1,7 +1,7 @@
 <template lang="slim">
 .dropdown
-  button(:id="id" type='button' :class="{ active: showMenu }"
-      @click="showMenu = !showMenu" ref="button")
+  button(:id="id" type="button" ref="button" :class="{ active: showMenu }"
+      :disabled="disabled" @click="showMenu = !showMenu" )
     .placeholder v-if="!displayValue" Select a value…
     .value v-if="value"
       i.icon.fa.fa-fw> v-if="value.icon" :class="value.icon"
@@ -19,6 +19,7 @@ module.exports =
   components: { DropdownMenu }
   props:
     choices: Array
+    disabled: Boolean
     id: String
     multiple: Boolean
     value: null
@@ -32,6 +33,8 @@ module.exports =
         @formatValue @value
   methods:
     setValue: (val) ->
+      return if @disabled
+
       if @multiple
         index = @value.indexOf val
         if index > -1
@@ -48,9 +51,9 @@ module.exports =
     formatValue: (val) ->
       val?.name || val
   created: ->
-    document.addEventListener 'click', @onDocumentClick
+    document.addEventListener 'click', @onDocumentClick, true
   destroyed: ->
-    document.removeEventListener 'click', @onDocumentClick
+    document.removeEventListener 'click', @onDocumentClick, true
 </script>
 
 <style lang="sass" scoped>

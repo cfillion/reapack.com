@@ -1,60 +1,54 @@
 <template lang="slim">
 div
   p
-    field-label File source
-    input-dropdown :value=="{ icon: 'fa-upload', name: 'Upload' }" :choices=="[{icon: 'fa-upload', name: 'Upload' }, { icon: 'fa-cloud',
-    name: 'External URL' }, 'cfillion_Song switcher.lua']"
+    field-label target="source" File source
+    input-dropdown#source(v-model="file.source" :choices="availableSources"
+      :disabled="file.isPackage")
 
-  p
-    field-label Storage directory
-    | /{{ category || 'Category' }}/
+  template v-if="file.source == $options.uploadSource"
+    p
+      field-label Storage directory
+      | /{{ category || 'Category' }}/
 
-  p
-    field-label target="storage-name" Storage file name
-    input#storage-name type="text" v-model="file.name"
+    p v-if="file.source == $options.uploadSource"
+      field-label target="storage-name" Storage file name
+      input#storage-name type="text" v-model="file.name"
 
-  p
+  p v-else-if="file.source == $options.externalSource"
     field-label target="download-url" Download URL
     input#download-url type="url" v-model="file.url"
 
   p
-    field-label Install type
-    input-dropdown :value=="{ icon: 'fa-file-text', name: 'ReaScript (same as package type)' }" :choices="availableTypes"
+    field-label target="file-type" Resource type
+    input-dropdown#file-type v-model="type" :choices="availableTypes"
 
-  p
-    field-label target="target-name" optional=true Install location
-    input#target-name type="text"
-    | &lt;resource path&gt;/Scripts/ReaTeam Scripts/Development/cfillion_Interactive ReaScript.lua
+  template v-if="file.install"
+    p
+      field-label target="target-name" optional=true Install location
+      input#target-name type="text" :placeholder="file.name"
+      | &lt;resource path&gt;/Scripts/ReaTeam Scripts/Development/cfillion_Interactive ReaScript.lua
 
-  p
-    field-label target="sections" optional=true Action List
-    input-dropdown#sections v-model="file.sections" multiple=true :choices="allSections"
+    p v-if="type.actionList"
+      field-label target="sections" optional=true Action List
+      input-dropdown#sections v-model="file.sections" multiple=true :choices="allSections"
 
-  p
-    field-label target="platforms" Target platform
-    input-dropdown#platforms :value="platformName"
-      platform-matrix v-model="file.platform" @display="platformName = $event"
+    p
+      field-label target="platforms" Target platform
+      input-dropdown#platforms :value="platformName"
+        platform-matrix v-model="file.platform" @display="platformName = $event"
 
-  p
+  p v-if="file.source == $options.uploadSource"
     field-label target="contents" Contents
     textarea#contents rows="20"
 </template>
 
 <script lang="coffee">
+File = require '../file.coffee'
 Types = require '../types.coffee'
 
 FieldLabel = require './field-label.vue'
 InputDropdown = require './input-dropdown.vue'
 PlatformMatrix = require './platform-matrix.vue'
-
-TypeOverrides = [
-  '(Same as package type)'
-  Types.reascript
-  Types.jsfx
-  Types.theme
-  Types.langpack
-  Types.extension
-]
 
 ScriptSections = [
     id: 'main'
@@ -73,7 +67,11 @@ ScriptSections = [
     name: 'Media Explorer'
 ]
 
+DisabledType = { icon: 'fa-ban', name: "Don't install" }
+
 module.exports =
+  uploadSource: File.UPLOAD
+  externalSource: File.EXTERNAL
   components: { FieldLabel, InputDropdown, PlatformMatrix }
   props:
     file:
@@ -82,7 +80,38 @@ module.exports =
   data: ->
     platformName: ''
   computed:
-    availableTypes: -> TypeOverrides
+    sameAsPackageType: ->
+      { value: '', icon: 'fa-file-code-o', name: 'ReaScript (same as package)' }
+    availableSources: ->
+      sources = [
+        File.UPLOAD,
+        File.EXTERNAL,
+      ]
+      sources
+    type:
+      get: ->
+        if @file.install
+          Types[@file.type] || @sameAsPackageType
+        else
+          DisabledType
+      set: (type) ->
+        if type == DisabledType
+          @file.install = false
+        else
+          @file.type = type.value
+          @file.install = true
+
+    availableTypes: ->
+      types = []
+      types.push @sameAsPackageType
+      types.push DisabledType
+      return types if @file.isPackage
+
+      types.push { separator: true }
+      for key in Object.keys(Types).sort()
+        types.push { value: key, Types[key]...}
+      types
+
     allSections: -> ScriptSections
 </script>
 

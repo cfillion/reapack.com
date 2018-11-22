@@ -83,7 +83,9 @@ module.exports =
     author:   ''
     about:    ''
   computed:
-    type: -> Types[@$route.params.type]
+    type: ->
+      type = Types[@$route.params.type]
+      type if type?.repo
     repoUrl: -> "https://github.com/#{@type.repo}"
     indexUrl: -> "#{@repoUrl}/raw/master/index.xml"
     aboutPlaceholder: ->

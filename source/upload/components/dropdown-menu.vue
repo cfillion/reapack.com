@@ -2,10 +2,12 @@
 .dropdown-menu(v-show="show" @click.stop)
   slot
     ul
-      li v-for="item in items" @click=="select(item)"
-        input type="checkbox" v-if="multiple" :checked=="isChecked(item)"
-        i.fa.fa-fw> v-if="item.icon" :class="item.icon"
-        | {{ item.name || item }}
+      li(v-for="item in items" @click=="select(item)"
+          :class=="{ separator: item.separator }")
+        template v-if="!item.separator"
+          input type="checkbox" v-if="multiple" :checked=="isChecked(item)"
+          i.fa.fa-fw> v-if="item.icon" :class="item.icon"
+          | {{ item.name || item }}
       li.placeholder v-if="!items" This list is empty.
 </template>
 
@@ -18,6 +20,7 @@ module.exports =
     show: Boolean
   methods:
     select: (item) ->
+      return if item.separator
       @$emit 'input', item
       @$emit 'change', item unless @multiple
     isChecked: (item) ->
@@ -48,10 +51,14 @@ li
   cursor: pointer
   font-size: 0.9em
   list-style-type: none
-  padding: 8px 4px 4px 8px
+  padding: 8px 8px 4px 8px
 
   &.placeholder
     cursor: default
+
+  &.separator
+    padding: 0
+    border-top: 1px solid $input-placeholder
 
   &:first-child
     border-top-left-radius: $radius
@@ -64,6 +71,6 @@ li
     border-bottom-left-radius: $radius
     border-bottom-right-radius: $radius
 
-  &:hover:not(.placeholder)
+  &:hover:not(.placeholder):not(.separator)
     background-color: $background
 </style>

@@ -3,7 +3,7 @@
   p Select a primary REAPER resource type to begin:
 
   ul.type
-    li v-for="(type, repo) in $options.types"
+    li v-for="(type, repo) in $options.types" v-if="type.repo"
       router-link :to="repo"
         i.icon.fa.fa-fw :class="type.icon"
         .body
