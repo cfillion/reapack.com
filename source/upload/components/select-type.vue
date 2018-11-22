@@ -1,4 +1,4 @@
-<template lang="slim">
+<template lang="slim" functional>
 .select-type
   p Select a primary REAPER resource type to begin:
 

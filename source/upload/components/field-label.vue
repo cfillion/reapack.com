@@ -1,7 +1,7 @@
-<template lang="slim">
-label :for="target"
+<template lang="slim" functional>
+label :for="props.target"
   slot
-  small< v-if="optional" (optional)
+  small< v-if="props.optional" (optional)
 </template>
 
 <script lang="coffee">
@@ -13,7 +13,6 @@ export default
 
 <style lang="sass" scoped>
 label
-  display: block
   font-weight: bold
 
   small
