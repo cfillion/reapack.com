@@ -14,10 +14,10 @@
 </template>
 
 <script lang="coffee">
-PackageFile = require './package-file.vue'
-PackageFileList = require './package-filelist.vue'
+import PackageFile from './package-file.vue'
+import PackageFileList from './package-filelist.vue'
 
-module.exports =
+export default
   components: { PackageFile, PackageFileList }
   props:
     files:

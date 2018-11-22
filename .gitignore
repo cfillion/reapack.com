@@ -1,6 +1,6 @@
 /.bundle/
 /.sass-cache/
-/.tmp/
+/.webpack-build/
 /build/
 /data/
 /node_modules/

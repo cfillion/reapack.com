@@ -48,7 +48,7 @@ Architectures = [
       windows: 'win64'
 ]
 
-module.exports =
+export default
   architectures: Architectures
   systems: OperatingSystems
   props:

@@ -66,15 +66,15 @@ div v-else=""
 </template>
 
 <script lang="coffee">
-Types = require '../types'
+import * as Types from '../types'
 
-FieldLabel    = require './field-label.vue'
-InputDropdown = require './input-dropdown.vue'
-InputMarkdown = require './input-markdown.vue'
-PackageFiles  = require './package-files.vue'
-PackageLinks  = require './package-links.vue'
+import FieldLabel from './field-label.vue'
+import InputDropdown from './input-dropdown.vue'
+import InputMarkdown from './input-markdown.vue'
+import PackageFiles from './package-files.vue'
+import PackageLinks from './package-links.vue'
 
-module.exports =
+export default
   name: 'package-editor'
   components: { FieldLabel, InputDropdown, InputMarkdown, PackageFiles, PackageLinks }
   data: ->

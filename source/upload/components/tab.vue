@@ -4,7 +4,7 @@
 </template>
 
 <script lang="coffee">
-module.exports =
+export default
   data: -> { isActive: false }
   props: ['name']
   watch:

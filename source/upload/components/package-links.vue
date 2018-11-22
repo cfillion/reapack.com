@@ -45,10 +45,10 @@ LinkTypes = [
     urlPlaceholder: 'https://paypal.me/cfillion'
 ]
 
-FieldLabel = require './field-label.vue'
-InputDropdown   = require './input-dropdown.vue'
+import FieldLabel from './field-label.vue'
+import InputDropdown from './input-dropdown.vue'
 
-module.exports =
+export default
   components: { FieldLabel, InputDropdown }
   data: -> { links: [], type: LinkTypes[1], name: '', url: '' }
   computed:

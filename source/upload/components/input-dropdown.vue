@@ -13,9 +13,9 @@
 </template>
 
 <script lang="coffee">
-DropdownMenu = require './dropdown-menu.vue'
+import DropdownMenu from './dropdown-menu.vue'
 
-module.exports =
+export default
   components: { DropdownMenu }
   props:
     choices: Array

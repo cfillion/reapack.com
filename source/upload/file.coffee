@@ -1,4 +1,4 @@
-class File
+export default class File
   @UPLOAD: { icon: 'fa-upload', name: 'Upload' }
   @EXTERNAL: { icon: 'fa-link', name: 'External' }
 
@@ -9,5 +9,3 @@ class File
     @install = true
     @sections = []
     @type = ''
-
-module.exports = File

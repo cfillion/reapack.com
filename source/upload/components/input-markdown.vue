@@ -9,15 +9,15 @@ tab-bar
 </template>
 
 <script lang="coffee">
-CommonMark = require 'commonmark'
+import CommonMark from 'commonmark'
 
-TabBar     = require './tabbar.vue'
-Tab        = require './tab.vue'
+import TabBar from './tabbar.vue'
+import Tab from './tab.vue'
 
 reader = new CommonMark.Parser
 writer = new CommonMark.HtmlRenderer safe: true
 
-module.exports =
+export default
   components: { TabBar, Tab }
   props:
     id: String

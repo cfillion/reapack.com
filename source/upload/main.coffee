@@ -7,12 +7,12 @@
 # document.body.addEventListener 'drop', (e) ->
 #   e.preventDefault()
 
-Vue        = require 'vue'
-VueRouter  = require 'vue-router'
+import Vue from 'vue'
+import VueRouter from 'vue-router'
 
-Main       = require './components/main.vue'
-SelectType = require './components/select-type.vue'
-Package    = require './components/package.vue'
+import Main from './components/main.vue'
+import SelectType from './components/select-type.vue'
+import Package from './components/package.vue'
 
 router = new VueRouter
   mode: if process.env.NODE_ENV == 'production' then 'history' else 'hash'

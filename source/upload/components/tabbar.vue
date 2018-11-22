@@ -9,7 +9,7 @@
 </template>
 
 <script lang="coffee">
-module.exports =
+export default
   data: -> { tabs: [] }
   created: -> @tabs = @$children
   mounted: -> @tabs[0]?.isActive = true

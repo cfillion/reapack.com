@@ -19,9 +19,9 @@
 </template>
 
 <script lang="coffee">
-Types = require '../types'
+import * as Types from '../types'
 
-module.exports =
+export default
   name: 'select-type'
   types: Types
 </script>

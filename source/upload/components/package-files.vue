@@ -12,12 +12,12 @@
 </template>
 
 <script lang="coffee">
-File = require '../file.coffee'
+import File from '../file'
 
-PackageFile = require './package-file.vue'
-PackageFileList = require './package-filelist.vue'
+import PackageFile from './package-file.vue'
+import PackageFileList from './package-filelist.vue'
 
-module.exports =
+export default
   components: { PackageFile, PackageFileList }
   data: ->
     currentFile: {},

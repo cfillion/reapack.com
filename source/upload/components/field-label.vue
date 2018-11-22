@@ -5,7 +5,7 @@ label :for="target"
 </template>
 
 <script lang="coffee">
-module.exports =
+export default
   props:
     target: String
     optional: Boolean

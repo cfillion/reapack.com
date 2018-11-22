@@ -12,22 +12,19 @@ configure :build do
 end
 
 activate :external_pipeline,
-  name: :vuejs,
-  command: <<~SH,
-    mkdir -p .tmp/dist/stylesheets .tmp/dist/javascripts && \
-    NODE_ENV=#{build? ? 'production' : 'development'} \
-    `npm bin`/#{build? ? 'browserify' : 'watchify'} --extension .coffee \
-    -g envify -t coffeeify -t vueify -p bundle-collapser/plugin \
-    -p [ vueify/plugins/extract-css -o .tmp/dist/stylesheets/upload-components.css ] \
-    -e source/upload/main.coffee -o .tmp/dist/javascripts/upload.js
-  SH
-  source: ".tmp/dist",
+  name: :webpack,
+  command: [
+    "NODE_ENV=#{build? ? 'production' : 'development'}",
+    '$(npm bin)/webpack --display=minimal',
+    server? && '--watch' || nil,
+  ].compact.join("\x20"),
+  source: ".webpack-build",
   disable_background_execution: build?
 ignore '/upload/*'
 ignore '/stylesheets/upload-components.css'
 
 set :slim, disable_escape: false, use_html_safe: false
-set :sass_assets_paths, ['.tmp/dist/stylesheets']
+set :sass_assets_paths, ['.webpack-build/stylesheets']
 set :trailing_slash, false
 
 set :host, 'https://reapack.com'

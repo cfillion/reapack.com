@@ -43,12 +43,12 @@ div
 </template>
 
 <script lang="coffee">
-File = require '../file.coffee'
-Types = require '../types.coffee'
+import File from '../file'
+import * as Types from '../types'
 
-FieldLabel = require './field-label.vue'
-InputDropdown = require './input-dropdown.vue'
-PlatformMatrix = require './platform-matrix.vue'
+import FieldLabel from './field-label.vue'
+import InputDropdown from './input-dropdown.vue'
+import PlatformMatrix from './platform-matrix.vue'
 
 ScriptSections = [
     id: 'main'
@@ -69,7 +69,7 @@ ScriptSections = [
 
 DisabledType = { icon: 'fa-ban', name: "Don't install" }
 
-module.exports =
+export default
   uploadSource: File.UPLOAD
   externalSource: File.EXTERNAL
   components: { FieldLabel, InputDropdown, PlatformMatrix }
