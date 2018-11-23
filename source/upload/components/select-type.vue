@@ -22,7 +22,6 @@
 import * as Types from '../types'
 
 export default
-  name: 'select-type'
   types: Types
 </script>
 

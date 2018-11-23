@@ -75,7 +75,6 @@ import PackageFiles from './package-files.vue'
 import PackageLinks from './package-links.vue'
 
 export default
-  name: 'package-editor'
   components: { FieldLabel, InputDropdown, InputMarkdown, PackageFiles, PackageLinks }
   data: ->
     category: ''

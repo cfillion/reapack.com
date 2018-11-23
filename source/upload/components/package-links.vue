@@ -91,7 +91,4 @@ export default
 
 .btn-col
   flex: 0 1 auto
-
-img
-  max-height: 400px
 </style>
