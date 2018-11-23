@@ -1,11 +1,10 @@
 <template lang="slim">
 tab-bar
-  tab name='Write'
+  tab name="Write"
     textarea(rows=12 :id="id" :value="value" :placeholder="placeholder"
       @input=="$emit('input', $event.target.value)")
     slot
-  tab name='Preview' @activated=="refreshPreview"
-    p v-html="preview"
+  tab name='Preview' @activated="refreshPreview" v-html="preview"
 </template>
 
 <script lang="coffee">
