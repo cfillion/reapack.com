@@ -16,28 +16,32 @@ module.exports = {
   },
   module: {
     rules: [
-      { test: /\.coffee$/, use: [
-        {
+      {
+        test: /\.coffee$/,
+        use: {
           loader: 'coffee-loader',
           options: {
             bare: true,
             transpile: { presets: ['@babel/env'] },
           },
         },
-      ]},
-      { test: /\.vue$/,    use: 'vue-loader' },
-      { test: /\.sass$/,   use: [
-        MiniCssExtractPlugin.loader,
-        'css-loader',
-        {
-          loader: 'sass-loader',
-          options: {
-            indentedSyntax: true,
-            includePaths: ['source/stylesheets'],
-          }
-        },
-      ]},
-      { test: /\.slim$/,   use: './slim-loader.js' },
+      },
+      {
+        test: /\.sass$/,
+        use: [
+          MiniCssExtractPlugin.loader,
+          'css-loader',
+          {
+            loader: 'sass-loader',
+            options: {
+              indentedSyntax: true,
+              includePaths: ['source/stylesheets'],
+            },
+          },
+        ],
+      },
+      { test: /\.slim$/, use: './slim-loader.js' },
+      { test: /\.vue$/,  use: 'vue-loader' },
     ]
   },
   devtool: process.env.NODE_ENV == 'production' ? false : 'inline-source-map',
