@@ -28,7 +28,7 @@ export default
   computed:
     displayValue: ->
       if Array.isArray @value
-        @value.map((v) => @formatValue(v)).join ', ' if @value.length > 0
+        (@formatValue(v) for v in @value).join ', ' if @value.length > 0
       else
         @formatValue @value
   methods:

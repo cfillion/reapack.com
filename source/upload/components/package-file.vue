@@ -100,7 +100,6 @@ export default
         else
           @file.type = type.value
           @file.install = true
-
     availableTypes: ->
       types = []
       types.push @sameAsPackageType

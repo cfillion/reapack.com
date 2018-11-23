@@ -15,8 +15,7 @@ export default
   mounted: -> @tabs[0]?.isActive = true
   methods:
     setCurrentTab: (newTab) ->
-      @tabs.forEach (tab) ->
-        tab.isActive = tab == newTab
+      tab.isActive = tab == newTab for tab in @tabs
 </script>
 
 <style lang="sass" scoped>

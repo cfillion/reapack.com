@@ -25,10 +25,7 @@ cbs = [
   new Clipboard(nodes, target: (node) -> node.firstChild),
 
   new Clipboard(copyAll, text: ->
-    urls = []
-    for i in [0...nodes.length]
-      urls.push nodes[i].firstChild.innerText
-    urls.join "\n"
+    (node.firstChild.innerText for node in nodes).join "\n"
   ),
 ]
 
