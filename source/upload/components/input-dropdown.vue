@@ -1,6 +1,6 @@
 <template lang="slim">
 .dropdown
-  button(:id="id" type="button" ref="button" :class="{ active: showMenu }"
+  button(:id="id" type="button" :class="{ active: showMenu }"
       :disabled="disabled" @click="showMenu = !showMenu" )
     .placeholder v-if="!displayValue" Select a value…
     .value v-if="value"
@@ -45,7 +45,7 @@ export default
       else
         @$emit 'input', val
     onDocumentClick: (e) ->
-      if @showMenu && !@$refs.button.contains(e.target)
+      if @showMenu && (e.target == @$el || !@$el.contains(e.target))
         @showMenu = false
         e.preventDefault()
     formatValue: (val) ->

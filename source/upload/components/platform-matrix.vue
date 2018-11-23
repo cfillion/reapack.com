@@ -70,8 +70,7 @@ export default
 
       @value # fallback for unknown platforms
     systemName: (id) ->
-      for system in OperatingSystems
-        return system.name if system.id == id
+      return system.name for system in OperatingSystems when system.id == id
       'Unknown'
   watch:
     value: -> @$emit 'display', @formatValue()
