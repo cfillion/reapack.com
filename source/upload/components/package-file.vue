@@ -2,76 +2,73 @@
 div
   p
     field-label target="source" File source
-    input-dropdown#source(v-model="file.source" :choices="availableSources"
-      :disabled="file.isPackage")
+    input-dropdown#source (
+      :value="file.source" @input="file.setSource($event)"
+      :choices="availableSources" :disabled="file.isPackage"
+    )
 
-  template v-if="file.source == $options.uploadSource"
+  template v-if="file.source == $options.UploadSource"
     p
       field-label Storage directory
-      | /{{ category || 'Category' }}/
+      | /{{ file.storageDirectory() }}/
 
-    p v-if="file.source == $options.uploadSource"
+    p v-if="file.source == $options.UploadSource"
       field-label target="storage-name" Storage file name
-      input#storage-name type="text" v-model="file.name"
+      input#storage-name (
+        type="text" v-model="file.storageName"
+        :placeholder="file.effectiveStorageName()"
+      )
 
-  p v-else-if="file.source == $options.externalSource"
+  p v-else-if="file.source == $options.ExternalSource"
     field-label target="download-url" Download URL
     input#download-url type="url" v-model="file.url"
 
   p
     field-label target="file-type" Resource type
-    input-dropdown#file-type v-model="type" :choices="availableTypes"
+    input-dropdown#file-type (
+      v-model="type" :choices="availableTypes" :disabled="!file.canInstall()"
+    )
 
   template v-if="file.install"
     p
       field-label target="target-name" optional=true Install location
-      input#target-name type="text" :placeholder="file.name"
-      | &lt;resource path&gt;/Scripts/ReaTeam Scripts/Development/cfillion_Interactive ReaScript.lua
+      input#target-name (
+        type="text" v-model="file.installName"
+        :placeholder="file.effectiveInstallName()"
+      )
+      | &lt;resource path&gt;/{{ file.installPath() }}
 
-    p v-if="type.actionList"
+    p v-if="file.effectiveType().actionList"
       field-label target="sections" optional=true Action List
-      input-dropdown#sections v-model="file.sections" multiple=true :choices="allSections"
+      input-dropdown#sections(v-model="file.sections" multiple=true
+        :choices="$options.ScriptSections")
 
     p
       field-label target="platforms" Target platform
       input-dropdown#platforms :value="platformName"
         platform-matrix v-model="file.platform" @display="platformName = $event"
 
-  p v-if="file.source == $options.uploadSource"
+  p v-if="file.source == $options.UploadSource"
     field-label target="contents" Contents
-    textarea#contents rows="20"
+    textarea#contents (
+      rows="20" :value="file.content()"
+      @input="setContent($event.target.value)"
+    )
 </template>
 
 <script lang="coffee">
-import File from '../file'
+import File, { UploadSource, ExternalSource, ScriptSections } from '../file'
 import * as Types from '../types'
 
 import FieldLabel from './field-label.vue'
 import InputDropdown from './input-dropdown.vue'
 import PlatformMatrix from './platform-matrix.vue'
 
-ScriptSections = [
-    id: 'main'
-    name: 'Main'
-  ,
-    id: 'midi_editor'
-    name: 'MIDI Editor'
-  ,
-    id: 'midi_inlineeditor'
-    name: 'MIDI Inline Editor'
-  ,
-    id: 'midi_eventlisteditor'
-    name: 'MIDI Event List Editor'
-  ,
-    id: 'mediaexplorer'
-    name: 'Media Explorer'
-]
-
 DisabledType = { icon: 'fa-ban', name: "Don't install" }
 
 export default
-  uploadSource: File.UPLOAD
-  externalSource: File.EXTERNAL
+  UploadSource: UploadSource, ExternalSource: ExternalSource,
+  ScriptSections: ScriptSections,
   components: { FieldLabel, InputDropdown, PlatformMatrix }
   props:
     file:
@@ -81,37 +78,36 @@ export default
     platformName: ''
   computed:
     sameAsPackageType: ->
-      { value: '', icon: 'fa-file-code-o', name: 'ReaScript (same as package)' }
+      sameAsPackage: true
+      icon: @file.package.type.icon
+      name: "#{@file.package.type.name} (same as package)"
     availableSources: ->
       sources = [
-        File.UPLOAD,
-        File.EXTERNAL,
+        UploadSource,
+        ExternalSource,
       ]
       sources
     type:
       get: ->
         if @file.install
-          Types[@file.type] || @sameAsPackageType
+          @file.type || @sameAsPackageType
         else
           DisabledType
       set: (type) ->
         if type == DisabledType
           @file.install = false
         else
-          @file.type = type.value
+          @file.type = if type.sameAsPackage then null else type
           @file.install = true
     availableTypes: ->
       types = []
       types.push @sameAsPackageType
-      types.push DisabledType
+      types.push DisabledType if @file.source == UploadSource
       return types if @file.isPackage
 
       types.push { separator: true }
-      for key in Object.keys(Types).sort()
-        types.push { value: key, Types[key]...}
+      types.push Types[key] for key in Object.keys(Types).sort()
       types
-
-    allSections: -> ScriptSections
 </script>
 
 <style lang="sass">

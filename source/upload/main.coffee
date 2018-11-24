@@ -14,6 +14,8 @@ import Main from './components/main.vue'
 import SelectType from './components/select-type.vue'
 import Package from './components/package.vue'
 
+Vue.use VueRouter
+
 router = new VueRouter
   mode: if process.env.NODE_ENV == 'production' then 'history' else 'hash'
   base: '/upload'
@@ -22,8 +24,6 @@ router = new VueRouter
     # { path: '/auth', component: Auth }
     { path: '/:type', component: Package }
   ]
-
-Vue.use VueRouter
 
 app = new Vue
   router: router,

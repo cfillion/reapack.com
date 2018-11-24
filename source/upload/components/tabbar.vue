@@ -1,8 +1,8 @@
 <template lang="slim">
 .tabbar
   .tab-list
-    button(type="button"
-      v-for="(tab, i) in tabs" :class=="{ active: tab.isActive }"
+    button (
+      type="button" v-for="(tab, i) in tabs" :class=="{ active: tab.isActive }"
       @click="setCurrentTab(tab)"
     ) {{ tab.name }}
   slot

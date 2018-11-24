@@ -4,7 +4,7 @@
     .lists
       package-file-list :files="packageFiles" :current="currentFile" @select="currentFile = $event" Package file
       package-file-list :files="hostedFiles" :current="currentFile" @select="currentFile = $event" Hosted files
-      package-file-list :files="virtualFiles" :current="currentFile" Additional files
+      package-file-list :files="virtualFiles" :current="currentFile" @select="currentFile = $event" Additional files
     button @click="addFile"
       i.fa.fa-plus>
       | Add file
@@ -12,35 +12,37 @@
 </template>
 
 <script lang="coffee">
-import File from '../file'
+import File, { UploadSource, ExternalSource } from '../file'
 
 import PackageFile from './package-file.vue'
 import PackageFileList from './package-filelist.vue'
 
 export default
   components: { PackageFile, PackageFileList }
+  props:
+    package:
+      type: Object
+      required: true
   data: ->
-    currentFile: {},
-    files: []
+    currentFile: null,
     newFileCounter: 0
   computed:
     packageFiles: ->
-      @files.filter (f) -> f.isPackage
+      @package.files.filter (f) -> f.isPackage
     hostedFiles: ->
-      @files.filter (f) -> !f.isPackage && f.source == File.UPLOAD
+      @package.files.filter (f) -> !f.isPackage && f.source == UploadSource
     virtualFiles: ->
-      @files.filter (f) -> f.source != File.UPLOAD
+      @package.files.filter (f) -> f.source != UploadSource
   created: ->
-    @files.push new File('cfillion_Song switcher.lua', true)
-    @files.push new File('cfillion_Song switcher (next).lua')
-    @files.push new File('cfillion_Song switcher (previous).lua')
-    @files.push new File('cfillion_Song switcher (reset).lua')
-    @files.push new File('song_switcher.html')
-  mounted: ->
-    @currentFile = @files[0]
+    @currentFile = @package.files[0]
   methods:
     addFile: ->
-      @virtualFiles.push new File("New file #{++@newFileCounter}")
+      file = new File "New file #{++@newFileCounter}", @package
+      @package.files.push file
+      @currentFile = file
+  watch:
+    package: ->
+      @currentFile = @package.files[0]
 </script>
 
 <style lang="sass">

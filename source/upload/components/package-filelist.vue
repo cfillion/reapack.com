@@ -2,18 +2,30 @@
 .file-list v-if="files.length > 0"
   .header: slot
   ul
-    li v-for="(file, i) in files" :class="{ active: current == file }" @click=="$emit('select', file)"
+    li (
+      v-for="(file, i) in files" :class="{ active: current == file }"
+      @click=="$emit('select', file)"
+    )
+      input> (
+        type="checkbox" title="Include in the package" @click.stop
+        v-if="isUpload(file) && file.canInstall()" v-model="file.install"
+      )
+      .name
+        .label() {{ name(file) }}
+        .install v-if="showInstallName(file)"
+          i.fa.fa-fw.fa-download
+          | {{ file.effectiveInstallName() }}
       .btns
         i.fa.fa-copy> title="Duplicate file" @click.stop=="$emit('copy', i)"
-        i.fa.fa-trash(v-if="!file.isPackage" title="Remove file"
-          @click.stop=="$emit('remove', i)")
-      .name
-        input>(type="checkbox" title="Include in the package"
-          v-model="file.install" @click.stop)
-        | {{ file.name }}
+        i.fa.fa-trash (
+          v-if="!file.isPackage" title="Remove file"
+          @click.stop=="$emit('remove', i)"
+        )
 </template>
 
 <script lang="coffee">
+import File, { UploadSource, ExternalSource } from '../file'
+
 import PackageFile from './package-file.vue'
 import PackageFileList from './package-filelist.vue'
 
@@ -24,6 +36,18 @@ export default
       type: Array
       required: true
     current: Object
+  methods:
+    name: (file) ->
+      name = if file.source == ExternalSource
+        file.effectiveInstallName()
+      else
+        file.effectiveStorageName()
+
+      name || '<no name>'
+    isUpload: (file) ->
+      file.source == UploadSource
+    showInstallName: (file) ->
+      @isUpload(file) && file.effectiveInstallName() != file.effectiveStorageName()
 </script>
 
 <style lang="sass" scoped>
@@ -48,6 +72,8 @@ li
   cursor: pointer
   list-style-type: none
   overflow-wrap: break-word
+  display: flex
+  align-items: center
 
   &:nth-child(2n)
     background-color: $table-row-even
@@ -60,14 +86,18 @@ li
 
   &.active
     background: darken($background, 2%)
-    font-weight: bold
+
+    .label
+      font-weight: bold
 
 .btns
-  float: right
   font-size: 1rem
   color: $input-placeholder
   visibility: hidden
 
   i:hover
     color: white
+
+.name
+  flex: 1 1 auto
 </style>

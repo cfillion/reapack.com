@@ -14,12 +14,16 @@
       input-dropdown#link-type v-model="type" :choices="types"
     .name-col
       field-label target="link-name" optional=true Name
-      input#link-name(type="text" v-model.trim="name"
-        :placeholder=="'Example: ' + type.namePlaceholder")
+      input#link-name (
+        type="text" v-model.trim="name"
+        :placeholder=="'Example: ' + type.namePlaceholder"
+      )
     .url-col
       field-label target="link-url" URL
-      input#link-url(type="url" v-model.trim="url"
-        :placeholder=="'Example: ' + type.urlPlaceholder")
+      input#link-url (
+        type="url" v-model.trim="url"
+        :placeholder=="'Example: ' + type.urlPlaceholder"
+      )
     .btn-col
       button type="submit" Add link
 </template>
@@ -50,7 +54,14 @@ import InputDropdown from './input-dropdown.vue'
 
 export default
   components: { FieldLabel, InputDropdown }
-  data: -> { links: [], type: LinkTypes[1], name: '', url: '' }
+  props:
+    links:
+      type: Array
+      required: true
+  data: ->
+    type: LinkTypes[1]
+    name: ''
+    url: ''
   computed:
     types: -> LinkTypes
     sortedLinks: ->

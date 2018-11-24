@@ -13,6 +13,7 @@ export default
 
 <style lang="sass" scoped>
 label
+  display: block
   font-weight: bold
 
   small

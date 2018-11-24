@@ -1,14 +1,18 @@
 <template lang="slim">
 .dropdown
-  button(:id="id" type="button" :class="{ active: showMenu }"
-      :disabled="disabled" @click="showMenu = !showMenu" )
+  button (
+    :id="id" type="button" :class="{ active: showMenu }"
+    :disabled="disabled" @click="showMenu = !showMenu"
+  )
     .placeholder v-if="!displayValue" Select a value…
     .value v-if="value"
       i.icon.fa.fa-fw> v-if="value.icon" :class="value.icon"
       | {{ displayValue }}
     i.caret.fa.fa-caret-down
-  dropdown-menu(:items="choices" :show="showMenu" :multiple="multiple"
-    :checked=="multiple ? value : []" @input="setValue" @change="showMenu = false")
+  dropdown-menu (
+    :items="choices" :show="showMenu" :multiple="multiple" @input="setValue"
+    :checked=="multiple ? value : []" @change="showMenu = false"
+  )
     slot
 </template>
 
