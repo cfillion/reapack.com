@@ -2,13 +2,14 @@
   "name": "reapack.com",
   "version": "1.0.0",
   "private": true,
+  "sideEffects": false,
   "dependencies": {
+    "codemirror": "^5.42.0",
     "commonmark": "^0.28.1",
     "indent-string": "^3.2.0",
     "vue": "^2.5.17",
     "vue-router": "^3.0.1"
   },
-  "sideEffects": false,
   "devDependencies": {
     "@babel/core": "^7.1.6",
     "@babel/preset-env": "^7.1.6",

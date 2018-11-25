@@ -43,6 +43,7 @@ module.exports = {
   module: {
     rules: [
       { test: /\.coffee$/, use: [ babel, coffee ]},
+      { test: /\.css$/,    use: [ MiniCssExtractPlugin.loader, 'css-loader' ]},
       { test: /\.js$/,     use: [ babel ]},
       { test: /\.sass$/,   use: [ MiniCssExtractPlugin.loader, 'css-loader', sass ]},
       { test: /\.slim$/,   use: [ './slim-loader.js' ]},

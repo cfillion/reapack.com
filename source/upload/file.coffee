@@ -37,7 +37,7 @@ export default class File
     @install = @canInstall()
     @sections = []
     @sections.push @defaultSection() if @isPackage
-    @_content = ''
+    @content = 'function hello()\n  return "World"\nend\n'
 
   setSource: (source) ->
     if source == ExternalSource
@@ -162,9 +162,3 @@ export default class File
       NoIndexHeader
 
     (header && header.toString(filetype)) || ''
-
-  content: ->
-    @header() + @_content
-
-  setContent: (content) ->
-    @_content = content

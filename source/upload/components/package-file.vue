@@ -48,11 +48,11 @@ div
       input-dropdown#platforms :value="platformName"
         platform-matrix v-model="file.platform" @display="platformName = $event"
 
-  p v-if="file.source == $options.UploadSource"
-    field-label target="contents" Contents
-    textarea#contents (
-      rows="20" :value="file.content()"
-      @input="setContent($event.target.value)"
+  p v-if="file.source == $options.UploadSource" ref="editor"
+    field-label Contents
+    package-file-content (
+      v-model="file.content" :header="file.header()"
+        :filename="file.effectiveInstallName()"
     )
 </template>
 
@@ -62,6 +62,7 @@ import * as Types from '../types'
 
 import FieldLabel from './field-label.vue'
 import InputDropdown from './input-dropdown.vue'
+import PackageFileContent from './package-file-content.vue'
 import PlatformMatrix from './platform-matrix.vue'
 
 DisabledType = { icon: 'fa-ban', name: "Don't install" }
@@ -69,7 +70,7 @@ DisabledType = { icon: 'fa-ban', name: "Don't install" }
 export default
   UploadSource: UploadSource, ExternalSource: ExternalSource,
   ScriptSections: ScriptSections,
-  components: { FieldLabel, InputDropdown, PlatformMatrix }
+  components: { FieldLabel, InputDropdown, PackageFileContent, PlatformMatrix }
   props:
     file:
       type: Object
@@ -109,6 +110,3 @@ export default
       types.push Types[key] for key in Object.keys(Types).sort()
       types
 </script>
-
-<style lang="sass">
-</style>
