@@ -71,7 +71,6 @@ li
   background-color: $table-row-odd
   cursor: pointer
   list-style-type: none
-  overflow-wrap: break-word
   display: flex
   align-items: center
 
@@ -100,4 +99,6 @@ li
 
 .name
   flex: 1 1 auto
+  overflow: hidden
+  overflow-wrap: break-word
 </style>
