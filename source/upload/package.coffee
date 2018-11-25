@@ -20,7 +20,7 @@ export default class Package
         link.url
 
   providesTag: ->
-    file.providesLine() for file in @files
+    line for file in @files when line = file.providesLine()
 
   header: ->
     header = new Header
@@ -28,9 +28,9 @@ export default class Package
     header.push 'author', @author if @author
     header.push 'version', @version if @version
     header.push 'changelog', @changelog if @changelog
-    header.push 'provides', provides if provides = @providesTag()
+    header.push 'metapackage' unless @files[0].install || @type.metapackage
+    header.push 'provides', @providesTag()
     for tag in ['link', 'screenshot', 'donation']
-      links = @linkTag tag
-      header.push tag, links if links.length > 0
+      header.push tag, @linkTag(tag)
     header.push 'about', @about if @about
     header

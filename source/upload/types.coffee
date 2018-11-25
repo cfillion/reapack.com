@@ -53,6 +53,7 @@ export langpack =
 
   extensions: ['.ReaperLangPack']
   installRoot: 'LangPack'
+  noAuthorSlug: true
 
   placeholders:
     name: 'Traduction française (REAPER + SWS)'

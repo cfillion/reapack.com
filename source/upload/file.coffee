@@ -1,5 +1,5 @@
 import { normalize, join, extname } from 'path'
-import { NoIndexHeader, stripHeader } from './header'
+import { NoIndexHeader } from './header'
 import * as Types from './types'
 
 export UploadSource = { icon: 'fa-upload', name: 'Upload' }
@@ -68,10 +68,16 @@ export default class File
 
   defaultName: (ext = true) ->
     author = @authorSlug() || 'author'
-    pkgName = @package.name || 'Package name'
+
+    if @package.type.noAuthorSlug
+      author = ''
+    else
+      author += '_'
+
+    pkgName = @package.name || 'Package name'
     defaultExt = @package.type.extensions[0]
 
-    "#{author}_#{pkgName}#{if ext then defaultExt else ''}"
+    "#{author}#{pkgName}#{if ext then defaultExt else ''}"
 
   effectiveStorageName: ->
     @storageName || (@defaultName() if @isPackage) if @source == UploadSource
@@ -112,9 +118,9 @@ export default class File
 
     if @effectiveType().actionList
       if @sections.length == 0
-        opts.push 'nomain'
+        opts.push 'nomain' if @isPackage
       else if @isDefaultSection()
-        opts.push 'main' unless @package
+        opts.push 'main' unless @isPackage
       else
         sections = (section.id for section in @sections)
         opts.push "main=#{sections.join ','}"
@@ -122,17 +128,29 @@ export default class File
     opts
 
   providesLine: ->
+    return unless @install
+
+    storageName = @effectiveStorageName()
+    installName = @effectiveInstallName()
+
     opts = @options()
     line = ''
     line += "[#{opts.join(' ')}] " if opts.length > 0
-    line += switch @source
+
+    switch @source
       when UploadSource
-        if @isPackage then '.' else @effectiveStorageName()
+        target = if installName != storageName then " > #{installName}" else ''
+
+        if @isPackage
+          return if opts.length == 0 && !target
+          storageName = '.'
+
+        line += "#{storageName}#{target}"
       when ExternalSource
-        @url
+        line = "#{installName} #{@url}"
       else
-        'other file'
-    line += " > #{@installName}" if @installName
+        line = 'other file'
+
     line
 
   header: ->
@@ -143,10 +161,10 @@ export default class File
     else if isIndexable(filetype)
       NoIndexHeader
 
-    header?.toString filetype
+    (header && header.toString(filetype)) || ''
 
   content: ->
-    @header() + "\n\n" + @_content
+    @header() + @_content
 
   setContent: (content) ->
     @_content = content
