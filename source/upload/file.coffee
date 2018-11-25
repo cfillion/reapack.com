@@ -1,4 +1,4 @@
-import { normalize, join, extname } from 'path'
+import { join, extname } from 'path'
 import { NoIndexHeader } from './header'
 import * as Types from './types'
 
@@ -80,10 +80,10 @@ export default class File
     "#{author}#{pkgName}#{if ext then defaultExt else ''}"
 
   effectiveStorageName: ->
-    @storageName || (@defaultName() if @isPackage) if @source == UploadSource
+    join @storageName || (@defaultName() if @isPackage) if @source == UploadSource
 
   effectiveInstallName: ->
-    @installName || @effectiveStorageName()
+    join @installName || @effectiveStorageName()
 
   effectiveExtname: ->
     extname(@effectiveInstallName()).toLowerCase()
@@ -95,7 +95,7 @@ export default class File
     root = @effectiveType().installRoot
     filePath = join @installDirectory(), @effectiveInstallName()
 
-    join root, normalize(filePath)
+    "#{root}/#{filePath}"
 
   canInstall: ->
     !@isPackage || !@effectiveType().metapackage

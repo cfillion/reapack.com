@@ -15,13 +15,13 @@ div
     p v-if="file.source == $options.UploadSource"
       field-label target="storage-name" Storage file name
       input#storage-name (
-        type="text" v-model="file.storageName"
+        type="text" v-model.trim="file.storageName"
         :placeholder="file.effectiveStorageName()"
       )
 
   p v-else-if="file.source == $options.ExternalSource"
     field-label target="download-url" Download URL
-    input#download-url type="url" v-model="file.url"
+    input#download-url type="url" v-model.trim="file.url"
 
   p
     field-label target="file-type" Resource type
@@ -33,7 +33,7 @@ div
     p
       field-label target="target-name" optional=true Install location
       input#target-name (
-        type="text" v-model="file.installName"
+        type="text" v-model.trim="file.installName"
         :placeholder="file.effectiveInstallName()"
       )
       | &lt;resource path&gt;/{{ file.installPath() }}
