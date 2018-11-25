@@ -47,7 +47,8 @@ export default
     isUpload: (file) ->
       file.source == UploadSource
     showInstallName: (file) ->
-      @isUpload(file) && file.effectiveInstallName() != file.effectiveStorageName()
+      @isUpload(file) && file.install &&
+        file.effectiveInstallName() != file.effectiveStorageName()
 </script>
 
 <style lang="sass" scoped>
