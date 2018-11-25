@@ -12,6 +12,10 @@
 
 @import 'upload-mixins'
 
+// adding this to the global style would break the screenshot's shadow on the homepage
+.content
+  overflow: hidden
+
 #{$input-text}, textarea, button
   +input-field
   border-radius: 3px

@@ -65,6 +65,7 @@ export default
 
   button
     margin: 8px
+    flex: 0 0 auto
 
 .lists
   overflow-x: auto
@@ -72,5 +73,6 @@ export default
 .file
   padding: $padding
   overflow: auto
+  overflow-wrap: break-word
   flex: 1 1 auto
 </style>

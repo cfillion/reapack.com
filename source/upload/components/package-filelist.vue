@@ -89,6 +89,9 @@ li
     .label
       font-weight: bold
 
+input, .btns
+  flex-shrink: 0
+
 .btns
   font-size: 1rem
   color: $input-placeholder

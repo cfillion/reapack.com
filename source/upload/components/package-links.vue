@@ -9,22 +9,22 @@
         i.fa.fa-trash
 
   form @submit.prevent="submit"
-    .type-col
+    div
       field-label target="link-type" Type
       input-dropdown#link-type v-model="type" :choices="types"
-    .name-col
+    div
       field-label target="link-name" optional=true Name
       input#link-name (
         type="text" v-model.trim="name"
         :placeholder=="'Example: ' + type.namePlaceholder"
       )
-    .url-col
+    div
       field-label target="link-url" URL
       input#link-url (
         type="url" v-model.trim="url"
         :placeholder=="'Example: ' + type.urlPlaceholder"
       )
-    .btn-col
+    div
       button type="submit" Add link
 </template>
 
@@ -82,24 +82,11 @@ export default
     margin-left: 0
 
   form
-    display: flex
-    align-items: flex-end
-
-.name-col, .url-col, .btn-col
-  margin-left: 7px
-
-.type-col
-  flex: 0 1 150px
+    display: grid
+    align-items: end
+    grid-template-columns: 150px 1.2fr 2fr auto
+    grid-column-gap: 7px
 
 #link-type
   width: 100%
-
-.name-col
-  flex: 1 1 10%
-
-.url-col
-  flex: 1 1 30%
-
-.btn-col
-  flex: 0 1 auto
 </style>
