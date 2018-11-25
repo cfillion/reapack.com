@@ -22,9 +22,9 @@ export ScriptSections = [
     name: 'Media Explorer'
 ]
 
-isIndexable = (ext) ->
+isIndexable = (matchExt) ->
   for _, type of Types
-    return true if type.extensions.indexOf(ext) > -1
+    return true if ext.toLowerCase() == matchExt for ext in type.extensions
   false
 
 export default class File
@@ -37,7 +37,7 @@ export default class File
     @install = @canInstall()
     @sections = []
     @sections.push @defaultSection() if @isPackage
-    @content = 'function hello()\n  return "World"\nend\n'
+    @content = ''
 
   setSource: (source) ->
     if source == ExternalSource
@@ -154,11 +154,12 @@ export default class File
     line
 
   header: ->
-    filetype = @effectiveExtname()
+    fileext = @effectiveExtname()
+    type = @effectiveType()
 
     header = if @isPackage
       @package.header()
-    else if isIndexable(filetype)
+    else if isIndexable(fileext)
       NoIndexHeader
 
-    (header && header.toString(filetype)) || ''
+    (header && header.toString(fileext, type.altHeaderStyle)) || ''

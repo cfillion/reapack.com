@@ -2,9 +2,10 @@
 .file-editor.group
   .left-pane
     .lists
-      package-file-list :files="packageFiles" :current="currentFile" @select="currentFile = $event" Package file
-      package-file-list :files="hostedFiles" :current="currentFile" @select="currentFile = $event" Hosted files
-      package-file-list :files="virtualFiles" :current="currentFile" @select="currentFile = $event" Additional files
+      package-file-list (
+        v-for="list in lists" :key="list.heading" :files="list.files"
+        :current="currentFile" @select="currentFile = $event"
+      ) {{ list.heading }}
     button @click="addFile"
       i.fa.fa-plus>
       | Add file
@@ -33,13 +34,26 @@ export default
       @package.files.filter (f) -> !f.isPackage && f.source == UploadSource
     virtualFiles: ->
       @package.files.filter (f) -> f.source != UploadSource
+    lists: -> [
+        heading: 'Package file'
+        files: @packageFiles
+      ,
+        heading: 'Hosted files'
+        files: @hostedFiles
+      ,
+        heading: 'Additional files'
+        files: @virtualFiles
+    ]
   created: ->
     @currentFile = @package.files[0]
   methods:
     addFile: ->
-      file = new File "New file #{++@newFileCounter}", @package
-      @package.files.push file
-      @currentFile = file
+      defext = @package.type.defaultExtension || @package.type.extensions[0]
+
+      file = new File "New file #{++@newFileCounter}#{defext}", @package
+      file.setSource ExternalSource if @package.type.defaultExternal
+
+      @package.files.push @currentFile = file
   watch:
     package: ->
       @currentFile = @package.files[0]
@@ -50,7 +64,7 @@ export default
 
 .file-editor
   display: flex
-  height: 600px
+  height: 650px
   padding: 0
 
 .left-pane

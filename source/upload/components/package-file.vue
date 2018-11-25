@@ -22,6 +22,11 @@ div
   p v-else-if="file.source == $options.ExternalSource"
     field-label target="download-url" Download URL
     input#download-url type="url" v-model.trim="file.url"
+    | Available variables:
+      <code title="The path of the file relative to the repository">$path</code>,
+      <code title="The hash of the commit being indexed or &quot;master&quot; if unavailable">$commit</code>,
+      <code title="The version of the package being indexed">$version</code> and
+      <code title="The package being indexed (path relative to the repository)">$package</code>.
 
   p
     field-label target="file-type" Resource type
@@ -110,3 +115,9 @@ export default
       types.push Types[key] for key in Object.keys(Types).sort()
       types
 </script>
+
+<style lang="sass">
+code[title]
+  cursor: help
+  text-decoration: underline dotted
+</style>
