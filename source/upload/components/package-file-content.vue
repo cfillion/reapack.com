@@ -87,8 +87,11 @@ export default
       newValue = @codemirror.getRange @contentRange()...
       @$emit 'input', newValue
     updateMode: ->
-      mode = CodeMirror.findModeByFileName(@filename)?.mode
-      @codemirror.setOption 'mode', mode
+      newMode = CodeMirror.findModeByFileName(@filename)?.mode
+      newMode = null unless CodeMirror.modes[newMode]
+      oldMode = @codemirror.getOption 'mode'
+
+      @codemirror.setOption 'mode', newMode if newMode != oldMode
 </script>
 
 <style lang="sass">
