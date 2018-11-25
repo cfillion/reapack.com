@@ -2,8 +2,8 @@
 .tabbar
   .tab-list
     button (
-      type="button" v-for="(tab, i) in tabs" :class=="{ active: tab.isActive }"
-      @click="setCurrentTab(tab)"
+      type="button" v-for="(tab, i) in tabs" tabindex="-1"
+      :class=="{ active: tab.isActive }" @click="setCurrentTab(tab)"
     ) {{ tab.name }}
   slot
 </template>
