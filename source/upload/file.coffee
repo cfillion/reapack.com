@@ -54,6 +54,9 @@ export default class File
 
     @source = source
 
+  toSource: ->
+    { file: @, name: @effectiveStorageName() }
+
   category: ->
     @package.category || 'Category'
 

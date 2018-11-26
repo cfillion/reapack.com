@@ -3,7 +3,7 @@
   .header: slot
   ul
     li (
-      v-for="(file, i) in files" :class="{ active: current == file }"
+      v-for="file in files" :class="{ active: current == file }"
       @click=="$emit('select', file)"
     )
       input> (
@@ -16,10 +16,10 @@
           i.fa.fa-fw.fa-download
           | {{ file.effectiveInstallName() }}
       .btns
-        i.fa.fa-copy> title="Duplicate file" @click.stop=="$emit('copy', i)"
+        i.fa.fa-copy title="Duplicate file" @click.stop=="$emit('copy', file)"
         i.fa.fa-trash (
           v-if="!file.isPackage" title="Remove file"
-          @click.stop=="$emit('remove', i)"
+          @click.stop=="$emit('remove', file)"
         )
 </template>
 
@@ -97,6 +97,9 @@ input, .btns
   font-size: 1rem
   color: $input-placeholder
   visibility: hidden
+
+  i
+    margin-left: 4px
 
   i:hover
     color: white

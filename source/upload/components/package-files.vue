@@ -5,6 +5,7 @@
       package-file-list (
         v-for="list in lists" :key="list.heading" :files="list.files"
         :current="currentFile" @select="currentFile = $event"
+        @copy="copyFile" @remove="removeFile"
       ) {{ list.heading }}
     button @click="addFile"
       i.fa.fa-plus>
@@ -44,19 +45,40 @@ export default
         heading: 'Additional files'
         files: @virtualFiles
     ]
-  created: ->
-    @currentFile = @package.files[0]
-  methods:
-    addFile: ->
-      defext = @package.type.defaultExtension || @package.type.extensions[0]
-
-      file = new File "New file #{++@newFileCounter}#{defext}", @package
-      file.setSource ExternalSource if @package.type.defaultExternal
-
-      @package.files.push @currentFile = file
   watch:
-    package: ->
-      @currentFile = @package.files[0]
+    package:
+      immediate: true
+      handler: -> @currentFile = @package.files[0]
+  methods:
+    newFileName: (ext) ->
+      ext ?= @package.type.defaultExtension || @package.type.extensions[0]
+      "New file #{++@newFileCounter}#{ext}"
+    addFile: ->
+      file = new File @newFileName(), @package
+      file.setSource ExternalSource if @package.type.defaultExternal
+      @package.files.push @currentFile = file
+    copyFile: (file) ->
+      copy = Object.assign Object.create(Object.getPrototypeOf(file)), file
+      copy.isPackage = false
+      copy.setSource file.toSource() if copy.source == UploadSource
+      copy.installName = @newFileName file.effectiveExtname()
+      @package.files.push @currentFile = copy
+    removeFile: (file) ->
+      if file.source == UploadSource
+        users = (f for f in @package.files when f.source.file == file)
+
+        if users.length > 0
+          return unless confirm "Delete '#{file.effectiveStorageName()}' and #{users.length} files sourcing it?"
+
+        @doRemoveFile user for user in users
+
+      @doRemoveFile file
+    doRemoveFile: (file) ->
+      index = @package.files.indexOf file
+      @package.files.splice index, 1 if index > -1
+
+      if file == @currentFile
+        @currentFile = @package.files[index] || @package.files[index - 1]
 </script>
 
 <style lang="sass">

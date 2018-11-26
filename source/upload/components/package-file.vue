@@ -95,9 +95,8 @@ export default
         ExternalSource,
       ]
 
-      otherFiles = for file in @file.package.files \
-          when file != @file && file.source == UploadSource
-        { file: file, name: file.effectiveStorageName() }
+      otherFiles = (file.toSource() for file in @file.package.files \
+        when file != @file && file.source == UploadSource)
 
       if otherFiles.length > 0
         sources.push { separator: true }
