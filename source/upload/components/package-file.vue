@@ -21,7 +21,7 @@ div
 
   p v-else-if="file.source == $options.ExternalSource"
     field-label target="download-url" Download URL
-    input#download-url type="url" v-model.trim="file.url"
+    input#download-url type="url" required=true v-model.trim="file.url"
     | Available variables:
       <code title="The path of the file relative to the repository">$path</code>,
       <code title="The hash of the commit being indexed or &quot;master&quot; if unavailable">$commit</code>,
@@ -96,7 +96,7 @@ export default
       ]
 
       otherFiles = (file.toSource() for file in @file.package.files \
-        when file != @file && file.source == UploadSource)
+        when file != @file && file.source == UploadSource && file.canInstall())
 
       if otherFiles.length > 0
         sources.push { separator: true }
