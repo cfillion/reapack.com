@@ -82,10 +82,16 @@ export default class File
     "#{author}#{pkgName}#{if ext then defaultExt else ''}"
 
   effectiveStorageName: ->
-    join @storageName || (@defaultName() if @isPackage) if @source == UploadSource
+    if @source == UploadSource
+      if name = @storageName || (@defaultName() if @isPackage)
+        return join name
+    ''
 
   effectiveInstallName: ->
-    join @installName || @effectiveStorageName()
+    if name = (@installName || @effectiveStorageName())
+      join name
+    else
+      ''
 
   effectiveExtname: ->
     extname(@effectiveInstallName()).toLowerCase()
