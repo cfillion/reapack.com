@@ -15,7 +15,7 @@ div
     p v-if="file.source == $options.UploadSource"
       field-label target="storage-name" Storage file name
       input#storage-name (
-        type="text" v-model.trim="file.storageName"
+        type="text" v-model.trim="file.storageName" :pattern="storageNamePattern"
         :placeholder="file.effectiveStorageName()"
       )
 
@@ -114,6 +114,18 @@ export default
       types.push { separator: true }
       types.push Types[key] for key in Object.keys(Types).sort()
       types
+    storageNamePattern: ->
+      return unless @file.isPackage
+
+      escapedExts = for ext in @file.package.type.extensions
+        (for c in ext
+          if c == '.'
+            '\\.'
+          else
+            "[#{c.toUpperCase()}#{c.toLowerCase()}]"
+        ).join('')
+
+      ".+(#{escapedExts.join '|'})"
 </script>
 
 <style lang="sass">
