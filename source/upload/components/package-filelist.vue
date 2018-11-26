@@ -38,10 +38,10 @@ export default
     current: Object
   methods:
     name: (file) ->
-      name = if file.source == ExternalSource
-        file.effectiveInstallName()
-      else
+      name = if file.source == UploadSource
         file.effectiveStorageName()
+      else
+        file.effectiveInstallName()
 
       name || '<no name>'
     isUpload: (file) ->

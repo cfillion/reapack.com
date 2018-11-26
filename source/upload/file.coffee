@@ -40,7 +40,7 @@ export default class File
     @content = ''
 
   setSource: (source) ->
-    if source == ExternalSource
+    if source == ExternalSource || source.file
       unless @installName
         @installName = @storageName
         @storageName = ''
@@ -130,26 +130,24 @@ export default class File
   providesLine: ->
     return unless @install
 
-    storageName = @effectiveStorageName()
+    sourceFile = @source.file ? @
+    storageName = sourceFile.effectiveStorageName()
     installName = @effectiveInstallName()
 
     opts = @options()
     line = ''
     line += "[#{opts.join(' ')}] " if opts.length > 0
 
-    switch @source
-      when UploadSource
-        target = if installName != storageName then " > #{installName}" else ''
+    if @source == ExternalSource
+      line = "#{installName} #{@url}"
+    else
+      target = if installName != storageName then " > #{installName}" else ''
 
-        if @isPackage
-          return if opts.length == 0 && !target
-          storageName = '.'
+      if sourceFile.isPackage
+        return if opts.length == 0 && !target
+        storageName = '.'
 
-        line += "#{storageName}#{target}"
-      when ExternalSource
-        line = "#{installName} #{@url}"
-      else
-        line = 'other file'
+      line += "#{storageName}#{target}"
 
     line
 

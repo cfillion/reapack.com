@@ -36,7 +36,9 @@ div
 
   template v-if="file.install"
     p
-      field-label target="target-name" optional=true Install location
+      field-label (
+        target="target-name" :optional="file.source == $options.UploadSource"
+      ) Install file name
       input#target-name (
         type="text" v-model.trim="file.installName"
         :placeholder="file.effectiveInstallName()"
@@ -92,6 +94,15 @@ export default
         UploadSource,
         ExternalSource,
       ]
+
+      otherFiles = for file in @file.package.files \
+          when file != @file && file.source == UploadSource
+        { file: file, name: file.effectiveStorageName() }
+
+      if otherFiles.length > 0
+        sources.push { separator: true }
+        sources.push otherFiles...
+
       sources
     type:
       get: ->
