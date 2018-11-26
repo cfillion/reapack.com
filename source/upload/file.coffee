@@ -60,6 +60,9 @@ export default class File
   category: ->
     @package.category || 'Category'
 
+  isBinary: ->
+    @content instanceof ArrayBuffer
+
   storageDirectory: ->
     segments = [@category()]
     segments.push @defaultName(false) unless @isPackage

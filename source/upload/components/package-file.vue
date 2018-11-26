@@ -9,7 +9,7 @@ div
 
   template v-if="file.source == $options.UploadSource"
     p
-      div: field-label Storage directory
+      field-label Storage directory
       | /{{ file.storageDirectory() }}/
 
     p v-if="file.source == $options.UploadSource"
@@ -55,12 +55,28 @@ div
       input-dropdown#platforms :value="platformName"
         platform-matrix v-model="file.platform" @display="platformName = $event"
 
-  p v-if="file.source == $options.UploadSource" ref="editor"
-    field-label Contents
-    package-file-content (
-      v-model="file.content" :header="file.header()"
-        :filename="file.effectiveInstallName()"
-    )
+  template v-if="file.source == $options.UploadSource"
+    p
+      field-label Contents
+      template v-if="isBinary"
+        ' Binary file loaded from {{ uploadName }} ({{ contentSize }}).
+        a> href="javascript:;" @click=="file.content = ''" Click here
+        | to reset.
+      package-file-content (
+        v-else="" v-model="file.content"
+        :header="header" :filename="file.effectiveInstallName()"
+      )
+
+    p.error.binary-header v-if=="isBinary && (file.isPackage || header)"
+      | Warning: The metadata header generated for this file will not be inserted.
+      pre v-if="header" {{ header }}
+
+    p
+      button> @click=="$refs.fileInput.click()"
+        i.fa.fa-folder-open>
+        | Open local file
+      | ...or drag/drop here
+      input type="file" ref="fileInput" @change="loadLocalFile"
 </template>
 
 <script lang="coffee">
@@ -71,6 +87,8 @@ import FieldLabel from './field-label.vue'
 import InputDropdown from './input-dropdown.vue'
 import PackageFileContent from './package-file-content.vue'
 import PlatformMatrix from './platform-matrix.vue'
+
+import filesize from 'filesize'
 
 DisabledType = { icon: 'fa-ban', name: "Don't install" }
 
@@ -84,6 +102,7 @@ export default
       required: true
   data: ->
     platformName: ''
+    uploadName: ''
   computed:
     sameAsPackageType: ->
       sameAsPackage: true
@@ -136,6 +155,9 @@ export default
         ).join('')
 
       ".+(#{escapedExts.join '|'})"
+    header: -> @file.header()
+    isBinary: -> @file.isBinary()
+    contentSize: -> filesize @file.content.byteLength
   methods:
     setSource: (source) ->
       if @file.source == UploadSource
@@ -147,10 +169,40 @@ export default
           return
 
       @file.setSource source
+    loadLocalFile: ->
+      return unless @$refs.fileInput.files.length > 0
+
+      fileInfo = @$refs.fileInput.files[0]
+
+      reader = new FileReader()
+      reader.onload = =>
+        if reader.result instanceof ArrayBuffer
+          @uploadName = fileInfo.name
+          @file.content = reader.result
+        else if reader.result.includes "\0"
+          reader.readAsArrayBuffer fileInfo
+        else
+          @file.content = reader.result
+
+      reader.readAsText fileInfo
 </script>
 
 <style lang="sass">
+@import 'config'
+
+label
+  display: block
+
 code[title]
   cursor: help
   text-decoration: underline dotted
+
+input[type=file]
+  opacity: 0
+  position: absolute
+
+.binary-header pre
+  font-family: monospace
+  font-size: 14px
+  margin-top: $padding
 </style>
