@@ -9,7 +9,7 @@ div
 
   template v-if="file.source == $options.UploadSource"
     p
-      field-label Storage directory
+      div: field-label Storage directory
       | /{{ file.storageDirectory() }}/
 
     p v-if="file.source == $options.UploadSource"
