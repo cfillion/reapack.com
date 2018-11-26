@@ -37,7 +37,7 @@ export default
         @formatValue @value
   methods:
     setValue: (val) ->
-      return if @disabled
+      return if @disabled || @value == val
 
       if @multiple
         index = @value.indexOf val

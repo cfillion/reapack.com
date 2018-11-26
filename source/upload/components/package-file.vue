@@ -3,7 +3,7 @@ div
   p
     field-label target="source" File source
     input-dropdown#source (
-      :value="file.source" @input="file.setSource($event)"
+      :value="file.source" @input="setSource"
       :choices="availableSources" :disabled="file.isPackage"
     )
 
@@ -136,6 +136,17 @@ export default
         ).join('')
 
       ".+(#{escapedExts.join '|'})"
+  methods:
+    setSource: (source) ->
+      if @file.source == UploadSource
+        users = @file.package.findFilesSourcing @file
+
+        if users.length > 0
+          alert "Cannot change source of '#{@file.effectiveStorageName()}'
+          because #{users.length} additional files are sourcing it."
+          return
+
+      @file.setSource source
 </script>
 
 <style lang="sass">

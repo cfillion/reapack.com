@@ -65,10 +65,11 @@ export default
       @package.files.push @currentFile = copy
     removeFile: (file) ->
       if file.source == UploadSource
-        users = (f for f in @package.files when f.source.file == file)
+        users = @package.findFilesSourcing file
 
         if users.length > 0
-          return unless confirm "Delete '#{file.effectiveStorageName()}' and #{users.length} files sourcing it?"
+          return unless confirm "Delete '#{file.effectiveStorageName()}'
+            and #{users.length} files sourcing it?"
 
         @doRemoveFile user for user in users
 

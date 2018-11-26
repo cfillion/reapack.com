@@ -34,3 +34,6 @@ export default class Package
       header.push tag, @linkTag(tag)
     header.push 'about', @about if @about
     header
+
+  findFilesSourcing: (file) ->
+    f for f in @files when f.source.file == file
