@@ -24,7 +24,9 @@ export ScriptSections = [
 
 isIndexable = (matchExt) ->
   for _, type of Types
-    return true if ext.toLowerCase() == matchExt for ext in type.extensions
+    for ext in type.extensions
+      return true if ext.toLowerCase() == matchExt
+
   false
 
 export default class File
