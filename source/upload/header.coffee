@@ -54,7 +54,7 @@ export default class Header
     style = Styles[extension] ? Styles[type.extensions[0].toLowerCase()] ? {}
 
     lines = @lines(style).join '\n'
-    return '' unless lines
+    return unless lines
 
     if decoration = Decorations[extension]
       # add spaces before non-empty lines
@@ -64,7 +64,7 @@ export default class Header
         indent: decoration
         includeEmptyLines: true
 
-    lines.concat '\n\n'
+    lines += '\n'
 
 noIndex = new Header
 noIndex.push 'noindex'
