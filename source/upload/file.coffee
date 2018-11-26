@@ -97,7 +97,7 @@ export default class File
       ''
 
   effectiveExtname: ->
-    extname(@effectiveInstallName()).toLowerCase()
+    extname @effectiveInstallName()
 
   effectiveType: ->
     @type || @package.type

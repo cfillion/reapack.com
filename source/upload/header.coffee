@@ -50,6 +50,7 @@ export default class Header
       line
 
   toString: (extension, type) ->
+    extension = extension.toLowerCase()
     style = Styles[extension] ? Styles[type.extensions[0].toLowerCase()] ? {}
 
     lines = @lines(style).join '\n'
