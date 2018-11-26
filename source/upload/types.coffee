@@ -69,6 +69,8 @@ export extension =
   icon: 'fa-puzzle-piece'
 
   extensions: ['.ext']
+  defaultExtension: '.dll'
+  defaultExternal: true
   installRoot: 'UserPlugins'
   metapackage: true
 
