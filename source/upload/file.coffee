@@ -162,4 +162,4 @@ export default class File
     else if isIndexable(fileext)
       NoIndexHeader
 
-    (header && header.toString(fileext, type.altHeaderStyle)) || ''
+    (header && header.toString(fileext, type)) || ''

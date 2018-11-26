@@ -21,8 +21,6 @@ export jsfx =
   desc: 'Upload a JS effect to the ReaTeam/JSFX repository.'
   icon: 'fa-cogs'
 
-  nameTag: 'desc'
-  altHeaderStyle: true
   extensions: ['.jsfx']
   installRoot: 'Effects/ReaTeam Scripts'
   longPath: true
@@ -56,8 +54,6 @@ export langpack =
   icon: 'fa-globe'
 
   extensions: ['.ReaperLangPack']
-  nameTag: 'NAME'
-  altHeaderStyle: 'ugly'
   installRoot: 'LangPack'
   noAuthorSlug: true
 

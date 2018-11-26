@@ -24,7 +24,7 @@ export default class Package
 
   header: ->
     header = new Header
-    header.push @type.nameTag || 'description', @name if @name
+    header.push 'description', @name if @name
     header.push 'author', @author if @author
     header.push 'version', @version if @version
     header.push 'changelog', @changelog if @changelog
