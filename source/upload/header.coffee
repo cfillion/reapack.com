@@ -1,15 +1,17 @@
 import indentString from 'indent-string'
 
+Decorations =
+  '.lua': '--'
+  '.eel': '//'
+  '.py': '#'
+  '.reaperlangpack': '#'
+
 Styles =
-  '.lua': { decoration: '--' }
-  '.eel': { decoration: '//' }
-  '.py':  { decoration: '#' }
   '.jsfx':
     altSyntax: true
     replace:
       description: 'desc'
   '.reaperlangpack':
-    decoration: '#',
     altSyntax: true,
     compressed: true,
     uppercase: true
@@ -53,12 +55,12 @@ export default class Header
     lines = @lines(style).join '\n'
     return '' unless lines
 
-    if style.decoration
+    if decoration = Decorations[extension]
       # add spaces before non-empty lines
       lines = indentString lines, 1 unless style.compressed
 
       lines = indentString lines, 1,
-        indent: style.decoration
+        indent: decoration
         includeEmptyLines: true
 
     lines.concat '\n\n'
