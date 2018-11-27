@@ -137,6 +137,9 @@ export default class File
   effectiveType: ->
     @type || @package.type
 
+  storagePath: ->
+    join @storageDirectory(), @effectiveStorageName()
+
   installPath: ->
     root = @effectiveType().installRoot
     filePath = join @installDirectory(), @effectiveInstallName()

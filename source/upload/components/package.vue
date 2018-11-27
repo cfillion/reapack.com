@@ -1,10 +1,14 @@
 <template lang="slim">
-.editor v-if="package && package.type"
+form.editor v-if="package && package.type" @submit.prevent="submit"
   h2 Package editor ({{ package.type.name }})
 
   p
     | Fill this form to submit a new package or update an existing package on
       the <a :href="repoUrl" target="_blank">{{ package.type.repo }}</a> repository.
+
+  p.error v-if="errors.length" ref="errors"
+    strong Please correct the following error(s):
+    ul: li v-for="error in errors" {{ error }}
 
   h3 Metadata
   p Customize how your package will appear in ReaPack.
@@ -70,7 +74,7 @@
       updating the package.
 
   p
-    button.main type="submit" disabled=true
+    button.main type="submit" :disabled="!canSubmit"
      | Create pull request on {{ package.type.repo }}
 
 div v-else=""
@@ -96,6 +100,7 @@ export default
   data: ->
     package: null
     dirty: false
+    errors: []
   computed:
     repoUrl: -> "https://github.com/#{@package.type.repo}"
     indexUrl: -> "#{@repoUrl}/raw/master/index.xml"
@@ -104,15 +109,21 @@ export default
       name = 'Package name' unless name
       "# #{name}\n\nLonger description of the package here.\n\n
       Key features:\n\n- Lorem ipsum\n- Dolor sit amet\n- Consectetur adipiscing elit"
+    canSubmit: -> @package.name && @package.category && @package.version
   methods:
     reset: ->
       type = Types[@$route.params.type]
-      @package = new Package(type if type?.repo)
+      @package = new Package type if type?.repo
       Vue.nextTick => @dirty = false
     onBeforeUnload: (event) ->
       if @dirty
         event.preventDefault()
         event.returnValue = ''
+    submit: ->
+      @errors = @package.validateAll()
+      if @errors.length
+        Vue.nextTick => @$refs.errors.scrollIntoView()
+        return
   watch:
     '$route.params.type': -> @reset()
     package:

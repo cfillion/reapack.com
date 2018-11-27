@@ -77,7 +77,7 @@
       pre v-if="header" {{ header }}
 
     p
-      button#load-file> @click=="$refs.fileInput.click()"
+      button#load-file> type="button" @click=="$refs.fileInput.click()"
         i.fa.fa-folder-open>
         | Open local file
       | ...or drag/drop here
@@ -196,10 +196,10 @@ export default
       @file.setContentFromLocalFile localFile, (err) -> alert err if err
 </script>
 
-<style lang="sass" scoped>
+<style lang="sass">
 @import 'config'
 
-label
+.file label
   display: block
 
 code[title]

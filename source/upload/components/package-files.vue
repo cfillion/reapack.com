@@ -8,7 +8,7 @@
         :current="currentFile" @select="currentFile = $event"
         @copy="copyFile" @remove="removeFile"
       ) {{ list.heading }}
-    button @click="addFile"
+    button type="button" @click="addFile"
       i.fa.fa-plus>
       | Add file
   .file: package-file :file="currentFile"
