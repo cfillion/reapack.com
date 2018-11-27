@@ -104,9 +104,7 @@ export default
       for localFile in e.dataTransfer.files
         file = new File localFile.name, @package
 
-        try
-          file.setContentFromLocalFile localFile
-        catch
+        file.setContentFromLocalFile localFile, (err) ->
           file.setSource ExternalSource
 
         @package.files.push @currentFile = file

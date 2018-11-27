@@ -180,11 +180,7 @@ export default
       @file.setSource source
     fileInputChanged: ->
       if localFile = @$refs.fileInput.files[0]
-        try
-          @file.setContentFromLocalFile localFile
-        catch error
-          alert error
-
+        @file.setContentFromLocalFile localFile, (err) -> alert error
         @$refs.fileInput.value = ''
     handleDrop: (e) ->
       @drag = false
