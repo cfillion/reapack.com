@@ -114,6 +114,7 @@ export default
 
 .CodeMirror-scroll
   min-height: 300px
+  max-height: 600px
 
 .CodeMirror-fullscreen
   border: 0
