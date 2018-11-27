@@ -80,6 +80,8 @@ div v-else=""
 </template>
 
 <script lang="coffee">
+import Vue from 'vue'
+
 import * as Types from '../types'
 import Package from '../package'
 
@@ -93,6 +95,7 @@ export default
   components: { FieldLabel, InputDropdown, InputMarkdown, PackageFiles, PackageLinks }
   data: ->
     package: null
+    dirty: false
   computed:
     repoUrl: -> "https://github.com/#{@package.type.repo}"
     indexUrl: -> "#{@repoUrl}/raw/master/index.xml"
@@ -105,12 +108,25 @@ export default
     reset: ->
       type = Types[@$route.params.type]
       @package = new Package(type if type?.repo)
-  beforeRouteEnter: (to, from, next) -> next (vm) -> vm.reset()
+      Vue.nextTick => @dirty = false
+    onBeforeUnload: (event) ->
+      if @dirty
+        event.preventDefault()
+        event.returnValue = ''
   watch:
     '$route.params.type': -> @reset()
-  # beforeRouteLeave: (to, from, next) ->
-  #   if window.confirm 'Do you really want to leave? Data you have entered will be lost.'
-  #     next()
-  #   else
-  #     next(false)
+    package:
+      deep: true
+      handler: -> @dirty = true
+  created: ->
+    window.addEventListener 'beforeunload', @onBeforeUnload
+  beforeDestroy: ->
+    window.removeEventListener 'beforeunload', @onBeforeUnload
+  beforeRouteEnter: (to, from, next) -> next (vm) -> vm.reset()
+  beforeRouteLeave: (to, from, next) ->
+    if !@dirty || window.confirm \
+        'Do you really want to leave? Data you have entered will be lost.'
+      next()
+    else
+      next(false)
 </script>
