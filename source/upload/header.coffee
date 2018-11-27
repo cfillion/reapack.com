@@ -12,11 +12,13 @@ Styles =
     replace:
       description: 'desc'
   '.reaperlangpack':
-    altSyntax: true,
-    compressed: true,
+    altSyntax: true
+    compressed: true
     uppercase: true
     replace:
       description: 'name'
+  '.reaperautoitem':
+    altSyntax: true
 
 export default class Header
   constructor: ->
