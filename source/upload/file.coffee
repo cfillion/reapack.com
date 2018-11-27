@@ -23,6 +23,8 @@ export ScriptSections = [
 ]
 
 isIndexable = (matchExt) ->
+  matchExt = matchExt.toLowerCase()
+
   for _, type of Types
     for ext in type.extensions
       return true if ext.toLowerCase() == matchExt
