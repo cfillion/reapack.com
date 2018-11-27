@@ -5,7 +5,7 @@
       i.fa.fa-fw> :class="link.type.icon" :title="link.type.name"
       a> :href="link.url" target="_blank" :title="link.url"
         | {{ link.name || link.url }}
-      a href="javascript:;" title="Remove this link" @click="removeLink(i)"
+      a href="#" title="Remove this link" @click.prevent="removeLink(i)"
         i.fa.fa-trash
 
   form @submit.prevent="submit"

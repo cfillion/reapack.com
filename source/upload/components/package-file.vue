@@ -60,7 +60,7 @@ div
       field-label Contents
       template v-if="isBinary"
         ' Binary file loaded from {{ uploadName }} ({{ contentSize }}).
-        a> href="javascript:;" @click=="file.content = ''" Click here
+        a> href="#" @click.prevent=="file.content = ''" Click here
         | to reset.
       package-file-content (
         v-else="" v-model="file.content"
@@ -68,7 +68,7 @@ div
       )
 
     p.error.binary-header v-if=="isBinary && (file.isPackage || header)"
-      | Warning: The metadata header generated for this file will not be inserted.
+      | Warning: The metadata header generated for this file type will not be inserted.
       pre v-if="header" {{ header }}
 
     p
