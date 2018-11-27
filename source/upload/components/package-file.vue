@@ -1,7 +1,7 @@
 <template lang="slim">
 .drop-target (
-  @dragover.prevent.stop="drag = true" @dragleave="drag = false"
-  @drop.prevent.stop="handleDrop($event)"
+  @dragover="onDragOver($event)" @dragleave="drag = false"
+  @drop="handleDrop($event)"
 )
   .drag-overlay v-if="drag"
 
@@ -179,12 +179,21 @@ export default
 
       @file.setSource source
     fileInputChanged: ->
-      if localFile = @$refs.fileInput.files[0]
-        @file.setContentFromLocalFile localFile, (err) -> alert error
-        @$refs.fileInput.value = ''
+      @loadLocalFile localFile if localFile = @$refs.fileInput.files[0]
+      @$refs.fileInput.value = ''
+    onDragOver: (e) ->
+      return unless @file.source == UploadSource
+      e.preventDefault()
+      e.stopPropagation()
+      @drag = true
     handleDrop: (e) ->
+      return unless @drag
+      e.preventDefault()
+      e.stopPropagation()
       @drag = false
-      @file.setContentFromLocalFile f if f = e.dataTransfer.files[0]
+      @loadLocalFile localFile if localFile = e.dataTransfer.files[0]
+    loadLocalFile: (localFile) ->
+      @file.setContentFromLocalFile localFile, (err) -> alert err
 </script>
 
 <style lang="sass">
