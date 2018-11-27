@@ -72,9 +72,11 @@ button[type=submit]
   margin-bottom: $margin
 
 .drop-target
+  box-sizing: border-box
+  min-height: 100%
   position: relative
 
-.drop-overlay
+.drag-overlay
   pointer-events: none // allow drops to other targets under the overlay
 
   position: absolute

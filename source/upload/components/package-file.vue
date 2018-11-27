@@ -1,5 +1,10 @@
 <template lang="slim">
-div
+.drop-target (
+  @dragover.prevent="drag = true" @dragleave="drag = false"
+  @drop.prevent.stop="handleDrop($event)"
+)
+  .drag-overlay v-if="drag"
+
   p
     field-label target="source" File source
     input-dropdown#source (
@@ -59,7 +64,7 @@ div
     p
       field-label Contents
       template v-if="isBinary"
-        ' Binary file loaded from {{ uploadName }} ({{ contentSize }}).
+        ' Binary file loaded from {{ file.localName }} ({{ contentSize }}).
         a> href="#" @click.prevent=="file.content = ''" Click here
         | to reset.
       package-file-content (
@@ -76,7 +81,7 @@ div
         i.fa.fa-folder-open>
         | Open local file
       | ...or drag/drop here
-      input type="file" ref="fileInput" @change="loadLocalFile"
+      input type="file" ref="fileInput" @change="fileInputChanged"
 </template>
 
 <script lang="coffee">
@@ -102,7 +107,7 @@ export default
       required: true
   data: ->
     platformName: ''
-    uploadName: ''
+    drag: false
   computed:
     sameAsPackageType: ->
       name = @file.package.type.name
@@ -173,22 +178,13 @@ export default
           return
 
       @file.setSource source
-    loadLocalFile: ->
-      return unless @$refs.fileInput.files.length > 0
-
-      fileInfo = @$refs.fileInput.files[0]
-
-      reader = new FileReader()
-      reader.onload = =>
-        if reader.result instanceof ArrayBuffer
-          @uploadName = fileInfo.name
-          @file.content = reader.result
-        else if reader.result.includes "\0"
-          reader.readAsArrayBuffer fileInfo
-        else
-          @file.content = reader.result
-
-      reader.readAsText fileInfo
+    fileInputChanged: ->
+      if localFile = @$refs.fileInput.files[0]
+        @file.setContentFromLocalFile localFile
+        @$refs.fileInput.value = ''
+    handleDrop: (e) ->
+      @drag = false
+      @file.setContentFromLocalFile f if f = e.dataTransfer.files[0]
 </script>
 
 <style lang="sass">

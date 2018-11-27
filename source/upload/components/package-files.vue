@@ -10,7 +10,7 @@
     button @click="addFile"
       i.fa.fa-plus>
       | Add file
-  package-file.file :file="currentFile"
+  .file: package-file :file="currentFile"
 </template>
 
 <script lang="coffee">
@@ -108,8 +108,10 @@ export default
   overflow-x: auto
 
 .file
-  padding: $padding
   overflow: auto
   overflow-wrap: break-word
   flex: 1 1 auto
+
+  &> div
+    padding: $padding
 </style>

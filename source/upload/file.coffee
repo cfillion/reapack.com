@@ -40,6 +40,7 @@ export default class File
     @sections = []
     @sections.push @defaultSection() if @isPackage
     @content = ''
+    @localName = null
 
   setSource: (source) ->
     if source == ExternalSource || source.file
@@ -62,6 +63,25 @@ export default class File
 
   isBinary: ->
     @content instanceof ArrayBuffer
+
+  setContentFromLocalFile: (localFile) ->
+    if localFile.size > (1000 ** 2) * 10
+      alert "'#{localFile.name}' is too big to be uploaded to the repository."
+      return
+
+    reader = new FileReader()
+
+    reader.onload = =>
+      @localName = localFile.name
+
+      if reader.result instanceof ArrayBuffer
+        @content = reader.result
+      else if reader.result.includes '\0'
+        reader.readAsArrayBuffer localFile
+      else
+        @content = reader.result
+
+    reader.readAsText localFile
 
   storageDirectory: ->
     segments = [@category()]

@@ -1,6 +1,6 @@
 <template lang="slim">
 .file-content.drop-target
-  .drop-overlay v-if="drop"
+  .drag-overlay v-if="drag"
 </template>
 
 <script lang="coffee">
@@ -20,7 +20,7 @@ import 'codemirror/mode/python/python'
 
 export default
   data: ->
-    drop: false
+    drag: false
   props:
     filename: String
     header: String
@@ -46,9 +46,11 @@ export default
     @updateMode()
 
     @codemirror.on 'change', @contentChanged
-    @codemirror.on 'dragover', => @drop = true
-    @codemirror.on 'dragleave', => @drop = false
-    @codemirror.on 'drop', => @drop = false
+    @codemirror.on 'dragover', => @drag = true
+    @codemirror.on 'dragleave', => @drag = false
+    @codemirror.on 'drop', (cm, e) =>
+      e.stopPropagation()
+      @drag = false
   beforeDestroy: ->
     @codemirror.getWrapperElement().remove()
   watch:
