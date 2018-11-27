@@ -1,6 +1,6 @@
 <template lang="slim">
 .drop-target (
-  @dragover.prevent="drag = true" @dragleave="drag = false"
+  @dragover.prevent.stop="drag = true" @dragleave="drag = false"
   @drop.prevent.stop="handleDrop($event)"
 )
   .drag-overlay v-if="drag"
@@ -180,7 +180,11 @@ export default
       @file.setSource source
     fileInputChanged: ->
       if localFile = @$refs.fileInput.files[0]
-        @file.setContentFromLocalFile localFile
+        try
+          @file.setContentFromLocalFile localFile
+        catch error
+          alert error
+
         @$refs.fileInput.value = ''
     handleDrop: (e) ->
       @drag = false

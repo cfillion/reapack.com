@@ -1,5 +1,6 @@
 <template lang="slim">
 .file-editor.group
+  .drag-overlay.page-overlay v-if="drag"
   .left-pane
     .lists
       package-file-list (
@@ -26,8 +27,9 @@ export default
       type: Object
       required: true
   data: ->
-    currentFile: null,
+    currentFile: null
     newFileCounter: 0
+    drag: false
   computed:
     packageFiles: ->
       @package.files.filter (f) -> f.isPackage
@@ -49,6 +51,14 @@ export default
     package:
       immediate: true
       handler: -> @currentFile = @package.files[0]
+  mounted: ->
+    document.addEventListener 'dragover', @onDragOver
+    document.addEventListener 'dragleave', @onDragLeave
+    document.addEventListener 'drop', @onDrop
+  beforeDestroy: ->
+    document.removeEventListener 'dragover', @onDragOver
+    document.removeEventListener 'dragleave', @onDragLeave
+    document.removeEventListener 'drop', @onDrop
   methods:
     newFileName: (ext) ->
       ext ?= @package.type.defaultExtension || @package.type.extensions[0]
@@ -80,6 +90,26 @@ export default
 
       if file == @currentFile
         @currentFile = @package.files[index] || @package.files[index - 1]
+    onDragOver: (e) ->
+      e.preventDefault()
+      e.stopPropagation()
+      @drag = true
+    onDragLeave: ->
+      @drag = false
+    onDrop: (e) ->
+      e.preventDefault()
+      e.stopPropagation()
+      @drag = false
+
+      for localFile in e.dataTransfer.files
+        file = new File localFile.name, @package
+
+        try
+          file.setContentFromLocalFile localFile
+        catch
+          file.setSource ExternalSource
+
+        @package.files.push @currentFile = file
 </script>
 
 <style lang="sass">
@@ -114,4 +144,7 @@ export default
 
   &> div
     padding: $padding
+
+.page-overlay
+  position: fixed
 </style>

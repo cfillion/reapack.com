@@ -29,6 +29,8 @@ isIndexable = (matchExt) ->
 
   false
 
+MAX_SIZE = 1000 * 100
+
 export default class File
   constructor: (@storageName, @package, @isPackage = false) ->
     @source = UploadSource
@@ -65,9 +67,8 @@ export default class File
     @content instanceof ArrayBuffer
 
   setContentFromLocalFile: (localFile) ->
-    if localFile.size > (1000 ** 2) * 10
-      alert "'#{localFile.name}' is too big to be uploaded to the repository."
-      return
+    if localFile.size > MAX_SIZE
+      throw "'#{localFile.name}' is too big to be uploaded to this repository."
 
     reader = new FileReader()
 
