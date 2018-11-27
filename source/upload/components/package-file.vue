@@ -196,7 +196,7 @@ export default
       @file.setContentFromLocalFile localFile, (err) -> alert err if err
 </script>
 
-<style lang="sass">
+<style lang="sass" scoped>
 @import 'config'
 
 label
