@@ -105,9 +105,12 @@ export default
     uploadName: ''
   computed:
     sameAsPackageType: ->
+      name = @file.package.type.name
+      name += ' (same as package)' unless @file.isPackage
+
       sameAsPackage: true
       icon: @file.package.type.icon
-      name: "#{@file.package.type.name} (same as package)"
+      name: name
     availableSources: ->
       sources = [
         UploadSource,
@@ -141,7 +144,8 @@ export default
       return types if @file.isPackage
 
       types.push { separator: true }
-      types.push Types[key] for key in Object.keys(Types).sort()
+      types.push Types[key] for key in Object.keys(Types).sort() \
+        when Types[key] != @file.package.type
       types
     storageNamePattern: ->
       return unless @file.isPackage
