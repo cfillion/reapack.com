@@ -64,14 +64,14 @@ export default class File
   isBinary: ->
     @content instanceof ArrayBuffer
 
-  setContentFromLocalFile: (localFile, errorHandler) ->
+  setContentFromLocalFile: (localFile, cb) ->
     MAX_SIZE_TEXT = 3 * (10**6)
     MAX_SIZE_BINARY = 100 * 1000
 
     tooBig = -> "'#{localFile.name}' is too big to be uploaded to this repository."
 
     if localFile.size > MAX_SIZE_TEXT
-      errorHandler tooBig() if errorHandler
+      cb tooBig() if cb
       return
 
     reader = new FileReader()
@@ -81,13 +81,15 @@ export default class File
 
       if reader.result instanceof ArrayBuffer
         @content = reader.result
+        cb()
       else if reader.result.includes '\0'
         if localFile.size > MAX_SIZE_BINARY
-          errorHandler tooBig() if errorHandler
+          cb tooBig() if cb
         else
           reader.readAsArrayBuffer localFile
       else
         @content = reader.result
+        cb()
 
     reader.readAsText localFile
 

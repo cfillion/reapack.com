@@ -193,7 +193,7 @@ export default
       @drag = false
       @loadLocalFile localFile if localFile = e.dataTransfer.files[0]
     loadLocalFile: (localFile) ->
-      @file.setContentFromLocalFile localFile, (err) -> alert err
+      @file.setContentFromLocalFile localFile, (err) -> alert err if err
 </script>
 
 <style lang="sass">
