@@ -104,9 +104,10 @@ export default
       for localFile in e.dataTransfer.files
         file = new File localFile.name, @package
 
-        file.setContentFromLocalFile localFile, (err) =>
-          file.setSource ExternalSource if err
-          @package.files.push @currentFile = file
+        do (file) =>
+          file.setContentFromLocalFile localFile, (err) =>
+            file.setSource ExternalSource if err
+            @package.files.push @currentFile = file
 </script>
 
 <style lang="sass">
