@@ -1,12 +1,3 @@
-# document.body.addEventListener 'dragover', ->
-#   app.drag = true
-#
-# document.body.addEventListener 'dragend', ->
-#   app.drag = false
-#
-# document.body.addEventListener 'drop', (e) ->
-#   e.preventDefault()
-
 import Vue from 'vue'
 import VueRouter from 'vue-router'
 

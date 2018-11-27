@@ -1,5 +1,6 @@
 <template lang="slim">
-.file-content
+.file-content.drop-target
+  .drop-overlay v-if="drop"
 </template>
 
 <script lang="coffee">
@@ -18,6 +19,8 @@ import 'codemirror/mode/lua/lua'
 import 'codemirror/mode/python/python'
 
 export default
+  data: ->
+    drop: false
   props:
     filename: String
     header: String
@@ -43,6 +46,9 @@ export default
     @updateMode()
 
     @codemirror.on 'change', @contentChanged
+    @codemirror.on 'dragover', => @drop = true
+    @codemirror.on 'dragleave', => @drop = false
+    @codemirror.on 'drop', => @drop = false
   beforeDestroy: ->
     @codemirror.getWrapperElement().remove()
   watch:

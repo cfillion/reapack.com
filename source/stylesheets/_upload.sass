@@ -1,15 +1,3 @@
-.drag
-  $height: 250px
-
-  background-color: $table-row-even
-  border-radius: 7px
-  border: 4px dashed $foreground
-  font-size: 2em
-  height: $height
-  line-height: $height
-  text-align: center
-  vertical-align: middle
-
 @import 'upload-mixins'
 
 // adding this to the global style would break the screenshot's shadow on the homepage
@@ -82,5 +70,20 @@ button[type=submit]
   border-radius: 5px
   padding: $padding
   margin-bottom: $margin
+
+.drop-target
+  position: relative
+
+.drop-overlay
+  pointer-events: none // allow drops to other targets under the overlay
+
+  position: absolute
+  bottom: 0px
+  left: 0px
+  right: 0px
+  top: 0px
+
+  z-index: 10
+  background-color: #2273b733
 
 @import 'upload-components'
