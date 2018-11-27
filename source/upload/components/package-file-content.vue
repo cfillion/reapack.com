@@ -118,13 +118,8 @@ export default
 .CodeMirror
   +input-field
   font-size: 14px
-  height: auto
   text-shadow: none
   z-index: 0
-
-.CodeMirror-scroll
-  min-height: 300px
-  max-height: 600px
 
 .CodeMirror-fullscreen
   border: 0
