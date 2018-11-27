@@ -72,12 +72,12 @@
         :header="header" :filename="file.effectiveInstallName()"
       )
 
-    p.error.binary-header v-if=="isBinary && (file.isPackage || header)"
+    p.error#binary-header v-if=="isBinary && (file.isPackage || header)"
       | Warning: The metadata header generated for this file type will not be inserted.
       pre v-if="header" {{ header }}
 
     p
-      button> @click=="$refs.fileInput.click()"
+      button#load-file> @click=="$refs.fileInput.click()"
         i.fa.fa-folder-open>
         | Open local file
       | ...or drag/drop here
@@ -211,8 +211,11 @@ input[type=file]
   position: absolute
   top: -100px
 
-.binary-header pre
+#binary-header > pre
   font-family: monospace
   font-size: 14px
   margin-top: $padding
+
+#load-file
+  margin: 0
 </style>

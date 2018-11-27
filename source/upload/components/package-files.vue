@@ -129,7 +129,7 @@ export default
   max-width: $width // prevent text overflows
 
   button
-    margin: 8px
+    margin: $padding
     flex: 0 0 auto
 
 .lists
