@@ -200,6 +200,7 @@ code[title]
 input[type=file]
   opacity: 0
   position: absolute
+  top: -100px
 
 .binary-header pre
   font-family: monospace
