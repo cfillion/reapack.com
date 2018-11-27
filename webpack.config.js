@@ -5,6 +5,7 @@ const MiniCssExtractPlugin = require('mini-css-extract-plugin')
 var babel = {
   loader: 'babel-loader',
   options: {
+    cacheDirectory: true,
     presets: [
       ["@babel/preset-env", {
         "targets": "> 0.25%, not dead"
