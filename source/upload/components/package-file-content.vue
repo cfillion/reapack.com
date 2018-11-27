@@ -15,8 +15,18 @@ import 'codemirror/addon/display/rulers'
 import 'codemirror/addon/edit/trailingspace'
 import 'codemirror/addon/selection/active-line'
 
+import 'codemirror/mode/css/css'
+import 'codemirror/mode/htmlmixed/htmlmixed'
+import 'codemirror/mode/javascript/javascript'
 import 'codemirror/mode/lua/lua'
+import 'codemirror/mode/properties/properties'
 import 'codemirror/mode/python/python'
+import 'codemirror/mode/xml/xml'
+
+CodeMirror.modeInfo.push [
+  { mode: 'javascript', ext: ['eel', 'jsfx'] } # function keyword
+  { mode: 'properties', ext: ['reaperlangpack', 'reapertheme', 'reascale'] }
+]...
 
 export default
   data: ->
@@ -95,7 +105,7 @@ export default
       newValue = @codemirror.getRange @contentRange()...
       @$emit 'input', newValue
     updateMode: ->
-      newMode = CodeMirror.findModeByFileName(@filename)?.mode
+      newMode = CodeMirror.findModeByFileName(@filename.toLowerCase())?.mode
       newMode = null unless CodeMirror.modes[newMode]
       oldMode = @codemirror.getOption 'mode'
 
