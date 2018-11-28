@@ -58,7 +58,7 @@ export default class File
     @source = source
 
   toSource: ->
-    { file: @, name: @effectiveStorageName() }
+    { file: @, name: @displayName() }
 
   category: ->
     @package.category || 'Category'
@@ -118,6 +118,14 @@ export default class File
     defaultExt = @package.type.extensions[0]
 
     "#{author}#{pkgName}#{if ext then defaultExt else ''}"
+
+  displayName: ->
+    name = if @source == UploadSource
+      @effectiveStorageName()
+    else
+      @effectiveInstallName()
+
+    name || '<no name>'
 
   effectiveStorageName: ->
     if @source == UploadSource

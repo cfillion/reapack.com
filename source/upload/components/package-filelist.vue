@@ -11,7 +11,7 @@
         v-if="isUpload(file) && file.canInstall()" v-model="file.install"
       )
       .name
-        .label() {{ name(file) }}
+        .label() {{ file.displayName() }}
         .install v-if="showInstallName(file)"
           i.fa.fa-fw.fa-download
           | {{ file.effectiveInstallName() }}
@@ -37,13 +37,6 @@ export default
       required: true
     current: Object
   methods:
-    name: (file) ->
-      name = if file.source == UploadSource
-        file.effectiveStorageName()
-      else
-        file.effectiveInstallName()
-
-      name || '<no name>'
     isUpload: (file) ->
       file.source == UploadSource
     showInstallName: (file) ->
