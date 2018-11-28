@@ -10,8 +10,8 @@
       | {{ displayValue }}
     i.caret.fa.fa-caret-down
   dropdown-menu (
-    :items="choices" :show="showMenu" :multiple="multiple" @input="setValue"
-    :checked=="multiple ? value : []" @change="showMenu = false"
+    :items="choices" :show="showMenu" :multiple="multiple" :button="$el"
+    :checked=="multiple ? value : []" @input="setValue" @leave="showMenu = false"
   )
     slot
 </template>
@@ -48,16 +48,7 @@ export default
           @value.sort (a, b) => @choices.indexOf(a) - @choices.indexOf(b)
       else
         @$emit 'input', val
-    onDocumentClick: (e) ->
-      if @showMenu && (e.target == @$el || !@$el.contains(e.target))
-        @showMenu = false
-        e.preventDefault()
-    formatValue: (val) ->
-      val?.name || val
-  created: ->
-    document.addEventListener 'click', @onDocumentClick, true
-  destroyed: ->
-    document.removeEventListener 'click', @onDocumentClick, true
+    formatValue: (val) -> val?.name || val
 </script>
 
 <style lang="sass" scoped>
