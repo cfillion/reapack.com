@@ -18,16 +18,14 @@ resolveSection = (sectionId) ->
     return section if section.id == sectionId
   sectionId # fallback
 
-checkedFetch = (url, options = {}) ->
-  new Promise (resolve, reject) =>
-    fetch url, options
-      .then (response) =>
-        if response.ok
-          resolve response
-        else
-          reject new Error "Server replied with
-            #{response.status} #{response.statusText}."
-      .catch (error) => reject error
+checkedFetch = (url, options = {}) -> new Promise (resolve, reject) =>
+  fetch url, options
+  .then (response) =>
+    if response.ok
+      resolve response
+    else
+      reject new Error "Server replied with
+        #{response.status} #{response.statusText}."
 
 class IndexPackage
   constructor: (node, @index) ->
@@ -66,8 +64,6 @@ class IndexPackage
     pkg.name = @name
     pkg.category = @category
 
-    pkg.files[0].storageName = @fileName
-
     for linkNode in @linkNodes
       type = resolveLinkType(linkNode.getAttribute('rel') || 'website')
       name = linkNode.textContent
@@ -93,7 +89,7 @@ class IndexPackage
 
       Promise.all(filePromises)
       .then => resolve pkg
-      .catch (error) => reject error
+    .catch (error) => reject error
 
   loadFiles: (fileNodes, pkg) ->
     hosted = {}
@@ -176,11 +172,15 @@ class IndexPackage
           method: 'post'
           headers: { 'Content-Type': 'text/plain' }
           body: text
+        .catch (error) =>
+          reject new Error "Could not parse header of #{file}. #{error.message}"
       else
         resolve header: null, content: text
+    .catch (error) => reject new Error "Could not fetch #{file}. #{error.message}"
 
     if parseHeader
       promise.then (response) =>
+        return unless response
         offset = response.headers.get 'X-End-Of-Header'
         content = content.substring offset
         response.json()
@@ -196,9 +196,9 @@ export default class Index
     @constructor()
 
     @fetchFile 'index.xml'
-      .then (response) => response.text()
-      .then (text) => @loadFromText text
-      .catch (error) => @error = error.message
+    .then (response) => response.text()
+    .then (text) => @loadFromText text
+    .catch (error) => @error = error.message
 
   loadFromText: (text) ->
     parser = new DOMParser()
