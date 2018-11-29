@@ -6,6 +6,10 @@ form.editor v-if="package && package.type" @submit.prevent="submit"
     | Fill this form to submit a new package or update an existing package on
       the <a :href="repoUrl" target="_blank">{{ package.type.repo }}</a> repository.
 
+  p.error v-if="index.error"
+    strong> Error:
+    | Could not to load the content of the repository. {{ index.error }}
+
   p.error v-if="errors.length" ref="errors"
     strong Please correct the following error(s):
     ul: li v-for="error in errors" {{ error }}
@@ -13,17 +17,31 @@ form.editor v-if="package && package.type" @submit.prevent="submit"
   h3 Metadata
   p Customize how your package will appear in ReaPack.
 
-  p
+  p.autocomplete
     field-label target="name" Display name
     input#name (
+      ref="nameInput"
       type="text" autofocus=true v-model.trim="package.name"
       :placeholder=="'Example: ' + package.type.placeholders.name"
+      @input="matchingPackages = index.similarPackages(package.name)"
     )
+    dropdown-menu (
+      :show="matchingPackages.length > 0" :items="matchingPackages"
+      :button="$refs.nameInput"
+      @input="loadExisting($event)" @leave="matchingPackages = []"
+    )
+      template slot="item" slot-scope="slotProps"
+        strong() {{ slotProps.item.name }}
+        br
+        | v{{ slotProps.item.latest.name }} by
+          {{ slotProps.item.latest.author || 'Unknown author' }}
+          – {{ slotProps.item.latest.fileNodes.length }} file(s)
+          – {{ slotProps.item.category }}
     | Choose a brief name to describe your package.
 
   p
     field-label target="category" Category
-    input-dropdown#category v-model="package.category" :choices='["Hello", "World", "Lorem ipsum dolor sit amet"]'
+    input-dropdown#category v-model="package.category" :choices="index.categories"
     | Select the most appropriate category.
 
   p
@@ -74,7 +92,7 @@ form.editor v-if="package && package.type" @submit.prevent="submit"
       updating the package.
 
   p
-    button.main type="submit" :disabled="!canSubmit"
+    button.main type="submit" :disabled="!dirty || !canSubmit"
      | Create pull request on {{ package.type.repo }}
 
 div v-else=""
@@ -88,7 +106,9 @@ import Vue from 'vue'
 
 import * as Types from '../types'
 import Package from '../package'
+import Index from '../index'
 
+import DropdownMenu from './dropdown-menu.vue'
 import FieldLabel from './field-label.vue'
 import InputDropdown from './input-dropdown.vue'
 import InputMarkdown from './input-markdown.vue'
@@ -96,14 +116,18 @@ import PackageFiles from './package-files.vue'
 import PackageLinks from './package-links.vue'
 
 export default
-  components: { FieldLabel, InputDropdown, InputMarkdown, PackageFiles, PackageLinks }
+  components: {
+    DropdownMenu, FieldLabel, InputDropdown, InputMarkdown,
+    PackageFiles, PackageLinks,
+  }
   data: ->
-    package: null
     dirty: false
     errors: []
+    index: new Index
+    matchingPackages: []
+    package: null
   computed:
     repoUrl: -> "https://github.com/#{@package.type.repo}"
-    indexUrl: -> "#{@repoUrl}/raw/master/index.xml"
     aboutPlaceholder: ->
       name = @package.name.trim()
       name = 'Package name' unless name
@@ -111,16 +135,28 @@ export default
       Key features:\n\n- Lorem ipsum\n- Dolor sit amet\n- Consectetur adipiscing elit"
     canSubmit: -> @package.name && @package.category && @package.version
   methods:
+    setPackage: (@package) ->
+      Vue.nextTick => @dirty = false
     reset: ->
       type = Types[@$route.params.type]
-      @package = new Package type if type?.repo
-      Vue.nextTick => @dirty = false
+
+      if type?.repo
+        @setPackage new Package(type)
+        @index.load type.repo
+    loadExisting: (pkgInfo) ->
+      #return unless confirm "Load package '#{pkgInfo.name}'?
+      #  Unsaved changes will be lost."
+
+      pkgInfo.load()
+      .then (pkg) => @setPackage pkg
+      .catch (error) => alert error
     onBeforeUnload: (event) ->
       if @dirty
         event.preventDefault()
         event.returnValue = ''
     submit: ->
       @errors = @package.validateAll()
+
       if @errors.length
         Vue.nextTick => @$refs.errors.scrollIntoView()
         return
@@ -141,3 +177,11 @@ export default
     else
       next(false)
 </script>
+
+<style lang="sass">
+.autocomplete
+  position: relative
+
+  .dropdown-menu
+    width: 100%
+</style>

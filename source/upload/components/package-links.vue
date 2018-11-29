@@ -29,25 +29,7 @@
 </template>
 
 <script lang="coffee">
-LinkTypes = [
-    tag: 'link'
-    icon: 'fa-link'
-    name: 'Website'
-    namePlaceholder: 'ReaPack website'
-    urlPlaceholder: 'https://reapack.com'
-  ,
-    tag: 'screenshot',
-    icon: 'fa-picture-o'
-    name: 'Screenshot'
-    namePlaceholder: 'Docked mode'
-    urlPlaceholder: 'https://i.imgur.com/4xPMV9J.gif'
-  ,
-    tag: 'donation'
-    icon: 'fa-paypal'
-    name: 'Donation'
-    namePlaceholder: 'Donate via PayPal'
-    urlPlaceholder: 'https://paypal.me/cfillion'
-]
+import { LinkTypes } from '../package'
 
 import FieldLabel from './field-label.vue'
 import InputDropdown from './input-dropdown.vue'

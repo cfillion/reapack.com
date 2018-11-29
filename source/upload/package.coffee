@@ -1,6 +1,29 @@
 import File, { UploadSource, ExternalSource } from './file'
 import Header from './header'
 
+export LinkTypes = [
+    tag: 'link'
+    rel: 'website'
+    icon: 'fa-link'
+    name: 'Website'
+    namePlaceholder: 'ReaPack website'
+    urlPlaceholder: 'https://reapack.com'
+  ,
+    tag: 'screenshot'
+    rel: 'screenshot'
+    icon: 'fa-picture-o'
+    name: 'Screenshot'
+    namePlaceholder: 'Docked mode'
+    urlPlaceholder: 'https://i.imgur.com/4xPMV9J.gif'
+  ,
+    tag: 'donation'
+    rel: 'donation'
+    icon: 'fa-paypal'
+    name: 'Donation'
+    namePlaceholder: 'Donate via PayPal'
+    urlPlaceholder: 'https://paypal.me/cfillion'
+]
+
 export default class Package
   constructor: (@type) ->
     @name = ''
