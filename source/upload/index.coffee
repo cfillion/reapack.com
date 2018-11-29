@@ -1,4 +1,4 @@
-import fuzzysearch from 'fuzzysearch'
+import fuzzysort from 'fuzzysort'
 import { relative, extname } from 'path'
 
 import * as Types from './types'
@@ -219,9 +219,12 @@ export default class Index
       reapack
 
   similarPackages: (userInput) ->
-    return [] unless userInput
-    userInput = userInput.toLowerCase()
-    pkg for pkg in @packages when fuzzysearch userInput, pkg.name.toLowerCase()
+    matches = fuzzysort.go userInput, @packages,
+      key: 'name'
+      limit: 50
+      threshold: -500
+
+    match.obj for match in matches
 
   fetchFile: (path) ->
     checkedFetch "https://raw.githubusercontent.com/#{@repo}/master/#{path}"
