@@ -33,7 +33,7 @@ export default
       f = if add then document.addEventListener else document.removeEventListener
       f 'click', @onDocumentClick, true
     onDocumentClick: (event) ->
-      if @show && (!@button?.contains(event.target))
+      if @show && !@button?.contains(event.target)
         event.preventDefault()
         @$emit 'leave'
   watch:

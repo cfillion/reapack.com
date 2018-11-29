@@ -1,7 +1,7 @@
 <template lang="slim">
 .dropdown
   button (
-    :id="id" type="button" :class="{ active: showMenu }"
+    :id="id" ref="button" type="button" :class="{ active: showMenu }"
     :disabled="disabled" @click="showMenu = !showMenu"
   )
     .placeholder v-if="!displayValue" Select a value…
@@ -10,7 +10,7 @@
       | {{ displayValue }}
     i.caret.fa.fa-caret-down
   dropdown-menu (
-    :items="choices" :show="showMenu" :multiple="multiple" :button="$el"
+    :items="choices" :show="showMenu" :multiple="multiple" :button="$refs.button"
     :checked=="multiple ? value : []" @input="setValue" @leave="showMenu = false"
   )
     slot
