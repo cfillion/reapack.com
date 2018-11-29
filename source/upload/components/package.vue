@@ -1,5 +1,14 @@
 <template lang="slim">
 form.editor v-if="package && package.type" @submit.prevent="submit"
+  .load-overlay v-if="loading": div
+    .icon: i.fa.fa-spin.fa-circle-o-notch
+    .desc Loading package...
+    .error v-if="loadingError"
+      p
+        strong> Error:
+        | {{ loadingError }}
+      p: button type="button" @click="loading = false, loadingError = null" Close
+
   h2 Package editor ({{ package.type.name }})
 
   p
@@ -124,6 +133,8 @@ export default
     dirty: false
     errors: []
     index: new Index
+    loading: false
+    loadingError: null
     matchingPackages: []
     package: null
   computed:
@@ -144,12 +155,16 @@ export default
         @setPackage new Package(type)
         @index.load type.repo
     loadExisting: (pkgInfo) ->
-      #return unless confirm "Load package '#{pkgInfo.name}'?
-      #  Unsaved changes will be lost."
+      return unless confirm "Load package '#{pkgInfo.name}' from
+        #{@package.type.repo}? Unsaved changes will be lost."
+
+      @loading = true
 
       pkgInfo.load()
-      .then (pkg) => @setPackage pkg
-      .catch (error) => alert error
+      .then (pkg) =>
+        @setPackage pkg
+        @loading = false
+      .catch (error) => @loadingError = error.message
     onBeforeUnload: (event) ->
       if @dirty
         event.preventDefault()
@@ -184,4 +199,32 @@ export default
 
   .dropdown-menu
     width: 100%
+
+.load-overlay
+  position: fixed
+  top: 0
+  left: 0
+  right: 0
+  bottom: 0
+
+  background-color: #0008
+  display: flex
+  text-align: center
+  align-items: center
+  justify-content: center
+  z-index: 100
+
+  padding-bottom: 15%
+
+  & > div
+    margin: auto // prevent overflow over the top of the page
+
+  .icon
+    font-size: 6em
+
+  .desc
+    font-size: 2em
+
+  .error
+    margin-top: 20px
 </style>
