@@ -177,8 +177,7 @@ export default
   left: 0
   width: 100vw
   height: 100vh
-  border: none
-  box-shadow: none
+  border-style: none
   border-radius: unset
 
   .left-pane
