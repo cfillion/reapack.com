@@ -12,6 +12,9 @@ html
 body
   line-height: 1.15
 
+  &.noscroll
+    overflow: hidden
+
 .wrapper
   margin: auto
   max-width: $content-width
@@ -75,6 +78,9 @@ blockquote, pre
   background-color: $table-row-odd
   border-radius: 7px
   padding: $padding
+
+pre
+  overflow: auto
 
 ul
   list-style-type: disc

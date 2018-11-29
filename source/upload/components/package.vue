@@ -89,7 +89,10 @@ form.editor v-if="package && package.type" @submit.prevent="submit"
 
   div
     field-label Provided files
-    package-files :package="package"
+    package-files (
+      :package="package"
+      :fullscreen="fullscreen" @fullscreen="fullscreen = $event"
+    )
 
   p
     field-label target="changelog" optional=true Changelog
@@ -132,6 +135,7 @@ export default
   data: ->
     dirty: false
     errors: []
+    fullscreen: false
     index: new Index
     loading: false
     loadingError: null
@@ -144,7 +148,8 @@ export default
       name = 'Package name' unless name
       "# #{name}\n\nLonger description of the package here.\n\n
       Key features:\n\n- Lorem ipsum\n- Dolor sit amet\n- Consectetur adipiscing elit"
-    canSubmit: -> @package.name && @package.category && @package.version
+    canSubmit: ->
+      !@fullscreen && @package.name && @package.category && @package.version
   methods:
     setPackage: (@package) ->
       Vue.nextTick => @dirty = false
@@ -180,6 +185,12 @@ export default
     package:
       deep: true
       handler: -> @dirty = true
+    fullscreen: (fs) ->
+      document.body.classList.toggle 'noscroll', fs
+
+      Vue.nextTick =>
+        for editor in @$el.querySelectorAll '.CodeMirror'
+          editor.CodeMirror.refresh()
   created: ->
     window.addEventListener 'beforeunload', @onBeforeUnload
   beforeDestroy: ->

@@ -65,6 +65,7 @@
     p
       field-label Contents
       template v-if="isBinary"
+        br
         ' Binary file loaded from {{ file.localName }} ({{ contentSize }}).
         a> href="#" @click.prevent=="file.content = ''" Click here
         | to reset.

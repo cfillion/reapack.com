@@ -1,5 +1,5 @@
 <template lang="slim">
-.file-editor.group
+.file-editor.group :class="{ fullscreen }"
   .drag-overlay.page-overlay v-if="drag"
   .left-pane
     .lists
@@ -12,6 +12,9 @@
       i.fa.fa-plus>
       | Add file
   .file: package-file :file="currentFile"
+  i.fa.fa-arrows-alt.toggle-fullscreen (
+    title="Toggle fullscreen" @click=="$emit('fullscreen', !fullscreen)"
+  )
 </template>
 
 <script lang="coffee">
@@ -26,10 +29,11 @@ export default
     package:
       type: Object
       required: true
+    fullscreen: Boolean
   data: ->
     currentFile: null
-    newFileCounter: 0
     drag: false
+    newFileCounter: 0
   computed:
     packageFiles: ->
       @package.files.filter (f) -> f.isPackage
@@ -114,9 +118,18 @@ export default
 @import 'config'
 
 .file-editor
+  box-sizing: border-box
   display: flex
   height: 650px
   padding: 0
+  position: relative
+
+  &:hover .toggle-fullscreen
+    display: block
+
+@mixin left-pane-width($width)
+  flex: 0 0 $width
+  max-width: $width // prevent text overflows
 
 .left-pane
   $width: 250px
@@ -125,8 +138,7 @@ export default
   display: flex
   flex-direction: column
   justify-content: space-between
-  flex: 0 0 $width
-  max-width: $width // prevent text overflows
+  +left-pane-width(250px)
 
   button
     margin: $padding
@@ -145,4 +157,33 @@ export default
 
 .page-overlay
   position: fixed
+
+.toggle-fullscreen
+  position: absolute
+  top: 0
+  right: 0
+  margin: 10px
+  text-shadow: none
+  cursor: pointer
+  display: none
+  opacity: 0.2
+
+  &:hover
+    opacity: 0.5
+
+.fullscreen
+  position: fixed
+  top: 0
+  left: 0
+  width: 100vw
+  height: 100vh
+  border: none
+  box-shadow: none
+  border-radius: unset
+
+  .left-pane
+    +left-pane-width(300px)
+
+  .CodeMirror
+    height: 90vh
 </style>

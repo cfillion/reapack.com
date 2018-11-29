@@ -9,8 +9,6 @@ import 'codemirror/mode/meta'
 import 'codemirror/lib/codemirror.css'
 import 'codemirror/theme/bespin.css'
 
-import 'codemirror/addon/display/fullscreen'
-import 'codemirror/addon/display/fullscreen.css'
 import 'codemirror/addon/display/rulers'
 import 'codemirror/addon/edit/trailingspace'
 import 'codemirror/addon/selection/active-line'
@@ -45,11 +43,6 @@ export default
       rulers: [
         { color: '#3b332e', column: 80, width: '0.5em' }
       ]
-      extraKeys:
-        'F11': (cm) ->
-          cm.setOption 'fullScreen', not cm.getOption('fullScreen')
-        'Esc': (cm) ->
-          cm.setOption 'fullScreen', false if cm.getOption 'fullScreen'
 
     @updateHeader()
     @updateContent()
@@ -120,10 +113,6 @@ export default
   font-size: 14px
   text-shadow: none
   z-index: 0
-
-.CodeMirror-fullscreen
-  border: 0
-  border-radius: unset
 
 .cm-trailingspace
   background-color: transparentize(red, 0.5)
