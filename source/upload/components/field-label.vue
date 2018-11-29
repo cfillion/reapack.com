@@ -1,7 +1,11 @@
 <template lang="slim" functional>
 label :for="props.target"
   slot
-  small< v-if="props.optional" (optional)
+
+  / using a tab to render a breakable whitespace *only* if the field is optional
+  template v-if="props.optional"
+    | &#32;
+    small() (optional)
 </template>
 
 <script lang="coffee">
@@ -11,7 +15,7 @@ export default
     optional: Boolean
 </script>
 
-<style lang="sass" scoped>
+<style lang="sass">
 label
   font-weight: bold
 

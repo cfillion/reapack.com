@@ -15,6 +15,7 @@
   template v-if="file.source == $options.UploadSource"
     p
       field-label Storage directory
+      br
       | /{{ file.storageDirectory() }}/
 
     p v-if="file.source == $options.UploadSource"
@@ -198,9 +199,6 @@ export default
 
 <style lang="sass">
 @import 'config'
-
-.file label
-  display: block
 
 code[title]
   cursor: help
