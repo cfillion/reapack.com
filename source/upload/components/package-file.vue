@@ -48,7 +48,7 @@
         type="text" v-model.trim="file.installName"
         :placeholder="file.effectiveInstallName()"
       )
-      | &lt;resource path&gt;/{{ file.installPath() }}
+      | &lt;resource path&gt;/{{ file.fullInstallPath() }}
 
     p v-if="file.effectiveType().actionList"
       field-label target="sections" optional=true Action List

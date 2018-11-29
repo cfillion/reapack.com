@@ -1,4 +1,4 @@
-import { join, extname } from 'path'
+import { join, extname, relative } from 'path'
 import { NoIndexHeader } from './header'
 import * as Types from './types'
 
@@ -22,7 +22,7 @@ export ScriptSections = [
     name: 'Media Explorer'
 ]
 
-isIndexable = (matchExt) ->
+export isIndexable = (matchExt) ->
   matchExt = matchExt.toLowerCase()
 
   for _, type of Types
@@ -95,14 +95,6 @@ export default class File
 
     reader.readAsText localFile
 
-  storageDirectory: ->
-    segments = [@category()]
-    segments.push @defaultName(false) unless @isPackage
-    join segments...
-
-  installDirectory: ->
-    if @effectiveType().longPath then @storageDirectory() else ''
-
   authorSlug: ->
     @package.author.toLowerCase().replace /[^\w]+/g, ''
 
@@ -127,6 +119,16 @@ export default class File
 
     name || '<no name>'
 
+  storageDirectory: (appendCategory = true) ->
+    segments = []
+    segments.push @category() if appendCategory
+    segments.push @defaultName(false) unless @isPackage
+    join segments...
+
+  installDirectory: ->
+    source = @source.file ? @
+    source.storageDirectory !!@effectiveType().longPath
+
   effectiveStorageName: ->
     if @source == UploadSource
       if name = @storageName || (@defaultName() if @isPackage)
@@ -145,14 +147,18 @@ export default class File
   effectiveType: ->
     @type || @package.type
 
+  # absolute storage path on the repository
   storagePath: ->
     join @storageDirectory(), @effectiveStorageName()
 
+  # installation path relative to the package's category
   installPath: ->
-    root = @effectiveType().installRoot
-    filePath = join @installDirectory(), @effectiveInstallName()
+    join @installDirectory(), @effectiveInstallName()
 
-    "#{root}/#{filePath}"
+  # installation path relative to the resource directory
+  fullInstallPath: ->
+    # not using join here to avoid normalizing the path (parsing ..)
+    "#{@effectiveType().installRoot}/#{@installPath()}"
 
   canInstall: ->
     !@isPackage || !@effectiveType().metapackage
@@ -184,27 +190,29 @@ export default class File
 
     opts
 
-  providesLine: ->
+  providesLine: (packageFile) ->
     return unless @install
-
-    sourceFile = @source.file ? @
-    storageName = sourceFile.effectiveStorageName()
-    installName = @effectiveInstallName()
 
     opts = @options()
     line = ''
     line += "[#{opts.join(' ')}] " if opts.length > 0
 
     if @source == ExternalSource
-      line = "#{installName} #{@url}"
+      line += "#{@effectiveInstallName()} #{@url}"
     else
-      target = if installName != storageName then " > #{installName}" else ''
+      sourceFile = @source.file ? @
+      storagePath = relative packageFile.storageDirectory(), sourceFile.storagePath()
+
+      installRoot = packageFile.storageDirectory !!@effectiveType().longPath
+      installPath = relative installRoot, @installPath()
+
+      target = if installPath != storagePath then " > #{installPath}" else ''
 
       if sourceFile.isPackage
         return if opts.length == 0 && !target
-        storageName = '.'
+        storagePath = '.'
 
-      line += "#{storageName}#{target}"
+      line += "#{storagePath}#{target}"
 
     line
 

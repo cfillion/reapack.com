@@ -20,7 +20,7 @@ export default class Package
         link.url
 
   providesTag: ->
-    line for file in @files when line = file.providesLine()
+    line for file in @files when line = file.providesLine @files[0]
 
   header: ->
     header = new Header
