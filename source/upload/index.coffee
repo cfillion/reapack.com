@@ -127,9 +127,6 @@ class IndexPackage
 
       source.storageName = relative source.storageDirectory(), fullPath
 
-      if source.isPackage && source.storageName == source.defaultName()
-        source.storageName = null
-
       if fileNodes.length == 1
         @setInstallFileData source, fileNodes[0]
         continue
