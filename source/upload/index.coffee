@@ -19,14 +19,13 @@ resolveSection = (sectionId) ->
     return section if section.id == sectionId
   sectionId # fallback
 
-checkedFetch = (url, options = {}) -> new Promise (resolve, reject) =>
-  fetch url, options
-  .then (response) =>
-    if response.ok
-      resolve response
-    else
-      reject new Error "Server replied with #{response.status} #{response.statusText}."
-  .catch (error) => reject error
+checkedFetch = (url, options = {}) ->
+  response = await fetch url, options
+
+  unless response.ok
+    throw new Error "Server replied with #{response.status} #{response.statusText}."
+
+  response
 
 class IndexPackage
   constructor: (node, @index) ->
@@ -60,7 +59,7 @@ class IndexPackage
   parsePlatform: (platform) ->
     if platform == 'all' then '' else platform
 
-  load: -> new Promise (resolve, reject) =>
+  load: ->
     pkg = new Package @type
     pkg.name = @name
     pkg.category = @category
@@ -72,25 +71,22 @@ class IndexPackage
       [name, url] = [url, name] unless url
       pkg.links.push { type, name, url } if type && url
 
-    @fetchFile @packageFile
-    .then ({header, content}) =>
-      pkg.version = header.version || ''
-      pkg.author = header.author || ''
-      pkg.about = header.about || ''
-      pkg.changelog = header.changelog || ''
-      pkg.files[0].content = content
+    {header, content} = await @fetchFile @packageFile
+    pkg.version = header.version || ''
+    pkg.author = header.author || ''
+    pkg.about = header.about || ''
+    pkg.changelog = header.changelog || ''
+    pkg.files[0].content = content
 
-      current = @findVersion header.version
+    current = @findVersion header.version
 
-      unless current
-        return reject "Cannot find version '#{header.version}' in the index."
+    unless current
+      throw "Cannot find version '#{header.version}' in the index."
 
-      fileNodes = current.getElementsByTagName 'source'
-      filePromises = @loadFiles fileNodes, pkg
+    fileNodes = current.getElementsByTagName 'source'
+    await @loadFiles fileNodes, pkg
 
-      Promise.all(filePromises)
-      .then => resolve pkg
-    .catch (error) => reject error
+    pkg
 
   loadFiles: (fileNodes, pkg) ->
     hosted = {}
@@ -113,16 +109,15 @@ class IndexPackage
 
     for fullPath, fileNodes of hosted
       # start by creating the shared uploaded file
-      source = if fullPath == @packageFile#fileNodes[0].hasAttribute 'file'
+      source = if fullPath == @packageFile
         pkg.files[0]
       else
         source = new File null, pkg
         pkg.files.push source
 
-        do (source) =>
-          promise = @fetchFile fullPath
-          promise.then ({header, content}) => source.content = content
-          promises.push promise
+        promises.push do (source) =>
+          {header, content} = await @fetchFile fullPath
+          source.content = content
 
         source
 
@@ -141,9 +136,10 @@ class IndexPackage
         @setInstallFileData file, fileNode
         pkg.files.push file
 
-    promises
+    Promise.all promises
 
   setInstallFileData: (file, node) ->
+    file.originName = @index.repo
     file.type = resolveType node.getAttribute('type')
     file.sections = @parseMain(node.getAttribute('main') || '')
     file.platform = @parsePlatform(node.getAttribute('platform') || '')
@@ -156,47 +152,50 @@ class IndexPackage
       file.installName = relative storageDir, file.installName
       file.installName = null if file.installName == file.storageName
 
-  fetchFile: (file) -> new Promise (resolve, reject) =>
-    content = ''
-    parseHeader = isIndexable extname(file)
+  fetchFile: (file) ->
+    try
+      response = await @index.fetchFile file
+      content = await response.clone().text()
+      header = null
+    catch error
+      throw new Error "Could not fetch #{file}. #{error.message}"
 
-    promise = @index.fetchFile file
-    .then (response) => response.text()
-    .then (text) =>
-      content = text
-
-      if parseHeader
-        @index.fetchAPI 'parse-header',
+    if content.includes '\0'
+      content = await response.arrayBuffer()
+    else if isIndexable extname(file)
+      try
+        apiResponse = await @index.fetchAPI 'parse-header',
           method: 'post'
           headers: { 'Content-Type': 'text/plain' }
-          body: text
-        .catch (error) =>
-          reject new Error "Could not parse header of #{file}. #{error.message}"
-      else
-        resolve header: null, content: text
-    .catch (error) => reject new Error "Could not fetch #{file}. #{error.message}"
+          body: content
 
-    if parseHeader
-      promise.then (response) =>
-        return unless response
-        offset = response.headers.get 'X-End-Of-Header'
+        offset = apiResponse.headers.get 'X-End-Of-Header'
         content = content.substring offset
-        response.json()
-      .then (header) => resolve {header, content}
+
+        header = await apiResponse.json()
+      catch error
+        throw new Error "Could not parse header of #{file}. #{error.message}"
+
+    {header, content}
 
 export default class Index
   constructor: ->
+    @reset()
+
+  reset: ->
     @categories = []
     @packages = []
     @error = null
 
   load: (@repo) ->
-    @constructor()
+    @reset()
 
-    @fetchFile 'index.xml'
-    .then (response) => response.text()
-    .then (text) => @loadFromText text
-    .catch (error) => @error = error.message
+    try
+      response = await @fetchFile 'index.xml'
+      text = await response.text()
+      @loadFromText text
+    catch error
+      @error = error.message
 
   loadFromText: (text) ->
     parser = new DOMParser()

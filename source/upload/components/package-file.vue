@@ -66,7 +66,7 @@
       field-label Contents
       template v-if="isBinary"
         br
-        ' Binary file loaded from {{ file.localName }} ({{ contentSize }}).
+        ' Binary file loaded from {{ file.originName }} ({{ contentSize }}).
         a> href="#" @click.prevent=="file.content = ''" Click here
         | to reset.
       package-file-content (

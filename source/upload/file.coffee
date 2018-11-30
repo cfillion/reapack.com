@@ -33,7 +33,7 @@ export default class File
     @sections = []
     @sections.push @defaultSection() if @isPackage
     @content = ''
-    @localName = null
+    @originName = null
 
   setSource: (source) ->
     if source == ExternalSource || source.file
@@ -70,7 +70,7 @@ export default class File
     reader = new FileReader()
 
     reader.onload = =>
-      @localName = localFile.name
+      @originName = localFile.name
 
       if reader.result instanceof ArrayBuffer
         @content = reader.result
