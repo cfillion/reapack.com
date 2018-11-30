@@ -27,8 +27,7 @@ export default
       return if item.separator || item.disabled
       @$emit 'input', item
       @$emit 'leave' unless @multiple
-    isChecked: (item) ->
-      @checked?.indexOf(item) > -1
+    isChecked: (item) -> @checked?.includes item
     installListener: (add = true) ->
       f = if add then document.addEventListener else document.removeEventListener
       f 'click', @onDocumentClick, true

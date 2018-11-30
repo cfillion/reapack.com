@@ -4,6 +4,7 @@
   "private": true,
   "sideEffects": false,
   "dependencies": {
+    "@babel/polyfill": "^7.0.0",
     "codemirror": "^5.42.0",
     "commonmark": "^0.28.1",
     "filesize": "^3.6.1",

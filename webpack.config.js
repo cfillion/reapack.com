@@ -7,8 +7,9 @@ var babel = {
   options: {
     cacheDirectory: true,
     presets: [
-      ["@babel/preset-env", {
-        "targets": "> 0.25%, not dead"
+      ['@babel/preset-env', {
+        targets: '> 0.25%, not dead',
+        useBuiltIns: 'entry',
       }],
     ],
   },
