@@ -1,6 +1,6 @@
 import { join, extname, relative } from 'path'
 import { NoIndexHeader } from './header'
-import { isIndexable, sanitizeFilename } from './filename'
+import { isIndexable, sanitizeFilename, detectBinary } from './file-utils'
 
 export UploadSource = { icon: 'fa-upload', name: 'Upload' }
 export ExternalSource = { icon: 'fa-link', name: 'External' }
@@ -75,7 +75,7 @@ export default class File
       if reader.result instanceof ArrayBuffer
         @content = reader.result
         cb()
-      else if reader.result.includes '\0'
+      else if detectBinary reader.result
         if localFile.size > MAX_SIZE_BINARY
           cb tooBig() if cb
         else

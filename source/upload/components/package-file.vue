@@ -88,7 +88,7 @@
 
 <script lang="coffee">
 import File, { UploadSource, ExternalSource, ScriptSections } from '../file'
-import { FilenamePattern, makeExtensionPattern } from '../filename'
+import { PathPattern, makeExtensionPattern } from '../file-utils'
 import * as Types from '../types'
 
 import FieldLabel from './field-label.vue'
@@ -161,8 +161,8 @@ export default
       else
         ''
 
-      FilenamePattern + extensionPattern
-    installNamePattern: -> FilenamePattern
+      PathPattern + extensionPattern
+    installNamePattern: -> PathPattern
     header: -> @file.header()
     isBinary: -> @file.isBinary()
     contentSize: -> filesize @file.content.byteLength

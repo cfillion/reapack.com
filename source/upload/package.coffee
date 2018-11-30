@@ -1,6 +1,6 @@
 import File, { UploadSource, ExternalSource } from './file'
 import Header from './header'
-import { validateFilename, endsWithExtension } from './filename'
+import { validatePath, endsWithExtension } from './file-utils'
 
 export LinkTypes = [
     tag: 'link'
@@ -92,11 +92,11 @@ export default class Package
       name = file.source == UploadSource && file.storagePath()
       name ||= file.displayName()
 
-      unless validateFilename file.effectiveStorageName()
+      unless validatePath file.effectiveStorageName()
         errors.push "The storage filename of '#{name}' contains
           reserved characters or words."
 
-      unless validateFilename file.effectiveInstallName()
+      unless validatePath file.effectiveInstallName()
         errors.push "The installation filename of '#{name}'
           contains reserved characters or words."
 

@@ -17,13 +17,13 @@ reservedChars = '*\\\\:<>?/|"\\x00-\\x1F\\x7F'
 # specified when used.
 #
 # See https://docs.microsoft.com/en-us/windows/desktop/fileio/naming-a-file#file-and-directory-names
-export FilenamePattern =
-  "(?=^[^#{reservedChars}]*$)" +
-  "(?!^\\s*(#{CON}|#{PRN}|#{AUX}|#{NUL}|#{COM}\\d|#{LPT}\\d)\\s*(\\..*)?$)" +
+export PathPattern =
+  "(?=((^|/)[^#{reservedChars}]*)*$)" +
+  "(?!((^|.*/)\\s*(#{CON}|#{PRN}|#{AUX}|#{NUL}|#{COM}\\d|#{LPT}\\d)\\s*(\\.[^/]*)?)*(/|$))" +
   '.*'
 
-export validateFilename = (filename) ->
-  ///^#{FilenamePattern}$///.test filename
+export validatePath = (filename) ->
+  ///^#{PathPattern}$///.test filename
 
 export sanitizeFilename = (filename, replacement = '') ->
   filename.replace ///[#{reservedChars}]///g, replacement
@@ -45,3 +45,6 @@ export isIndexable = (matchExt) ->
       return true if ext.toLowerCase() == matchExt
 
   false
+
+export detectBinary = (content) ->
+  content.includes '\0' # big assumption

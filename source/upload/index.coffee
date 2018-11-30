@@ -4,7 +4,7 @@ import { relative, extname } from 'path'
 import * as Types from './types'
 import File, { ExternalSource, ScriptSections } from './file'
 import Package, { LinkTypes } from './package'
-import { isIndexable } from './filename'
+import { isIndexable, detectBinary } from './file-utils'
 
 resolveType = (typeId) ->
   for _, type of Types
@@ -160,7 +160,7 @@ class IndexPackage
     catch error
       throw new Error "Could not fetch #{file}. #{error.message}"
 
-    if content.includes '\0'
+    if detectBinary content
       content = await response.arrayBuffer()
     else if isIndexable extname(file)
       try
