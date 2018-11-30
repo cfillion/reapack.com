@@ -24,8 +24,8 @@ checkedFetch = (url, options = {}) -> new Promise (resolve, reject) =>
     if response.ok
       resolve response
     else
-      reject new Error "Server replied with
-        #{response.status} #{response.statusText}."
+      reject new Error "Server replied with #{response.status} #{response.statusText}."
+  .catch (error) => reject error
 
 class IndexPackage
   constructor: (node, @index) ->
