@@ -79,21 +79,18 @@ export default class Package
       errors.push 'The version number must begin with a number.'
 
   validateFiles: (errors) ->
-    match = @files.findIndex (file) =>
-      file.source == UploadSource && !file.effectiveStorageName()
-    unless match == -1
+    if @files.find (file) => \
+        file.source == UploadSource && !file.effectiveStorageName()
       errors.push "One or more hosted files don't have a storage file name."
 
-    match = @files.findIndex (file) => !file.effectiveInstallName()
-    unless match == -1
+    if @files.find (file) => !file.effectiveInstallName()
       errors.push "One or more files don't have an installation file name."
 
-    match = @files.findIndex (file) =>
-      file.source == ExternalSource && !file.url
-    unless match == -1
+    if @files.find (file) => file.source == ExternalSource && !file.url
       errors.push "One or more external files don't have a download URL."
 
     dups = []
+
     for file, index in @files
       continue unless file.source == UploadSource
 
@@ -103,9 +100,12 @@ export default class Package
         otherFile.source == UploadSource &&
           storagePath == otherFile.storagePath()
 
-      if otherIndex != index && dups.indexOf(storagePath) == -1
-        dups.push storagePath
+      unless otherIndex == index || dups.includes(storagePath)
         errors.push "More than one files are uploaded as '#{storagePath}'."
+        dups.push storagePath
+
+      unless file.install || @files.find (otherFile) => otherFile.source.file == file
+        errors.push "'#{storagePath}' is unused (not installed and not used as source for another file)."
 
   validateAll: ->
     errors = []
