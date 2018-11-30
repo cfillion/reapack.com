@@ -113,7 +113,7 @@ export default class File
   storageDirectory: (appendCategory = true) ->
     segments = []
     segments.push @category() if appendCategory
-    segments.push @defaultName(false) unless @isPackage
+    segments.push @package.storageSubdirectory() unless @isPackage
     join segments...
 
   installDirectory: ->

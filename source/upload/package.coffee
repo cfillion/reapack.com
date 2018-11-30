@@ -1,5 +1,6 @@
 import File, { UploadSource, ExternalSource } from './file'
 import Header from './header'
+import { basename, extname } from 'path'
 import { validatePath, endsWithExtension } from './file-utils'
 
 export LinkTypes = [
@@ -61,6 +62,10 @@ export default class Package
 
   findFilesSourcing: (file) ->
     f for f in @files when f.source.file == file
+
+  storageSubdirectory: ->
+    fn = @files[0].effectiveStorageName()
+    basename fn, extname(fn)
 
   validateName: (errors) ->
     lowerName = @name.toLowerCase()
