@@ -46,7 +46,7 @@
         target="target-name" :optional="file.source == $options.UploadSource"
       ) Install file name
       input#target-name (
-        type="text" v-model.trim="file.installName"
+        type="text" v-model.trim="file.installName" :pattern="installNamePattern"
         :placeholder="file.effectiveInstallName()"
       )
       | &lt;resource path&gt;/{{ file.fullInstallPath() }}
@@ -88,6 +88,7 @@
 
 <script lang="coffee">
 import File, { UploadSource, ExternalSource, ScriptSections } from '../file'
+import { FilenamePattern, makeExtensionPattern } from '../filename'
 import * as Types from '../types'
 
 import FieldLabel from './field-label.vue'
@@ -155,17 +156,13 @@ export default
         when Types[key] != @file.package.type
       types
     storageNamePattern: ->
-      return unless @file.isPackage
+      extensionPattern = if @file.isPackage
+        makeExtensionPattern @file.package.type.extensions
+      else
+        ''
 
-      escapedExts = for ext in @file.package.type.extensions
-        (for c in ext
-          if c == '.'
-            '\\.'
-          else
-            "[#{c.toUpperCase()}#{c.toLowerCase()}]"
-        ).join('')
-
-      ".+(#{escapedExts.join '|'})"
+      FilenamePattern + extensionPattern
+    installNamePattern: -> FilenamePattern
     header: -> @file.header()
     isBinary: -> @file.isBinary()
     contentSize: -> filesize @file.content.byteLength

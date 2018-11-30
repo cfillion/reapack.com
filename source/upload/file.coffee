@@ -1,6 +1,6 @@
 import { join, extname, relative } from 'path'
 import { NoIndexHeader } from './header'
-import * as Types from './types'
+import { isIndexable, sanitizeFilename } from './filename'
 
 export UploadSource = { icon: 'fa-upload', name: 'Upload' }
 export ExternalSource = { icon: 'fa-link', name: 'External' }
@@ -21,15 +21,6 @@ export ScriptSections = [
     id: 'mediaexplorer'
     name: 'Media Explorer'
 ]
-
-export isIndexable = (matchExt) ->
-  matchExt = matchExt.toLowerCase()
-
-  for _, type of Types
-    for ext in type.extensions
-      return true if ext.toLowerCase() == matchExt
-
-  false
 
 export default class File
   constructor: (@storageName, @package, @isPackage = false) ->
@@ -109,7 +100,7 @@ export default class File
     pkgName = @package.name || 'Package name'
     defaultExt = @package.type.extensions[0]
 
-    "#{author}#{pkgName}#{if ext then defaultExt else ''}"
+    sanitizeFilename "#{author}#{pkgName}#{if ext then defaultExt else ''}"
 
   displayName: ->
     name = if @source == UploadSource

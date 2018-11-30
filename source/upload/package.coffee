@@ -1,5 +1,6 @@
 import File, { UploadSource, ExternalSource } from './file'
 import Header from './header'
+import { validateFilename, endsWithExtension } from './filename'
 
 export LinkTypes = [
     tag: 'link'
@@ -67,12 +68,8 @@ export default class Package
     if lowerName.startsWith "#{@author.toLowerCase()}_"
       errors.push 'The display name should not contain an author prefix.'
 
-    for ext in @type.extensions
-      ext = ext.toLowerCase()
-
-      if lowerName.endsWith ext
-        errors.push 'The display name should not contain the file extension.'
-        break
+    if endsWithExtension lowerName, @type.extensions
+      errors.push 'The display name should not contain the file extension.'
 
   validateVersion: (errors) ->
     unless @version.match /^\d/
@@ -92,20 +89,34 @@ export default class Package
     dups = []
 
     for file, index in @files
+      name = file.source == UploadSource && file.storagePath()
+      name ||= file.displayName()
+
+      unless validateFilename file.effectiveStorageName()
+        errors.push "The storage filename of '#{name}' contains
+          reserved characters or words."
+
+      unless validateFilename file.effectiveInstallName()
+        errors.push "The installation filename of '#{name}'
+          contains reserved characters or words."
+
       continue unless file.source == UploadSource
 
-      storagePath = file.storagePath()
+      if file.isPackage && !endsWithExtension name, @type.extensions
+        errors.push "The package file '#{name}' does not use one of the
+          #{@type.name} package extensions (#{@type.extensions.join ', '})."
 
       otherIndex = @files.findIndex (otherFile) =>
         otherFile.source == UploadSource &&
-          storagePath == otherFile.storagePath()
+          name == otherFile.storagePath()
 
-      unless otherIndex == index || dups.includes(storagePath)
-        errors.push "More than one files are uploaded as '#{storagePath}'."
-        dups.push storagePath
+      unless otherIndex == index || dups.includes(name)
+        errors.push "More than one files are uploaded as '#{name}'."
+        dups.push name
 
       unless file.install || @files.find (otherFile) => otherFile.source.file == file
-        errors.push "'#{storagePath}' is unused (not installed and not used as source for another file)."
+        errors.push "'#{name}' is unused (not installed and not used as
+          source for another file)."
 
   validateAll: ->
     errors = []

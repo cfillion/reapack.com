@@ -2,8 +2,9 @@ import fuzzysort from 'fuzzysort'
 import { relative, extname } from 'path'
 
 import * as Types from './types'
+import File, { ExternalSource, ScriptSections } from './file'
 import Package, { LinkTypes } from './package'
-import File, { ExternalSource, ScriptSections, isIndexable } from './file'
+import { isIndexable } from './filename'
 
 resolveType = (typeId) ->
   for _, type of Types
