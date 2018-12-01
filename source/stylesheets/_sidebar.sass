@@ -13,6 +13,9 @@ $sidebar-outer-width: $sidebar-width + ($padding * 2) + $sidebar-border
     display: grid
     grid-template-columns: auto 320px
 
+  .content
+    min-width: 0 // allow to be smaller than its content
+
   .aside
     border-left: $sidebar-border solid $foreground
     margin-left: $padding
