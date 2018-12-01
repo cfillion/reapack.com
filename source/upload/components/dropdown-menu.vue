@@ -57,9 +57,12 @@ $radius: 4px
   margin-top: -5px
   max-height: 400px
   min-width: 200px
-  overflow: hidden auto
   position: absolute
   z-index: 1
+
+  // two value overflow shorthand not supported by Safari
+  overflow-x: hidden
+  overflow-y: auto
 
 ul
   margin-left: 0
