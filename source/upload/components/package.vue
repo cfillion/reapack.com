@@ -1,13 +1,8 @@
 <template lang="slim">
 form.editor v-if="package && package.type" @submit.prevent="submit"
-  .load-overlay v-if="loading": div
-    .icon: i.fa.fa-spin.fa-circle-o-notch
-    .desc Loading package...
-    .error v-if="loadingError"
-      p
-        strong> Error:
-        | {{ loadingError }}
-      p: button type="button" @click="loading = false, loadingError = null" Close
+  progress-overlay (
+    v-if="progress" :progress="progress" @close="progress = null"
+  )
 
   h2 Package editor ({{ package.type.name }})
 
@@ -106,6 +101,14 @@ form.editor v-if="package && package.type" @submit.prevent="submit"
   p
     button.main type="submit" :disabled="!dirty || !canSubmit"
      | Create pull request on {{ package.type.repo }}
+    span.submit-legend
+      template v-if="user"
+        ' Logged in as
+        a.user> :href="user.html_url" target="blank"
+          img.avatar> :src="user.avatar_url"
+          | {{ user.login }}
+        a href="#" @click.prevent="logout" (Log out)
+      template v-else="" Requires a GitHub account.
 
 div v-else=""
   p
@@ -117,8 +120,10 @@ div v-else=""
 import Vue from 'vue'
 
 import * as Types from '../types'
-import Package from '../package'
+import * as GitHub from '../github'
 import Index from '../index'
+import Package from '../package'
+import { UploadSource } from '../file'
 
 import DropdownMenu from './dropdown-menu.vue'
 import FieldLabel from './field-label.vue'
@@ -126,10 +131,11 @@ import InputDropdown from './input-dropdown.vue'
 import InputMarkdown from './input-markdown.vue'
 import PackageFiles from './package-files.vue'
 import PackageLinks from './package-links.vue'
+import ProgressOverlay, { Progress } from './progress-overlay.vue'
 
 export default
   components: {
-    DropdownMenu, FieldLabel, InputDropdown, InputMarkdown,
+    DropdownMenu, FieldLabel, InputDropdown, InputMarkdown, ProgressOverlay,
     PackageFiles, PackageLinks,
   }
   data: ->
@@ -137,10 +143,10 @@ export default
     errors: []
     fullscreen: false
     index: new Index
-    loading: false
-    loadingError: null
     matchingPackages: []
     package: null
+    progress: null
+    user: null
   computed:
     repoUrl: -> "https://github.com/#{@package.type.repo}"
     aboutPlaceholder: ->
@@ -163,23 +169,89 @@ export default
       return unless confirm "Load package '#{pkgInfo.name}' from
         #{@package.type.repo}? Unsaved changes will be lost."
 
-      @loading = true
+      @progress = new Progress 'Loading package...'
 
       pkgInfo.load()
       .then (pkg) =>
         @setPackage pkg
-        @loading = false
-      .catch (error) => @loadingError = error.message
+        @progress = null
+      .catch (error) => @progress.error = error.message
     onBeforeUnload: (event) ->
       if @dirty
         event.preventDefault()
         event.returnValue = ''
+    loadUser: ->
+      try
+        @user = await GitHub.getUser()
+    logout: ->
+      GitHub.logout()
+      @user = null
     submit: ->
       @errors = @package.validateAll()
 
       if @errors.length
         Vue.nextTick => @$refs.errors.scrollIntoView()
         return
+
+      @progress = new Progress 'Waiting for GitHub authorization...'
+      @progress.legend = 'Click on the button below to open the GitHub
+        authorization page in another tab.'
+      @progress.buttons = [
+        icon:  'fa-github'
+        label: 'Login via GitHub'
+        click: GitHub.openLoginPage
+      ]
+
+      try
+        @user = await GitHub.login()
+        @progress.buttons = []
+
+        @progress.desc = "Forking #{@package.type.repo}..."
+        @progress.legend = "This may take a while. Please keep this page open
+        until it's done."
+        forkName = await GitHub.fork @package.type.repo
+
+        @progress.desc = "Uploading files..."
+        message = "Release #{@package.name} v#{@package.version}"
+
+        blobs = for file in @package.files when file.source == UploadSource
+          path: file.storagePath()
+          blob: await GitHub.blob forkName, file
+
+        head = await GitHub.getHead @package.type.repo
+        tree = await GitHub.tree forkName, blobs, head.commit.tree
+        commit = await GitHub.commit forkName, tree, head, message
+
+        @progress.desc = "Creating pull request..."
+        branchName = "reapack.com_upload-#{+new Date}"
+        branch = await GitHub.branch forkName, branchName, commit
+
+        prRepo = if process.env.NODE_ENV == 'production' then repoName else forkName
+        pr = await GitHub.pullRequest prRepo,
+          title: message
+          body: @package.changelog
+          head: "#{@user.login}:#{branchName}"
+          base: 'master'
+
+        @progress.desc = 'All done!'
+        @progress.legend = "Your changes have been submitted to #{prRepo} and
+        are now pending review."
+        @progress.buttons = [
+            icon: 'fa-github'
+            label: 'Open pull request'
+            click: -> GitHub.openPullRequest pr
+          ,
+            icon: @package.type.icon
+            label: "Upload another #{@package.type.name}"
+            click: =>
+              @reset()
+              @progress = null
+              window.scrollTo 0, 0
+        ]
+        @progress.done = true
+        @dirty = false
+      catch error
+        @progress.error = error
   watch:
     '$route.params.type': -> @reset()
     package:
@@ -191,8 +263,9 @@ export default
       Vue.nextTick =>
         for editor in @$el.querySelectorAll '.CodeMirror'
           editor.CodeMirror.refresh()
-  created: ->
+  mounted: ->
     window.addEventListener 'beforeunload', @onBeforeUnload
+    @loadUser()
   beforeDestroy: ->
     window.removeEventListener 'beforeunload', @onBeforeUnload
   beforeRouteEnter: (to, from, next) -> next (vm) -> vm.reset()
@@ -205,37 +278,27 @@ export default
 </script>
 
 <style lang="sass">
+@import 'upload-mixins'
+
 .autocomplete
   position: relative
 
   .dropdown-menu
     width: 100%
 
-.load-overlay
-  position: fixed
-  top: 0
-  left: 0
-  right: 0
-  bottom: 0
+button.main
+  margin-right: 1em
 
-  background-color: #0008
-  display: flex
-  text-align: center
-  align-items: center
-  justify-content: center
-  z-index: 100
+.submit-legend
+  color: $input-placeholder
 
-  padding-bottom: 15%
+.user
+  font-weight: normal
+  text-decoration: none
+  color: inherit
 
-  & > div
-    margin: auto // prevent overflow over the top of the page
-
-  .icon
-    font-size: 6em
-
-  .desc
-    font-size: 2em
-
-  .error
-    margin-top: 20px
+.avatar
+  height: 1.3em
+  vertical-align: middle
+  border-radius: 3px
 </style>

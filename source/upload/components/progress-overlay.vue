@@ -1,0 +1,77 @@
+<template lang="slim">
+.progress-overlay: .progress  :class=="{ done: progress.done }"
+  .icon
+    i.fa.fa-check-circle v-if="progress.done"
+    i.fa.fa-spin.fa-circle-o-notch v-else=""
+  .desc() {{ progress.desc }}
+  .error v-if="progress.error"
+    p
+      strong> Error:
+      | {{ progress.error.message }}
+    p: button type="button" @click="close" Close
+  .legend v-else-if="progress.legend" {{ progress.legend }}
+  .buttons v-if="progress.buttons.length"
+    button v-for="button in progress.buttons" type="button" @click="button.click"
+      i.fa> :class="button.icon"
+      | {{ button.label }}
+</template>
+
+<script lang="coffee">
+export class Progress
+  constructor: (@desc) ->
+    @error = ''
+    @legend = ''
+    @buttons = []
+    @done = false
+
+export default
+  props:
+    progress:
+      type: Progress
+      required: true
+  methods:
+    close: -> @$emit 'close'
+</script>
+
+<style lang="sass" scoped>
+@import 'config'
+
+.progress-overlay
+  position: fixed
+  top: 0
+  left: 0
+  right: 0
+  bottom: 0
+
+  background-color: #0008
+  display: flex
+  text-align: center
+  align-items: center
+  justify-content: center
+  z-index: 100
+
+  padding-bottom: 15%
+
+.progress
+  margin: auto // prevent overflow over the top of the page
+  background-color: $background
+  padding: 30px
+  border-radius: 7px
+  border: 1px solid $foreground
+  min-width: 30%
+
+  &.done
+    color: #83ff00
+
+.icon
+  font-size: 6em
+
+.desc
+  font-size: 2em
+
+.error, .buttons
+  margin-top: 20px
+
+.buttons button:not(:last-child)
+  margin-right: 7px
+</style>

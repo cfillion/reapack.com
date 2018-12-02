@@ -5,6 +5,7 @@
   "sideEffects": false,
   "dependencies": {
     "@babel/polyfill": "^7.0.0",
+    "base64-arraybuffer": "^0.1.5",
     "codemirror": "^5.42.0",
     "commonmark": "^0.28.1",
     "filesize": "^3.6.1",

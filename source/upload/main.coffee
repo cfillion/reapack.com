@@ -14,7 +14,6 @@ router = new VueRouter
   base: '/upload'
   routes: [
     { path: '*', component: SelectType }
-    # { path: '/auth', component: Auth }
     { path: '/:type', component: Package }
   ]
 
