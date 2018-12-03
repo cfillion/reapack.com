@@ -15,7 +15,7 @@ form.editor v-if="package && package.type" @submit.prevent="submit"
       i.fa.fa-github>
       | Login via GitHub
 
-  h2 Package editor ({{ package.type.name }})
+  h2() {{ package.type.name }} package editor
 
   p
     | Use this page to submit a new package or update an existing package on
@@ -49,7 +49,7 @@ form.editor v-if="package && package.type" @submit.prevent="submit"
         Consider hosting your files on the <a href="https://stash.reaper.fm"
         target="_blank">REAPER stash</a>.
     template v-else=""
-      | Insert the main code of your {{ package.type.name }} below the generated
+      | Insert the main code of your {{ package.type.casualName }} below the generated
         metadata header.
 
   p.error v-if="index.error"
@@ -290,7 +290,7 @@ export default
             click: -> GitHub.openPullRequest pr
           ,
             icon: @package.type.icon
-            label: "Upload another #{@package.type.name}"
+            label: "Upload another #{@package.type.casualName}"
             click: =>
               @reset()
               @progress = null

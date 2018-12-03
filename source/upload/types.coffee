@@ -5,6 +5,7 @@ export reascript =
   desc: 'Upload a Lua, EEL or Python script to the ReaTeam/ReaScripts repository.'
   icon: 'fa-file-code-o'
 
+  casualName: 'script'
   actionList: true
   extensions: ['.lua', '.eel', '.py']
   installRoot: 'Scripts/ReaTeam Scripts'
@@ -21,6 +22,7 @@ export jsfx =
   desc: 'Upload a JS effect to the ReaTeam/JSFX repository.'
   icon: 'fa-cogs'
 
+  casualName: 'effect'
   extensions: ['.jsfx']
   installRoot: 'Effects/ReaTeam Scripts'
   longPath: true
@@ -36,6 +38,7 @@ export theme =
   desc: 'Upload a theme package on the ReaTeam/Themes repository.'
   icon: 'fa-paint-brush'
 
+  casualName: 'theme'
   extensions: ['.theme']
   defaultExtension: '.ReaperThemeZip'
   defaultExternal: true
@@ -53,6 +56,7 @@ export langpack =
   desc: 'Upload a ReaperLangPack file to the ReaTeam/LangPacks repository.'
   icon: 'fa-globe'
 
+  casualName: 'language pack'
   extensions: ['.ReaperLangPack']
   installRoot: 'LangPack'
   noAuthorSlug: true
@@ -68,6 +72,7 @@ export extension =
   desc: 'Upload an extension plugin to the ReaTeam/Extensions repository.'
   icon: 'fa-puzzle-piece'
 
+  casualName: 'extension'
   extensions: ['.ext']
   defaultExtension: '.dll'
   defaultExternal: true
