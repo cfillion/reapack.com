@@ -18,8 +18,39 @@ form.editor v-if="package && package.type" @submit.prevent="submit"
   h2 Package editor ({{ package.type.name }})
 
   p
-    | Fill this form to submit a new package or update an existing package on
-      the <a :href="repoUrl" target="_blank">{{ package.type.repo }}</a> repository.
+    | This page lets you submit a new package or update an existing package on
+      the <a :href="repoUrl" target="_blank">{{ package.type.repo }}</a>
+      repository. This requires a GitHub account. Your changes will be reviewed
+      before publication. You should be the original author of resource you are
+      releasing.
+
+  p
+    ' A package is defined by a "package file" containing the
+    a> (
+      href="https://github.com/cfillion/reapack-index/wiki/Packaging-Documentation"
+      target="_blank"
+    ) metadata header
+    | for reapack-index (software used internally on the repository).
+      This metadata header is automatically generated from the data entered here.
+
+  p
+    ' {{ package.type.name }} package files ({{ packageExtensions }})
+    template v-if="package.type.metapackage"
+      ' remain on the repository and are not installed.
+    template v-else=""
+      ' are marked for installation by default.
+
+    template v-if="package.type.defaultExternal"
+      ' Click on the "Add file" button (near the bottom of this form) and
+        paste the download URL of your {{ package.type.defaultExtension }}.
+        This link should be unique for every version to allow downgrading.
+
+      ' Consider hosting your files on the
+      a href="https://stash.reaper.fm" target="_blank" REAPER stash
+      | .
+    template v-else=""
+      | Insert the main code of your {{ package.type.name }} below the generated
+        metadata header.
 
   p.error v-if="index.error"
     strong> Error:
@@ -112,8 +143,8 @@ form.editor v-if="package && package.type" @submit.prevent="submit"
   p
     button.main type="submit" :disabled="!dirty || !canSubmit"
       | Create pull request on {{ package.type.repo }}
-    span.submit-legend v-if="!user"
-      | Requires a GitHub account.
+    span.submit-legend
+      | Please double-check your package before submitting.
 
 div v-else=""
   p
@@ -161,6 +192,7 @@ export default
       name = 'Package name' unless name
       "# #{name}\n\nLonger description of the package here.\n\n
       Key features:\n\n- Lorem ipsum\n- Dolor sit amet\n- Consectetur adipiscing elit"
+    packageExtensions: -> @package.type.extensions.join ', '
     canSubmit: ->
       !@fullscreen && @package.name && @package.category && @package.version
   methods:
