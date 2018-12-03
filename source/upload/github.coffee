@@ -52,9 +52,12 @@ export login = ->
     return login.promise
 
   login.promise = doLogin()
-  user = await login.promise
-  login.promise = null
-  user
+
+  try
+    user = await login.promise
+    user
+  finally
+    login.promise = null
 
 export logout = -> sessionStorage.removeItem 'github-token'
 
