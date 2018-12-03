@@ -1,8 +1,5 @@
 <template lang="slim">
-.drop-target (
-  @dragover="onDragOver($event)" @dragleave="drag = false"
-  @drop="handleDrop($event)"
-)
+.drop-target @dragover="onDragOver" @dragleave="onDragLeave" @drop="onDrop"
   .drag-overlay v-if="drag"
 
   p
@@ -91,6 +88,8 @@ import File, { UploadSource, ExternalSource, ScriptSections } from '../file'
 import { PathPattern, makeExtensionPattern } from '../file-utils'
 import * as Types from '../types'
 
+import DragDropMixin from '../mixins/drag-drop.coffee'
+
 import FieldLabel from './field-label.vue'
 import InputDropdown from './input-dropdown.vue'
 import PackageFileContent from './package-file-content.vue'
@@ -103,6 +102,7 @@ DisabledType = { icon: 'fa-ban', name: "Don't install" }
 export default
   UploadSource: UploadSource, ExternalSource: ExternalSource,
   ScriptSections: ScriptSections,
+  mixins: [ DragDropMixin ]
   components: { FieldLabel, InputDropdown, PackageFileContent, PlatformMatrix }
   props:
     file:
@@ -110,7 +110,6 @@ export default
       required: true
   data: ->
     platformName: ''
-    drag: false
   computed:
     sameAsPackageType: ->
       name = @file.package.type.name
@@ -180,17 +179,9 @@ export default
     fileInputChanged: ->
       @loadLocalFile localFile if localFile = @$refs.fileInput.files[0]
       @$refs.fileInput.value = ''
-    onDragOver: (e) ->
-      return unless @file.source == UploadSource
-      e.preventDefault()
-      e.stopPropagation()
-      @drag = true
-    handleDrop: (e) ->
-      return unless @drag
-      e.preventDefault()
-      e.stopPropagation()
-      @drag = false
-      @loadLocalFile localFile if localFile = e.dataTransfer.files[0]
+    onDragOver: (event) ->
+      if @file.source == UploadSource
+        DragDropMixin.methods.onDragOver.call this, event
     loadLocalFile: (localFile) ->
       @file.setContentFromLocalFile localFile, (err) -> alert err if err
 </script>

@@ -20,10 +20,13 @@
 <script lang="coffee">
 import File, { UploadSource, ExternalSource } from '../file'
 
+import DragDropMixin from '../mixins/drag-drop.coffee'
+
 import PackageFile from './package-file.vue'
 import PackageFileList from './package-filelist.vue'
 
 export default
+  mixins: [ DragDropMixin ]
   components: { PackageFile, PackageFileList }
   props:
     package:
@@ -32,7 +35,6 @@ export default
     fullscreen: Boolean
   data: ->
     currentFile: null
-    drag: false
     newFileCounter: 0
   computed:
     packageFiles: ->
@@ -94,24 +96,12 @@ export default
 
       if file == @currentFile
         @currentFile = @package.files[index] || @package.files[index - 1]
-    onDragOver: (e) ->
-      e.preventDefault()
-      e.stopPropagation()
-      @drag = true
-    onDragLeave: ->
-      @drag = false
-    onDrop: (e) ->
-      e.preventDefault()
-      e.stopPropagation()
-      @drag = false
+    loadLocalFile: (localFile) ->
+      file = new File localFile.name, @package
 
-      for localFile in e.dataTransfer.files
-        file = new File localFile.name, @package
-
-        do (file) =>
-          file.setContentFromLocalFile localFile, (err) =>
-            file.setSource ExternalSource if err
-            @package.files.push @currentFile = file
+      file.setContentFromLocalFile localFile, (err) =>
+        file.setSource ExternalSource if err
+        @package.files.push @currentFile = file
 </script>
 
 <style lang="sass">
