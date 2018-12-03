@@ -25,11 +25,13 @@
   p v-else-if="file.source == $options.ExternalSource"
     field-label target="download-url" Download URL
     input#download-url type="url" required=true v-model.trim="file.url"
-    | Available variables:
-      <code title="The path of the file relative to the repository">$path</code>,
-      <code title="The hash of the commit being indexed or &quot;master&quot; if unavailable">$commit</code>,
-      <code title="The version of the package being indexed">$version</code> and
-      <code title="The package being indexed (path relative to the repository)">$package</code>.
+    ' Available variables:
+    template v-for="(variable, index) in $options.urlVariables"
+      code.help :title="variable.desc"
+        | ${{ variable.name }}
+      template v-if="index < $options.urlVariables.length - 1"
+        ' ,
+    | .
 
   p
     field-label target="file-type" Resource type
@@ -102,6 +104,19 @@ DisabledType = { icon: 'fa-ban', name: "Don't install" }
 export default
   UploadSource: UploadSource, ExternalSource: ExternalSource,
   ScriptSections: ScriptSections,
+  urlVariables: [
+      name: 'path'
+      desc: 'The path of the file relative to the repository'
+    ,
+      name: 'commit'
+      desc: 'The hash of the commit being indexed or "master" if unavailable'
+    ,
+      name: 'version'
+      desc: 'The version of the package being indexed'
+    ,
+      name: 'package'
+      desc: 'The package being indexed (path relative to the repository)'
+  ]
   mixins: [ DragDropMixin ]
   components: { FieldLabel, InputDropdown, PackageFileContent, PlatformMatrix }
   props:
@@ -188,10 +203,6 @@ export default
 
 <style lang="sass">
 @import 'config'
-
-code[title]
-  cursor: help
-  text-decoration: underline dotted
 
 input[type=file]
   opacity: 0

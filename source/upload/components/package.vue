@@ -119,8 +119,10 @@ form.editor v-if="package && package.type" @submit.prevent="submit"
       type="text" v-model.trim="package.version"
       placeholder="Examples: 1.0, 1.2.3, 1.2alpha, 1.2.3pre4…"
     )
-    | Increase the version number to push changes to existing users.
-      Add letters to create a pre-release (e.g. 4.2beta1).
+    ' Increase the version number to push changes to existing users.
+      Add letters to create a
+    span.help> title="Pre-releases are not automatically installed or updated to (from a stable release) by default." pre-release
+    | (e.g. 4.2beta1).
 
   div
     field-label Provided files
