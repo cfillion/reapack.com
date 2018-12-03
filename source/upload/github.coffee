@@ -36,7 +36,7 @@ export getUser = -> GET '/user'
 
 doLogin = ->
   try
-    return await getUser()
+    return await getUser() if getToken()
 
   unless token = getToken()
     openLoginPage()
