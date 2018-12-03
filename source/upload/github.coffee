@@ -93,7 +93,8 @@ export blob = (repoName, file) ->
     encoding: 'utf-8'
     content: file.header() + file.content
 
-  POST "/repos/#{repoName}/git/blobs", params
+  path: file.storagePath()
+  blob: await POST "/repos/#{repoName}/git/blobs", params
 
 export tree = (repoName, tree, baseTree) ->
   objects = for leaf in tree

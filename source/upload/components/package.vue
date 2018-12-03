@@ -259,9 +259,10 @@ export default
         @progress.desc = "Uploading files..."
         message = "Release #{@package.name} v#{@package.version}"
 
-        blobs = for file in @package.files when file.source == UploadSource
-          path: file.storagePath()
-          blob: await GitHub.blob forkName, file
+        blobs = await Promise.all (
+          for file in @package.files when file.source == UploadSource
+            GitHub.blob forkName, file
+        )
 
         head = await GitHub.getHead @package.type.repo
         tree = await GitHub.tree forkName, blobs, head.commit.tree
