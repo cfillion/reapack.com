@@ -4,6 +4,17 @@ form.editor v-if="package && package.type" @submit.prevent="submit"
 
   pull-requests :list="pullRequests" :repo="package.type.repo"
 
+  .user
+    template v-if="user"
+      ' Logged in as
+      a> :href="user.html_url" target="blank"
+        img.avatar> :src="user.avatar_url"
+        | {{ user.login }}
+      button type="button" @click="logout" Log out
+    button type="button" v-else="" @click="login"
+      i.fa.fa-github>
+      | GitHub login
+
   h2 Package editor ({{ package.type.name }})
 
   p
@@ -100,15 +111,9 @@ form.editor v-if="package && package.type" @submit.prevent="submit"
 
   p
     button.main type="submit" :disabled="!dirty || !canSubmit"
-     | Create pull request on {{ package.type.repo }}
-    span.submit-legend
-      template v-if="user"
-        ' Logged in as
-        a.user> :href="user.html_url" target="blank"
-          img.avatar> :src="user.avatar_url"
-          | {{ user.login }}
-        a href="#" @click.prevent="logout" (Log out)
-      template v-else="" Requires a GitHub account.
+      | Create pull request on {{ package.type.repo }}
+    span.submit-legend v-if="!user"
+      | Requires a GitHub account.
 
 div v-else=""
   p
@@ -189,6 +194,8 @@ export default
         await GitHub.getPullRequests @package.type.repo, @user
       else
         []
+    login: ->
+      @user = await GitHub.login()
     logout: ->
       GitHub.logout()
       @user = null
@@ -302,12 +309,18 @@ button.main
   color: $input-placeholder
 
 .user
-  font-weight: normal
-  text-decoration: none
-  color: inherit
+  float: right
 
-.avatar
-  height: 1.3em
-  vertical-align: middle
-  border-radius: 3px
+  a
+    font-weight: normal
+    text-decoration: none
+    color: inherit
+
+  .avatar
+    height: 1.3em
+    vertical-align: middle
+    border-radius: 3px
+
+  button
+    margin: 0
 </style>

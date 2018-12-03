@@ -36,7 +36,7 @@ export openLoginPage = ->
 export getUser = -> GET '/user'
 export getRepo = (name) -> GET "/repos/#{name}"
 
-export login = ->
+doLogin = ->
   try
     return await getUser()
 
@@ -46,6 +46,15 @@ export login = ->
 
   await getUser()
 
+export login = ->
+  if login.promise
+    openLoginPage()
+    return false
+
+  login.promise = doLogin()
+  user = await login.promise
+  login.promise = null
+  user
 
 export fork = (parentName) ->
   json = await POST "/repos/#{parentName}/forks"
