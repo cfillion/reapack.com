@@ -184,7 +184,7 @@ export default
       .then (pkg) =>
         @setPackage pkg
         @progress = null
-      .catch (error) => @progress.error = error.message
+      .catch (error) => @progress.error = error
     onBeforeUnload: (event) ->
       if @dirty
         event.preventDefault()
