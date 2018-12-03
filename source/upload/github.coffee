@@ -21,20 +21,18 @@ fetchAPI = (method, endpoint, body, headers) ->
   else
     throw json
 
-GET =  (args...) -> fetchAPI 'GET', args...
+GET  = (args...) -> fetchAPI 'GET',  args...
 POST = (args...) -> fetchAPI 'POST', args...
 
 wait = (time) -> new Promise (resolve) ->
   setTimeout resolve, time
 
 getToken = -> sessionStorage.getItem 'github-token'
-export logout = -> sessionStorage.removeItem 'github-token'
 
 export openLoginPage = ->
   window.open "https://github.com/login/oauth/authorize?client_id=#{CLIENT_ID}&scope=#{AUTH_SCOPE}"
 
 export getUser = -> GET '/user'
-export getRepo = (name) -> GET "/repos/#{name}"
 
 doLogin = ->
   try
@@ -56,6 +54,10 @@ export login = ->
   login.promise = null
   user
 
+export logout = -> sessionStorage.removeItem 'github-token'
+
+export getRepo = (name) -> GET "/repos/#{name}"
+
 export fork = (parentName) ->
   json = await POST "/repos/#{parentName}/forks"
   forkName = json.full_name
@@ -65,7 +67,7 @@ export fork = (parentName) ->
 
   while true
     try
-      repo = await getRepo(forkName)
+      repo = await getRepo forkName
       break if repo
 
     await wait 2000 * attempts++
@@ -117,5 +119,4 @@ export openPullRequest = (pr) ->
 
 export getPullRequests = (repoName, author) ->
   issues = await GET "/repos/#{repoName}/issues?creator=#{encodeURIComponent author.login}"
-
   issue for issue in issues when issue.pull_request

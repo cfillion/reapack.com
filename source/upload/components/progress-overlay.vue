@@ -59,7 +59,7 @@ export default
   min-width: 30%
 
   &.done
-    color: #83ff00
+    color: $success
 
 .icon
   font-size: 6em

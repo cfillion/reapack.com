@@ -29,11 +29,7 @@ export default
 @import 'upload-mixins'
 
 .pull-requests
-  border: 1px solid #83ff00
-  border-radius: 5px
-  padding: $padding
-  background-color: #83ff001a
-  margin-bottom: $padding
+  +info-box($success)
 
   ul
     margin-left: 0
