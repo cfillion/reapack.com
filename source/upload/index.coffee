@@ -64,6 +64,8 @@ class IndexPackage
     pkg.name = @name
     pkg.category = @category
 
+    pkg.files[0].storageName = @fileName # for uninstalled package files
+
     for linkNode in @linkNodes
       type = resolveLinkType(linkNode.getAttribute('rel') || 'website')
       name = linkNode.textContent
