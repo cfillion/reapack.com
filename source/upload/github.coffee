@@ -47,7 +47,7 @@ doLogin = ->
 export login = ->
   if login.promise
     openLoginPage()
-    return false
+    return login.promise
 
   login.promise = doLogin()
   user = await login.promise
