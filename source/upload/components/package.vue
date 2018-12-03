@@ -13,14 +13,14 @@ form.editor v-if="package && package.type" @submit.prevent="submit"
       button type="button" @click="logout" Log out
     button type="button" v-else="" @click="login"
       i.fa.fa-github>
-      | GitHub login
+      | Login via GitHub
 
   h2 Package editor ({{ package.type.name }})
 
   p
-    | This page lets you submit a new package or update an existing package on
+    | Use this page to submit a new package or update an existing package on
       the <a :href="repoUrl" target="_blank">{{ package.type.repo }}</a>
-      repository. This requires a GitHub account. Your changes will be reviewed
+      repository. A GitHub account is required. Your changes will be reviewed
       before publication. You should be the original author of resource you are
       releasing.
 
@@ -43,11 +43,9 @@ form.editor v-if="package && package.type" @submit.prevent="submit"
     template v-if="package.type.defaultExternal"
       ' Click on the "Add file" button (near the bottom of this form) and
         paste the download URL of your {{ package.type.defaultExtension }}.
-        This link should be unique for every version to allow downgrading.
-
-      ' Consider hosting your files on the
-      a href="https://stash.reaper.fm" target="_blank" REAPER stash
-      | .
+        This URL should be unique for every version to allow downgrading.
+        Consider hosting your files on the <a href="https://stash.reaper.fm"
+        target="_blank">REAPER stash</a>.
     template v-else=""
       | Insert the main code of your {{ package.type.name }} below the generated
         metadata header.
