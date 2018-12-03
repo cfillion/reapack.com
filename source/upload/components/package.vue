@@ -21,8 +21,8 @@ form.editor v-if="package && package.type" @submit.prevent="submit"
     | Use this page to submit a new package or update an existing package on
       the <a :href="repoUrl" target="_blank">{{ package.type.repo }}</a>
       repository. A GitHub account is required. Your changes will be reviewed
-      before publication. You should be the original author of resource you are
-      releasing.
+      before publication. You should be the original author of the resource you
+      are releasing.
 
   p
     ' A package is defined by a "package file" containing the
