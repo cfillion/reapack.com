@@ -41,7 +41,9 @@ class IndexPackage
       @latest =
         name: verNode.getAttribute 'name'
         author: verNode.getAttribute 'author'
-        fileNodes: verNode.getElementsByTagName 'source'
+        # Array.from required to prevent odd "Invalid calling object"
+        # errors when accessing fileNodes later on Edge (tested on v17).
+        fileNodes: Array.from verNode.getElementsByTagName('source')
 
   isValid: -> @name && @type && @latest
 

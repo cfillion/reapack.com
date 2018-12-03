@@ -41,7 +41,7 @@ export default
   right: 0
   bottom: 0
 
-  background-color: #0008
+  background-color: transparentize(black, 0.5)
   display: flex
   text-align: center
   align-items: center

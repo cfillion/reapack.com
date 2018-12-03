@@ -8,7 +8,7 @@
       a href="#" title="Remove this link" @click.prevent="removeLink(i)"
         i.fa.fa-trash
 
-  form @submit.prevent="submit"
+  form @submit.prevent.stop="submit"
     div
       field-label target="link-type" Type
       input-dropdown#link-type v-model="type" :choices="types"
