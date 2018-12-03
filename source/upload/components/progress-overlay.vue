@@ -1,5 +1,5 @@
 <template lang="slim">
-.progress-overlay: .progress  :class=="{ done: progress.done }"
+.progress-overlay v-if="progress": .progress  :class=="{ done: progress.done }"
   .icon
     i.fa.fa-check-circle v-if="progress.done"
     i.fa.fa-spin.fa-circle-o-notch v-else=""
@@ -26,9 +26,7 @@ export class Progress
 
 export default
   props:
-    progress:
-      type: Progress
-      required: true
+    progress: Progress
   methods:
     close: -> @$emit 'close'
 </script>

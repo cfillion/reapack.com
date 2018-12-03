@@ -105,3 +105,8 @@ export pullRequest = (repoName, params) ->
 
 export openPullRequest = (pr) ->
   window.open pr.html_url
+
+export getPullRequests = (repoName, author) ->
+  issues = await GET "/repos/#{repoName}/issues?creator=#{encodeURIComponent author.login}"
+
+  issue for issue in issues when issue.pull_request

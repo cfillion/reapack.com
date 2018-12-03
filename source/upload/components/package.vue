@@ -1,8 +1,8 @@
 <template lang="slim">
 form.editor v-if="package && package.type" @submit.prevent="submit"
-  progress-overlay (
-    v-if="progress" :progress="progress" @close="progress = null"
-  )
+  progress-overlay :progress="progress" @close="progress = null"
+
+  pull-requests :list="pullRequests" :repo="package.type.repo"
 
   h2 Package editor ({{ package.type.name }})
 
@@ -132,11 +132,12 @@ import InputMarkdown from './input-markdown.vue'
 import PackageFiles from './package-files.vue'
 import PackageLinks from './package-links.vue'
 import ProgressOverlay, { Progress } from './progress-overlay.vue'
+import PullRequests from './pull-requests.vue'
 
 export default
   components: {
     DropdownMenu, FieldLabel, InputDropdown, InputMarkdown, ProgressOverlay,
-    PackageFiles, PackageLinks,
+    PackageFiles, PackageLinks, PullRequests,
   }
   data: ->
     dirty: false
@@ -146,6 +147,7 @@ export default
     matchingPackages: []
     package: null
     progress: null
+    pullRequests: []
     user: null
   computed:
     repoUrl: -> "https://github.com/#{@package.type.repo}"
@@ -165,6 +167,8 @@ export default
       if type?.repo
         @setPackage new Package(type)
         @index.load type.repo
+
+      @updatePullRequests()
     loadExisting: (pkgInfo) ->
       return unless confirm "Load package '#{pkgInfo.name}' from
         #{@package.type.repo}? Unsaved changes will be lost."
@@ -180,9 +184,11 @@ export default
       if @dirty
         event.preventDefault()
         event.returnValue = ''
-    loadUser: ->
-      try
-        @user = await GitHub.getUser()
+    updatePullRequests: ->
+      @pullRequests = if @user
+        await GitHub.getPullRequests @package.type.repo, @user
+      else
+        []
     logout: ->
       GitHub.logout()
       @user = null
@@ -257,6 +263,7 @@ export default
     package:
       deep: true
       handler: -> @dirty = true
+    user: -> @updatePullRequests()
     fullscreen: (fs) ->
       document.body.classList.toggle 'noscroll', fs
 
@@ -265,7 +272,9 @@ export default
           editor.CodeMirror.refresh()
   mounted: ->
     window.addEventListener 'beforeunload', @onBeforeUnload
-    @loadUser()
+
+    try
+      @user = await GitHub.getUser()
   beforeDestroy: ->
     window.removeEventListener 'beforeunload', @onBeforeUnload
   beforeRouteEnter: (to, from, next) -> next (vm) -> vm.reset()
