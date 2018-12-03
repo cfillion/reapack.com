@@ -30,8 +30,10 @@ form.editor v-if="package && package.type" @submit.prevent="submit"
       href="https://github.com/cfillion/reapack-index/wiki/Packaging-Documentation"
       target="_blank"
     ) metadata header
-    | for reapack-index (software used internally on the repository).
+    ' for reapack-index (software used internally on the repository).
       This metadata header is automatically generated from the data entered here.
+
+    | A single package can install more than one file.
 
   p
     ' {{ package.type.name }} package files ({{ packageExtensions }})
@@ -41,7 +43,7 @@ form.editor v-if="package && package.type" @submit.prevent="submit"
       ' are marked for installation by default.
 
     template v-if="package.type.defaultExternal"
-      ' Click on the "Add file" button (near the bottom of this form) and
+      | Click on the "Add file" button (near the bottom of this form) and
         paste the download URL of your {{ package.type.defaultExtension }}.
         This URL should be unique for every version to allow downgrading.
         Consider hosting your files on the <a href="https://stash.reaper.fm"
