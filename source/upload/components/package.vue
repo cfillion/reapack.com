@@ -96,7 +96,8 @@ form.editor v-if="package && package.type" @submit.prevent="submit"
       type="text" v-model.trim="package.author"
       placeholder="Example: John Doe or jdoe"
     )
-    | Type your name or username. This field is searchable along with the package name.
+    | Type your name or username. This field is searchable along with the
+      package name and category.
 
   p
     field-label target="about" optional=true Documentation
