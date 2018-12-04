@@ -241,48 +241,29 @@ export default
         Vue.nextTick => @$refs.errors.scrollIntoView()
         return
 
-      @progress = new Progress 'Waiting for GitHub authorization...'
-      @progress.legend = 'Click on the button below to open the GitHub
-        authorization page in another tab.'
-      @progress.buttons = [
-        icon:  'fa-github'
-        label: 'Login via GitHub'
-        click: GitHub.openLoginPage
-      ]
-
       try
+        @progress = new Progress 'Waiting for GitHub authorization...'
+        @progress.legend = 'Click on the button below to open the GitHub
+          authorization page in another tab.'
+        @progress.buttons = [
+          icon:  'fa-github'
+          label: 'Login via GitHub'
+          click: GitHub.openLoginPage
+        ]
         @user = await GitHub.login()
         @progress.buttons = []
 
         @progress.desc = "Forking #{@package.type.repo}..."
-        @progress.legend = "This may take a while. Please keep this page open
-        until it's done."
-        forkName = await GitHub.createFork @package.type.repo
+        @progress.legend = "This may take a while.
+          Please keep this page open until it's done."
+        repoName = @package.type.repo
+        forkName = await GitHub.createFork repoName
 
-        @progress.desc = "Uploading files..."
-        blobs = await Promise.all (
-          for file in @package.files when file.source == UploadSource
-            GitHub.createBlob forkName, file
-        )
+        @progress.desc = 'Uploading files...'
+        head = await GitHub.getHead repoName
+        commit = await GitHub.upload forkName, head, @package
 
-        deletedFiles = @package.repoFiles.filter (repoFile) =>
-          not blobs.find (blob) => blob.path == repoFile
-
-        head = await GitHub.getHead @package.type.repo
-
-        if deletedFiles.length
-          @progress.desc = "Fetching objects..."
-          deletions = fileListToTree deletedFiles
-          baseTree = await GitHub.removeFromTree forkName,
-            head.commit.tree, deletions
-        else
-          baseTree = head.commit.tree
-
-        tree = await GitHub.createTree forkName, blobs, baseTree
-        commit = await GitHub.createCommit forkName, tree, head,
-          @package.commitMessage()
-
-        @progress.desc = "Creating pull request..."
+        @progress.desc = 'Creating pull request...'
         branchName = "reapack.com_upload-#{+new Date}"
         branch = await GitHub.createBranch forkName, branchName, commit
 

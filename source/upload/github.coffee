@@ -1,4 +1,6 @@
 import { encode as encodeArrayBuffer } from 'base64-arraybuffer'
+import { UploadSource } from './file'
+import { fileListToTree } from './file-utils'
 
 AUTH_SCOPE = 'public_repo'
 CLIENT_ID  = 'fdf42a6c354a7e6823f3'
@@ -27,7 +29,8 @@ POST = (args...) -> fetchAPI 'POST', args...
 wait = (time) -> new Promise (resolve) ->
   setTimeout resolve, time
 
-getToken = -> sessionStorage.getItem 'github-token'
+getToken = ->
+  sessionStorage.getItem 'github-token'
 
 export openLoginPage = ->
   window.open "https://github.com/login/oauth/authorize?client_id=#{CLIENT_ID}&scope=#{AUTH_SCOPE}"
@@ -59,9 +62,11 @@ export login = ->
   finally
     login.promise = null
 
-export logout = -> sessionStorage.removeItem 'github-token'
+export logout = ->
+  sessionStorage.removeItem 'github-token'
 
-export getRepo = (name) -> GET "/repos/#{name}"
+export getRepo = (name) ->
+  GET "/repos/#{name}"
 
 export createFork = (parentName) ->
   json = await POST "/repos/#{parentName}/forks"
@@ -150,3 +155,21 @@ export openPullRequest = (pr) ->
 export getPullRequests = (repoName, author) ->
   issues = await GET "/repos/#{repoName}/issues?creator=#{encodeURIComponent author.login}"
   issue for issue in issues when issue.pull_request
+
+export upload = (repoName, head, pkg) ->
+  blobs = await Promise.all (
+    for file in pkg.files when file.source == UploadSource
+      createBlob repoName, file
+  )
+
+  deletedFiles = pkg.repoFiles.filter (repoFile) =>
+    not blobs.find (blob) => blob.path == repoFile
+
+  baseTree = if deletedFiles.length
+    deletions = fileListToTree deletedFiles
+    await removeFromTree repoName, head.commit.tree, deletions
+  else
+    head.commit.tree
+
+  tree = await createTree repoName, blobs, baseTree
+  commit = await createCommit repoName, tree, head, pkg.commitMessage()
