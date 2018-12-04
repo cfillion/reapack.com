@@ -44,12 +44,12 @@ module.exports = {
   },
   module: {
     rules: [
-      { test: /\.coffee$/, use: [ babel, coffee ]},
-      { test: /\.css$/,    use: [ MiniCssExtractPlugin.loader, 'css-loader' ]},
-      { test: /\.js$/,     use: [ babel ]},
-      { test: /\.sass$/,   use: [ MiniCssExtractPlugin.loader, 'css-loader', sass ]},
-      { test: /\.slim$/,   use: [ './slim-loader.js' ]},
-      { test: /\.vue$/,    use: [ 'vue-loader' ]},
+      { test: /\.coffee$/, use: [ babel, coffee ] },
+      { test: /\.css$/,    use: [ MiniCssExtractPlugin.loader, 'css-loader' ] },
+      { test: /\.js$/,     use: [ babel ] },
+      { test: /\.sass$/,   use: [ MiniCssExtractPlugin.loader, 'css-loader', sass ] },
+      { test: /\.slim$/,   use: [ './slim-loader.js' ] },
+      { test: /\.vue$/,    use: [ 'vue-loader' ] },
     ],
   },
   devtool: process.env.NODE_ENV == 'production' ? false : 'inline-source-map',
