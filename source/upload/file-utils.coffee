@@ -48,3 +48,26 @@ export isIndexable = (matchExt) ->
 
 export detectBinary = (content) ->
   content.includes '\0' # big assumption
+
+export fileListToTree = (fileList) ->
+  tree = []
+
+  for file in fileList
+    segments = file.split '/'
+
+    next = tree
+
+    for segment in segments[0..-2]
+      leaf = next.find (l) => l.name == segment
+
+      if leaf
+        next = leaf.tree
+        continue
+
+      leaf = { name: segment, tree: [] }
+      next.push leaf
+      next = leaf.tree
+
+    next.push name: segments[segments.length - 1], tree: []
+
+  tree

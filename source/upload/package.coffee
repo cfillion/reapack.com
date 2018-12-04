@@ -36,6 +36,7 @@ export default class Package
     @version = ''
     @changelog = ''
     @files = [new File(null, @, true)]
+    @repoFiles = []
 
   linkTag: (type) ->
     for link in @links when link.type.tag == type
@@ -129,3 +130,8 @@ export default class Package
       @validateName, @validateVersion, @validateFiles
     ]
     errors
+
+  commitMessage: ->
+    message = "Release #{@name} v#{@version}"
+    message += "\n\n#{@changelog}" if @changelog
+    message

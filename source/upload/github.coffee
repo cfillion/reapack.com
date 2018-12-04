@@ -63,7 +63,7 @@ export logout = -> sessionStorage.removeItem 'github-token'
 
 export getRepo = (name) -> GET "/repos/#{name}"
 
-export fork = (parentName) ->
+export createFork = (parentName) ->
   json = await POST "/repos/#{parentName}/forks"
   forkName = json.full_name
 
@@ -85,12 +85,7 @@ export fork = (parentName) ->
 export getHead = (repoName) ->
   GET "/repos/#{repoName}/commits/master"
 
-export branch = (repoName, name, commit) ->
-  POST "/repos/#{repoName}/git/refs",
-    ref: "refs/heads/#{name}"
-    sha: commit.sha
-
-export blob = (repoName, file) ->
+export createBlob = (repoName, file) ->
   params = if file.isBinary()
     encoding: 'base64'
     content: encodeArrayBuffer file.content
@@ -101,23 +96,52 @@ export blob = (repoName, file) ->
   path: file.storagePath()
   blob: await POST "/repos/#{repoName}/git/blobs", params
 
-export tree = (repoName, tree, baseTree) ->
-  objects = for leaf in tree
+export removeFromTree = (repoName, baseTree, deletions) ->
+  tree = (await GET "/repos/#{repoName}/git/trees/#{baseTree.sha}").tree
+
+  for deletion in deletions
+    objectIndex = tree.findIndex (object) => object.path == deletion.name
+    continue if objectIndex == -1
+
+    object = tree[objectIndex]
+
+    if deletion.tree.length == 0
+      tree.splice objectIndex, 1
+    else if object.type == 'tree'
+      subtree = await removeFromTree repoName, object, deletion.tree
+
+      if subtree
+        object.sha = subtree.sha
+      else
+        tree.splice objectIndex, 1
+
+  if tree.length > 0
+    POST "/repos/#{repoName}/git/trees", { tree }
+
+export createTree = (repoName, blobs, baseTree) ->
+  objects = blobs.map ({path, blob}) =>
     type: 'blob'
-    path: leaf.path
+    path: path
     mode: '100644'
-    sha: leaf.blob.sha
+    sha: blob.sha
 
-  POST "/repos/#{repoName}/git/trees", { tree: objects, base_tree: baseTree.sha }
+  POST "/repos/#{repoName}/git/trees",
+    tree: objects,
+    base_tree: baseTree.sha
 
-export commit = (repoName, tree, parent, message) ->
+export createCommit = (repoName, tree, parent, message) ->
   POST "/repos/#{repoName}/git/commits", {
     message,
     tree: tree.sha
     parents: [parent.sha]
   }
 
-export pullRequest = (repoName, params) ->
+export createBranch = (repoName, name, commit) ->
+  POST "/repos/#{repoName}/git/refs",
+    ref: "refs/heads/#{name}"
+    sha: commit.sha
+
+export createPullRequest = (repoName, params) ->
   POST "/repos/#{repoName}/pulls", params
 
 export openPullRequest = (pr) ->

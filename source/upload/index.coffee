@@ -66,7 +66,9 @@ class IndexPackage
     pkg.name = @name
     pkg.category = @category
 
-    pkg.files[0].storageName = @fileName # for uninstalled package files
+    # for uninstalled package files
+    pkg.files[0].storageName = @fileName
+    pkg.repoFiles.push @packageFile
 
     for linkNode in @linkNodes
       type = resolveLinkType(linkNode.getAttribute('rel') || 'website')
@@ -103,7 +105,10 @@ class IndexPackage
           fileNode.textContent.indexOf('/', hostedPrefix.length) + 1
         fullPath = decodeURIComponent fullPath
 
-        hosted[fullPath] ||= []
+        unless hosted[fullPath]
+          hosted[fullPath] = []
+          pkg.repoFiles.push fullPath unless fullPath == @packageFile
+
         hosted[fullPath].push fileNode
       else
         file = new File null, pkg

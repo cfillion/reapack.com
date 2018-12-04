@@ -162,6 +162,7 @@ import * as GitHub from '../github'
 import Index from '../index'
 import Package from '../package'
 import { UploadSource } from '../file'
+import { fileListToTree } from '../file-utils'
 
 import DropdownMenu from './dropdown-menu.vue'
 import FieldLabel from './field-label.vue'
@@ -256,27 +257,38 @@ export default
         @progress.desc = "Forking #{@package.type.repo}..."
         @progress.legend = "This may take a while. Please keep this page open
         until it's done."
-        forkName = await GitHub.fork @package.type.repo
+        forkName = await GitHub.createFork @package.type.repo
 
         @progress.desc = "Uploading files..."
-        message = "Release #{@package.name} v#{@package.version}"
-
         blobs = await Promise.all (
           for file in @package.files when file.source == UploadSource
-            GitHub.blob forkName, file
+            GitHub.createBlob forkName, file
         )
 
+        deletedFiles = @package.repoFiles.filter (repoFile) =>
+          not blobs.find (blob) => blob.path == repoFile
+
         head = await GitHub.getHead @package.type.repo
-        tree = await GitHub.tree forkName, blobs, head.commit.tree
-        commit = await GitHub.commit forkName, tree, head, message
+
+        if deletedFiles.length
+          @progress.desc = "Fetching objects..."
+          deletions = fileListToTree deletedFiles
+          baseTree = await GitHub.removeFromTree forkName,
+            head.commit.tree, deletions
+        else
+          baseTree = head.commit.tree
+
+        tree = await GitHub.createTree forkName, blobs, baseTree
+        commit = await GitHub.createCommit forkName, tree, head,
+          @package.commitMessage()
 
         @progress.desc = "Creating pull request..."
         branchName = "reapack.com_upload-#{+new Date}"
-        branch = await GitHub.branch forkName, branchName, commit
+        branch = await GitHub.createBranch forkName, branchName, commit
 
         prRepo = if process.env.NODE_ENV == 'production' then repoName else forkName
-        pr = await GitHub.pullRequest prRepo,
-          title: message
+        pr = await GitHub.createPullRequest prRepo,
+          title: commit.message.split('\n')[0]
           body: @package.changelog
           head: "#{@user.login}:#{branchName}"
           base: 'master'
