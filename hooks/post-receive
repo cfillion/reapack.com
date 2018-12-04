@@ -1,7 +1,9 @@
 #!/bin/sh
 DEPLOY_DIR="/CHANGE/ME/"
 
-function puts { echo "post-receive: $*"; }
+set -e
+
+puts() { echo "post-receive: $*"; }
 
 export GEM_HOME=$(ruby -e 'puts Gem.user_dir')
 PATH="$GEM_HOME/bin:$PATH"
@@ -20,7 +22,10 @@ puts "master at '$to' copied to '$DEPLOY_DIR'"
 export RUBYOPT=-EUTF-8
 
 cd "$DEPLOY_DIR"
-bundle
+
+bundle install --deployment
+npm install
+
 bundle exec ./update.rb
 bundle exec middleman build
 
