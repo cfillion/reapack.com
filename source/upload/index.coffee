@@ -236,4 +236,9 @@ export default class Index
     checkedFetch "https://raw.githubusercontent.com/#{@repo}/master/#{path}"
 
   fetchAPI: (endpoint, options) ->
-    checkedFetch "http://localhost:8080/#{endpoint}", options
+    url = if process.env.NODE_ENV == 'production'
+      "/api/#{endpoint}"
+    else
+      "http://localhost:8080/#{endpoint}"
+
+    checkedFetch url, options
