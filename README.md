@@ -4,6 +4,7 @@
 
 ```sh
 bundle
+npm install
 ./update.rb
 middleman build
 ```

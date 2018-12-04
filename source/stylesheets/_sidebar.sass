@@ -10,15 +10,13 @@ $sidebar-outer-width: $sidebar-width + ($padding * 2) + $sidebar-border
 
 @media #{$breakpoint-large}
   .container
-    display: flex
+    display: grid
+    grid-template-columns: auto 320px
 
   .content
-    flex: 1 1 auto
+    min-width: 0 // allow to be smaller than its content
 
   .aside
-    flex: 0 0 auto
-    width: $sidebar-width // old WebKit browsers don't support flex-basis
-
     border-left: $sidebar-border solid $foreground
     margin-left: $padding
     padding-left: $padding

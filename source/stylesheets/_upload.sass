@@ -1,0 +1,91 @@
+@import 'upload-mixins'
+
+#{$input-text}, textarea, button
+  +input-field
+  color: white
+  font-size: 1rem
+  font: inherit
+  outline: none
+  padding: 0.4em
+  margin: 4px 0 4px 0
+
+  &:disabled
+    border-color: $input-disabled
+    color: $input-disabled
+    cursor: not-allowed
+
+#{$input-text}, textarea
+  +input-border($foreground)
+  box-sizing: border-box
+  width: 100%
+
+input[type=checkbox], input[type=radio]
+  vertical-align: middle
+
+input:invalid, textarea:invalid
+  +input-border(red)
+  box-shadow: none
+
+textarea
+  resize: vertical
+  min-height: 5em
+  display: block
+
+button
+  text-align: center
+  cursor: pointer
+
+  &:not([disabled]):active
+    box-shadow: $input-inset-shadow
+
+button[type=submit]
+  &:not([disabled])
+    cursor: pointer
+    background-image: linear-gradient(darken($foreground, 8%), darken($foreground, 14%))
+    color: darken($background, 5%)
+
+    &:active
+      $shadow: desaturate(darken($foreground, 32%), 70%)
+      box-shadow: inset 0 0 8px 4px $shadow, $input-outset-shadow
+      border-color: $shadow
+
+  &.main
+    padding-left: 1em
+    padding-right: 1em
+    font-weight: bold
+
+::placeholder, .placeholder
+  color: $input-placeholder
+  font-style: italic
+  opacity: 1
+  text-overflow: ellipsis
+
+.help[title]
+  cursor: help
+  text-decoration: underline dotted
+
+.group
+  background-color: $table-row-odd
+  border: 1px solid $foreground
+  border-radius: 5px
+  padding: $padding
+  margin-bottom: $margin
+
+.drop-target
+  box-sizing: border-box
+  min-height: 100%
+  position: relative
+
+.drag-overlay
+  pointer-events: none // allow drops to other targets under the overlay
+
+  position: absolute
+  bottom: 0px
+  left: 0px
+  right: 0px
+  top: 0px
+
+  z-index: 10
+  background-color: #2273b733
+
+@import 'upload-components'
