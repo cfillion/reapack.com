@@ -22,7 +22,6 @@ import 'codemirror/mode/python/python'
 import 'codemirror/mode/xml/xml'
 
 CodeMirror.modeInfo.push [
-  { mode: 'javascript', ext: ['eel', 'jsfx'] } # function keyword
   { mode: 'properties', ext: ['reaperlangpack', 'reapertheme', 'reascale'] }
 ]...
 
