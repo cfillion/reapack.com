@@ -98,11 +98,11 @@ export default class Package
       name = file.source == UploadSource && file.storagePath()
       name ||= file.displayName()
 
-      unless validatePath file.effectiveStorageName()
+      if file.source == UploadSource && !validatePath file.effectiveStorageName()
         errors.push "The storage filename of '#{name}' contains
           reserved characters or words."
 
-      unless validatePath file.effectiveInstallName()
+      if file.install && !validatePath file.effectiveInstallName()
         errors.push "The installation filename of '#{name}'
           contains reserved characters or words."
 
@@ -120,7 +120,8 @@ export default class Package
         errors.push "More than one files are uploaded as '#{name}'."
         dups.push name
 
-      unless file.install || @files.find (otherFile) => otherFile.source.file == file
+      unless file.install || (file.isPackage && @type.metapackage) ||
+          @files.find (otherFile) => otherFile.source.file == file
         errors.push "'#{name}' is unused (not installed and not used as
           source for another file)."
 
