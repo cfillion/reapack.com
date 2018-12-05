@@ -87,7 +87,7 @@ class IndexPackage
     current = @findVersion header.version
 
     unless current
-      throw "Cannot find version '#{header.version}' in the index."
+      throw new Error "Cannot find version '#{header.version}' in the index."
 
     fileNodes = current.getElementsByTagName 'source'
     await @loadFiles fileNodes, pkg
