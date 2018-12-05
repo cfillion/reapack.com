@@ -239,6 +239,6 @@ export default class Index
     url = if process.env.NODE_ENV == 'production'
       "/api/#{endpoint}"
     else
-      "http://localhost:8080/#{endpoint}"
+      "http://localhost:8888/#{endpoint}"
 
     checkedFetch url, options
