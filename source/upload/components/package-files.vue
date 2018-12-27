@@ -76,6 +76,7 @@ export default
     copyFile: (file) ->
       copy = Object.assign Object.create(Object.getPrototypeOf(file)), file
       copy.isPackage = false
+      copy.sections = file.sections.slice()
       copy.setSource file.toSource() if copy.source == UploadSource
       copy.installName = @newFileName file.effectiveExtname()
       @package.files.push @currentFile = copy
