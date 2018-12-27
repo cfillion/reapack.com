@@ -8,8 +8,8 @@ export LinkTypes = [
     rel: 'website'
     icon: 'fa-link'
     name: 'Website'
-    namePlaceholder: 'ReaPack website'
-    urlPlaceholder: 'https://reapack.com'
+    namePlaceholder: 'Forum thread'
+    urlPlaceholder: 'https://forum.cockos.com/showthread.php?t=177978'
   ,
     tag: 'screenshot'
     rel: 'screenshot'
