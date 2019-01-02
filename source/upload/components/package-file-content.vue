@@ -117,5 +117,6 @@ export default
   background-color: transparentize(red, 0.5)
 
 .metadata
+  color: #908960 !important
   font-weight: bold
 </style>
