@@ -81,7 +81,8 @@ form.editor v-if="package && package.type" @submit.prevent="submit"
         br
         | v{{ slotProps.item.latest.name }} by
           {{ slotProps.item.latest.author || 'Unknown author' }}
-          – {{ slotProps.item.latest.fileNodes.length }} file(s)
+          – {{ slotProps.item.latest.fileNodes.length }} file{{
+              slotProps.item.latest.fileNodes.length == 1 ? '' : 's' }}
           – {{ slotProps.item.category }}
     | Choose a brief name to describe your package.
 
