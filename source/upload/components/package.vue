@@ -120,7 +120,7 @@ form.editor v-if="package && package.type" @submit.prevent="submit"
   p
     field-label target="version" Version number
     input#version (
-      type="text" v-model.trim="package.version"
+      type="text" v-model.trim="package.version" pattern="[0-9][0-9a-z\./_+-]*"
       placeholder="Examples: 1.0, 1.2.3, 1.2alpha, 1.2.3pre4…"
     )
     ' Increase the version number to push changes to existing users.
