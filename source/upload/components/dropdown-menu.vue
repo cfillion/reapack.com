@@ -2,9 +2,11 @@
 .dropdown-menu(v-show="show" @click.stop)
   slot
     ul
+      li.legend v-if="legend" {{ legend }}
       li (
         v-for="item in items" @click=="select(item)"
-        :class=="{ separator: item.separator, placeholder: item.disabled }"
+        :class=="{ separator: item.separator, placeholder: item.disabled,
+          item: !item.separator && !item.disabled}"
       )
         template v-if="!item.separator"
           slot name="item" :item="item"
@@ -18,9 +20,10 @@
 export default
   props:
     button: Node
+    checked: Array
     items: Array
     multiple: Boolean
-    checked: Array
+    legend: String
     show: Boolean
   methods:
     select: (item) ->
@@ -68,8 +71,7 @@ ul
   margin-left: 0
 
 li
-  background-color: $table-row-odd
-  cursor: pointer
+  cursor: default
   font-size: 0.9em
   list-style-type: none
   padding: 8px 8px 4px 8px
@@ -77,12 +79,20 @@ li
   .fa
     padding-right: 4px
 
-  &.placeholder, &.separator
-    cursor: default
+  &.item
+    cursor: pointer
+    background-color: $table-row-odd
+
+    &:hover
+      background-color: $background
 
   &.separator
     padding: 0
     border-top: 1px solid $input-placeholder
+
+  &.legend
+    font-size: 0.8em
+    font-style: italic
 
   &:first-child
     border-top-left-radius: $radius
@@ -94,7 +104,4 @@ li
   &:last-child
     border-bottom-left-radius: $radius
     border-bottom-right-radius: $radius
-
-  &:hover:not(.placeholder):not(.separator)
-    background-color: $background
 </style>

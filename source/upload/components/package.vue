@@ -73,7 +73,7 @@ form.editor v-if="package && package.type" @submit.prevent="submit"
     )
     dropdown-menu (
       :show="matchingPackages.length > 0" :items="matchingPackages"
-      :button="$refs.nameInput"
+      :button="$refs.nameInput" legend="Matching packages (click to load and edit an existing package):"
       @input="loadExisting($event)" @leave="matchingPackages = []"
     )
       template slot="item" slot-scope="slotProps"
