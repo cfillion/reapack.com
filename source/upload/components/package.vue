@@ -76,14 +76,12 @@ form.editor v-if="package && package.type" @submit.prevent="submit"
       :button="$refs.nameInput" legend="Matching packages (click to load and edit an existing package):"
       @input="loadExisting($event)" @leave="matchingPackages = []"
     )
-      template slot="item" slot-scope="slotProps"
-        strong() {{ slotProps.item.name }}
+      template v-slot:item="{ item }"
+        strong() {{ item.name }}
         br
-        | v{{ slotProps.item.latest.name }} by
-          {{ slotProps.item.latest.author || 'Unknown author' }}
-          – {{ slotProps.item.latest.fileNodes.length }} file{{
-              slotProps.item.latest.fileNodes.length == 1 ? '' : 's' }}
-          – {{ slotProps.item.category }}
+        | v{{ item.latest.name }} by {{ item.latest.author || 'Unknown author' }}
+          – {{ item.latest.fileNodes.length }} file{{item.latest.fileNodes.length == 1 ? '' : 's' }}
+          – {{ item.category }}
     | Choose a brief name to describe your package.
 
   p
