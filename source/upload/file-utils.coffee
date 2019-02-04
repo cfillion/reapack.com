@@ -49,6 +49,11 @@ export isIndexable = (matchExt) ->
 export detectBinary = (content) ->
   content.includes '\0' # big assumption
 
+export normalizeLineBreaks = (content) ->
+  content = content.replace /\r\n|\r|\n/g, '\n'
+  content += '\n' unless content.endsWith '\n'
+  content
+
 export fileListToTree = (fileList) ->
   tree = []
 

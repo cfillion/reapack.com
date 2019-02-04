@@ -1,6 +1,6 @@
 import { join, extname, relative } from 'path'
 import { NoIndexHeader } from './header'
-import { isIndexable, sanitizeFilename, detectBinary } from './file-utils'
+import { isIndexable, sanitizeFilename, detectBinary, normalizeLineBreaks } from './file-utils'
 
 export UploadSource = { icon: 'fa-upload', name: 'Upload' }
 export ExternalSource = { icon: 'fa-link', name: 'External' }
@@ -64,10 +64,10 @@ export default class File
     tooBig = -> "'#{localFile.name}' is too big to be uploaded to this repository."
 
     if localFile.size > MAX_SIZE_TEXT
-      cb tooBig() if cb
+      cb tooBig()
       return
 
-    reader = new FileReader()
+    reader = new FileReader
 
     reader.onload = =>
       @originName = localFile.name
@@ -77,11 +77,11 @@ export default class File
         cb()
       else if detectBinary reader.result
         if localFile.size > MAX_SIZE_BINARY
-          cb tooBig() if cb
+          cb tooBig()
         else
           reader.readAsArrayBuffer localFile
       else
-        @content = reader.result
+        @content = normalizeLineBreaks reader.result
         cb()
 
     reader.readAsText localFile
@@ -216,7 +216,7 @@ export default class File
     else if isIndexable(fileext)
       NoIndexHeader
 
-    h = header?.toString(fileext, type)
+    h = header?.toString fileext, type
 
     if h
       h += '\n' if @content.length > 0
