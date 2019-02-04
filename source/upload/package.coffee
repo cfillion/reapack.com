@@ -112,12 +112,17 @@ export default class Package
         errors.push "The package file '#{name}' does not use one of the
           #{@type.name} package extensions (#{@type.extensions.join ', '})."
 
+      if file.isPackage && file.install &&
+          !(file.content.length || file.content.byteLength)
+        errors.push "The package file '#{name}' is installed but does not have
+          any content beside the metadata header."
+
       otherIndex = @files.findIndex (otherFile) =>
         otherFile.source == UploadSource &&
           name == otherFile.storagePath()
 
       unless otherIndex == index || dups.includes(name)
-        errors.push "More than one files are uploaded as '#{name}'."
+        errors.push "More than one file are uploaded as '#{name}'."
         dups.push name
 
       unless file.install || (file.isPackage && @type.metapackage) ||
