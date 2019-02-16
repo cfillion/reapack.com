@@ -115,6 +115,9 @@ class IndexPackage
         @setInstallFileData file, fileNode
         pkg.files.push file
 
+    # it's a metapackage if the package file not installed at all
+    pkg.files[0].install = !!hosted[@packageFile]
+
     promises = for fullPath, fileNodes of hosted
       @loadHostedFile pkg, fullPath, fileNodes
     Promise.all promises
