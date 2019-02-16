@@ -97,7 +97,6 @@ class IndexPackage
   loadFiles: (fileNodes, pkg) ->
     hosted = {}
     hostedPrefix = "https://github.com/#{@index.repo}/raw/"
-    promises = []
 
     for fileNode in fileNodes
       if fileNode.textContent.startsWith hostedPrefix
@@ -116,34 +115,45 @@ class IndexPackage
         @setInstallFileData file, fileNode
         pkg.files.push file
 
-    for fullPath, fileNodes of hosted
-      # start by creating the shared uploaded file
-      source = if fullPath == @packageFile
-        pkg.files[0]
-      else
-        source = new File null, pkg
-        pkg.files.push source
+    promises = for fullPath, fileNodes of hosted
+      @loadHostedFile pkg, fullPath, fileNodes
+    Promise.all promises
 
-        promises.push do (source) =>
-          {header, content} = await @fetchFile fullPath
-          source.content = content
+  loadHostedFile: (pkg, fullPath, fileNodes) ->
+    promises = []
 
-        source
+    # start by creating the shared uploaded file...
+    source = if fullPath == @packageFile
+      pkg.files[0]
+    else
+      source = new File null, pkg
+      pkg.files.push source
 
-      source.storageName = relative source.storageDirectory(), fullPath
+      promises.push do (source) =>
+        {header, content} = await @fetchFile fullPath
+        source.content = content
 
-      if fileNodes.length == 1
-        @setInstallFileData source, fileNodes[0]
-        continue
+      source
 
+    source.storageName = relative source.storageDirectory(), fullPath
+
+    if fileNodes.length == 1
+      # the hosted file is installed once
+      @setInstallFileData source, fileNodes[0]
+      return
+    else if fileNodes.filter((n) => !n.hasAttribute('file')).length == 1
+      # the hosted file is installed once under its original storage file name
+      # but is also installed under different filenames
+      @setInstallFileData source, fileNodes.shift()
+    else
       source.install = false
 
-      # then create all virtual files sourcing it
-      for fileNode in fileNodes
-        file = new File null, pkg
-        file.setSource source.toSource()
-        @setInstallFileData file, fileNode
-        pkg.files.push file
+    # ...then create all virtual files sourcing it
+    for fileNode in fileNodes
+      file = new File null, pkg
+      file.setSource source.toSource()
+      @setInstallFileData file, fileNode
+      pkg.files.push file
 
     Promise.all promises
 
@@ -153,7 +163,7 @@ class IndexPackage
     file.sections = @parseMain(node.getAttribute('main') || '')
     file.platform = @parsePlatform(node.getAttribute('platform') || '')
     file.url = node.textContent || ''
-    file.installName = node.getAttribute('file') || ''
+    file.installName = node.getAttribute('file') || @fileName
 
     unless file.source == ExternalSource
       sourceFile = file.source.file ? file
