@@ -240,6 +240,8 @@ export default
       if @errors.length
         Vue.nextTick => @$refs.errors.scrollIntoView()
         return
+      else if process.env.NODE_ENV != 'production'
+        return unless confirm 'Validation passed. Create test pull request?'
 
       try
         @progress = new Progress 'Waiting for GitHub authorization...'
