@@ -10,12 +10,12 @@
     "filesize": "^3.6.1",
     "fuzzysort": "^1.1.4",
     "indent-string": "^3.2.0",
-    "vue": "^2.6.7",
+    "vue": "^2.6.8",
     "vue-router": "^3.0.1"
   },
   "devDependencies": {
-    "@babel/core": "^7.3.3",
-    "@babel/preset-env": "^7.3.1",
+    "@babel/core": "^7.3.4",
+    "@babel/preset-env": "^7.3.4",
     "babel-loader": "^8.0.5",
     "coffee-loader": "^0.9.0",
     "coffeescript": "^2.3.2",
@@ -23,9 +23,9 @@
     "mini-css-extract-plugin": "^0.4.5",
     "node-sass": "^4.11.0",
     "sass-loader": "^7.1.0",
-    "vue-loader": "^15.6.4",
-    "vue-template-compiler": "^2.6.7",
-    "webpack": "^4.29.5",
+    "vue-loader": "^15.7.0",
+    "vue-template-compiler": "^2.6.8",
+    "webpack": "^4.29.6",
     "webpack-cli": "^3.2.3"
   }
 }
