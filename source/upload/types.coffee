@@ -13,7 +13,7 @@ export reascript =
 
   placeholders:
     name: 'Float instrument relevant to MIDI editor'
-    changelog: 'Create an undo point when inserting tracks in the project\nAllow square braquets to be typed in the input box'
+    changelog: 'Create an undo point when inserting tracks in the project\nAllow square brackets to be typed in the input box'
 
 export jsfx =
   type: 'effect'
