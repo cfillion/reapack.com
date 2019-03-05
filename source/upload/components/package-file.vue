@@ -25,6 +25,9 @@
   p v-else-if="file.source == $options.ExternalSource"
     field-label target="download-url" Download URL
     input#download-url type="url" required=true v-model.trim="file.url"
+    ' <strong>Note:</strong> Only large binary files (eg. themes, extensions)
+      should be provided as an external download.
+    br
     ' Available variables:
     template v-for="(variable, index) in $options.urlVariables"
       code.help :title="variable.desc"
