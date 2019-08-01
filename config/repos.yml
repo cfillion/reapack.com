@@ -118,3 +118,6 @@ repos:
   -
     link: 'https://github.com/ArchieScript/Archie_ReaScripts'
     index: 'https://github.com/ArchieScript/Archie_ReaScripts/raw/master/index.xml'
+  -
+    link: 'https://github.com/Neutronic/ReaScripts'
+    index: 'https://github.com/Neutronic/ReaScripts/raw/master/index.xml'
