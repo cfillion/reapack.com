@@ -10,6 +10,7 @@ var babel = {
       ['@babel/preset-env', {
         targets: '> 0.25%, not dead, not ie <= 11',
         useBuiltIns: 'entry',
+        corejs: 3,
       }],
     ],
   },
