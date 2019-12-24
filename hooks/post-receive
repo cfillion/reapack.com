@@ -23,7 +23,7 @@ export RUBYOPT=-EUTF-8
 
 cd "$DEPLOY_DIR"
 
-bundle install --deployment
+bundle install
 npm install
 
 bundle exec ./update.rb
