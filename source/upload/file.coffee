@@ -200,7 +200,8 @@ export default class File
       target = if installPath != storagePath then " > #{installPath}" else ''
 
       if sourceFile.isPackage
-        return if opts.length == 0 && !target
+        copies = @package.findFilesSourcing sourceFile
+        return if opts.length == 0 && !target && copies.length == 0
         storagePath = '.'
 
       line += "#{storagePath}#{target}"
