@@ -35,17 +35,25 @@ Architectures = [
       darwin: 'darwin'
       windows: 'windows'
   ,
-    name: '32-bit'
+    name: 'x86 32-bit'
     platforms:
       linux: 'linux32'
       darwin: 'darwin32'
       windows: 'win32'
   ,
-    name: '64-bit'
+    name: 'x86 64-bit'
     platforms:
       linux: 'linux64'
       darwin: 'darwin64'
       windows: 'win64'
+  ,
+    name: 'ARM 32-bit'
+    platforms:
+      linux: 'linux-armv7l'
+  ,
+    name: 'ARM 64-bit'
+    platforms:
+      linux: 'linux-aarch64'
 ]
 
 export default
@@ -66,7 +74,7 @@ export default
       for arch in Architectures
         for system, value of arch.platforms
           if value == @value
-            return "#{@systemName(system)} (#{arch.name.toLowerCase()})"
+            return "#{@systemName(system)} (#{arch.name})"
 
       @value # fallback for unknown platforms
     systemName: (id) ->

@@ -4,9 +4,6 @@ description: >
   ReaPack is a package manager for REAPER, the Digital Audio Workstation.
   Install and update ReaScripts, JS effects, themes, extensions,
   language packs and more.
-software_requirements: 'REAPER v4.7+ (v5.12 or later recommended).'
-system_requirements:
-  macOS 10.7+, Windows Vista or newer, Linux (with libstdc++ for GCC 7.1+ and libcurl) or Wine 1.8+.
 ---
 
 <script type="application/ld+json"><%= {
@@ -22,8 +19,6 @@ system_requirements:
   'softwareVersion': data.releases.latest.tag_name.gsub(/^v/, ''),
   'datePublished': data.releases.latest.published_at.iso8601,
   'releaseNotes': config.host + url_for(current_release_notes),
-  'operatingSystem': current_page.data.system_requirements,
-  'softwareRequirements': current_page.data.software_requirements,
   'applicationCategory': 'Pro Audio',
   'screenshot': config.host + url_for('/images/package-browser.png'),
   'softwareHelp': {'url' => config.host + url_for('/user-guide.html')},
@@ -51,14 +46,13 @@ effects, extensions, themes, language packs, templates, web interfaces and more.
 
 ## Main features
 
-- Easy access to 900+ packages from the default repositories
-- Documentation display for packages and repositories
+- Easy access to 1,200+ packages from the default repositories
 - Import third-party repositories to get more content
 - Install/update in batch or pick only what you need
 - Decentralized by design, free to use and open-source
+- Documentation display for packages and repositories
 - Opt-in setting to test pre-release packages
-- **NEW!** Import/export sets of installed packages offline
-- **NEW!** Support automation items, project templates, track templates and MIDI note names packages
+- Import/export sets of installed packages offline
 - And a lot more...
 
 ## External links

@@ -1,5 +1,38 @@
 - index = sitemap.find_resource_by_path '/index.html'
 
+/ To find the minimum libstdc++ GCC version required:
+/ $ nm reaper_reapack-x86_64.so | grep @@ | cut -d@ -f 3 | sort -V | uniq
+/ then refer to https://gcc.gnu.org/onlinedocs/libstdc++/manual/abi.html
+
+- linux = { \
+    header: 'Linux <small>(beta)</small>',
+    icon: 'linux',
+    requirements: "libcurl, libstdc++ for GCC 7.1+, libxml2 2.6+, OpenSSL 1.1+ or compatible and SQLite3",
+    links: { \
+      'x86 32-bit': data.releases.latest.linux_i686,
+      'x86 64-bit': data.releases.latest.linux_x86_64,
+      'ARM 32-bit': data.releases.latest.linux_armv7l,
+      'ARM 64-bit': data.releases.latest.linux_aarch64,
+    }}
+
+- macos = { \
+    header: 'macOS',
+    icon: 'apple',
+    requirements: "macOS 10.9 or later",
+    links: { \
+      '32-bit': data.releases.latest.darwin_i386,
+      '64-bit': data.releases.latest.darwin_x86_64,
+    }}
+
+- windows = { \
+    header: 'Windows',
+    icon: 'windows',
+    requirements: "Windows Vista or later (or Wine 1.8+ on Linux)",
+    links: { \
+      '32-bit': data.releases.latest.windows_x86,
+      '64-bit': data.releases.latest.windows_x64,
+    }}
+
 p
   ==> link_to 'https://www.paypal.com/cgi-bin/webscr', class: 'donate',
     target: '_blank', query: \
@@ -13,43 +46,26 @@ p
 .downloads
   h2 Downloads
 
-  - [ { \
-    header: 'macOS',
-    icon: 'apple',
-    links: { \
-      '32-bit': data.releases.latest.darwin32,
-      '64-bit': data.releases.latest.darwin64,
-    }}, { \
-    header: 'Windows',
-    icon: 'windows',
-    links: { \
-      '32-bit': data.releases.latest.win32,
-      '64-bit': data.releases.latest.win64,
-    }}, { \
-    header: 'Linux <small>(beta)</small>',
-    icon: 'linux',
-    links: { \
-      '32-bit': data.releases.latest.linux32,
-      '64-bit': data.releases.latest.linux64,
-    }}].each do |box|
-      .download
+  - [ macos, windows, linux ].each do |box|
+    .platform
+      .files
         i.icon.fa.fa-fw class="fa-#{box[:icon]}"
-        .links
+        div
           h3 == box[:header]
           ul
             - box[:links].each do |label, file|
+              - next unless file
               li
                 i.fa.fa-download
                 a.dl> href=file[:browser_download_url] rel="nofollow" = label
                 small.size = number_to_human_size file[:size]
+      p.requirements
+        ' Requires REAPER 4.7+ (5.12 or later recommended).
+        = box[:requirements]
+        | .
 
   p
     strong> Latest stable release:
     ==> link_to "ReaPack #{data.releases.latest.tag_name}", current_release_notes
     ' released on #{data.releases.latest.published_at.strftime '%Y-%m-%d'}
     a href="https://github.com/cfillion/reapack": i class="fa fa-github"
-
-  p
-    strong> System requirements:
-    => index.data.software_requirements
-    = index.data.system_requirements

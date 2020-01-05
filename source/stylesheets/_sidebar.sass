@@ -50,7 +50,7 @@ $sidebar-outer-width: $sidebar-width + ($padding * 2) + $sidebar-border
   &:focus
     box-shadow: -1px -1px 18px 1px rgba(0, 0, 0, 0.3) inset
 
-.download
+.platform
   background-color: $foreground
   background-image: linear-gradient(darken($foreground, 3%), darken($foreground, 9%))
   border-radius: 7px
@@ -60,8 +60,10 @@ $sidebar-outer-width: $sidebar-width + ($padding * 2) + $sidebar-border
   overflow: hidden
   padding: 10px
   padding-left: 5px
+  padding-bottom: 2.5px
   text-shadow: 1px 1px white
 
+.platform > .files
   display: flex
   align-items: center
 
@@ -70,7 +72,7 @@ $sidebar-outer-width: $sidebar-width + ($padding * 2) + $sidebar-border
     flex: 0 0 auto
     font-size: 3.3rem
 
-  .links
+  .files
     flex: 1 1 auto
 
   h3
@@ -94,3 +96,9 @@ $sidebar-outer-width: $sidebar-width + ($padding * 2) + $sidebar-border
 
   .fa-download
     padding-right: 5px
+
+.platform > .requirements
+  font-size: 0.7em
+  margin-top: 5px
+  margin-bottom: 0
+  padding: 5px
