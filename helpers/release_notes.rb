@@ -18,13 +18,13 @@ module ReleaseNotes
   def format_release_notes(release_notes)
     release_notes = release_notes.to_str
 
-    release_notes.gsub!(/\[(([tp])=\d+)\]/) {
-      title = $2 == 't' ? 'forum thread' : 'forum post'
+    release_notes.gsub!(/\[(([tp])=(\d+))\]/) {
+      title = $2 == 't' ? "Forum thread \##{$3}" : "Forum post \##{$3}"
       yield title, "https://forum.cockos.com/showthread.php?#{$1}"
     }
 
     release_notes.gsub!(/\[#(\d+)\]/) {
-      yield 'GitHub issue', "https://github.com/cfillion/reapack/issues/#{$1}"
+      yield "GitHub issue \##{$1}", "https://github.com/cfillion/reapack/issues/#{$1}"
     }
 
     release_notes
