@@ -1,6 +1,6 @@
 import { encode as encodeArrayBuffer } from 'base64-arraybuffer'
 import { UploadSource } from './file'
-import { fileListToTree } from './file-utils'
+import { fileListToTree, normalizeLineBreaks } from './file-utils'
 
 AUTH_SCOPE = 'public_repo'
 CLIENT_ID  = 'fdf42a6c354a7e6823f3'
@@ -96,7 +96,7 @@ export createBlob = (repoName, file) ->
     content: encodeArrayBuffer file.content
   else
     encoding: 'utf-8'
-    content: file.header() + file.content
+    content: file.header() + normalizeLineBreaks(file.content)
 
   path: file.storagePath()
   blob: await POST "/repos/#{repoName}/git/blobs", params
