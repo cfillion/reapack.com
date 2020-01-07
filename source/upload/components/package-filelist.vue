@@ -1,7 +1,8 @@
 <template lang="slim">
-.file-list v-if="files.length > 0"
+.file-list
   .header: slot
   ul
+    li.empty v-if="files.length < 1" The list is empty.
     li (
       v-for="file in files" :class="{ active: current == file }"
       @click=="$emit('select', file)"
@@ -61,7 +62,7 @@ li, .header
 .header
   font-family: $font-serif
 
-li
+li:not(.empty)
   background-color: $table-row-odd
   cursor: pointer
   list-style-type: none
