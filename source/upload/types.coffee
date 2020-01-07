@@ -69,7 +69,7 @@ export extension =
   type: 'extension'
   name: 'Extension'
   repo: 'ReaTeam/Extensions'
-  desc: 'Upload an extension plugin to the ReaTeam/Extensions repository.'
+  desc: 'Upload a plug-in extension to the ReaTeam/Extensions repository.'
   icon: 'fa-puzzle-piece'
 
   casualName: 'extension'
