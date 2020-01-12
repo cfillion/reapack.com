@@ -7,7 +7,7 @@
 - linux = { \
     header: 'Linux <small>(beta)</small>',
     icon: 'linux',
-    requirements: "libcurl, libstdc++ for GCC 7.1+, libxml2 2.6+, OpenSSL 1.1+ or compatible and SQLite3",
+    requirements: "Requires REAPER·5.20+ (6.04 or later recommended). libcurl, libstdc++ for GCC 7.1+, libxml2 2.6+, OpenSSL 1.1+ or compatible and SQLite3.",
     links: { \
       'x86 32-bit': data.releases.latest.linux_i686,
       'x86 64-bit': data.releases.latest.linux_x86_64,
@@ -18,7 +18,7 @@
 - macos = { \
     header: 'macOS',
     icon: 'apple',
-    requirements: "macOS 10.9 or later",
+    requirements: "Requires REAPER·5.1+ (6.04 or later recommended). macOS 10.9 or later.",
     links: { \
       '32-bit': data.releases.latest.darwin_i386,
       '64-bit': data.releases.latest.darwin_x86_64,
@@ -27,7 +27,7 @@
 - windows = { \
     header: 'Windows',
     icon: 'windows',
-    requirements: "Windows Vista or later (or Wine 1.8+ on Linux)",
+    requirements: "Requires REAPER 4.7+ (5.12 or later recommended). Windows Vista or later (or Wine 1.8+ on Linux).",
     links: { \
       '32-bit': data.releases.latest.windows_x86,
       '64-bit': data.releases.latest.windows_x64,
@@ -59,10 +59,7 @@ p
                 i.fa.fa-download
                 a.dl> href=file[:browser_download_url] rel="nofollow" = label
                 small.size = number_to_human_size file[:size]
-      p.requirements
-        ' Requires REAPER 4.7+ (5.12 or later recommended).
-        = box[:requirements]
-        | .
+      p.requirements = box[:requirements]
 
   p
     strong> Latest stable release:
