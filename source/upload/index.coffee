@@ -144,7 +144,8 @@ class IndexPackage
       # the hosted file is installed once
       @setInstallFileData source, fileNodes[0]
       return
-    else if fileNodes.filter((n) => !n.hasAttribute('file')).length == 1
+    else if fileNodes.filter((n) => !n.hasAttribute('file') ||
+        n.getAttribute('file') == source.storageName).length == 1
       # the hosted file is installed once under its original storage file name
       # but is also installed under different filenames
       @setInstallFileData source, fileNodes.shift()
