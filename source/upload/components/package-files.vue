@@ -139,9 +139,10 @@ export default
   overflow-x: auto
 
 .file
-  overflow: auto
-  overflow-wrap: break-word
   flex: 1 1 auto
+  overflow-wrap: break-word
+  overflow: auto
+  scrollbar-width: thin
 
   &> div
     padding: $padding
