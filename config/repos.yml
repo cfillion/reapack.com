@@ -4,6 +4,7 @@ count_types: # package types not in this list are counted as 'other'
   - theme
   - extension
   - langpack
+  - webinterface
 repos:
   -
     link: 'https://github.com/ReaTeam/ReaScripts'
