@@ -13,7 +13,9 @@ for node in nodes
       eventLabel: this.href,
     }
 
-copyAll.addEventListener 'click', ->
+copyAll.addEventListener 'click', (event) ->
+  event.preventDefault()
+
   ga 'send', {
     hitType: 'event',
     eventCategory: 'Repositories',

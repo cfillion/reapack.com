@@ -28,11 +28,9 @@ ul.table
       i.fa.fa-pencil
       | Edit this list
     li
-      a.copyAll href="javascript:;"
+      a.copyAll rel="nofollow" href=url_for('/repos.txt')
         i.fa.fa-copy
         | Copy all
-      noscript
-        | &nbsp;(JavaScript required)
       span.copied.hidden
         | &nbsp;(Copied!)
 
