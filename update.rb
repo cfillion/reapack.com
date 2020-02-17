@@ -132,7 +132,7 @@ class Repo
   def run(data)
     name, packages = nil
 
-    open(URI @repo['index']) {|f|
+    URI(@repo['index']).open {|f|
       doc = Nokogiri::XML f.read
       name = doc.root['name'].to_s
       packages = {}
