@@ -6,6 +6,8 @@ import File, { ExternalSource, ScriptSections } from './file'
 import Package, { LinkTypes } from './package'
 import { isIndexable, detectBinary } from './file-utils'
 
+API_MAX_PAYLOAD = 4096
+
 resolveType = (typeId) ->
   for _, type of Types
     return type if type.type == typeId
@@ -190,7 +192,7 @@ class IndexPackage
         apiResponse = await @index.fetchAPI 'parse-header',
           method: 'post'
           headers: { 'Content-Type': 'text/plain' }
-          body: content
+          body: content.substring(0, API_MAX_PAYLOAD)
 
         offset = apiResponse.headers.get 'X-End-Of-Header'
         content = content.substring offset
