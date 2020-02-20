@@ -5,7 +5,7 @@ $sidebar-outer-width: $sidebar-width + ($padding * 2) + $sidebar-border
 .wrapper
   max-width: $content-width + $sidebar-outer-width
 
-.aside p
+.aside p, .aside form
   font-size: 0.8rem
 
 @media #{$breakpoint-large}
@@ -33,7 +33,11 @@ $sidebar-outer-width: $sidebar-width + ($padding * 2) + $sidebar-border
 .donate
   background-color: #ea4aaa
   border-radius: 5px
+  border-style: none // disable OS border
   color: white
+  cursor: pointer
+  font-family: $font-sans
+  font-weight: bold
   display: block
   font-size: 1rem
   margin-bottom: 5px
@@ -43,6 +47,7 @@ $sidebar-outer-width: $sidebar-width + ($padding * 2) + $sidebar-border
   text-shadow: none
   user-select: none
   white-space: nowrap
+  width: 100%
 
   &:hover
     box-shadow: inset 0 0 100px 100px rgba(255, 255, 255, 0.2)

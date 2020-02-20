@@ -33,10 +33,14 @@
       '64-bit': data.releases.latest.windows_x64,
     }}
 
-p
-  ==> link_to 'https://www.paypal.com/cgi-bin/webscr', class: 'donate', query: \
-      { cmd: '_donations', business: 'T3DEWBQJAV7WL',
-      currency_code: 'CAD', item_name: index.data.title } do
+form action="https://www.paypal.com/cgi-bin/websrc" method="post"
+  input type="hidden" name="business" value="T3DEWBQJAV7WL"
+  input type="hidden" name="cmd" value="_donations"
+  input type="hidden" name="currency_code" value="CAD"
+  input type="hidden" name="item_name" value=index.data.title
+  input type="hidden" name="return" value="#{config.host}#{current_page.url}"
+
+  button.donate
     i.fa.fa-heart>
     | Support ReaPack
 
