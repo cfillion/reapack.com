@@ -4,3 +4,41 @@
   img
     border-radius: 4px
     box-shadow: 0px 0px 10px #777777
+
+.feature
+  margin-bottom: $margin
+
+  i
+    padding-right: 4px
+
+  $blue:      #529cea
+  $brown:     #fbad7e
+  $cyan:      #93d4f0
+  $green:     #ccff96
+  $purple:    #bb7bd7
+  $red:       #ff4b4b
+  $turquoise: #5dd99f
+  $yellow:    #ffcd35
+
+  $colors: $green, $cyan, $blue, $red, $turquoise, $purple, $brown, $yellow
+
+  @for $i from 1 through length($colors)
+    &:nth-child(#{$i}) .fa
+      color: nth($colors, $i)
+
+@media screen and (min-width: 700px)
+  .features
+    display: grid
+    grid-gap: 10px
+    grid-template-columns: 1fr 1fr
+    margin-bottom: $margin
+
+  .feature
+    margin-bottom: 0
+
+.favicon
+  height: 1rem
+  width: 1rem
+  padding-right: 4px
+  user-select: none
+  vertical-align: middle

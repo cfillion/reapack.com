@@ -1,0 +1,141 @@
+---
+title: 'ReaPack: Package manager for REAPER'
+description: >
+  ReaPack is a package manager for REAPER, the Digital Audio Workstation.
+  Install and update ReaScripts, JS effects, themes, extensions,
+  language packs and more.
+---
+
+script type="application/ld+json"
+  == { \
+      '@context': 'http://schema.org',
+      '@type': 'SoftwareApplication',
+      'name': 'ReaPack',
+      'author': { \
+        '@type': 'Person',
+        'name': 'Christian Fillion',
+        'sameAs': 'https://cfillion.ca',
+      },
+      'about': current_page.data.description.chomp,
+      'softwareVersion': data.releases.latest.tag_name.gsub(/^v/, ''),
+      'datePublished': data.releases.latest.published_at.iso8601,
+      'releaseNotes': config.host + url_for(current_release_notes),
+      'applicationCategory': 'Pro Audio',
+      'screenshot': config.host + url_for('/images/package-browser.png'),
+      'softwareHelp': {'url' => config.host + url_for('/user-guide.html')},
+      'license': 'https://www.gnu.org/licenses/lgpl-3.0.en.html',
+      'discussionUrl': 'https://forum.cockos.com/showthread.php?t=177978',
+      'offers': { \
+        '@type': 'Offer',
+        'price': '0',
+        'priceCurrency': 'CAD',
+      },
+      'sameAs': ['https://github.com/cfillion/reapack'],
+    }.to_json
+
+p ReaPack is a package manager for REAPER, the Digital Audio Workstation.
+
+p
+  ' Discover,
+  a.egg> rel="nofollow" href="https://reacomics.tumblr.com/post/153946589700/033-reapack-feedback" install
+  | and keep up to date your REAPER resources including ReaScripts, JS effects,
+    extensions, themes, language packs, templates, web interfaces and more.
+
+p.screenshot: img alt="Screenshot of ReaPack" src=url_for('/images/package-browser.png')
+
+h2 Features
+
+.features
+  .feature
+    h3
+      i.fa.fa-fw.fa-plug
+      | Ready to use
+    p Out-of-the-box access to more than 1,300 REAPER resource packages
+      including scripts, effects, extensions, themes and language packs.
+
+  .feature
+    h3
+      i.fa.fa-fw.fa-cloud-download
+      | Extendable
+    p
+      ' Add more content to ReaPack by importing third-party repositories.
+        A list of known repositories is maintained on
+      a href=url_for('/repos.html') this page
+      | .
+
+  .feature
+    h3
+      i.fa.fa-fw.fa-magic
+      | Automatic updates
+    p Browse through the package list and pick what you need.
+      Keep all installed packages up-to-date with one click
+      or enable a setting to mass install every present and future packages.
+
+  .feature
+    h3
+      i.fa.fa-fw.fa-code-fork
+      | Free software
+    p Free to use and open-source. ReaPack is decentralized by design:
+      it can operate independently of any single entity or package source.
+
+  .feature
+    h3
+      i.fa.fa-fw.fa-hdd-o
+      | Offline use
+    p The studio computer is not connected to internet?
+      Export installed packages into an archive file and import them
+      on an offline computer.
+
+  .feature
+    h3
+      i.fa.fa-wa.fa-flask
+      | Beta-test mode
+    p By default ReaPack displays stable releases only. Pre-releases can be
+      installed in an opt-in fashion either per-package or globally.
+
+  .feature
+    h3
+      i.fa.fa-fw.fa-music
+      | For users
+    p Using REAPER scripts does not require programming skills.
+      Many package developers supply documentation that can be consulted
+      within ReaPack.
+
+  .feature
+    h3
+      i.fa.fa-fw.fa-code
+      | For developers
+    p
+      ' Add your REAPER resources to ReaPack by submitting them using the
+      a> href=url_for('upload.html') upload tool
+      | or setup your own repository.
+
+h2 External links
+
+ul
+  li
+    a href="https://forum.cockos.com/showthread.php?t=177978"
+      img.favicon src="https://forum.cockos.com/favicon.ico"
+      | Announcement thread
+  li
+    a> href="https://www.youtube.com/watch?v=XjoDu_32ljI" title="The ReaPack Extension for REAPER"
+      img.favicon src="https://www.youtube.com/favicon.ico"
+      | Video introduction
+    | by The REAPER Blog
+  li: a href="https://www.youtube.com/watch?v=9aQNCNGBF-c" title="ReaScript & ReaPack Tips"
+    img.favicon src="https://www.youtube.com/favicon.ico"
+    | ReaScript & ReaPack Tips
+  li: a href="https://www.learndigitalaudio.com/reaper-gets-a-package-manager-called-reapack" title="Reaper Gets a Package Manager Called ReaPack! What Does That Mean?"
+    img.favicon src="https://www.learndigitalaudio.com/wp-content/uploads/2015/06/favicon.ico"
+    | Article on learndigitalaudio.com
+  li: a href="https://www.extremraym.com/en/reapack" title="ReaPack: Download, Manage and Update ReaScripts/JSFX Easily with this new REAPER Extension"
+    img.favicon src="https://www.extremraym.com/wp-content/uploads/2016/02/cropped-x-raym_favicon-32x32.png"
+    | Article on extremraym.com
+  li: a href="https://github.com/cfillion/reapack"
+    i.fa.fa-fw.fa-github
+    | GitHub project
+  li
+    a> href="https://github.com/cfillion/reapack/issues"
+      i.fa.fa-fw.fa-github
+      | Issue tracker
+    | for bug reports and feature ideas
