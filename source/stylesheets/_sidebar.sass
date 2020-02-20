@@ -5,7 +5,7 @@ $sidebar-outer-width: $sidebar-width + ($padding * 2) + $sidebar-border
 .wrapper
   max-width: $content-width + $sidebar-outer-width
 
-.aside p, .aside form
+aside p, aside form
   font-size: 0.8rem
 
 @media #{$breakpoint-large}
@@ -13,16 +13,16 @@ $sidebar-outer-width: $sidebar-width + ($padding * 2) + $sidebar-border
     display: grid
     grid-template-columns: auto 320px
 
-  .content
+  main
     min-width: 0 // allow to be smaller than its content
 
-  .aside
+  aside
     border-left: $sidebar-border solid $foreground
     margin-left: $padding
     padding-left: $padding
 
 @media #{$breakpoint-small}
-  .aside
+  aside
     margin-top: $padding
     padding-top: $padding
     border-top: $sidebar-border solid $foreground

@@ -35,10 +35,10 @@ html lang="en"
       h1.page-title = current_page.data.title
 
       .container
-        .content
+        main class=page_classes
           == yield
 
-        .aside
+        aside
           == partial :sidebar
 
       p.stats
