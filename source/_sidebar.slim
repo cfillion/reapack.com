@@ -34,12 +34,11 @@
     }}
 
 p
-  ==> link_to 'https://www.paypal.com/cgi-bin/webscr', class: 'donate',
-    target: '_blank', query: \
+  ==> link_to 'https://www.paypal.com/cgi-bin/webscr', class: 'donate', query: \
       { cmd: '_donations', business: 'T3DEWBQJAV7WL',
       currency_code: 'CAD', item_name: index.data.title } do
-    i.fa.fa-paypal>
-    | Donate with PayPal
+    i.fa.fa-heart>
+    | Support ReaPack
 
   | All donations directly support ReaPack's continued development.
 
