@@ -9,6 +9,3 @@ gem 'nokogiri'
 gem 'octokit'
 gem 'sassc'
 gem 'slim'
-
-# temporary workaround
-gem 'rack', '< 2.1' # middleman#2309
