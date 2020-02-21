@@ -7,9 +7,7 @@
 
 .feature
   margin-bottom: $margin
-
-  i
-    padding-right: 4px
+  page-break-inside: avoid
 
   $blue:      #529cea
   $brown:     #fbad7e
@@ -26,7 +24,10 @@
     &:nth-child(#{$i}) .fa
       color: nth($colors, $i)
 
-@media screen and (min-width: 700px)
+  i
+    padding-right: 4px
+
+@media (min-width: 700px)
   .features
     display: grid
     grid-gap: 10px
