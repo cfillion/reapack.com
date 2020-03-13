@@ -6,7 +6,7 @@ import File, { ExternalSource, ScriptSections } from './file'
 import Package, { LinkTypes } from './package'
 import { isIndexable, detectBinary } from './file-utils'
 
-API_MAX_PAYLOAD = 4096
+API_MAX_PAYLOAD = 100 * 1024
 
 resolveType = (typeId) ->
   for _, type of Types
