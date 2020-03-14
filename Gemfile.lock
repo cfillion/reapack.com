@@ -10,7 +10,7 @@ GEM
       public_suffix (>= 2.0.2, < 5.0)
     autoprefixer-rails (9.7.4)
       execjs
-    backports (3.16.1)
+    backports (3.17.0)
     coffee-script (2.4.1)
       coffee-script-source
       execjs
@@ -76,9 +76,9 @@ GEM
     mini_portile2 (2.4.0)
     minitest (5.14.0)
     multipart-post (2.1.1)
-    nokogiri (1.10.8)
+    nokogiri (1.10.9)
       mini_portile2 (~> 2.4.0)
-    octokit (4.16.0)
+    octokit (4.17.0)
       faraday (>= 0.9)
       sawyer (~> 0.8.0, >= 0.5.3)
     padrino-helpers (0.13.3.4)
