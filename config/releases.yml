@@ -1,8 +1,10 @@
 github: 'cfillion/reapack'
 files:
-  'reaper_reapack32.dylib': darwin32
-  'reaper_reapack64.dylib': darwin64
-  'reaper_reapack32.dll': win32
-  'reaper_reapack64.dll': win64
-  'reaper_reapack32.so': linux32
-  'reaper_reapack64.so': linux64
+  reaper_reapack-i386.dylib:   darwin_i386
+  reaper_reapack-x86_64.dylib: darwin_x86_64
+  reaper_reapack-i686.so:      linux_i686
+  reaper_reapack-x86_64.so:    linux_x86_64
+  reaper_reapack-armv7l.so:    linux_armv7l
+  reaper_reapack-aarch64.so:   linux_aarch64
+  reaper_reapack-x86.dll:      windows_x86
+  reaper_reapack-x64.dll:      windows_x64

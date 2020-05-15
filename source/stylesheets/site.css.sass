@@ -52,11 +52,12 @@ img
   max-width: 100%
 
 a
-  color: #d8ffcf
+  color: $accent
   font-weight: bold
   text-decoration: underline
 
   &.egg
+    color: inherit
     font-weight: inherit
     text-decoration: inherit
 
@@ -84,6 +85,9 @@ pre
 
 ul
   list-style-type: disc
+
+  ul
+    list-style-type: circle
 
 ol
   list-style-type: decimal
@@ -161,7 +165,7 @@ header
 
 @import 'sidebar'
 
-body
+main
   &.index
     @import 'index'
   &.repos

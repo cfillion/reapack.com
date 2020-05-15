@@ -2,14 +2,14 @@ $height: 42px
 $logo-size: 32px
 
 &
-  background-color: $foreground
+  background-color: $accent
   box-shadow: 0 0 7px 1px black
   color: $background
   font-size: 0.9em
   margin-bottom: 1rem
   text-shadow: 1px 1px white
 
-@media screen and (min-width: 471px)
+@media (min-width: 471px)
   .wrapper
     display: flex
     align-items: center
@@ -25,6 +25,9 @@ a
 
   &:focus
     outline-offset: -2px
+
+  &:hover
+    color: darken($background, 10%)
 
 .logo
   background-image: url('/images/reapack.png')
@@ -57,7 +60,7 @@ a
       background-color: #cdd7ca
 
 // menu on it's own line
-@media screen and (max-width: 580px)
+@media (max-width: 580px)
   .wrapper
     display: block
 
