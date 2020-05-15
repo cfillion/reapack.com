@@ -1,0 +1,10 @@
+[Unit]
+Description=Refresh reapack.com data and rebuild daily
+After=time-sync.target
+
+[Timer]
+Unit=update-reapack.com.service
+OnCalendar=daily
+
+[Install]
+WantedBy=timers.target

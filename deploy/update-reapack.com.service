@@ -1,0 +1,11 @@
+[Unit]
+Description=Refresh reapack.com data and rebuild
+
+[Service]
+Type=oneshot
+User=change_me
+Group=change_me
+WorkingDirectory=/CHANGE/ME
+Environment=RUBYOPT=-EUTF-8
+ExecStart=bundle exec ./update.rb
+ExecStart=bundle exec middleman build
