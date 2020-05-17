@@ -38,13 +38,13 @@ class Runner
       tasks.concat @groups.keys
     else
       if wrong = tasks.find {|arg| !@groups.has_key? arg }
-        warn "invalid task '#{wrong}'".red
-        warn "correct tasks are: #{@groups.keys.join("\x20").bold}"
+        $stderr.puts "invalid task '#{wrong}'".red
+        $stderr.puts "correct tasks are: #{@groups.keys.join("\x20").bold}"
         return -1
       end
     end
 
-    warn "executing tasks #{tasks.join("\x20").bold}\n\n"
+    $stderr.puts "executing tasks #{tasks.join("\x20").bold}\n\n"
     tasks.each {|grp|
       data_file = File.join @data_dir, "#{grp}.yml"
       data = File.exist?(data_file) ? YAML.load_file(data_file) : nil
@@ -52,7 +52,7 @@ class Runner
       File.write data_file, data.to_yaml
     }
 
-    warn "%s (%d failures)" %
+    $stderr.puts "%s (%d failures)" %
       [@failures > 0 ? 'Done!' : 'Done!'.bold.green, @failures]
 
     @failures
@@ -60,18 +60,18 @@ class Runner
 
 private
   def run_task(task, data)
-    warn DateTime.now
-    warn "#{'->'.blue.bold} Running #{task.inspect}"
+    $stderr.puts DateTime.now
+    $stderr.puts "#{'->'.blue.bold} Running #{task.inspect}"
 
     begin
       summary, data = task.run data
-      warn "   #{'OK!'.green.bold} #{summary}"
+      $stderr.puts "   #{'OK!'.green.bold} #{summary}"
     rescue TaskFailure => e
       @failures += 1
-      warn "   #{'ERR'.red.bold} #{e}"
+      $stderr.puts "   #{'ERR'.red.bold} #{e}"
     end
 
-    warn "\n"
+    $stderr.puts "\n"
     data
   end
 end
