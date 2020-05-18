@@ -68,6 +68,10 @@ form action="https://www.paypal.com/cgi-bin/websrc" method="post"
       p.requirements = box[:requirements]
 
   p
+    | See the <a href="#{url_for '/user-guide.html'}">user guide</a>
+      for installation instructions.
+
+  p
     strong> Latest stable release:
     ==> link_to "ReaPack #{data.releases.latest.tag_name}", current_release_notes
     ' released on #{data.releases.latest.published_at.strftime '%Y-%m-%d'}
