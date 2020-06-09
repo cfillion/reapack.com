@@ -127,4 +127,7 @@ repos:
     index: 'https://github.com/zaibuyidao/ReaScripts/raw/master/index.xml'
   -
     link: 'https://reaticulate.com/'
-    index: 'https://reaticulate.com/release.xml'
+    index: 'https://reaticulate.com/release.xml'    
+  -
+    link: 'https://github.com/obogz/ReaperScripts'
+    index: 'https://github.com/obogz/ReaperScripts/raw/master/index.xml'
