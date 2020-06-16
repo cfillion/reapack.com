@@ -2,8 +2,11 @@
 
 Signal.trap('INT') { abort }
 
+require 'active_support'
+require 'active_support/core_ext'
 require 'colorize'
 require 'fileutils'
+require 'json'
 require 'nokogiri'
 require 'octokit'
 require 'open-uri'
@@ -202,8 +205,97 @@ class CleanupRepos
   end
 end
 
+class Donations
+  def initialize(config)
+    @config = config
+  end
+
+  def inspect
+    'Monthly donations'
+  end
+
+  def run(data)
+    client_id, secret = ENV['PAYPAL_CLIENT_ID'], ENV['PAYPAL_SECRET']
+    return ['SKIPPED: missing credentials', data] unless client_id && secret
+
+    # paranoid, clear credentials before running other tasks
+    ENV['PAYPAL_CLIENT_ID'] = ENV['PAYPAL_SECRET'] = nil
+
+    auth_url = URI('https://api.paypal.com/v1/oauth2/token')
+    auth_req = Net::HTTP::Post.new auth_url
+    auth_req.basic_auth client_id, secret
+    auth_req.set_form_data 'grant_type' => 'client_credentials'
+
+    donations_url = URI('https://api.paypal.com/v1/reporting/transactions')
+    donations_url.query = URI.encode_www_form \
+      start_date: DateTime.now.utc.at_beginning_of_month.iso8601,
+      end_date: DateTime.now.utc.at_end_of_month.iso8601,
+      transaction_status: 'S',
+      fields: 'transaction_info,cart_info'
+    donations_req = Net::HTTP::Get.new donations_url
+
+    transactions = Net::HTTP.start(auth_url.host, auth_url.port, use_ssl: true) do |http|
+      auth = parse_response http.request auth_req
+      donations_req['Authorization'] = "#{auth['token_type']} #{auth['access_token']}"
+      parse_response http.request donations_req
+    end
+
+    last_refresh = DateTime.parse transactions['last_refreshed_datetime']
+
+    # mismatched currency is not taken into account
+    total = transactions['transaction_details'].map do |details|
+      tx = Transaction.new details
+      tx.amount + tx.fee if tx.amount > 0 && tx.item_name =~ /ReaPack/
+    end.compact.sum
+
+    progress = (total / @config['goal']) * 100
+
+    data = {
+      goal: @config['goal'],
+      progress: [progress, 100].min,
+    }
+
+    status = '$%.2f - %s%% towards $%s per month goal (refreshed at %s)' %
+      [total, data[:progress], data[:goal], last_refresh.rfc2822]
+
+    [status, data]
+  end
+
+  def parse_response(res)
+    data = JSON.parse res.body
+
+    unless res.class == Net::HTTPOK
+      raise TaskFailure, "#{res.code} #{res.message} #{data}"
+    end
+
+    data
+  rescue JSON::ParserError => e
+    raise TaskFailure, "JSON parser error: #{e.message}"
+  end
+
+  class Transaction
+    def initialize(tx)
+      @tx = tx
+    end
+
+    def amount
+      @amount ||= @tx.dig('transaction_info', 'transaction_amount', 'value').to_f
+    end
+
+    def fee
+      @fee ||= @tx.dig('transaction_info', 'fee_amount', 'value').to_f
+    end
+
+    def item_name
+      @item_name ||= @tx.dig('transaction_info', 'transaction_subject') ||
+        @tx.dig('cart_info', 'item_details')&.first&.dig('item_name').to_s
+    end
+  end
+end
+
 runner = Runner.new
 
+runner.add 'donations', Donations
 runner.add 'releases', Releases
 runner.add 'repos' do |config|
   tasks = config['repos'].map {|repo| Repo.new repo, config }

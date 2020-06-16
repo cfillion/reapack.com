@@ -115,6 +115,7 @@ PLATFORMS
   ruby
 
 DEPENDENCIES
+  activesupport
   autoprefixer-rails
   colorize
   middleman

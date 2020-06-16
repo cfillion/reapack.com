@@ -44,6 +44,11 @@ form action="https://www.paypal.com/cgi-bin/websrc" method="post"
     i.fa.fa-heart>
     | Support ReaPack
 
+  | <strong>#{data.donations.progress.floor}%</strong> towards $#{data.donations.goal} per month goal
+
+  .progress
+    .meter style="width: #{data.donations.progress}%"
+
   | All donations directly support ReaPack's continued development.
 
 .downloads
