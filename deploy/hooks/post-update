@@ -7,7 +7,7 @@ bundle install
 npm install
 
 # avoid "ArgumentError: invalid byte sequence in US-ASCII"
-export RUBYOPT=-EUTF-8
+export RUBYOPT='-EUTF-8 -W0'
 
 bundle exec ./update.rb
 bundle exec middleman build

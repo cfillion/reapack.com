@@ -6,6 +6,6 @@ Type=oneshot
 User=change_me
 Group=change_me
 WorkingDirectory=/CHANGE/ME
-Environment=RUBYOPT=-EUTF-8
+Environment="RUBYOPT=-EUTF-8 -W0"
 ExecStart=bundle exec ./update.rb
 ExecStart=bundle exec middleman build
