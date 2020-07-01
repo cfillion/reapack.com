@@ -128,3 +128,6 @@ repos:
   -
     link: 'https://reaticulate.com/'
     index: 'https://reaticulate.com/release.xml'
+  -
+    link: 'https://github.com/acendan/reascripts'
+    index: 'https://acendan.github.io/reascripts/index.xml'
