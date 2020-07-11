@@ -216,6 +216,7 @@ class Donations
 
   def run(data)
     client_id, secret = ENV['PAYPAL_CLIENT_ID'], ENV['PAYPAL_SECRET']
+    data ||= { goal: 0, progress: 0 }
     return ['SKIPPED: missing credentials', data] unless client_id && secret
 
     # paranoid, clear credentials before running other tasks
