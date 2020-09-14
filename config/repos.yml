@@ -131,3 +131,6 @@ repos:
   -
     link: 'https://github.com/acendan/reascripts'
     index: 'https://acendan.github.io/reascripts/index.xml'
+  -
+    link: 'https://github.com/helgoboss/reaper-packages/'
+    index: 'https://github.com/helgoboss/reaper-packages/raw/master/index.xml'
