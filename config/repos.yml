@@ -131,3 +131,6 @@ repos:
   -
     link: 'https://github.com/acendan/reascripts'
     index: 'https://acendan.github.io/reascripts/index.xml'
+  -
+    link: 'https://www.extremraym.com/en/reascripts-premium/'
+    index: 'https://www.extremraym.com/cloud/reascripts-premium/demo.php?f=index.xml'
