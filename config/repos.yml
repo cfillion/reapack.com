@@ -134,3 +134,7 @@ repos:
   -
     link: 'https://github.com/helgoboss/reaper-packages/'
     index: 'https://github.com/helgoboss/reaper-packages/raw/master/index.xml'
+    
+  -
+    link: 'https://github.com/Ultraschall/ultraschall-lua-api-for-reaper'
+    index: 'https://raw.githubusercontent.com/Ultraschall/ultraschall-lua-api-for-reaper/master/ultraschall_api_index.xml'    
