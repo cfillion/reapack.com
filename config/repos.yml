@@ -134,3 +134,6 @@ repos:
   -
     link: 'https://github.com/helgoboss/reaper-packages/'
     index: 'https://github.com/helgoboss/reaper-packages/raw/master/index.xml'
+  -
+    link: 'https://github.com/leafac/reaper/'
+    index: 'https://github.com/leafac/reaper/raw/master/index.xml'
