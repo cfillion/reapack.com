@@ -100,7 +100,7 @@ repos:
     index: 'https://github.com/Outboarder/ReaScripts/raw/master/index.xml'
   -
     link: 'https://github.com/bfut/ReaScripts'
-    index: 'https://github.com/bfut/ReaScripts/raw/master/index.xml'
+    index: 'https://github.com/bfut/ReaScripts/raw/main/index.xml'
   -
     link: 'https://github.com/Erriez/erriez-reaper-jsfx/'
     index: 'https://github.com/Erriez/erriez-reaper-jsfx/raw/master/index.xml'
