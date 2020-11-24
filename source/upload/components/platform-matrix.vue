@@ -54,6 +54,7 @@ Architectures = [
     name: 'ARM 64-bit'
     platforms:
       linux: 'linux-aarch64'
+      darwin: 'darwin-arm64'
 ]
 
 export default
