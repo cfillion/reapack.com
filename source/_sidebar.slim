@@ -18,10 +18,11 @@
 - macos = { \
     header: 'macOS',
     icon: 'apple',
-    requirements: "Requires REAPER 5.1+ (6.04 or later recommended). macOS 10.9 or later.",
+    requirements: "Requires REAPER 5.1+ (6.04 or later recommended). macOS 10.9 or later (x86), macOS 11.0 or later (ARM).",
     links: { \
-      '32-bit': data.releases.latest.darwin_i386,
-      '64-bit': data.releases.latest.darwin_x86_64,
+      'x86 32-bit': data.releases.latest.darwin_i386,
+      'x86 64-bit': data.releases.latest.darwin_x86_64,
+      'ARM 64-bit': data.releases.latest.darwin_arm64,
     }}
 
 - windows = { \

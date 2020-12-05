@@ -2,6 +2,7 @@ github: 'cfillion/reapack'
 files:
   reaper_reapack-i386.dylib:   darwin_i386
   reaper_reapack-x86_64.dylib: darwin_x86_64
+  reaper_reapack-arm64.dylib:  darwin_arm64
   reaper_reapack-i686.so:      linux_i686
   reaper_reapack-x86_64.so:    linux_x86_64
   reaper_reapack-armv7l.so:    linux_armv7l
