@@ -15,7 +15,7 @@ form.editor v-if="package && package.type" @submit.prevent="submit"
       i.fa.fa-github>
       | Login via GitHub
 
-  h2() {{ package.type.name }} package editor
+  h2() {{ package.type.name }}
 
   p
     | Use this page to submit a new package or update an existing package on
