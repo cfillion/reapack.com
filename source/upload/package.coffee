@@ -125,7 +125,7 @@ export default class Package
         errors.push "More than one file are uploaded as '#{name}'."
         dups.push name
 
-      unless file.install || (file.isPackage && @type.metapackage) ||
+      unless file.install || file.isPackage ||
           @files.find (otherFile) => otherFile.source.file == file
         errors.push "'#{name}' is unused (not installed and not used as
           source for another file)."
