@@ -108,15 +108,6 @@ export default class Package
 
       continue unless file.source == UploadSource
 
-      if file.isPackage && !endsWithExtension name, @type.extensions
-        errors.push "The package file '#{name}' does not use one of the
-          #{@type.name} package extensions (#{@type.extensions.join ', '})."
-
-      if file.isPackage && file.install &&
-          !(file.content.length || file.content.byteLength)
-        errors.push "The package file '#{name}' is installed but does not have
-          any content beside the metadata header."
-
       otherIndex = @files.findIndex (otherFile) =>
         otherFile.source == UploadSource &&
           name == otherFile.storagePath()
@@ -129,6 +120,20 @@ export default class Package
           @files.find (otherFile) => otherFile.source.file == file
         errors.push "'#{name}' is unused (not installed and not used as
           source for another file)."
+
+      continue unless file.isPackage
+
+      unless endsWithExtension name, @type.extensions
+        errors.push "The package file '#{name}' does not use one of the
+          #{@type.name} package extensions (#{@type.extensions.join ', '})."
+
+      # not checking for unused hosted files: those will fail validation themselves
+      unless file.install || @files.length > 1
+        errors.push "The package file '#{name}' does not contain any installable files."
+
+      if file.install && !(file.content.length || file.content.byteLength)
+        errors.push "The package file '#{name}' is installed but does not have
+          any content beside the metadata header."
 
   validateAll: ->
     errors = []
