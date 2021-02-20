@@ -137,3 +137,6 @@ repos:
   -
     link: 'https://github.com/leafac/reaper/'
     index: 'https://github.com/leafac/reaper/raw/master/index.xml'
+  -
+    link: 'https://github.com/Dafarkias/REAPER-Lua-Scripts-/'
+    index: 'https://github.com/Dafarkias/REAPER-Lua-Scripts-/raw/master/index.xml'
