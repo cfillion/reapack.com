@@ -140,3 +140,6 @@ repos:
   - 
     link: 'https://ply.github.io/ReaScripts/'
     index: 'https://ply.github.io/ReaScripts/index.xml'
+  -
+    link: 'https://github.com/Dafarkias/REAPER-Lua-Scripts-/'
+    index: 'https://github.com/Dafarkias/REAPER-Lua-Scripts-/raw/master/index.xml'
