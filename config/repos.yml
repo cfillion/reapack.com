@@ -143,3 +143,6 @@ repos:
   -
     link: 'https://github.com/Dafarkias/REAPER-Lua-Scripts-/'
     index: 'https://github.com/Dafarkias/REAPER-Lua-Scripts-/raw/master/index.xml'
+  -
+    link: 'https://www.github.com/sonictim/TJF-Scripts/'
+    index: 'https://www.github.com/sonictim/TJF-Scripts/raw/master/index.xml'
