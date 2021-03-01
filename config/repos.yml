@@ -173,3 +173,6 @@ repos:
   -
     link: 'https://gitlab.com/michaelklier/reaperwrb-2019/'
     index: 'https://gitlab.com/michaelklier/reaperwrb-2019/-/raw/master/index.xml'
+  -
+    link: 'https://github.com/nikolalkc/LKC-Tools/'
+    index: 'https://www.github.com/nikolalkc/LKC-Tools/raw/master/index.xml'
