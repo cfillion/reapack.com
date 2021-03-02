@@ -138,5 +138,43 @@ repos:
     link: 'https://github.com/leafac/reaper/'
     index: 'https://github.com/leafac/reaper/raw/master/index.xml'
   -
+
     link: 'https://github.com/tormyvancool/TormyVanCool_ReaPack_Scripts/'
     index: 'https://github.com/tormyvancool/TormyVanCool_ReaPack_Scripts/raw/master/index.xml'
+  -
+    link: 'https://ply.github.io/ReaScripts/'
+    index: 'https://ply.github.io/ReaScripts/index.xml'
+  -
+    link: 'https://github.com/Dafarkias/REAPER-Lua-Scripts-/'
+    index: 'https://github.com/Dafarkias/REAPER-Lua-Scripts-/raw/master/index.xml'
+  -
+    link: 'https://www.github.com/sonictim/TJF-Scripts/'
+    index: 'https://www.github.com/sonictim/TJF-Scripts/raw/master/index.xml'
+  -
+    link: 'https://www.github.com/beaunus/REAPER-ReaScripts/'
+    index: 'https://www.github.com/beaunus/REAPER-ReaScripts/raw/master/index.xml'
+  -
+    link: 'https://www.github.com/iliaspoulakis/Reaper-Tools/'
+    index: 'https://www.github.com/iliaspoulakis/Reaper-Tools/raw/master/index.xml'
+  -
+    link: 'https://www.github.com/nikolalkc/LKC-Tools/'
+    index: 'https://www.github.com/nikolalkc/LKC-Tools/raw/master/index.xml'
+  -
+    link: 'https://www.github.com/n0ner/Reaper/'
+    index: 'https://www.github.com/n0ner/Reaper/raw/master/index.xml'
+  -
+    link: 'https://www.github.com/NablaTools/ReaScripts/'
+    index: 'https://www.github.com/NablaTools/ReaScripts/raw/master/index.xml'
+  -
+    link: 'https://www.github.com/pelori/PeloReaper/'
+    index: 'https://www.github.com/pelori/PeloReaper/raw/master/index.xml'
+  -
+    link: 'https://www.github.com/JoepVanlier/JSFX/'
+    index: 'https://www.github.com/JoepVanlier/JSFX/raw/master/index.xml'
+  -
+    link: 'https://www.github.com/lemerchand/lemerchand/'
+    index: 'https://www.github.com/lemerchand/lemerchand/raw/master/index.xml'
+  -
+    link: 'https://gitlab.com/michaelklier/reaperwrb-2019/'
+    index: 'https://gitlab.com/michaelklier/reaperwrb-2019/-/raw/master/index.xml'
+
