@@ -1,0 +1,23 @@
+name: build
+on: [push, pull_request]
+jobs:
+  middleman:
+    runs-on: ubuntu-latest
+    steps:
+    - name: Fetch repository
+      uses: actions/checkout@v2
+    - name: Set up Ruby
+      uses: ruby/setup-ruby@v1
+      with:
+        bundler-cache: true
+        ruby-version: 3.0
+    - name: Set up Node.js
+      uses: actions/setup-node@v1
+      with:
+        node-version: '15.x'
+    - name: Install JS dependencies
+      run:  npm install
+    - name: Update dynamic data
+      run:  bundle exec ./update.rb
+    - name: Compile
+      run:  bundle exec middleman build
