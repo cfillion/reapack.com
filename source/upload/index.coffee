@@ -177,6 +177,9 @@ class IndexPackage
       file.installName = relative storageDir, file.installName
       file.installName = null if file.installName == file.storageName
 
+    file.url = file.url.replaceAll(file.package.version, '$version')
+    file.url = file.url.replaceAll(file.installName, '$path') if file.installName
+
   fetchFile: (file) ->
     try
       response = await @index.fetchFile file
