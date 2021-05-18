@@ -26,12 +26,10 @@
 
 <script lang="coffee">
 import File, { UploadSource, ExternalSource } from '../file'
-
 import PackageFile from './package-file.vue'
-import PackageFileList from './package-filelist.vue'
 
 export default
-  components: { PackageFile, PackageFileList }
+  components: { PackageFile }
   props:
     files:
       type: Array

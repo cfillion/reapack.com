@@ -8,14 +8,14 @@ activate :directory_indexes
 
 configure :build do
   activate :minify_css
-  activate :minify_javascript
+  activate :minify_javascript, ignore: /upload/
 end
 
 activate :external_pipeline,
   name: :webpack,
   command: [
     "NODE_ENV=#{build? ? 'production' : 'development'}",
-    '$(npm bin)/webpack --display=minimal',
+    '$(npm bin)/webpack',
     server? && '--watch' || nil,
   ].compact.join("\x20"),
   source: ".webpack-build",

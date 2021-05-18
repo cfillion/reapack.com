@@ -8,13 +8,13 @@ tab-bar
 </template>
 
 <script lang="coffee">
-import CommonMark from 'commonmark'
+import { Parser, HtmlRenderer } from 'commonmark'
 
 import TabBar from './tabbar.vue'
 import Tab from './tab.vue'
 
-reader = new CommonMark.Parser
-writer = new CommonMark.HtmlRenderer safe: true
+reader = new Parser
+writer = new HtmlRenderer safe: true
 
 export default
   components: { TabBar, Tab }

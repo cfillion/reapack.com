@@ -1,6 +1,7 @@
-const path = require('path');
-const VueLoaderPlugin = require('vue-loader/lib/plugin')
 const MiniCssExtractPlugin = require('mini-css-extract-plugin')
+const VueLoaderPlugin = require('vue-loader/lib/plugin')
+const path = require('path');
+const webpack = require('webpack');
 
 var babel = {
   loader: 'babel-loader',
@@ -26,8 +27,10 @@ var coffee = {
 var sass = {
   loader: 'sass-loader',
   options: {
-    indentedSyntax: true,
-    includePaths: ['source/stylesheets'],
+    sassOptions: {
+      indentedSyntax: true,
+      includePaths: ['source/stylesheets'],
+    },
   },
 }
 
@@ -41,7 +44,10 @@ module.exports = {
     path: path.resolve(__dirname, '.webpack-build'),
   },
   resolve: {
-    extensions: ['.coffee', '.js']
+    extensions: ['.coffee', '.js'],
+    fallback: {
+      'path': require.resolve('path-browserify'),
+    },
   },
   module: {
     rules: [
@@ -54,8 +60,8 @@ module.exports = {
     ],
   },
   devtool: process.env.NODE_ENV == 'production' ? false : 'inline-source-map',
-  optimization: { minimize: false }, // middleman will take care of this
   plugins: [
+    new webpack.ProvidePlugin({ process: 'process/browser' }),
     new VueLoaderPlugin(),
     new MiniCssExtractPlugin({ filename: 'stylesheets/upload-components.css' }),
   ],
