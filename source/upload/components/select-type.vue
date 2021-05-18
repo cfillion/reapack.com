@@ -3,8 +3,8 @@
   p Select a primary REAPER resource type to begin:
 
   ul.type
-    li v-for="(type, repo) in $options.types" v-if="type.repo"
-      router-link :to="repo"
+    li v-for="(type, key) in $options.types"
+      router-link :to="key"
         i.icon.fa.fa-fw :class="type.icon"
         .body
           .name() {{ type.name }}
@@ -22,7 +22,13 @@
 import * as Types from '../types'
 
 export default
-  types: Types
+  types: {
+    reascript: Types.reascript,
+    jsfx:      Types.jsfx,
+    theme:     Types.theme
+    langpack:  Types.langpack,
+    extension: Types.extension,
+  }
 </script>
 
 <style lang="sass">
