@@ -178,8 +178,8 @@ ReaPack repositories as well: don't install packages from untrusted sources.
 
 ### Offline use
 
-ReaPack requires an internet connection by design. However, it's possible to
-transfer data and installed packages to an offline computer using *Export
+ReaPack requires an internet connection by design. However, it is possible to
+transfer data and installed packages to another computer using *Export
 offline archive* and *Import offline archive* in *Manage repositories >
 Import/export*.
 
