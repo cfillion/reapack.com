@@ -176,3 +176,6 @@ repos:
   -
     link: 'https://github.com/nikolalkc/LKC-Tools/'
     index: 'https://www.github.com/nikolalkc/LKC-Tools/raw/master/index.xml'
+  -
+    link: 'https://github.com/tormyvancool/TormyVanCool_ReaPack_Scripts'
+    index: 'https://github.com/tormyvancool/TormyVanCool_ReaPack_Scripts/raw/master/index.xml'
