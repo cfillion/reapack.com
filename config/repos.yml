@@ -136,7 +136,7 @@ repos:
     index: 'https://github.com/helgoboss/reaper-packages/raw/master/index.xml'
   -
     link: 'https://github.com/leafac/reaper/'
-    index: 'https://github.com/leafac/reaper/raw/master/index.xml'
+    index: 'https://github.com/leafac/reaper/raw/main/index.xml'
   -
     link: 'https://ply.github.io/ReaScripts/'
     index: 'https://ply.github.io/ReaScripts/index.xml'
