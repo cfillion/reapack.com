@@ -181,4 +181,4 @@ repos:
     index: 'https://github.com/tormyvancool/TormyVanCool_ReaPack_Scripts/raw/master/index.xml'
   -
     link: 'https://github.com/bsmith96/Reaper-Scripts'
-    index: 'https://raw.githubusercontent.com/bsmith96/Reaper-Scripts/master/index.xml'
+    index: 'https://github.com/bsmith96/Reaper-Scripts/raw/master/index.xml'
