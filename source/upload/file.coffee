@@ -58,8 +58,9 @@ export default class File
     @content instanceof ArrayBuffer
 
   setContentFromLocalFile: (localFile, cb) ->
-    MAX_SIZE_TEXT = 3 * (10**6)
-    MAX_SIZE_BINARY = 100 * 1000
+    MB = 10**6
+    MAX_SIZE_TEXT   = 10 * MB
+    MAX_SIZE_BINARY = 10 * MB
 
     tooBig = -> "'#{localFile.name}' is too big to be uploaded to this repository."
 
