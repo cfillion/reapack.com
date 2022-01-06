@@ -26,6 +26,9 @@ Follow these steps to install ReaPack:
 2. Put the downloaded file in the *UserPlugins* subdirectory
 3. Restart REAPER. Done!
 
+> **Note:** Users of macOS Catalina or newer may need to click on "Allow Anyway"
+> in System Preferences &gt; Security &amp; Privacy after launching REAPER once
+> for ReaPack to load when installed for the first time.
 
 ## Getting started
 
