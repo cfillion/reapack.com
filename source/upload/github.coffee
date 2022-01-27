@@ -29,6 +29,18 @@ POST = (args...) -> fetchAPI 'POST', args...
 wait = (time) -> new Promise (resolve) ->
   setTimeout resolve, time
 
+autoRetry = (callback) ->
+  attempts = 1
+
+  while true
+    try
+      return data if data = await callback()
+    catch e
+      if attempts >= 5
+        throw new Error "Operation failed after #{attempts} tries: #{e.message}."
+
+    await wait 2000 * attempts++
+
 getToken = ->
   sessionStorage.getItem 'github-token'
 
@@ -72,18 +84,10 @@ export createFork = (parentName) ->
   json = await POST "/repos/#{parentName}/forks"
   forkName = json.full_name
 
-  attempts = 1
-  repo = null
-
-  while true
-    try
-      repo = await getRepo forkName
-      break if repo
-
-    await wait 2000 * attempts++
-
-    if attempts > 5
-      throw new Error "Failed to create a fork of #{parentName} in your account."
+  try
+    await autoRetry -> getRepo forkName
+  catch
+    throw new Error "Failed to create a fork of #{parentName} in your account."
 
   forkName
 
