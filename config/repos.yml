@@ -185,3 +185,6 @@ repos:
   -
     link: 'https://github.com/Yaunick/Yannick-ReaScripts'
     index: 'https://github.com/Yaunick/Yannick-ReaScripts/raw/master/index.xml'
+  -
+    link: 'https://github.com/jeremybernstein/ReaScripts'
+    index: 'https://github.com/jeremybernstein/ReaScripts/raw/main/index.xml'
