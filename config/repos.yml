@@ -168,6 +168,9 @@ repos:
     link: 'https://www.github.com/JoepVanlier/JSFX/'
     index: 'https://www.github.com/JoepVanlier/JSFX/raw/master/index.xml'
   -
+    link: 'https://www.github.com/Justin-Johnson/ReJJ/'
+    index: 'https://www.github.com/Justin-Johnson/ReJJ/raw/master/index.xml'
+  -
     link: 'https://www.github.com/lemerchand/lemerchand/'
     index: 'https://www.github.com/lemerchand/lemerchand/raw/master/index.xml'
   -
@@ -188,3 +191,6 @@ repos:
   -
     link: 'https://github.com/AlbertoV5/ReaperTools'
     index: 'https://github.com/AlbertoV5/ReaperTools/raw/master/index.xml'
+  -
+    link: 'https://github.com/jeremybernstein/ReaScripts'
+    index: 'https://github.com/jeremybernstein/ReaScripts/raw/main/index.xml'
