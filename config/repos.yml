@@ -197,3 +197,7 @@ repos:
   -
     link: 'https://github.com/ElizabethHarmon/REAPER-Classical-Editing'
     index: 'https://github.com/ElizabethHarmon/REAPER-Classical-Editing/raw/master/index.xml'
+  -
+    link: 'https://github.com/juanriccio/Reaperism'
+    index: 'https://raw.githubusercontent.com/juanriccio/Reaperism/master/index.xml'
+
