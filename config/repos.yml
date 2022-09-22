@@ -200,3 +200,6 @@ repos:
   -
     link: 'https://github.com/juanriccio/Reaperism'
     index: 'https://raw.githubusercontent.com/juanriccio/Reaperism/master/index.xml'
+  -
+    link: 'https://github.com/DaveInDev/Binbinhfr-Scripts/'
+    index: 'https://github.com/DaveInDev/Binbinhfr-Scripts/raw/master/index.xml'
