@@ -50,7 +50,11 @@ class Runner
     $stderr.puts "executing tasks #{tasks.join("\x20").bold}\n\n"
     tasks.each {|grp|
       data_file = File.join @data_dir, "#{grp}.yml"
-      data = File.exist?(data_file) ? YAML.load_file(data_file) : nil
+      if File.exist? data_file
+        data = Psych.safe_load_file data_file,
+                                    permitted_classes: [Symbol, Time],
+                                    aliases: true
+      end
       @groups[grp].each {|task| data = run_task task, data }
       File.write data_file, data.to_yaml
     }
