@@ -203,3 +203,6 @@ repos:
   -
     link: 'https://github.com/DaveInDev/Binbinhfr-Scripts/'
     index: 'https://github.com/DaveInDev/Binbinhfr-Scripts/raw/master/index.xml'
+  -
+    link: 'https://github.com/daniellumertz/DanielLumertz-Scripts'
+    index: 'https://github.com/daniellumertz/DanielLumertz-Scripts/raw/master/index.xml'
