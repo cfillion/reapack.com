@@ -159,9 +159,6 @@ repos:
     link: 'https://www.github.com/n0ner/Reaper/'
     index: 'https://www.github.com/n0ner/Reaper/raw/master/index.xml'
   -
-    link: 'https://www.github.com/NablaTools/ReaScripts/'
-    index: 'https://www.github.com/NablaTools/ReaScripts/raw/master/index.xml'
-  -
     link: 'https://www.github.com/pelori/PeloReaper/'
     index: 'https://www.github.com/pelori/PeloReaper/raw/master/index.xml'
   -
@@ -195,8 +192,8 @@ repos:
     link: 'https://github.com/jeremybernstein/ReaScripts'
     index: 'https://github.com/jeremybernstein/ReaScripts/raw/main/index.xml'
   -
-    link: 'https://github.com/ElizabethHarmon/REAPER-Classical-Editing'
-    index: 'https://github.com/ElizabethHarmon/REAPER-Classical-Editing/raw/master/index.xml'
+    link: 'https://github.com/chmaha/ReaClassical'
+    index: 'https://github.com/chmaha/ReaClassical/raw/main/index.xml'
   -
     link: 'https://github.com/juanriccio/Reaperism'
     index: 'https://raw.githubusercontent.com/juanriccio/Reaperism/master/index.xml'
