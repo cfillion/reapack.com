@@ -203,3 +203,6 @@ repos:
   -
     link: 'https://github.com/daniellumertz/DanielLumertz-Scripts'
     index: 'https://github.com/daniellumertz/DanielLumertz-Scripts/raw/master/index.xml'
+  -
+    link: 'https://github.com/myrrc/chkld_jsfx'
+    index: 'https://raw.githubusercontent.com/myrrc/chkld_jsfx/master/index.xml'
