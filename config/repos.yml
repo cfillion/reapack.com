@@ -172,7 +172,7 @@ repos:
     index: 'https://github.com/lemerchand/lemerchand/raw/master/index.xml'
   -
     link: 'https://gitlab.com/michaelklier/reaperwrb-2019/'
-    index: 'https://gitlab.com/michaelklier/reaperwrb-2019/-/raw/master/index.xml'
+    index: 'https://bobobo-git.github.io/reaperwrb_2/index.xml'
   -
     link: 'https://github.com/nikolalkc/LKC-Tools/'
     index: 'https://github.com/nikolalkc/LKC-Tools/raw/master/index.xml'
