@@ -203,3 +203,6 @@ repos:
   -
     link: 'https://github.com/daniellumertz/DanielLumertz-Scripts'
     index: 'https://github.com/daniellumertz/DanielLumertz-Scripts/raw/master/index.xml'
+  -
+    link: 'https://github.com/chmaha/airwindows-JSFX-ports'
+    index: 'https://github.com/chmaha/airwindows-JSFX-ports/raw/main/index.xml'
