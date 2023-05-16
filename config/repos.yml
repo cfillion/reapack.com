@@ -206,3 +206,6 @@ repos:
   -
     link: 'https://github.com/chmaha/airwindows-JSFX-ports'
     index: 'https://github.com/chmaha/airwindows-JSFX-ports/raw/main/index.xml'
+  -
+    link: 'https://github.com/Audiokinetic/Reaper-Tools'
+    index: 'https://github.com/Audiokinetic/Reaper-Tools/raw/main/index.xml'
