@@ -1,5 +1,5 @@
 <template lang="slim">
-.progress-overlay v-if="progress": .progress  :class=="{ done: progress.done }"
+.dialog-overlay.open v-if="progress": .dialog.progress :class=="{ done: progress.done }"
   .icon
     i.fa.fa-check-circle v-if="progress.done"
     i.fa.fa-spin.fa-circle-o-notch v-else=""
@@ -34,29 +34,8 @@ export default
 <style lang="sass" scoped>
 @import 'config'
 
-.progress-overlay
-  position: fixed
-  top: 0
-  left: 0
-  right: 0
-  bottom: 0
-
-  background-color: transparentize(black, 0.5)
-  display: flex
-  text-align: center
-  align-items: center
-  justify-content: center
-  z-index: 100
-
-  padding-bottom: 15%
-
 .progress
-  margin: auto // prevent overflow over the top of the page
-  background-color: $background
-  padding: 30px
-  border-radius: 7px
-  border: 1px solid $foreground
-  min-width: 30%
+  text-align: center
 
   &.done
     color: $success

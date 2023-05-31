@@ -136,12 +136,54 @@ tbody tr
 header
   @import 'header'
 
-.clearfix
-  &:after
-    visibility: hidden
-    display: block
-    content: " "
-    clear: both
+.clearfix:after
+  visibility: hidden
+  display: block
+  content: " "
+  clear: both
+
+.dialog-overlay
+  position: fixed
+  top: 0
+  left: 0
+  right: 0
+  bottom: 0
+
+  background-color: transparentize(black, 0.5)
+  display: flex
+  align-items: center
+  justify-content: center
+  z-index: 100
+
+  padding-bottom: 15%
+
+  &:not(.open)
+    display: none
+
+.dialog
+  margin: auto // prevent overflow over the top of the page
+  background-color: $background
+  padding: 30px
+  border-radius: 7px
+  border: 1px solid $foreground
+  min-width: 30%
+  position: relative // for the close button
+
+  h1
+    border-bottom: 1px solid $foreground
+    margin-bottom: 1.6rem
+
+  .close
+    color: #bbb
+    cursor: pointer
+    font-size: 2em
+    line-height: 0.5em
+    position: absolute
+    right: 10px
+    top: 10px
+
+    &:hover
+      color: $foreground
 
 .error
   border: 1px solid $foreground

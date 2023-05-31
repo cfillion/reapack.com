@@ -36,23 +36,9 @@
 
 #paypal-button
 
-form action="https://www.paypal.com/cgi-bin/websrc" method="post"
-  input type="hidden" name="business" value="T3DEWBQJAV7WL"
-  input type="hidden" name="cmd" value="_donations"
-  input type="hidden" name="currency_code" value="CAD"
-  input type="hidden" name="item_name" value=index.data.title
-  input type="hidden" name="return" value="#{config.host}#{current_page.url}"
-
-  button.donate
-    i.fa.fa-heart>
-    | Support ReaPack
-
-  | <strong>#{data.donations.progress.floor}%</strong> towards $#{data.donations.goal} per month goal
-
-  .monthly-goal
-    .meter style="width: #{data.donations.progress}%"
-
-  | All donations directly support ReaPack's continued development.
+noscript: a.donate.fullwidth href="/donate"
+  i.fa.fa-heart>
+  | Support ReaPack
 
 .downloads
   h2 Downloads
@@ -75,12 +61,53 @@ form action="https://www.paypal.com/cgi-bin/websrc" method="post"
                   precision: size_precision
       p.requirements = box[:requirements]
 
-  p
-    | See the <a href="#{url_for '/user-guide.html'}">user guide</a>
-      for installation instructions.
-
-  p
+  p.latest
     strong> Latest stable release:
     ==> link_to "ReaPack #{data.releases.latest.tag_name}", current_release_notes
     ' released on #{data.releases.latest.published_at.strftime '%Y-%m-%d'}
     a href="https://github.com/cfillion/reapack": i class="fa fa-github"
+
+#thank-you.dialog-overlay: .dialog
+  h1 Thank you!
+
+  .pre
+    div: img alt="" loading="lazy" src="https://avatars.githubusercontent.com/u/4297676?v=4"
+    div
+      p Hi, my name is Christian Fillion. I'm a musician and developer.
+      p I contribute to multiple open-source plugin extensions for REAPER including
+        ReaPack, SWS, ReaImGui and various scripts.
+      p While these pieces of software are provided to you free of charge,
+        making them takes a significant amount of time and effort.
+      p Please consider donating an amount of your choice to support the ongoing
+        development of these projects if they are useful to you or your company.
+
+      p
+        button.donate
+          i.fa.fa-heart>
+          | Donate and download (
+          span#dl-desc
+          | )
+        a.sponsor href="https://github.com/sponsors/cfillion" target="_blank"
+          i.fa.fa-github>
+          | Sponsor on GitHub
+        br
+        a#direct href="#" Not this time, take me directly to the download ➜
+
+  .post
+    div
+      i.fa.fa-heart.if-donated
+      i.fa.fa-download
+    div
+      p.if-donated Your donation is greatly appreciated!
+      p The download of <span id="dl-fn"></span> should have already started.
+      p
+        a#manual> href="#" Click here
+        | to restart it manually.
+      p Quick installation:
+      ol
+        li From REAPER: <em>Options > Show REAPER resource path in explorer/finder</em>
+        li Put the downloaded file in the UserPlugins subdirectory
+        li Restart REAPER
+      p Consult the <a href="#{url_for '/user-guide.html'}">user guide</a>
+        for more details.
+        An extra step is required on macOS 10.15+.
