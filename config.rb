@@ -22,7 +22,7 @@ activate :external_pipeline,
   name: :webpack,
   command: [
     "NODE_ENV=#{build? ? 'production' : 'development'}",
-    '$(npm bin)/webpack',
+    'npx webpack',
     server? && '--watch' || nil,
   ].compact.join("\x20"),
   source: ".webpack-build",

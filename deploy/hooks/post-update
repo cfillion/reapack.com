@@ -3,6 +3,10 @@ set -e
 
 cd "$GIT_DIR/.."
 
+# FIXME: workaround for Webpack < 5.61 on NodeJS > 16 and OpenSSL 3
+# error:0308010C:digital envelope routines::unsupported
+export NODE_OPTIONS=--openssl-legacy-provider
+
 bundle install
 npm install
 

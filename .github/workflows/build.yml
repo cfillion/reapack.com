@@ -14,10 +14,14 @@ jobs:
     - name: Set up Node.js
       uses: actions/setup-node@v1
       with:
-        node-version: '15.x'
+        node-version: '20.x'
     - name: Install JS dependencies
       run:  npm install
     - name: Update dynamic data
       run:  bundle exec ./update.rb
     - name: Compile
+      env:
+        # FIXME: workaround for Webpack < 5.61 on NodeJS > 16 and OpenSSL 3
+        # error:0308010C:digital envelope routines::unsupported
+        NODE_OPTIONS: --openssl-legacy-provider
       run:  bundle exec middleman build
