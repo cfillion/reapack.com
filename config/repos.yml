@@ -209,3 +209,6 @@ repos:
   -
     link: 'https://github.com/Audiokinetic/Reaper-Tools'
     index: 'https://github.com/Audiokinetic/Reaper-Tools/raw/main/index.xml'
+  -
+    link: 'https://github.com/joabeslopes/Reaper-scripts-multitrack-creation/'
+    index: 'https://github.com/joabeslopes/Reaper-scripts-multitrack-creation/raw/main/index.xml'
