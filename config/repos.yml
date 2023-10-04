@@ -209,3 +209,12 @@ repos:
   -
     link: 'https://github.com/joabeslopes/Reaper-scripts-multitrack-show'
     index: 'https://github.com/joabeslopes/Reaper-scripts-multitrack-show/raw/main/index.xml'
+  -
+    link: 'https://github.com/jrengmusic/ReaScript'
+    index: 'https://github.com/jrengmusic/ReaScript/raw/master/index.xml'
+  -
+    link: 'https://github.com/BryanChi/BryanChi-FX-Devices'
+    index: 'https://github.com/BryanChi/BryanChi-FX-Devices/raw/main/index.xml'
+  - 
+    link: 'https://github.com/mespotine/Mespotine-Scripts'
+    index: 'https://github.com/mespotine/Mespotine-Scripts/raw/main/Mespotine_Scripts.xml'
