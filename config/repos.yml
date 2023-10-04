@@ -218,3 +218,141 @@ repos:
   - 
     link: 'https://github.com/mespotine/Mespotine-Scripts'
     index: 'https://github.com/mespotine/Mespotine-Scripts/raw/main/Mespotine_Scripts.xml'
+  - 
+    link: 'https://github.com/AntoineBalaine/perken-reaper-scripts'
+    index: 'https://github.com/AntoineBalaine/perken-reaper-scripts/raw/master/index.xml'
+  - 
+    link: 'https://github.com/mawi-design/JSFX'
+    index: 'https://github.com/mawi-design/JSFX/raw/main/index.xml'
+  - 
+    link: 'https://github.com/tdspk/ReaScripts'
+    index: 'https://github.com/tdspk/ReaScripts/raw/main/index.xml' 
+  - 
+    link: 'https://github.com/vonglan/reaper-packages'
+    index: 'https://github.com/vonglan/reaper-packages/raw/main/index.xml'
+  - 
+    link: 'https://github.com/olshalom/Olshalom_Reascripts'
+    index: 'https://github.com/olshalom/Olshalom_Reascripts/raw/master/index.xml' 
+  - 
+    link: 'https://github.com/jozmac/reapack-jm'
+    index: 'https://github.com/jozmac/reapack-jm/raw/master/index.xml' 
+  - 
+    link: 'https://github.com/Terromino/RIPO_Scripts'
+    index: 'https://github.com/Terromino/RIPO_Scripts/raw/master/index.xml' 
+  - 
+    link: 'https://github.com/Infrabass/Reascripts'
+    index: 'https://github.com/Infrabass/Reascripts/raw/master/index.xml' 
+  - 
+    link: 'https://github.com/luiza177/REApository'
+    index: 'https://github.com/luiza177/REApository/raw/master/index.xml' 
+  - 
+    link: 'https://github.com/Arthur-McArthur/ReaScripts'
+    index: 'https://github.com/Arthur-McArthur/ReaScripts/raw/master/index.xml' 
+  - 
+    link: 'https://github.com/MathieuCGit/Reaper_Tools'
+    index: 'https://github.com/MathieuCGit/Reaper_Tools/raw/main/index.xml' 
+  - 
+    link: 'https://github.com/analogmad/reaper'
+    index: 'https://github.com/analogmad/reaper/raw/main/index.xml' 
+  - 
+    link: 'https://github.com/poulhoi/phoi_ReaScripts'
+    index: 'https://github.com/poulhoi/phoi_ReaScripts/raw/master/index.xml' 
+  - 
+    link: 'https://reapertoolkit.dev/'
+    index: 'https://reapertoolkit.dev/index.xml'
+  - 
+    link: 'https://github.com/mpasserini/REAPER-ReaScripts'
+    index: 'https://github.com/mpasserini/REAPER-ReaScripts/raw/master/index.xml'
+  - 
+    link: 'https://github.com/jamesWalker55/reaper-scripts'
+    index: 'https://github.com/jamesWalker55/reaper-scripts/main/index.xml'
+  - 
+    link: 'https://github.com/mccrabney/Reascripts'
+    index: 'https://github.com/mccrabney/Reascripts/raw/master/index.xml'
+  - 
+    link: 'https://github.com/Dragonetti1/dragonetti-reascripts'
+    index: 'https://github.com/Dragonetti1/dragonetti-reascripts/raw/master/index.xml'
+  - 
+    link: 'https://github.com/signoc/signoc_scripts'
+    index: 'https://github.com/signoc/signoc_scripts/raw/main/index.xml'
+  - 
+    link: 'https://github.com/Bird-Bird/ReaScript_Testing'
+    index: 'https://github.com/Bird-Bird/ReaScript_Testing/raw/main/index.xml'
+  - 
+    link: 'https://github.com/gu-on/GUtilities'
+    index: 'https://github.com/gu-on/GUtilities/raw/main/index.xml'
+  - 
+    link: 'https://github.com/sinfricia/ReaScripts'
+    index: 'https://github.com/sinfricia/ReaScripts/raw/master/index.xml'
+  - 
+    link: 'https://github.com/edkashinsky/reaper-reableton-scripts'
+    index: 'https://github.com/edkashinsky/reaper-reableton-scripts/raw/master/index.xml'
+  - 
+    link: 'https://github.com/jahudka/reaper-consolefx'
+    index: 'https://github.com/jahudka/reaper-consolefx/raw/master/index.xml'
+  - 
+    link: 'https://github.com/Bird-Bird/JSFX'
+    index: 'https://github.com/Bird-Bird/JSFX/raw/main/index.xml'
+  - 
+    link: 'https://github.com/odedd/ReaScripts'
+    index: 'https://github.com/odedd/ReaScripts/raw/master/index.xml'
+  - 
+    link: 'https://github.com/markheath/jsfx'
+    index: 'https://github.com/markheath/jsfx/raw/main/index.xml'
+  - 
+    link: 'https://github.com/jlindskov/ReaperScripts'
+    index: 'https://github.com/jlindskov/ReaperScripts/raw/main/index.xml'
+  - 
+    link: 'https://github.com/Souk21/REAPER-scripts-and-effects'
+    index: 'https://github.com/Souk21/REAPER-scripts-and-effects/raw/master/index.xml'
+  - 
+    link: 'https://github.com/MathieuCGit/MC_VariousScripts'
+    index: 'https://github.com/MathieuCGit/MC_VariousScripts/raw/master/index.xml'
+  - 
+    link: 'https://github.com/obogz/ReaperScripts'
+    index: 'https://github.com/obogz/ReaperScripts/raw/master/index.xml'
+  - 
+    link: 'https://github.com/Alkamist/Alkamist-Scripts'
+    index: 'https://github.com/Alkamist/Alkamist-Scripts/raw/master/index.xml'
+  - 
+    link: 'https://github.com/Sakhnovkrg/DSG_ReaScripts'
+    index: 'https://github.com/Sakhnovkrg/DSG_ReaScripts/raw/master/index.xml'
+  - 
+    link: 'https://github.com/MonkeyBars3k/ReaScripts'
+    index: 'https://github.com/MonkeyBars3k/ReaScripts/raw/master/index.xml'
+  - 
+    link: 'https://github.com/ChrAfonso/REAPER_punches_and_streamers'
+    index: 'https://github.com/ChrAfonso/REAPER_punches_and_streamers/raw/master/reapack_index.xml'
+  - 
+    link: 'https://github.com/iddqdsound/reaper'
+    index: 'https://github.com/iddqdsound/reaper/raw/main/index.xml'
+  - 
+    link: 'https://github.com/ershov/reaper64'
+    index: 'https://github.com/ershov/reaper64/raw/main/index.xml'
+  - 
+    link: 'https://github.com/Bird-Bird/ReaScript'
+    index: 'https://github.com/Bird-Bird/ReaScript/raw/master/index.xml'
+  - 
+    link: 'https://github.com/TukanStudios/TUKAN_STUDIOS_PLUGINS'
+    index: 'https://github.com/TukanStudios/TUKAN_STUDIOS_PLUGINS/raw/main/index2.xml'
+  - 
+    link: 'https://github.com/Ultraschall/ultraschall-lua-api-for-reaper'
+    index: 'https://github.com/Ultraschall/ultraschall-lua-api-for-reaper/raw/master/ultraschall_api_index.xml'
+  - 
+    link: 'https://www.lkctools.com/'
+    index: 'http://premium.lkc.tools'
+  - 
+    link: 'https://www.lkctools.com/variator'
+    index: 'https://gitlab.com/api/v4/projects/18958757/repository/files/index.xml/raw?ref=master&private_token=1o_zhupBXPfAvGGFmmVL'
+  - 
+    link: 'https://github.com/joepvanlier/Hackey-Patterns'
+    index: 'https://github.com/joepvanlier/Hackey-Patterns/raw/master/index.xml'
+  - 
+    link: 'https://github.com/joepvanlier/Hackey-Machines'
+    index: 'https://github.com/joepvanlier/Hackey-Machines/raw/master/index.xml'
+  - 
+    link: 'https://github.com/NickvonKaenel/nvk-ReaScripts'
+    index: 'https://github.com/NickvonKaenel/nvk-ReaScripts/raw/master/index.xml'
+  - 
+    link: 'https://github.com/nikolalkc/LKC-Tools'
+    index: 'https://github.com/nikolalkc/LKC-Tools/raw/master/index.xml'
