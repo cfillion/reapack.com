@@ -171,9 +171,6 @@ repos:
     link: 'https://gitlab.com/michaelklier/reaperwrb-2019/'
     index: 'https://bobobo-git.github.io/reaperwrb_2/index.xml'
   -
-    link: 'https://github.com/nikolalkc/LKC-Tools/'
-    index: 'https://github.com/nikolalkc/LKC-Tools/raw/master/index.xml'
-  -
     link: 'https://github.com/tormyvancool/TormyVanCool_ReaPack_Scripts'
     index: 'https://github.com/tormyvancool/TormyVanCool_ReaPack_Scripts/raw/master/index.xml'
   -
@@ -353,6 +350,3 @@ repos:
   - 
     link: 'https://github.com/NickvonKaenel/nvk-ReaScripts'
     index: 'https://github.com/NickvonKaenel/nvk-ReaScripts/raw/master/index.xml'
-  - 
-    link: 'https://github.com/nikolalkc/LKC-Tools'
-    index: 'https://github.com/nikolalkc/LKC-Tools/raw/master/index.xml'
