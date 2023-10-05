@@ -217,7 +217,7 @@ repos:
     index: 'https://github.com/mespotine/Mespotine-Scripts/raw/main/Mespotine_Scripts.xml'
   - 
     link: 'https://github.com/AntoineBalaine/perken-reaper-scripts'
-    index: 'https://github.com/AntoineBalaine/perken-reaper-scripts/raw/master/index.xml'
+    index: 'https://raw.githubusercontent.com/AntoineBalaine/perken-reaper-scripts/master/index.xml'
   - 
     link: 'https://github.com/mawi-design/JSFX'
     index: 'https://github.com/mawi-design/JSFX/raw/main/index.xml'
@@ -262,7 +262,7 @@ repos:
     index: 'https://github.com/mpasserini/REAPER-ReaScripts/raw/master/index.xml'
   - 
     link: 'https://github.com/jamesWalker55/reaper-scripts'
-    index: 'https://github.com/jamesWalker55/reaper-scripts/main/index.xml'
+    index: 'https://raw.githubusercontent.com/jamesWalker55/reaper-scripts/main/index.xml'
   - 
     link: 'https://github.com/mccrabney/Reascripts'
     index: 'https://github.com/mccrabney/Reascripts/raw/master/index.xml'
@@ -292,7 +292,7 @@ repos:
     index: 'https://github.com/Bird-Bird/JSFX/raw/main/index.xml'
   - 
     link: 'https://github.com/odedd/ReaScripts'
-    index: 'https://github.com/odedd/ReaScripts/raw/master/index.xml'
+    index: 'https://raw.githubusercontent.com/odedd/ReaScripts/master/index.xml'
   - 
     link: 'https://github.com/markheath/jsfx'
     index: 'https://github.com/markheath/jsfx/raw/main/index.xml'
