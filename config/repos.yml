@@ -353,4 +353,7 @@ repos:
   -
     link: 'https://github.com/ErrrikMarrrtinez/ReaperScripts'
     index: 'https://github.com/ErrrikMarrrtinez/ReaperScripts/raw/master/index.xml'
+  -
+    link: 'https://github.com/Suzuki-Re/Suzuki-Scripts'
+    index: 'https://github.com/Suzuki-Re/Suzuki-Scripts/raw/master/index.xml'
 
