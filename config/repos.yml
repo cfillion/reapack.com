@@ -264,9 +264,6 @@ repos:
     link: 'https://github.com/jamesWalker55/reaper-scripts'
     index: 'https://raw.githubusercontent.com/jamesWalker55/reaper-scripts/main/index.xml'
   - 
-    link: 'https://github.com/mccrabney/Reascripts'
-    index: 'https://raw.githubusercontent.com/mccrabney/Reascripts/master/index.xml'
-  - 
     link: 'https://github.com/Dragonetti1/dragonetti-reascripts'
     index: 'https://github.com/Dragonetti1/dragonetti-reascripts/raw/master/index.xml'
   - 
