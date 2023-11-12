@@ -218,3 +218,6 @@ repos:
   - 
     link: 'https://github.com/mespotine/Mespotine-Scripts'
     index: 'https://github.com/mespotine/Mespotine-Scripts/raw/main/Mespotine_Scripts.xml'
+  - 
+    link: 'https://github.com/chkhld/jsfx/'
+    index: 'https://github.com/chkhld/jsfx/raw/main/index.xml'
