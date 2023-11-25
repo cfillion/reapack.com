@@ -6,6 +6,27 @@ startDownload = (donated) ->
   dlg.classList.add 'donated' if donated
   window.location = selected_dl.href
 
+setPaypalButtonID = (btn_id) ->
+  btn = PayPal.Donation.Button
+    # env: 'sandbox'
+    # hosted_button_id: 'SG7CEFWQGFCJQ'
+    env: 'production'
+    hosted_button_id: btn_id
+    image:
+      src:   'https://www.paypalobjects.com/en_US/i/btn/btn_donate_LG.gif'
+      title: 'PayPal - The safer, easier way to pay online!'
+      alt:   'Donate with PayPal button'
+    onComplete: -> startDownload(true)
+  btn.render('#paypal-button')
+
+initPaypalButton = ->
+  promise = fetch '/api/currency'
+  promise.then (response) -> response.text().then setPaypalButtonID
+  promise.catch -> setPaypalButtonID 'X6L6TH9ELXSG2'
+
+getPaypalButton = ->
+  document.querySelector '#paypal-button img'
+
 for dl in document.getElementsByClassName 'dl'
   dl.addEventListener 'click', (e) ->
     filename = this.href.split('/').pop()
@@ -34,6 +55,9 @@ for dl in document.getElementsByClassName 'dl'
 
     e.preventDefault()
 
+    if not getPaypalButton()
+      initPaypalButton()
+
 for dialog in document.getElementsByClassName 'dialog-overlay'
   dialog.addEventListener 'click', (e) =>
     return unless e.target == dialog or e.target.classList.contains('close')
@@ -51,7 +75,7 @@ document.getElementsByClassName('donate')[0].addEventListener 'click', (e) ->
     eventAction: 'click'
     eventLabel: this.textContent.trim()
 
-  if paypal = document.querySelector '#paypal-button img'
+  if paypal = getPaypalButton()
     paypal.click()
     e.preventDefault()
 
@@ -69,15 +93,3 @@ document.getElementById('direct').addEventListener 'click', (e) ->
 
   startDownload(false)
   e.preventDefault()
-
-btn = PayPal.Donation.Button
-  # env: 'sandbox'
-  # hosted_button_id: 'SG7CEFWQGFCJQ'
-  env: 'production'
-  hosted_button_id: 'X6L6TH9ELXSG2'
-  image:
-    src: 'https://www.paypalobjects.com/en_US/i/btn/btn_donate_LG.gif'
-    title: 'PayPal - The safer, easier way to pay online!'
-    alt: 'Donate with PayPal button'
-  onComplete: -> startDownload(true)
-btn.render('#paypal-button')
