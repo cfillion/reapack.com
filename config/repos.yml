@@ -223,4 +223,4 @@ repos:
     index: 'https://github.com/chkhld/jsfx/raw/main/index.xml'
   -
     link: 'https://github.com/tiagolr/tilr_jsfx'
-    index: 'https://raw.githubusercontent.com/tiagolr/tilr_jsfx/master/index.xml'
+    index: 'https://github.com/tiagolr/tilr_jsfx/raw/master/index.xml'
