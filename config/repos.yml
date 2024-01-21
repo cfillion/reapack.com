@@ -224,3 +224,6 @@ repos:
   -
     link: 'https://github.com/tiagolr/tilr_jsfx'
     index: 'https://github.com/tiagolr/tilr_jsfx/raw/master/index.xml'
+  -
+    link: 'https://github.com/Steviekeys/StevieKeys_JSFX2'
+    index: 'https://github.com/Steviekeys/StevieKeys_JSFX2/raw/master/index.xml'
