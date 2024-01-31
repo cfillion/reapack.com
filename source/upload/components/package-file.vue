@@ -57,6 +57,8 @@
       field-label target="sections" optional=true Action List
       input-dropdown#sections(v-model="file.sections" multiple=true
         :choices="$options.ScriptSections")
+      span v-if="file.sections.length > 0"
+        | {{ file.commandID() }}
 
     p
       field-label target="platforms" Target platform

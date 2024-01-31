@@ -1,3 +1,4 @@
+import sha1 from 'sha1'
 import { join, extname, relative } from 'path'
 import { NoIndexHeader } from './header'
 import { isIndexable, sanitizeFilename, detectBinary, normalizeLineBreaks } from './file-utils'
@@ -157,6 +158,10 @@ export default class File
     segments.push @package.type.installName if @effectiveType().longPath
     segments.push @installPath()
     segments.join '/'
+
+  commandID: ->
+    installPath = relative 'Scripts', @fullInstallPath()
+    "_RS#{sha1 installPath.toUpperCase()}"
 
   canInstall: ->
     !@isPackage || !@effectiveType().metapackage
