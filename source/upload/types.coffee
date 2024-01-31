@@ -8,7 +8,8 @@ export reascript =
   casualName: 'script'
   actionList: true
   extensions: ['.lua', '.eel', '.py']
-  installRoot: 'Scripts/ReaTeam Scripts'
+  installRoot: 'Scripts'
+  installName: 'ReaTeam Scripts'
   longPath: true
 
   placeholders:
@@ -24,7 +25,8 @@ export jsfx =
 
   casualName: 'effect'
   extensions: ['.jsfx']
-  installRoot: 'Effects/ReaTeam Scripts'
+  installRoot: 'Effects'
+  installName: 'ReaTeam JSFX'
   longPath: true
 
   placeholders:
@@ -43,6 +45,7 @@ export theme =
   defaultExtension: '.ReaperThemeZip'
   defaultExternal: true
   installRoot: 'ColorThemes'
+  installName: 'ReaTeam Themes'
   metapackage: true
 
   placeholders:
@@ -59,6 +62,7 @@ export langpack =
   casualName: 'language pack'
   extensions: ['.ReaperLangPack']
   installRoot: 'LangPack'
+  installName: 'ReaTeam LangPacks'
   noAuthorSlug: true
 
   placeholders:
@@ -77,6 +81,7 @@ export extension =
   defaultExtension: '.dll'
   defaultExternal: true
   installRoot: 'UserPlugins'
+  installName: 'ReaTeam Extensions'
   metapackage: true
 
   placeholders:

@@ -151,8 +151,12 @@ export default class File
 
   # installation path relative to the resource directory
   fullInstallPath: ->
-    # not using join here to avoid normalizing the path (parsing ..)
-    "#{@effectiveType().installRoot}/#{@installPath()}"
+    # not using path.join here to avoid normalizing the path (parsing '..')
+    segments = []
+    segments.push @effectiveType().installRoot
+    segments.push @package.type.installName if @effectiveType().longPath
+    segments.push @installPath()
+    segments.join '/'
 
   canInstall: ->
     !@isPackage || !@effectiveType().metapackage
