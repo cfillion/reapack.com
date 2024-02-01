@@ -260,9 +260,12 @@ export default
           Please keep this page open until it's done."
         repoName = @package.type.repo
         forkName = await GitHub.createFork repoName
+        # sometimes createFork fails with 404 if upstream's HEAD is too recent
+        # compared to the fork's current HEAD
+        await GitHub.syncFork forkName
 
         @progress.desc = 'Uploading files...'
-        head = await GitHub.getHead repoName
+        head = await GitHub.getHead forkName # was repoName before syncFork above
         commit = await GitHub.upload forkName, head, @package
 
         @progress.desc = 'Creating pull request...'
@@ -274,7 +277,7 @@ export default
           title: commit.message.split('\n')[0]
           body: @package.changelog
           head: "#{@user.login}:#{branchName}"
-          base: 'master'
+          base: GitHub.BASE_BRANCH
 
         @progress.desc = 'All done!'
         @progress.legend = "Your changes have been submitted to #{prRepo} and

@@ -2,8 +2,10 @@ import { encode as encodeArrayBuffer } from 'base64-arraybuffer'
 import { UploadSource } from './file'
 import { fileListToTree, normalizeLineBreaks } from './file-utils'
 
-AUTH_SCOPE = 'public_repo'
+AUTH_SCOPE = 'public_repo workflow'
 CLIENT_ID  = 'fdf42a6c354a7e6823f3'
+
+export BASE_BRANCH = 'master'
 
 fetchAPI = (method, endpoint, body, headers) ->
   response = await fetch "https://api.github.com#{endpoint}",
@@ -91,8 +93,12 @@ export createFork = (parentName) ->
 
   forkName
 
+export syncFork = (repoName) ->
+  POST "/repos/#{repoName}/merge-upstream",
+    branch: BASE_BRANCH
+
 export getHead = (repoName) ->
-  GET "/repos/#{repoName}/commits/master"
+  GET "/repos/#{repoName}/commits/#{BASE_BRANCH}"
 
 export createBlob = (repoName, file) ->
   params = if file.isBinary()
