@@ -230,3 +230,18 @@ repos:
   -
     link: 'https://github.com/Souk21/REAPER-scripts-and-effects'
     index: 'https://github.com/Souk21/REAPER-scripts-and-effects/raw/master/index.xml'
+  - 
+    link: 'https://github.com/Bird-Bird/ReaScript'
+    index: 'https://github.com/Bird-Bird/ReaScript/raw/master/index.xml'
+  - 
+    link: 'https://github.com/Bird-Bird/JSFX'
+    index: 'https://github.com/Bird-Bird/JSFX/raw/main/index.xml'
+  - 
+    link: 'https://github.com/Bird-Bird/ReaScript_Testing'
+    index: 'https://github.com/Bird-Bird/ReaScript_Testing/raw/main/index.xml'
+  - 
+    link: 'https://github.com/TukanStudios/TUKAN_STUDIOS_PLUGINS'
+    index: 'https://github.com/TukanStudios/TUKAN_STUDIOS_PLUGINS/raw/main/index2.xml'
+  -
+    link: 'https://github.com/Suzuki-Re/Suzuki-Scripts'
+    index: 'https://github.com/Suzuki-Re/Suzuki-Scripts/raw/master/index.xml'
