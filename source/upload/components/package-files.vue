@@ -78,7 +78,7 @@ export default
       copy.isPackage = false
       copy.sections = file.sections.slice()
       copy.setSource file.toSource() if copy.source == UploadSource
-      copy.installName = @newFileName file.effectiveExtname()
+      copy.installName = @newFileName file.effectiveInstallExtname()
       @package.files.push @currentFile = copy
     removeFile: (file) ->
       if file.source == UploadSource

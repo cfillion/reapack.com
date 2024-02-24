@@ -136,7 +136,10 @@ export default class File
     else
       ''
 
-  effectiveExtname: ->
+  effectiveStorageExtname: ->
+    extname @effectiveStorageName()
+
+  effectiveInstallExtname: ->
     extname @effectiveInstallName()
 
   effectiveType: ->
@@ -221,7 +224,7 @@ export default class File
     line
 
   header: ->
-    fileext = @effectiveExtname()
+    fileext = @effectiveStorageExtname()
     type = @effectiveType()
 
     header = if @isPackage
