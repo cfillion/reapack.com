@@ -245,3 +245,18 @@ repos:
   -
     link: 'https://github.com/Suzuki-Re/Suzuki-Scripts'
     index: 'https://github.com/Suzuki-Re/Suzuki-Scripts/raw/master/index.xml'
+  - 
+    link: 'https://github.com/joepvanlier/Hackey-Patterns'
+    index: 'https://github.com/joepvanlier/Hackey-Patterns/raw/master/index.xml'
+  -
+    link: 'https://github.com/joepvanlier/Hackey-Machines'
+    index: 'https://github.com/joepvanlier/Hackey-Machines/raw/master/index.xml'
+  - 
+    link: 'https://github.com/Ultraschall/ultraschall-lua-api-for-reaper'
+    index: 'https://github.com/Ultraschall/ultraschall-lua-api-for-reaper/raw/master/ultraschall_api_index.xml'
+  - 
+    link: 'https://github.com/odedd/ReaScripts'
+    index: 'https://raw.githubusercontent.com/odedd/ReaScripts/master/index.xml'
+  - 
+    link: 'https://github.com/Alkamist/Alkamist-Scripts'
+    index: 'https://github.com/Alkamist/Alkamist-Scripts/raw/master/index.xml'
