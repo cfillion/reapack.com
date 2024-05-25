@@ -245,3 +245,6 @@ repos:
   -
     link: 'https://github.com/Suzuki-Re/Suzuki-Scripts'
     index: 'https://github.com/Suzuki-Re/Suzuki-Scripts/raw/master/index.xml'
+  -
+    link: 'https://github.com/gwatcha/reaper-keys/'
+    index: 'https://raw.githubusercontent.com/gwatcha/reaper-keys/master/index.xml'
