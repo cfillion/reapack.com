@@ -55,6 +55,7 @@ Architectures = [
     platforms:
       linux: 'linux-aarch64'
       darwin: 'darwin-arm64'
+      windows: 'windows-arm64ec'
 ]
 
 export default

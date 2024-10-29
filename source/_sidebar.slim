@@ -28,10 +28,11 @@
 - windows = { \
     header: 'Windows',
     icon: 'windows',
-    requirements: "Requires REAPER 4.7+ (5.12 or later recommended). Windows Vista or later (or Wine 1.8+ on Linux).",
+    requirements: "Requires REAPER 4.7+ (5.12 or later recommended). Windows Vista or later (x86), Windows 11 or later (ARM) or Wine 1.8+ (Linux).",
     links: { \
-      '32-bit': data.releases.latest.windows_x86,
-      '64-bit': data.releases.latest.windows_x64,
+      'x86 32-bit': data.releases.latest.windows_x86,
+      'x86 64-bit': data.releases.latest.windows_x64,
+      'ARM 64-bit EC': data.releases.latest.windows_arm64ec,
     }}
 
 #paypal-button

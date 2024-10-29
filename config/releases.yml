@@ -9,3 +9,4 @@ files:
   reaper_reapack-aarch64.so:   linux_aarch64
   reaper_reapack-x86.dll:      windows_x86
   reaper_reapack-x64.dll:      windows_x64
+  reaper_reapack-arm64ec.dll:  windows_arm64ec
