@@ -48,13 +48,14 @@ export default
 </script>
 
 <style lang="sass" scoped>
-@import 'upload-mixins'
+@use 'config'
+@use 'upload-mixins'
 
 $radius: 4px
 
 .dropdown-menu
-  +input-field
-  background-color: $table-row-odd
+  +upload-mixins.input-field
+  background-color: config.$table-row-odd
   border-radius: $radius
   box-sizing: border-box
   margin-top: -5px
@@ -81,14 +82,14 @@ li
 
   &.item
     cursor: pointer
-    background-color: $table-row-odd
+    background-color: config.$table-row-odd
 
     &:hover
-      background-color: $background
+      background-color: config.$background
 
   &.separator
     padding: 0
-    border-top: 1px solid $input-placeholder
+    border-top: 1px solid upload-mixins.$input-placeholder
 
   &.legend
     font-size: 0.8em
@@ -99,7 +100,7 @@ li
     border-top-right-radius: $radius
 
   &:nth-child(2n)
-    background-color: $table-row-even
+    background-color: config.$table-row-even
 
   &:last-child
     border-bottom-left-radius: $radius

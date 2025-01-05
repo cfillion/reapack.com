@@ -207,7 +207,7 @@ export default
 </script>
 
 <style lang="sass">
-@import 'config'
+@use 'config'
 
 input[type=file]
   opacity: 0
@@ -217,7 +217,7 @@ input[type=file]
 #binary-header > pre
   font-family: monospace
   font-size: 14px
-  margin-top: $padding
+  margin-top: config.$padding
 
 #load-file
   margin: 0

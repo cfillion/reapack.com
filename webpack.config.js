@@ -49,6 +49,11 @@ module.exports = {
       'path': require.resolve('path-browserify'),
     },
   },
+  stats: {
+    // children: true,
+    colors: true,
+    preset: 'errors-warnings',
+  },
   module: {
     rules: [
       { test: /\.coffee$/, use: [ babel, coffee ] },

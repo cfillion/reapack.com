@@ -327,7 +327,7 @@ export default
 </script>
 
 <style lang="sass">
-@import 'upload-mixins'
+@use 'upload-mixins'
 
 .autocomplete
   position: relative
@@ -339,7 +339,7 @@ button.main
   margin-right: 1em
 
 .submit-legend
-  color: $input-placeholder
+  color: upload-mixins.$input-placeholder
 
 .user
   float: right

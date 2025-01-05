@@ -105,16 +105,17 @@ export default
 </script>
 
 <style lang="sass">
-@import 'upload-mixins'
+@use 'sass:color'
+@use 'upload-mixins'
 
 .CodeMirror
-  +input-field
+  +upload-mixins.input-field
   font-size: 14px
   text-shadow: none
   z-index: 0
 
 .cm-trailingspace
-  background-color: transparentize(red, 0.5)
+  background-color: color.scale(red, $alpha: -50%)
 
 .metadata
   color: #908960 !important

@@ -106,7 +106,7 @@ export default
 </script>
 
 <style lang="sass">
-@import 'config'
+@use 'config'
 
 .file-editor
   box-sizing: border-box
@@ -124,7 +124,7 @@ export default
 
 .left-pane
   $width: 250px
-  border-right: 1px solid $foreground
+  border-right: 1px solid config.$foreground
   padding-top: 4px
   display: flex
   flex-direction: column
@@ -132,7 +132,7 @@ export default
   +left-pane-width(250px)
 
   button
-    margin: $padding
+    margin: config.$padding
     flex: 0 0 auto
 
 .lists
@@ -145,7 +145,7 @@ export default
   scrollbar-width: thin
 
   &> div
-    padding: $padding
+    padding: config.$padding
 
 .page-overlay
   position: fixed

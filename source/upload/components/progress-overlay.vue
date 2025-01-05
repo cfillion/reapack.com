@@ -32,13 +32,13 @@ export default
 </script>
 
 <style lang="sass" scoped>
-@import 'config'
+@use 'config'
 
 .progress
   text-align: center
 
   &.done
-    color: $success
+    color: config.$success
 
 .icon
   font-size: 6em

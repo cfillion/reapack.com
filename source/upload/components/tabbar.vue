@@ -19,7 +19,7 @@ export default
 </script>
 
 <style lang="sass" scoped>
-@import 'config'
+@use 'config'
 
 .tabbar
   display: inline
@@ -31,7 +31,7 @@ export default
 button
   display: inline
   padding: 3px 7px 2px 7px
-  border: 1px solid $foreground
+  border: 1px solid config.$foreground
   border-left-style: none
   border-bottom-style: none
   border-radius: 0
@@ -45,6 +45,6 @@ button
     border-top-right-radius: 4px
 
   &.active
-    background-color: $table-row-even
+    background-color: config.$table-row-even
     font-weight: bold
 </style>

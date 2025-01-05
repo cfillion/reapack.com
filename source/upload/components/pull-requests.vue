@@ -26,17 +26,18 @@ export default
 </script>
 
 <style lang="sass">
-@import 'upload-mixins'
+@use 'config'
+@use 'upload-mixins'
 
 .pull-requests
-  +info-box($success)
+  +upload-mixins.info-box(config.$success)
 
   ul
     margin-left: 0
     list-style-type: none
 
 .comments
-  padding-left: $padding
+  padding-left: config.$padding
   text-decoration: none
   font-weight: normal
 </style>

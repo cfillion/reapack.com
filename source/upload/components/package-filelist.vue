@@ -44,11 +44,13 @@ export default
 </script>
 
 <style lang="sass" scoped>
-@import 'upload-mixins'
+@use 'config'
+@use 'sass:color'
+@use 'upload-mixins'
 
 .file-list
   font-size: 0.8em
-  margin-bottom: $padding
+  margin-bottom: config.$padding
 
 ul
   margin-left: 0
@@ -58,26 +60,26 @@ li, .header
   padding: 4px 8px 4px 8px
 
 .header
-  font-family: $font-serif
+  font-family: config.$font-serif
 
 li:not(.empty)
-  background-color: $table-row-odd
+  background-color: config.$table-row-odd
   cursor: pointer
   list-style-type: none
   display: flex
   align-items: center
 
   &:nth-child(2n)
-    background-color: $table-row-even
+    background-color: config.$table-row-even
 
   &:hover
-    background-color: $background
+    background-color: config.$background
 
     .btns
       visibility: visible
 
   &.active
-    background: darken($background, 2%)
+    background: color.adjust(config.$background, $lightness: -2%)
 
     .label
       font-weight: bold
@@ -87,7 +89,7 @@ input, .btns
 
 .btns
   font-size: 1rem
-  color: $input-placeholder
+  color: upload-mixins.$input-placeholder
   visibility: hidden
 
   i

@@ -32,23 +32,23 @@ export default
 </script>
 
 <style lang="sass">
-@import 'config'
+@use 'config'
 
 .type
   margin-left: 0
 
   li
-    background-color: $table-row-even
+    background-color: config.$table-row-even
     border-radius: 7px
-    border: 1px solid $foreground
+    border: 1px solid config.$foreground
     list-style-type: none
-    margin-bottom: $margin
+    margin-bottom: config.$margin
 
   a
     display: block
     text-decoration: none
     font-weight: normal
-    padding: $padding
+    padding: config.$padding
     display: flex
     align-items: center
 

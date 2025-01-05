@@ -52,7 +52,8 @@ export default
 </script>
 
 <style lang="sass" scoped>
-@import 'upload-mixins'
+@use 'config'
+@use 'upload-mixins'
 
 .dropdown
   position: relative // make the menu (absolute) follow us when scrolling
@@ -65,7 +66,7 @@ button
   text-align: left
 
   &.active
-    box-shadow: $input-inset-shadow, input-glow($foreground)
+    box-shadow: upload-mixins.$input-inset-shadow, upload-mixins.input-glow(config.$foreground)
 
 .value, .placeholder
   overflow: hidden
