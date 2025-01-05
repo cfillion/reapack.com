@@ -1,13 +1,5 @@
+require 'action_view'
 require 'slim'
-
-Middleman::Util::EnhancedHash.disable_warnings
-
-module ::YAML
-  # remove after updating to middleman v5
-  def self.load(yaml, **kwargs)
-    Psych.safe_load yaml, permitted_classes: [Date, Time, DateTime, Symbol, Regexp], aliases: true, **kwargs
-  end
-end
 
 activate :asset_hash
 activate :autoprefixer
@@ -22,7 +14,7 @@ activate :external_pipeline,
   name: :webpack,
   command: [
     "NODE_ENV=#{build? ? 'production' : 'development'}",
-    'npx webpack',
+    'npx --no webpack',
     server? && '--watch' || nil,
   ].compact.join("\x20"),
   source: ".webpack-build",
