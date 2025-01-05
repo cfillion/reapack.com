@@ -1,7 +1,10 @@
-@import 'upload-mixins'
+@use 'config'
+@use 'sass:color'
+@use 'upload-components'
+@use 'upload-mixins'
 
-#{$input-text}, textarea, button
-  +input-field
+#{upload-mixins.$input-text}, textarea, button
+  +upload-mixins.input-field
   color: white
   font-size: 1rem
   font: inherit
@@ -10,12 +13,12 @@
   margin: 4px 0 4px 0
 
   &:disabled
-    border-color: $input-disabled
-    color: $input-disabled
+    border-color: upload-mixins.$input-disabled
+    color: upload-mixins.$input-disabled
     cursor: not-allowed
 
-#{$input-text}, textarea
-  +input-border($foreground)
+#{upload-mixins.$input-text}, textarea
+  +upload-mixins.input-border(config.$foreground)
   box-sizing: border-box
   width: 100%
 
@@ -23,7 +26,7 @@ input[type=checkbox], input[type=radio]
   vertical-align: middle
 
 input:invalid, textarea:invalid
-  +input-border(red)
+  +upload-mixins.input-border(red)
   box-shadow: none
 
 textarea
@@ -36,19 +39,19 @@ button
   cursor: pointer
 
   &:not([disabled]):active
-    box-shadow: $input-inset-shadow
+    box-shadow: upload-mixins.$input-inset-shadow
 
 button[type=submit]
   &:not([disabled])
-    $bg1: color.adjust($foreground, $lightness: -1%)
-    $bg2: color.adjust($foreground, $lightness: -5%)
+    $bg1: color.adjust(config.$foreground, $lightness: -1%)
+    $bg2: color.adjust(config.$foreground, $lightness: -5%)
     cursor: pointer
     background-image: linear-gradient($bg1, $bg2)
-    color: color.adjust($background, $lightness: -5%)
+    color: color.adjust(config.$background, $lightness: -5%)
 
     &:active
-      $shadow: color.adjust($accent, $lightness: -32%, $saturation: -70%)
-      box-shadow: inset 0 0 8px 4px $shadow, $input-outset-shadow
+      $shadow: color.adjust(config.$accent, $lightness: -32%, $saturation: -70%)
+      box-shadow: inset 0 0 8px 4px $shadow, upload-mixins.$input-outset-shadow
       border-color: $shadow
 
   &.main
@@ -57,7 +60,7 @@ button[type=submit]
     font-weight: bold
 
 ::placeholder, .placeholder
-  color: $input-placeholder
+  color: upload-mixins.$input-placeholder
   font-style: italic
   opacity: 1
   text-overflow: ellipsis
@@ -67,11 +70,11 @@ button[type=submit]
   text-decoration: underline dotted
 
 .group
-  background-color: $table-row-odd
-  border: 1px solid $foreground
+  background-color: config.$table-row-odd
+  border: 1px solid config.$foreground
   border-radius: 5px
-  padding: $padding
-  margin-bottom: $margin
+  padding: config.$padding
+  margin-bottom: config.$margin
 
 .drop-target
   box-sizing: border-box
@@ -89,5 +92,3 @@ button[type=submit]
 
   z-index: 10
   background-color: #2273b733
-
-@import 'upload-components'

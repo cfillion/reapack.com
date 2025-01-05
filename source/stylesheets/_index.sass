@@ -1,3 +1,6 @@
+@use 'config'
+@use 'sass:list'
+
 .screenshot
   text-align: center
 
@@ -6,7 +9,7 @@
     box-shadow: 0px 0px 10px #777777
 
 .feature
-  margin-bottom: $margin
+  margin-bottom: config.$margin
   page-break-inside: avoid
 
   $blue:      #529cea
@@ -32,7 +35,7 @@
     display: grid
     grid-gap: 10px
     grid-template-columns: 1fr 1fr
-    margin-bottom: $margin
+    margin-bottom: config.$margin
 
   .feature
     margin-bottom: 0

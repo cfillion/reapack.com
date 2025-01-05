@@ -1,5 +1,8 @@
+@use 'config'
+@use 'sass:color'
+
 .table
-  border: 1px solid $foreground
+  border: 1px solid config.$foreground
   border-radius: 5px
   margin-top: 1rem
   margin-left: 0
@@ -7,13 +10,13 @@
   & > li
     @extend .clearfix
 
-    background-color: $table-row-odd
+    background-color: config.$table-row-odd
     list-style-type: none
     padding: 5px
     page-break-inside: avoid
 
     &:nth-child(2n)
-      background-color: $table-row-even
+      background-color: config.$table-row-even
 
     &:first-child
       border-top-left-radius: inherit
@@ -24,7 +27,7 @@
       border-bottom-right-radius: inherit
 
     &:not(:last-child)
-      border-bottom: 1px solid color.scale($foreground, $alpha: -30%)
+      border-bottom: 1px solid color.scale(config.$foreground, $alpha: -30%)
 
   .left
     float: left
@@ -78,7 +81,7 @@
   white-space: nowrap
   word-break: break-all
 
-@media #{$breakpoint-large}
+@media #{config.$breakpoint-large}
   .index
     clear: none
     float: right

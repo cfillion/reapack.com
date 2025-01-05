@@ -1,11 +1,14 @@
+@use 'config'
+@use 'sass:color'
+
 $sidebar-width: 300px
 $sidebar-border: 1px
-$sidebar-outer-width: $sidebar-width + ($padding * 2) + $sidebar-border
+$sidebar-outer-width: $sidebar-width + (config.$padding * 2) + $sidebar-border
 
 .wrapper
-  max-width: $content-width + $sidebar-outer-width
+  max-width: config.$content-width + $sidebar-outer-width
 
-@media #{$breakpoint-large}
+@media #{config.$breakpoint-large}
   .container
     display: grid
     grid-template-columns: auto 320px
@@ -14,15 +17,15 @@ $sidebar-outer-width: $sidebar-width + ($padding * 2) + $sidebar-border
     min-width: 0 // allow to be smaller than its content
 
   aside
-    border-left: $sidebar-border solid $foreground
-    margin-left: $padding
-    padding-left: $padding
+    border-left: $sidebar-border solid config.$foreground
+    margin-left: config.$padding
+    padding-left: config.$padding
 
-@media #{$breakpoint-small}
+@media #{config.$breakpoint-small}
   aside
-    margin-top: $padding
-    padding-top: $padding
-    border-top: $sidebar-border solid $foreground
+    margin-top: config.$padding
+    padding-top: config.$padding
+    border-top: $sidebar-border solid config.$foreground
 
   body:not(.index) .downloads
     display: none
@@ -73,7 +76,7 @@ $sidebar-outer-width: $sidebar-width + ($padding * 2) + $sidebar-border
   // additional styling for <button>
   border-style: none // disable OS border
   cursor: pointer
-  font-family: $font-sans
+  font-family: config.$font-sans
   font-size: 1rem
 
   .fa
@@ -116,14 +119,14 @@ $sidebar-outer-width: $sidebar-width + ($padding * 2) + $sidebar-border
 //     min-width: 3px
 
 .platform
-  $bg1: color.adjust($accent, $lightness: -1%)
-  $bg2: color.adjust($accent, $lightness: -5%)
-  background-color: $accent
+  $bg1: color.adjust(config.$accent, $lightness: -1%)
+  $bg2: color.adjust(config.$accent, $lightness: -5%)
+  background-color: config.$accent
   background-image: linear-gradient($bg1, $bg2)
   border-radius: 7px
   border: 1px solid white
-  color: $background
-  margin-bottom: $padding
+  color: config.$background
+  margin-bottom: config.$padding
   overflow: hidden
   padding: 10px
   padding-left: 5px
@@ -150,7 +153,7 @@ $sidebar-outer-width: $sidebar-width + ($padding * 2) + $sidebar-border
 
   a
     color: #003CCB
-    font-weight: $medium-weight
+    font-weight: config.$medium-weight
 
   .size
     &:before

@@ -1,10 +1,14 @@
+@use 'config'
+@use 'sass:color'
+@use 'sass:math'
+
 $height: 42px
 $logo-size: 32px
 
 &
-  background-color: $accent
+  background-color: config.$accent
   box-shadow: 0 0 7px 1px black
-  color: $background
+  color: config.$background
   font-size: 0.9em
   margin-bottom: 1rem
   text-shadow: 1px 1px white
@@ -16,18 +20,18 @@ $logo-size: 32px
     justify-content: space-between
 
 a
-  color: $background
+  color: config.$background
   text-decoration: none
-  font-weight: $medium-weight
+  font-weight: config.$medium-weight
   height: 100%
   display: inline-block
-  padding: math.div($height - $font-size, 2)
+  padding: math.div($height - config.$font-size, 2)
 
   &:focus
     outline-offset: -2px
 
   &:hover
-    color: color.scale($background, $lightness: -50%)
+    color: color.scale(config.$background, $lightness: -50%)
 
 .logo
   background-image: url('/images/reapack.png')
@@ -42,7 +46,7 @@ a
     display: inline-block
     font-size: 1.1rem
     font-weight: bold
-    padding: math.div($logo-size - $font-size, 2)
+    padding: math.div($logo-size - config.$font-size, 2)
     padding-left: $logo-size + 6px
 
 .menu
@@ -54,10 +58,10 @@ a
 
   a
     &.active
-      box-shadow: inset 0px 0px 9px 0px color.scale($accent, $lightness: -30%, $saturation: -90%)
+      box-shadow: inset 0px 0px 9px 0px color.scale(config.$accent, $lightness: -30%, $saturation: -90%)
 
     &:hover, &.active
-      background-color: color.scale($accent, $lightness: -10%, $saturation: -64%)
+      background-color: color.scale(config.$accent, $lightness: -10%, $saturation: -64%)
 
 // menu on it's own line
 @media (max-width: 580px)
@@ -65,15 +69,15 @@ a
     display: block
 
   .logo
-    margin: $padding 0
+    margin: config.$padding 0
 
 // one line per menu item
 @media screen and (max-width: 470px)
   .menu
-    padding-bottom: $padding
+    padding-bottom: config.$padding
 
   .menu a
-    padding: $padding
+    padding: config.$padding
 
   .menu li, .menu a
     border-radius: 2px

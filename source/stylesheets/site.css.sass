@@ -1,15 +1,13 @@
-@use "sass:color"
-@use "sass:list"
-@use "sass:math"
-
-@import 'config'
-@import 'meyer-reset'
+@use 'config'
+@use 'sass:meta'
+@use 'meyer-reset'
+@use 'sass:color'
 
 html
-  background-color: $background
-  color: $foreground
-  font-family: $font-sans
-  font-size: $font-size
+  background-color: config.$background
+  color: config.$foreground
+  font-family: config.$font-sans
+  font-size: config.$font-size
   image-rendering: -webkit-optimize-contrast
   text-shadow: 1px 1px black
 
@@ -21,13 +19,13 @@ body
 
 .wrapper
   margin: auto
-  max-width: $content-width
-  padding-left: $padding
-  padding-right: $padding
+  max-width: config.$content-width
+  padding-left: config.$padding
+  padding-right: config.$padding
 
 h1, h2, h3, h4, h5, dt
-  margin-bottom: $margin
-  font-family: $font-serif
+  margin-bottom: config.$margin
+  font-family: config.$font-serif
   font-weight: 700
 
 h1
@@ -35,7 +33,7 @@ h1
 
 .page-title
   font-size: 2.3rem
-  border-bottom: 1px solid $foreground
+  border-bottom: 1px solid config.$foreground
   font-weight: 700
   padding-bottom: 7px
 
@@ -50,13 +48,13 @@ h4
 
 p, ul, ol, form, blockquote, table, pre, dl, dd
   &:not(:last-child)
-    margin-bottom: $margin
+    margin-bottom: config.$margin
 
 img
   max-width: 100%
 
 a
-  color: $accent
+  color: config.$accent
   font-weight: bold
   text-decoration: underline
 
@@ -77,12 +75,12 @@ code
   font-family: monospace
 
 blockquote
-  border: 2px dashed $foreground
+  border: 2px dashed config.$foreground
 
 blockquote, pre
-  background-color: $table-row-odd
+  background-color: config.$table-row-odd
   border-radius: 7px
-  padding: $padding
+  padding: config.$padding
 
 pre
   overflow: auto
@@ -132,10 +130,10 @@ tr
   border-bottom: 1px solid #cdd7ca
 
 tbody tr
-  background-color: $table-row-odd
+  background-color: config.$table-row-odd
 
   &:nth-child(2n)
-    background-color: $table-row-even
+    background-color: config.$table-row-even
 
 header
   @import 'header'
@@ -166,15 +164,15 @@ header
 
 .dialog
   margin: auto // prevent overflow over the top of the page
-  background-color: $background
+  background-color: config.$background
   padding: 30px
   border-radius: 7px
-  border: 1px solid $foreground
+  border: 1px solid config.$foreground
   min-width: 30%
   position: relative // for the close button
 
   h1
-    border-bottom: 1px solid $foreground
+    border-bottom: 1px solid config.$foreground
     margin-bottom: 1.6rem
 
   .close
@@ -187,10 +185,10 @@ header
     top: 10px
 
     &:hover
-      color: $foreground
+      color: config.$foreground
 
 .error
-  border: 1px solid $foreground
+  border: 1px solid config.$foreground
   border-radius: 5px
   background-color: color.adjust(red, $lightness: -5%)
   padding: 10px
@@ -202,19 +200,19 @@ header
 .footer, .stats
   color: color.adjust(config.$accent, $lightness: -24%, $saturation: -90%)
   font-size: 0.7rem
-  margin: $margin 0
+  margin: config.$margin 0
 
-@media #{$breakpoint-large}
+@media #{config.$breakpoint-large}
   .stats
     float: right
     text-align: right
 
-@import 'sidebar'
++meta.load-css('sidebar')
 
 main
   &.index
-    @import 'index'
+    +meta.load-css('index')
   &.repos
     @import 'repos'
   &.upload
-    @import 'upload'
+    +meta.load-css('upload')
