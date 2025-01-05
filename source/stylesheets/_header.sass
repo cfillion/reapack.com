@@ -21,13 +21,13 @@ a
   font-weight: $medium-weight
   height: 100%
   display: inline-block
-  padding: ($height - $font-size) / 2
+  padding: math.div($height - $font-size, 2)
 
   &:focus
     outline-offset: -2px
 
   &:hover
-    color: darken($background, 10%)
+    color: color.scale($background, $lightness: -50%)
 
 .logo
   background-image: url('/images/reapack.png')
@@ -42,7 +42,7 @@ a
     display: inline-block
     font-size: 1.1rem
     font-weight: bold
-    padding: ($logo-size - $font-size) / 2
+    padding: math.div($logo-size - $font-size, 2)
     padding-left: $logo-size + 6px
 
 .menu

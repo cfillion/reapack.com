@@ -116,8 +116,10 @@ $sidebar-outer-width: $sidebar-width + ($padding * 2) + $sidebar-border
 //     min-width: 3px
 
 .platform
+  $bg1: color.adjust($accent, $lightness: -1%)
+  $bg2: color.adjust($accent, $lightness: -5%)
   background-color: $accent
-  background-image: linear-gradient(darken($accent, 3%), darken($accent, 9%))
+  background-image: linear-gradient($bg1, $bg2)
   border-radius: 7px
   border: 1px solid white
   color: $background

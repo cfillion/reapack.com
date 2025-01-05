@@ -1,3 +1,7 @@
+@use "sass:color"
+@use "sass:list"
+@use "sass:math"
+
 @import 'config'
 @import 'meyer-reset'
 
@@ -149,7 +153,7 @@ header
   right: 0
   bottom: 0
 
-  background-color: transparentize(black, 0.5)
+  background-color: color.scale(black, $alpha: -50%)
   display: flex
   align-items: center
   justify-content: center
@@ -188,7 +192,7 @@ header
 .error
   border: 1px solid $foreground
   border-radius: 5px
-  background-color: darken(red, 5%)
+  background-color: color.adjust(red, $lightness: -5%)
   padding: 10px
   text-shadow: none
 

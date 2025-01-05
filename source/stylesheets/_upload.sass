@@ -40,12 +40,14 @@ button
 
 button[type=submit]
   &:not([disabled])
+    $bg1: color.adjust($foreground, $lightness: -8%)
+    $bg2: color.adjust($foreground, $lightness: -14%)
     cursor: pointer
-    background-image: linear-gradient(darken($foreground, 8%), darken($foreground, 14%))
-    color: darken($background, 5%)
+    background-image: linear-gradient($bg1, $bg2)
+    color: color.adjust($background, $lightness: -5%)
 
     &:active
-      $shadow: desaturate(darken($foreground, 32%), 70%)
+      $shadow: color.adjust($accent, $lightness: -32%, $saturation: -70%)
       box-shadow: inset 0 0 8px 4px $shadow, $input-outset-shadow
       border-color: $shadow
 

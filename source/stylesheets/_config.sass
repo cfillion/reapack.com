@@ -1,3 +1,5 @@
+@use "sass:color"
+
 $background: #3b302b
 $foreground: #f7ffef
 $accent:     #edffda
@@ -12,8 +14,8 @@ $medium-weight: 500
 $font-sans: 'Roboto', sans-serif
 $font-serif: 'Roboto Slab', serif
 
-$table-row-odd: lighten($background, 7%)
-$table-row-even: lighten($background, 10%)
+$table-row-odd: color.adjust($background, $lightness: 7%)
+$table-row-even: color.adjust($background, $lightness: 10%)
 
 $breakpoint: 976px
 $breakpoint-large: "(min-width: #{$breakpoint})"

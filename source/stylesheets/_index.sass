@@ -20,9 +20,9 @@
 
   $colors: $green, $cyan, $blue, $red, $turquoise, $purple, $brown, $yellow
 
-  @for $i from 1 through length($colors)
+  @for $i from 1 through list.length($colors)
     &:nth-child(#{$i}) .fa
-      color: nth($colors, $i)
+      color: list.nth($colors, $i)
 
   i
     padding-right: 4px
