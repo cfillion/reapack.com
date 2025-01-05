@@ -54,10 +54,10 @@ a
 
   a
     &.active
-      box-shadow: inset 0px 0px 9px 0px #98a59a
+      box-shadow: inset 0px 0px 9px 0px color.scale($accent, $lightness: -30%, $saturation: -90%)
 
     &:hover, &.active
-      background-color: #cdd7ca
+      background-color: color.scale($accent, $lightness: -10%, $saturation: -64%)
 
 // menu on it's own line
 @media (max-width: 580px)
