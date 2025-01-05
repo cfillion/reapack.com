@@ -28,8 +28,8 @@ var sass = {
   loader: 'sass-loader',
   options: {
     sassOptions: {
-      indentedSyntax: true,
-      includePaths: ['source/stylesheets'],
+      syntax: 'indented',
+      loadPaths: ['source/stylesheets'],
     },
   },
 }
