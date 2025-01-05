@@ -164,7 +164,7 @@ class Repo
         link: @repo['link'],
         index: @repo['index'],
         disporder: @repo['disporder'],
-        default: @repo['default'] || false,
+        builtin: @repo['builtin'] || false,
         featured: @repo['featured'] || false,
         packages: packages,
       }

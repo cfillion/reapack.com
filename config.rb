@@ -1,6 +1,8 @@
 require 'action_view'
 require 'slim'
 
+Middleman::Util::EnhancedHash.disable_warnings
+
 activate :asset_hash
 activate :autoprefixer
 activate :directory_indexes

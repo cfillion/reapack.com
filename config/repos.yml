@@ -9,37 +9,37 @@ repos:
   -
     link: 'https://github.com/ReaTeam/ReaScripts'
     index: 'https://github.com/ReaTeam/ReaScripts/raw/master/index.xml'
-    default: true
+    builtin: true
     disporder: 1
   -
     link: 'https://github.com/ReaTeam/JSFX'
     index: 'https://github.com/ReaTeam/JSFX/raw/master/index.xml'
-    default: true
+    builtin: true
     disporder: 2
   -
     link: 'https://github.com/ReaTeam/Themes'
     index: 'https://github.com/ReaTeam/Themes/raw/master/index.xml'
-    default: true
+    builtin: true
     disporder: 3
   -
     link: 'https://github.com/ReaTeam/LangPacks'
     index: 'https://github.com/ReaTeam/LangPacks/raw/master/index.xml'
-    default: true
+    builtin: true
     disporder: 4
   -
     link: 'https://github.com/ReaTeam/Extensions'
     index: 'https://github.com/ReaTeam/Extensions/raw/master/index.xml'
-    default: true
+    builtin: true
     disporder: 5
   -
     link: 'https://github.com/MichaelPilyavskiy/ReaScripts'
     index: 'https://github.com/MichaelPilyavskiy/ReaScripts/raw/master/index.xml'
-    default: true
+    builtin: true
     disporder: 11
   -
     link: 'https://github.com/X-Raym/REAPER-ReaScripts'
     index: 'https://github.com/X-Raym/REAPER-ReaScripts/raw/master/index.xml'
-    default: true
+    builtin: true
     disporder: 12
   -
     link: 'https://github.com/chtammik/chtammik_Reaper_Scripts'
