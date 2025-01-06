@@ -45,12 +45,12 @@ export default
     margin-bottom: config.$margin
 
   a
-    display: block
-    text-decoration: none
+    align-items: center
+    color: config.$foreground
+    display: flex
     font-weight: normal
     padding: config.$padding
-    display: flex
-    align-items: center
+    text-decoration: none
 
   .icon
     font-size: 2.3em
