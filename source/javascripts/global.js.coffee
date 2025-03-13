@@ -20,9 +20,14 @@ setPaypalButtonID = (btn_id) ->
   btn.render('#paypal-button')
 
 initPaypalButton = ->
-  promise = fetch '/api/currency'
-  promise.then (response) -> response.text().then setPaypalButtonID
-  promise.catch -> setPaypalButtonID 'X6L6TH9ELXSG2'
+  fetch '/api/currency'
+  .then (response) ->
+    if response.ok
+      response.text()
+    else
+      throw response.status
+  .then setPaypalButtonID
+  .catch -> setPaypalButtonID 'X6L6TH9ELXSG2'
 
 getPaypalButton = ->
   document.querySelector '#paypal-button img'
