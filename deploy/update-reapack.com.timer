@@ -4,7 +4,7 @@ After=time-sync.target
 
 [Timer]
 Unit=update-reapack.com.service
-OnCalendar=daily
+OnCalendar=daily UTC
 
 [Install]
 WantedBy=timers.target
