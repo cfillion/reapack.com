@@ -112,7 +112,7 @@ export default
   box-sizing: border-box
   display: flex
   height: 650px
-  padding: 0
+  padding: 0 !important
   position: relative
 
   &:hover .toggle-fullscreen
