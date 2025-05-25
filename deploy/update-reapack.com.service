@@ -6,6 +6,7 @@ Type=oneshot
 User=change_me
 Group=change_me
 WorkingDirectory=/CHANGE/ME
+SyslogIdentifier=update-reapack.com
 Environment="RUBYOPT=-EUTF-8 -W0"
 Environment=NODE_OPTIONS=--openssl-legacy-provider
 ExecStart=bundle exec ./update.rb
