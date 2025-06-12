@@ -248,3 +248,6 @@ repos:
   -
     link: 'https://github.com/tomtjes/Radio-Toolkit'
     index: 'https://github.com/tomtjes/Radio-Toolkit/raw/master/index.xml'
+  -
+    link: 'https://github.com/EgillAntonsson/REAPER-ReaScripts'
+    index: 'https://raw.githubusercontent.com/EgillAntonsson/REAPER-ReaScripts/refs/heads/master/index.xml'
