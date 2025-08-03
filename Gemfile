@@ -3,11 +3,13 @@ ruby '>= 2.3'
 
 gem 'actionview'
 gem 'activesupport'
+gem 'concurrent-ruby', '1.3.4' # https://stackoverflow.com/a/79361034/796375
 gem 'autoprefixer-rails'
 gem 'colorize'
 gem 'json'
 gem 'middleman', git: 'https://github.com/middleman/middleman.git', ref: '0fa44a8b6b7cadb8deae4677f0bdf82761416d5b'
 gem 'middleman-autoprefixer'
+gem 'mutex_m'
 gem 'nokogiri'
 gem 'octokit'
 gem 'sassc-embedded'

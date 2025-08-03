@@ -53,10 +53,10 @@ GEM
       tzinfo (~> 2.0)
     addressable (2.8.7)
       public_suffix (>= 2.0.2, < 7.0)
-    autoprefixer-rails (10.4.19.0)
+    autoprefixer-rails (10.4.21.0)
       execjs (~> 2)
-    backports (3.25.0)
-    bigdecimal (3.1.9)
+    backports (3.25.1)
+    bigdecimal (3.2.2)
     builder (3.3.0)
     coffee-script (2.4.1)
       coffee-script-source
@@ -66,20 +66,20 @@ GEM
     concurrent-ruby (1.3.4)
     contracts (0.16.1)
     crass (1.0.6)
-    dotenv (3.1.7)
+    dotenv (3.1.8)
     erubi (1.13.1)
     erubis (2.7.0)
     execjs (2.10.0)
-    faraday (2.12.2)
+    faraday (2.13.4)
       faraday-net_http (>= 2.0, < 3.5)
       json
       logger
-    faraday-net_http (3.4.0)
+    faraday-net_http (3.4.1)
       net-http (>= 0.5.0)
     fast_blank (1.0.1)
     fastimage (2.4.0)
-    ffi (1.17.1)
-    google-protobuf (4.29.2)
+    ffi (1.17.2)
+    google-protobuf (4.31.1)
       bigdecimal
       rake (>= 13)
     haml (6.3.0)
@@ -91,28 +91,29 @@ GEM
     hashie (3.6.0)
     i18n (1.6.0)
       concurrent-ruby (~> 1.0)
-    json (2.9.1)
+    json (2.13.2)
     kramdown (2.5.1)
       rexml (>= 3.3.9)
     listen (3.9.0)
       rb-fsevent (~> 0.10, >= 0.10.3)
       rb-inotify (~> 0.9, >= 0.9.10)
-    logger (1.6.4)
-    loofah (2.24.0)
+    logger (1.7.0)
+    loofah (2.24.1)
       crass (~> 1.0.2)
       nokogiri (>= 1.12.0)
     memoist (0.16.2)
     middleman-autoprefixer (3.0.0)
       autoprefixer-rails (~> 10.0)
       middleman-core (>= 4.0.0)
-    mini_portile2 (2.8.8)
-    minitest (5.25.4)
+    mini_portile2 (2.8.9)
+    minitest (5.25.5)
+    mutex_m (0.3.0)
     net-http (0.6.0)
       uri
-    nokogiri (1.18.1)
+    nokogiri (1.18.9)
       mini_portile2 (~> 2.8.2)
       racc (~> 1.4)
-    octokit (9.2.0)
+    octokit (10.0.0)
       faraday (>= 1, < 3)
       sawyer (~> 0.9)
     padrino-helpers (0.15.3)
@@ -120,29 +121,29 @@ GEM
       padrino-support (= 0.15.3)
       tilt (>= 1.4.1, < 3)
     padrino-support (0.15.3)
-    parallel (1.26.3)
+    parallel (1.27.0)
     parslet (2.0.0)
-    public_suffix (6.0.1)
+    public_suffix (6.0.2)
     racc (1.8.1)
-    rack (2.2.10)
-    rails-dom-testing (2.2.0)
+    rack (2.2.17)
+    rails-dom-testing (2.3.0)
       activesupport (>= 5.0.0)
       minitest
       nokogiri (>= 1.6)
     rails-html-sanitizer (1.6.2)
       loofah (~> 2.21)
       nokogiri (>= 1.15.7, != 1.16.7, != 1.16.6, != 1.16.5, != 1.16.4, != 1.16.3, != 1.16.2, != 1.16.1, != 1.16.0.rc1, != 1.16.0)
-    rake (13.2.1)
+    rake (13.3.0)
     rb-fsevent (0.11.2)
     rb-inotify (0.11.1)
       ffi (~> 1.0)
-    rexml (3.4.0)
-    sass-embedded (1.83.1)
-      google-protobuf (~> 4.29)
+    rexml (3.4.1)
+    sass-embedded (1.89.2)
+      google-protobuf (~> 4.31)
       rake (>= 13)
     sassc (2.4.0)
       ffi (~> 1.9)
-    sassc-embedded (1.80.1)
+    sassc-embedded (1.80.5)
       sass-embedded (~> 1.80)
     sawyer (0.9.2)
       addressable (>= 2.3.5)
@@ -151,7 +152,7 @@ GEM
     slim (5.1.0)
       temple (~> 0.10.0)
       tilt (>= 2.0.6, < 2.2)
-    temple (0.10.3)
+    temple (0.10.4)
     thor (1.2.2)
     tilt (2.0.11)
     toml (0.3.0)
@@ -160,7 +161,7 @@ GEM
       concurrent-ruby (~> 1.0)
     uglifier (3.2.0)
       execjs (>= 0.3.0, < 3)
-    uri (1.0.2)
+    uri (1.0.3)
     webrick (1.9.1)
 
 PLATFORMS
@@ -171,9 +172,11 @@ DEPENDENCIES
   activesupport
   autoprefixer-rails
   colorize
+  concurrent-ruby (= 1.3.4)
   json
   middleman!
   middleman-autoprefixer
+  mutex_m
   nokogiri
   octokit
   sassc-embedded
@@ -183,4 +186,4 @@ RUBY VERSION
    ruby 2.4.0p0
 
 BUNDLED WITH
-   2.6.2
+   2.6.9
