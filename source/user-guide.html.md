@@ -13,7 +13,8 @@ title: User guide
     2. [Import repositories](#import-repositories)
     3. [Offline use](#offline-use)
     4. [Options](#options)
-6. [Support](#support)
+6. [Create a repository](#create-a-repository)
+7. [Support](#support)
 
 ## Installation
 
@@ -224,6 +225,13 @@ server).
 Restore default settings
 : Reset options to the factory defaults and restore altered or removed default
 repositories.
+
+## Create repository
+
+The simplest way to create your own repository is to fork the [ReaPack Repository Template](https://github.com/cfillion/reapack-repository-template) on GitHub. This repository has ReaPack automatic indexation.  
+If you created your repository manually, you can index your packages with [reapack-index](https://github.com/cfillion/reapack-index).
+
+To make your packages compatible with ReaPack, check the file naming conventions and package documentation on the [reapack-index wiki](https://github.com/cfillion/reapack-index/wiki).
 
 ## Support
 
