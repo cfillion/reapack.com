@@ -245,3 +245,6 @@ repos:
   -
     link: 'https://github.com/tomtjes/Radio-Toolkit'
     index: 'https://github.com/tomtjes/Radio-Toolkit/raw/master/index.xml'
+  -
+    link: 'https://github.com/kamilbaranskicom/kb_ReaScripts'
+    index: 'https://github.com/kamilbaranskicom/kb_ReaScripts/raw/master/index.xml'
