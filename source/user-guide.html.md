@@ -17,6 +17,13 @@ title: User guide
 
 ## Installation
 
+### ReaperPkg
+
+Download ReaPack.ReaperPkg and install it in REAPER using the action
+"File: Import configuration/package...".
+
+### Manually
+
 Download the corresponding file for your platform matching REAPER's architecture
 (not to be confused with the architecture of your operating system).
 

@@ -4,6 +4,14 @@
 / $ nm reaper_reapack-x86_64.so | grep @@ | cut -d@ -f 3 | sort -V | uniq
 / then refer to https://gcc.gnu.org/onlinedocs/libstdc++/manual/abi.html
 
+- pkg = { \
+    header: 'ReaperPkg',
+    icon: 'file-archive-o',
+    requirements: "Requires REAPER 7.86+ for installation. See runtime compatibility for individual platforms below.",
+    links: { \
+      'All platforms': data.releases.latest.reaperpkg,
+    }}
+
 - linux = { \
     header: 'Linux <small>(beta)</small>',
     icon: 'linux',
@@ -44,7 +52,7 @@ noscript: a.donate.fullwidth href="/donate"
 .downloads
   h2 Downloads
 
-  - [ macos, windows, linux ].each do |box|
+  - [pkg, macos, windows, linux].each do |box|
     .platform
       .files
         i.icon.fa.fa-fw class="fa-#{box[:icon]}"
